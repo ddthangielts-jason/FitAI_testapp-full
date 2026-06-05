@@ -363,6 +363,9 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
 .pill{padding:6px 13px;border-radius:20px;font-size:12px;border:1px solid var(--brd2);background:transparent;color:var(--txt2);cursor:pointer;white-space:nowrap;transition:all .2s;font-family:var(--FB);flex-shrink:0}
 .pill.on{background:var(--lime);color:#111;border-color:var(--lime);font-weight:500}
 .pill.on-ghost{background:var(--bg3);color:var(--txt);border-color:var(--brd3)}
+.cal-preset-btn{padding:13px 10px;border-radius:12px;font-size:13px;border:1.5px solid var(--brd2);background:var(--bg3);color:var(--txt);cursor:pointer;font-family:var(--FB);font-weight:500;transition:all .15s;text-align:center}
+.cal-preset-btn:active{transform:scale(.97)}
+.cal-preset-btn.on{background:var(--lime-dim);border-color:var(--lime);color:var(--lime)}
 
 /* ═══════════════════════════════════════════
    SET INPUT TABLE (core workout logger)
@@ -1145,23 +1148,23 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         </div>
 
         <!-- Week strip -->
-        <div class="sec-label">Tuần này</div>
+        <div class="sec-label" data-i18n="weekThis">Tuần này</div>
         <div class="week-strip" id="week-strip"></div>
 
         <!-- Today plan -->
-        <div class="sec-label">Buổi tập hôm nay</div>
+        <div class="sec-label" data-i18n="todayWorkout">Buổi tập hôm nay</div>
         <div id="home-today"></div>
 
         <!-- Mood tracker -->
-        <div class="sec-label">Cảm giác hôm nay</div>
+        <div class="sec-label" data-i18n="todayFeel">Cảm giác hôm nay</div>
         <div class="card" style="margin-bottom:10px" id="mood-tracker"></div>
 
         <!-- Daily Challenge -->
-        <div class="sec-label">Thách thức hôm nay</div>
+        <div class="sec-label" data-i18n="todayChallenge">Thách thức hôm nay</div>
         <div class="card" style="margin-bottom:10px" id="daily-challenge"></div>
 
         <!-- Quick Stats -->
-        <div class="sec-label" id="lbl-quick-stats">Thống kê nhanh</div>
+        <div class="sec-label" id="lbl-quick-stats" data-i18n="quickStats">Thống kê nhanh</div>
         <div class="g3" style="margin-bottom:10px">
           <div class="sb"><div class="sv" style="font-size:20px" id="h-best-streak">0</div><div class="sk">Best streak</div></div>
           <div class="sb"><div class="sv" style="font-size:20px;color:var(--amber)" id="h-avg-dur">0</div><div class="sk">Avg phút</div></div>
@@ -1169,7 +1172,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         </div>
 
         <!-- Recent workouts -->
-        <div class="sec-label">Gần đây</div>
+        <div class="sec-label" data-i18n="recent">Gần đây</div>
         <div id="home-recent"><div class="xs muted">Chưa có buổi tập nào.</div></div>
       </div>
     </div>
@@ -1183,10 +1186,10 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         <div style="font-family:var(--FD);font-size:30px;letter-spacing:.04em;margin-bottom:16px">Tập <span style="color:var(--lime)">luyện</span></div>
         <button class="btn bl" style="margin-bottom:8px" onclick="startFreeWorkout()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Bắt đầu tập tự do
+          <span data-i18n="startFree">Bắt đầu tập tự do</span>
         </button>
-        <button class="btn bg" style="margin-bottom:8px" onclick="goTab('s-plan')">Chọn từ plan</button>
-        <div class="sec-label" style="margin-top:4px">Cardio nhanh</div>
+        <button class="btn bg" style="margin-bottom:8px" onclick="goTab('s-plan')" data-i18n="choosePlan">Chọn từ plan</button>
+        <div class="sec-label" style="margin-top:4px" data-i18n="quickCardio">Cardio nhanh</div>
         <div class="g3" style="margin-bottom:8px">
           <button class="btn bg" style="font-size:12px" onclick="initWorkout('Cardio');addCardioEx('Chạy bộ')">🏃 Chạy bộ</button>
           <button class="btn bg" style="font-size:12px" onclick="initWorkout('Cardio');addCardioEx('Đạp xe')">🚴 Đạp xe</button>
@@ -1194,11 +1197,11 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         </div>
         <button class="btn bg" onclick="openExLib(false)">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          Thư viện bài tập & Form Guide
+          <span data-i18n="exerciseLib">Thư viện bài tập & Form Guide</span>
         </button>
-        <div class="sec-label">Template đã lưu</div>
+        <div class="sec-label" data-i18n="savedTemplate">Template đã lưu</div>
         <div id="template-list"><div class="xs muted">Chưa có template. Tập xong nhấn "Lưu template"!</div></div>
-        <div class="sec-label">Lịch sử</div>
+        <div class="sec-label" data-i18n="history">Lịch sử</div>
         <div id="w-hist"><div class="xs muted">Chưa có buổi tập nào.</div></div>
       </div>
     </div>
@@ -1311,49 +1314,50 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
 
       <!-- Macro Pie Chart -->
       <div class="card" style="margin-bottom:12px">
-        <div style="font-size:13px;font-weight:500;margin-bottom:10px">Phân bổ macro hôm nay</div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:10px" data-i18n="macroToday">Phân bổ macro hôm nay</div>
         <div id="macro-pie"></div>
       </div>
 
       <div style="display:flex;gap:6px;margin-bottom:10px">
-        <button class="btn bl" style="flex:2;height:40px;font-size:13px" onclick="genMealPlan()">⚡ Gợi ý Meal Plan</button>
-        <button class="btn bg" style="flex:1;height:40px;font-size:13px" onclick="showNutHistory()">📅 Lịch sử</button>
-        <button class="btn bg" style="height:40px;width:40px;padding:0;flex-shrink:0" onclick="showCustomCalModal()" title="Tùy chỉnh mục tiêu calo">⚙️</button>
+        <button class="btn bl" style="flex:2;height:42px;font-size:13px" onclick="genMealPlan()" data-i18n="suggestMeal">⚡ Gợi ý Meal Plan</button>
+        <button class="btn bg" style="flex:1;height:42px;font-size:13px" onclick="showNutHistory()" data-i18n="historyBtn">📅 Lịch sử</button>
       </div>
 
-      <!-- Water + Custom Cal Goal -->
-      <div class="g2" style="margin-bottom:12px">
-        <div class="card" style="padding:12px">
-          <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);letter-spacing:.08em;margin-bottom:8px">💧 NƯỚC (ml)</div>
-          <div style="font-family:var(--FD);font-size:28px;color:var(--blue);letter-spacing:.04em;line-height:1" id="water-display">0</div>
-          <div style="font-size:10px;color:var(--txt3);margin-bottom:8px">/ <span id="water-goal">2000</span>ml</div>
-          <div class="pb pb-blue" style="margin-bottom:8px"><div class="pf" id="water-bar" style="width:0%"></div></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:5px">
-            <button onclick="addWater(200)" style="background:rgba(77,159,255,.15);border:1px solid rgba(77,159,255,.3);border-radius:6px;color:var(--blue);font-size:11px;padding:5px;cursor:pointer;font-weight:500">+200</button>
-            <button onclick="addWater(350)" style="background:rgba(77,159,255,.15);border:1px solid rgba(77,159,255,.3);border-radius:6px;color:var(--blue);font-size:11px;padding:5px;cursor:pointer;font-weight:500">+350</button>
-            <button onclick="addWater(500)" style="background:rgba(77,159,255,.15);border:1px solid rgba(77,159,255,.3);border-radius:6px;color:var(--blue);font-size:11px;padding:5px;cursor:pointer;font-weight:500">+500</button>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
-            <button onclick="addWater(-200)" style="background:var(--bg4);border:1px solid var(--brd2);border-radius:6px;color:var(--txt3);font-size:11px;padding:5px;cursor:pointer">-200</button>
-            <button onclick="addWater(-350)" style="background:var(--bg4);border:1px solid var(--brd2);border-radius:6px;color:var(--txt3);font-size:11px;padding:5px;cursor:pointer">-350</button>
-            <button onclick="resetWater()" style="background:var(--bg4);border:1px solid var(--brd2);border-radius:6px;color:var(--red);font-size:11px;padding:5px;cursor:pointer">Reset</button>
+      <!-- Calo goal summary bar (tap to edit) -->
+      <div class="card" onclick="showCustomCalModal()" style="padding:14px;margin-bottom:12px;cursor:pointer;display:flex;align-items:center;gap:14px">
+        <div style="font-size:24px">🎯</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);letter-spacing:.08em;margin-bottom:3px" data-i18n="calGoalLabel">MỤC TIÊU CALO MỖI NGÀY</div>
+          <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+            <span style="font-family:var(--FD);font-size:24px;color:var(--lime);letter-spacing:.04em;line-height:1" id="custom-cal-disp">Auto</span>
+            <span style="font-size:11px;color:var(--txt3)">TDEE: <span id="tdee-disp">--</span> kcal</span>
           </div>
         </div>
-        <div class="card" style="padding:12px">
-          <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);letter-spacing:.08em;margin-bottom:8px">🎯 MỤC TIÊU CALO</div>
-          <div style="font-family:var(--FD);font-size:22px;color:var(--lime);letter-spacing:.04em;line-height:1;margin-bottom:4px" id="custom-cal-disp">Auto</div>
-          <div style="font-size:10px;color:var(--txt3);margin-bottom:8px">TDEE: <span id="tdee-disp">--</span>kcal</div>
-          <input class="inp" id="custom-cal-inp" type="number" inputmode="decimal" placeholder="Tùy chỉnh..." style="font-size:12px;padding:6px 8px;height:32px" oninput="setCustomCal(this.value)">
+        <div style="background:var(--bg4);border:1px solid var(--brd2);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--txt2);font-weight:500;white-space:nowrap" data-i18n="editBtn">⚙️ Tuỳ chỉnh</div>
+      </div>
+
+      <!-- Water -->
+      <div class="card" style="padding:12px;margin-bottom:12px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px">
+          <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);letter-spacing:.08em" data-i18n="waterLabel">💧 NƯỚC UỐNG</div>
+          <div><span style="font-family:var(--FD);font-size:24px;color:var(--blue);letter-spacing:.04em" id="water-display">0</span><span style="font-size:11px;color:var(--txt3)"> / <span id="water-goal">2000</span>ml</span></div>
+        </div>
+        <div class="pb pb-blue" style="margin-bottom:10px"><div class="pf" id="water-bar" style="width:0%"></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px">
+          <button onclick="addWater(200)" style="background:rgba(77,159,255,.15);border:1px solid rgba(77,159,255,.3);border-radius:8px;color:var(--blue);font-size:13px;padding:9px 5px;cursor:pointer;font-weight:600">+200</button>
+          <button onclick="addWater(350)" style="background:rgba(77,159,255,.15);border:1px solid rgba(77,159,255,.3);border-radius:8px;color:var(--blue);font-size:13px;padding:9px 5px;cursor:pointer;font-weight:600">+350</button>
+          <button onclick="addWater(500)" style="background:rgba(77,159,255,.15);border:1px solid rgba(77,159,255,.3);border-radius:8px;color:var(--blue);font-size:13px;padding:9px 5px;cursor:pointer;font-weight:600">+500</button>
+          <button onclick="resetWater()" style="background:var(--bg4);border:1px solid var(--brd2);border-radius:8px;color:var(--red);font-size:13px;padding:9px 5px;cursor:pointer">↺</button>
         </div>
       </div>
 
       <!-- Meal category filter -->
       <div class="pill-row" style="margin-bottom:10px;overflow-x:auto;flex-wrap:nowrap" id="meal-filter-row">
-        <button class="pill on" onclick="filterMealView('all',this)">Tất cả</button>
-        <button class="pill" onclick="filterMealView('b',this)">🌅 Sáng</button>
-        <button class="pill" onclick="filterMealView('l',this)">☀️ Trưa</button>
-        <button class="pill" onclick="filterMealView('d',this)">🌙 Tối</button>
-        <button class="pill" onclick="filterMealView('s',this)">🍎 Phụ</button>
+        <button class="pill on" onclick="filterMealView('all',this)" data-i18n="mealFilterAll">Tất cả</button>
+        <button class="pill" onclick="filterMealView('b',this)" data-i18n="mealMorning">🌅 Sáng</button>
+        <button class="pill" onclick="filterMealView('l',this)" data-i18n="mealNoon">☀️ Trưa</button>
+        <button class="pill" onclick="filterMealView('d',this)" data-i18n="mealEvening">🌙 Tối</button>
+        <button class="pill" onclick="filterMealView('s',this)" data-i18n="mealSnack">🍎 Phụ</button>
       </div>
 
       <div id="nut-meals"></div>
@@ -1507,8 +1511,8 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       <div onclick="showPremium()" style="background:linear-gradient(135deg,rgba(200,241,53,.08),rgba(200,241,53,.02));border:1.5px solid rgba(200,241,53,.25);border-radius:14px;padding:14px 16px;margin-bottom:14px;cursor:pointer;display:flex;align-items:center;gap:12px">
         <div style="font-size:26px">⭐</div>
         <div style="flex:1">
-          <div style="font-size:14px;font-weight:700;color:var(--lime)">FitAI Premium</div>
-          <div style="font-size:11px;color:var(--txt3);margin-top:3px" id="premium-status-text">Nâng cấp để mở khoá tính năng AI</div>
+          <div style="font-size:14px;font-weight:700;color:var(--lime)" data-i18n="premiumTitle">FitAI Premium</div>
+          <div style="font-size:11px;color:var(--txt3);margin-top:3px" id="premium-status-text" data-i18n="premiumHint">Nâng cấp để mở khoá tính năng AI</div>
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1531,37 +1535,37 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
 
       <!-- Settings -->
-      <div class="sec-label" style="margin-top:0">Thông tin</div>
+      <div class="sec-label" style="margin-top:0" data-i18n="infoSection">Thông tin</div>
       <div class="card" style="margin-bottom:12px">
-        <div class="fg"><label class="lbl">Tên</label><input class="inp" id="p-name" placeholder="Tên của bạn" oninput="autoSave()"></div>
+        <div class="fg"><label class="lbl" data-i18n="nameLbl">Tên</label><input class="inp" id="p-name" placeholder="Tên của bạn" oninput="autoSave()"></div>
         <div class="g2">
-          <div class="fg"><label class="lbl">Cân nặng (kg)</label><input class="inp" id="p-kg" type="number" inputmode="decimal" placeholder="70" oninput="autoSave()"></div>
-          <div class="fg"><label class="lbl">Chiều cao (cm)</label><input class="inp" id="p-cm" type="number" inputmode="decimal" placeholder="170" oninput="autoSave()"></div>
+          <div class="fg"><label class="lbl" data-i18n="weightLbl">Cân nặng (kg)</label><input class="inp" id="p-kg" type="number" inputmode="decimal" placeholder="70" oninput="autoSave()"></div>
+          <div class="fg"><label class="lbl" data-i18n="heightLbl">Chiều cao (cm)</label><input class="inp" id="p-cm" type="number" inputmode="decimal" placeholder="170" oninput="autoSave()"></div>
         </div>
         <div class="g2">
-          <div class="fg"><label class="lbl">Tuổi</label><input class="inp" id="p-age" type="number" inputmode="numeric" placeholder="25" oninput="autoSave()"></div>
-          <div class="fg"><label class="lbl">Buổi/tuần</label>
+          <div class="fg"><label class="lbl" data-i18n="ageLbl">Tuổi</label><input class="inp" id="p-age" type="number" inputmode="numeric" placeholder="25" oninput="autoSave()"></div>
+          <div class="fg"><label class="lbl" data-i18n="daysPerWeek">Buổi/tuần</label>
             <select class="inp" id="p-days" onchange="autoSave()">
               <option value="3">3x</option><option value="4" selected>4x</option><option value="5">5x</option><option value="6">6x</option>
             </select>
           </div>
         </div>
-        <div class="fg"><label class="lbl">Mục tiêu</label>
+        <div class="fg"><label class="lbl" data-i18n="goalLbl">Mục tiêu</label>
           <select class="inp" id="p-goal" onchange="autoSave()">
             <option value="muscle">Tăng cơ</option><option value="strength">Sức mạnh</option><option value="fat">Giảm mỡ</option><option value="general">Sức khỏe</option>
           </select>
         </div>
-        <div class="fg"><label class="lbl">Trình độ</label>
+        <div class="fg"><label class="lbl" data-i18n="levelLbl">Trình độ</label>
           <select class="inp" id="p-level" onchange="autoSave()">
             <option value="beginner">Beginner</option><option value="intermediate" selected>Intermediate</option><option value="advanced">Advanced</option>
           </select>
         </div>
-        <div class="fg"><label class="lbl">Thiết bị</label>
+        <div class="fg"><label class="lbl" data-i18n="equipLbl">Thiết bị</label>
           <select class="inp" id="p-equip" onchange="autoSave()">
             <option value="full">Full gym</option><option value="barbell">Barbell+Rack</option><option value="dumbbell">Dumbbell</option><option value="home">Bodyweight</option>
           </select>
         </div>
-        <div class="fg"><label class="lbl">Đơn vị trọng lượng</label>
+        <div class="fg"><label class="lbl" data-i18n="weightUnit">Đơn vị trọng lượng</label>
           <div class="g2" style="gap:6px">
             <div class="choice on" id="unit-kg" onclick="setUnit('kg')" style="padding:10px;flex-direction:row;gap:5px;border-radius:var(--r)"><span style="font-size:15px">🏋️</span><span style="font-size:13px">kg</span></div>
             <div class="choice" id="unit-lbs" onclick="setUnit('lbs')" style="padding:10px;flex-direction:row;gap:5px;border-radius:var(--r)"><span style="font-size:15px">🇺🇸</span><span style="font-size:13px">lbs</span></div>
@@ -1569,9 +1573,9 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         </div>
       </div>
 
-      <div class="sec-label">Bài tập tùy chỉnh</div>
+      <div class="sec-label" data-i18n="customExSection">Bài tập tùy chỉnh</div>
       <div class="card" style="margin-bottom:12px">
-        <div style="font-size:12px;color:var(--txt2);margin-bottom:10px">Thêm bài tập không có trong thư viện</div>
+        <div style="font-size:12px;color:var(--txt2);margin-bottom:10px" data-i18n="customExHint">Thêm bài tập không có trong thư viện</div>
         <div style="display:flex;gap:7px;margin-bottom:8px">
           <input class="inp" id="custom-ex-name" placeholder="Tên bài tập..." style="flex:1">
           <select class="inp" id="custom-ex-muscle" style="width:110px">
@@ -1583,27 +1587,27 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         <div id="custom-ex-list" style="margin-top:10px"></div>
       </div>
 
-      <div class="sec-label">Menu</div>
+      <div class="sec-label" data-i18n="menuSection">Menu</div>
       <div class="card">
-        <div class="menu-item" onclick="goTab('s-progress')"><div class="menu-ico">📊</div><div class="menu-lbl">Tiến độ & số đo</div><div class="menu-arr">›</div></div>
-        <div class="menu-item" onclick="goTab('s-plan')"><div class="menu-ico">📋</div><div class="menu-lbl">Kho plan</div><div class="menu-arr">›</div></div>
-        <div class="menu-item" onclick="openExLib(false)"><div class="menu-ico">🎬</div><div class="menu-lbl">Thư viện bài tập</div><div class="menu-arr">›</div></div>
-        <div class="menu-item" onclick="showPlateCalc()"><div class="menu-ico">🧮</div><div class="menu-lbl">Tính đĩa tạ</div><div class="menu-arr">›</div></div>
-        <div class="menu-item" onclick="shareReferral()"><div class="menu-ico">🎁</div><div class="menu-lbl">Mời bạn bè — nhận Pro!</div><div class="menu-arr">›</div></div>
-        <div class="menu-item" onclick="installPWA()"><div class="menu-ico">📱</div><div class="menu-lbl">Cài app về máy (PWA)</div><div class="menu-arr">›</div></div>
-        <div class="menu-item" onclick="exportData()"><div class="menu-ico">📥</div><div class="menu-lbl">Export data CSV</div><div class="menu-arr">›</div></div>
-        <div class="menu-item" onclick="showPremium()"><div class="menu-ico">⚡</div><div class="menu-lbl" style="color:var(--lime)">Nâng cấp Pro</div><div class="menu-arr" style="color:var(--lime)">›</div></div>
-        <div class="menu-item" onclick="resetApp()"><div class="menu-ico">🗑️</div><div class="menu-lbl" style="color:var(--red)">Xóa tất cả dữ liệu</div><div class="menu-arr" style="color:var(--red)">›</div></div>
+        <div class="menu-item" onclick="goTab('s-progress')"><div class="menu-ico">📊</div><div class="menu-lbl" data-i18n="menuProgress">Tiến độ & số đo</div><div class="menu-arr">›</div></div>
+        <div class="menu-item" onclick="goTab('s-plan')"><div class="menu-ico">📋</div><div class="menu-lbl" data-i18n="menuPlanStore">Kho plan</div><div class="menu-arr">›</div></div>
+        <div class="menu-item" onclick="openExLib(false)"><div class="menu-ico">🎬</div><div class="menu-lbl" data-i18n="menuExLib">Thư viện bài tập</div><div class="menu-arr">›</div></div>
+        <div class="menu-item" onclick="showPlateCalc()"><div class="menu-ico">🧮</div><div class="menu-lbl" data-i18n="menuPlate">Tính đĩa tạ</div><div class="menu-arr">›</div></div>
+        <div class="menu-item" onclick="shareReferral()"><div class="menu-ico">🎁</div><div class="menu-lbl" data-i18n="menuInvite">Mời bạn bè — nhận Pro!</div><div class="menu-arr">›</div></div>
+        <div class="menu-item" onclick="installPWA()"><div class="menu-ico">📱</div><div class="menu-lbl" data-i18n="menuInstall">Cài app về máy (PWA)</div><div class="menu-arr">›</div></div>
+        <div class="menu-item" onclick="exportData()"><div class="menu-ico">📥</div><div class="menu-lbl" data-i18n="menuExport">Export data CSV</div><div class="menu-arr">›</div></div>
+        <div class="menu-item" onclick="showPremium()"><div class="menu-ico">⚡</div><div class="menu-lbl" style="color:var(--lime)" data-i18n="menuUpgrade">Nâng cấp Pro</div><div class="menu-arr" style="color:var(--lime)">›</div></div>
+        <div class="menu-item" onclick="resetApp()"><div class="menu-ico">🗑️</div><div class="menu-lbl" style="color:var(--red)" data-i18n="menuReset">Xóa tất cả dữ liệu</div><div class="menu-arr" style="color:var(--red)">›</div></div>
       </div>
 
       <div style="text-align:center;padding:8px 0;margin-bottom:4px">
-        <span class="xxs muted">FitAI v2.1.0 · Workout Tracker 🇻🇳</span>
+        <span class="xxs muted">FitAI v2.4.0 · Workout Tracker 🇻🇳</span>
       </div>
 
       <!-- Macro targets display -->
-      <div class="sec-label">Chỉ số dinh dưỡng</div>
+      <div class="sec-label" data-i18n="nutStatsSection">Chỉ số dinh dưỡng</div>
       <div class="card" id="p-macro-card">
-        <div class="xs muted" style="margin-bottom:8px">Dựa trên cân nặng và mục tiêu của bạn</div>
+        <div class="xs muted" style="margin-bottom:8px" data-i18n="nutStatsHint">Dựa trên cân nặng và mục tiêu của bạn</div>
         <div class="g3">
           <div class="sb"><div class="sv" style="font-size:18px" id="p-tdee">--</div><div class="sk">TDEE kcal</div></div>
           <div class="sb"><div class="sv" style="font-size:18px" id="p-macro-p">--g</div><div class="sk">Protein</div></div>
@@ -1662,19 +1666,19 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         <div class="sec-label" style="margin-top:0">Âm thanh & Rung</div>
         <div class="card" style="margin-bottom:10px">
           <div class="rb" style="padding:10px 0;border-bottom:1px solid var(--brd)">
-            <span style="font-size:13px">🔊 Âm thanh rest timer</span>
+            <span style="font-size:13px" data-i18n="sound">🔊 Âm thanh rest timer</span>
             <div class="toggle" id="tog-sound" onclick="toggleSetting('sound')" style="width:44px;height:24px;border-radius:12px;background:var(--lime);cursor:pointer;position:relative;transition:background .2s">
               <div style="position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:#111;transition:right .2s"></div>
             </div>
           </div>
           <div class="rb" style="padding:10px 0;border-bottom:1px solid var(--brd)">
-            <span style="font-size:13px">📳 Rung khi xong set</span>
+            <span style="font-size:13px" data-i18n="haptic">📳 Rung khi xong set</span>
             <div class="toggle" id="tog-haptic" onclick="toggleSetting('haptic')" style="width:44px;height:24px;border-radius:12px;background:var(--lime);cursor:pointer;position:relative;transition:background .2s">
               <div style="position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:#111;transition:right .2s"></div>
             </div>
           </div>
           <div class="rb" style="padding:10px 0">
-            <span style="font-size:13px">⏱ Tự động bắt đầu rest</span>
+            <span style="font-size:13px" data-i18n="autoRest">⏱ Tự động bắt đầu rest</span>
             <div class="toggle" id="tog-autorest" onclick="toggleSetting('autoRest')" style="width:44px;height:24px;border-radius:12px;background:var(--lime);cursor:pointer;position:relative;transition:background .2s">
               <div style="position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:#111;transition:right .2s"></div>
             </div>
@@ -1682,7 +1686,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         </div>
 
         <!-- Rest timer default -->
-        <div class="sec-label">Thời gian nghỉ mặc định</div>
+        <div class="sec-label" data-i18n="restTimeLbl">Thời gian nghỉ mặc định</div>
         <div class="card" style="margin-bottom:10px">
           <div class="pill-row">
             <button class="pill" id="rest-def-60" onclick="setDefaultRest(60)">1:00</button>
@@ -1693,7 +1697,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         </div>
 
         <!-- Language -->
-        <div class="sec-label" id="settings-lang-label">Ngôn ngữ / Language</div>
+        <div class="sec-label" id="settings-lang-label" data-i18n="settingLang">Ngôn ngữ / Language</div>
         <div class="card" style="margin-bottom:10px">
           <div class="g2" style="gap:8px">
             <div class="choice" id="lang-vi" onclick="setLanguage('vi')" style="padding:12px;border-radius:var(--r);flex-direction:row;gap:8px;border:1.5px solid var(--lime);background:var(--lime-dim)">
@@ -1711,7 +1715,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         <div class="sec-label">Hiển thị</div>
         <div class="card" style="margin-bottom:10px">
           <div class="fg" style="margin-bottom:0">
-            <label class="lbl">Cỡ chữ</label>
+            <label class="lbl" data-i18n="fontSize">Cỡ chữ</label>
             <div class="pill-row" style="margin-top:6px">
               <button class="pill" onclick="setFontSize(14)">Nhỏ</button>
               <button class="pill on" onclick="setFontSize(15)">Vừa</button>
@@ -1721,18 +1725,20 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         </div>
 
         <!-- Workout defaults -->
-        <div class="sec-label">Workout</div>
+        <div class="sec-label" data-i18n="settingWorkout">Workout</div>
         <div class="card" style="margin-bottom:10px">
           <div class="fg">
-            <label class="lbl">Số sets mặc định</label>
-            <select class="inp" id="set-default-sel" onchange="ST.settings.defaultSets=+this.value;save()">
+            <label class="lbl" data-i18n="setDefaultLbl">Số sets mặc định</label>
+            <select class="inp" id="set-default-sel" onchange="ST.settings.defaultSets=+this.value;save();toast('Số set mặc định: '+this.value)">
+              <option value="2">2 sets</option>
               <option value="3">3 sets</option>
               <option value="4">4 sets</option>
               <option value="5">5 sets</option>
+              <option value="6">6 sets</option>
             </select>
           </div>
           <div class="fg" style="margin-bottom:0">
-            <label class="lbl">Mục tiêu nước uống (ml)</label>
+            <label class="lbl" data-i18n="waterGoal">Mục tiêu nước uống (ml)</label>
             <select class="inp" id="water-goal-sel" inputmode="numeric" onchange="ST.profile.waterGoal=+this.value;save();updateWaterDisplay()">
               <option value="1500">1500ml</option>
               <option value="2000">2000ml</option>
@@ -1742,7 +1748,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
           </div>
         </div>
 
-        <button class="btn bg" onclick="closeSettings()">Đóng</button>
+        <button class="btn bg" onclick="closeSettings()" data-i18n="closeBtn">Đóng</button>
       </div>
     </div>
   </div>
@@ -1787,8 +1793,10 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
 // ════════════════════════════════════════════════════════
 const LANG={
   vi:{
+    // Nav
     home:'Trang chủ',workout:'Tập luyện',plan:'Plan',schedule:'Lịch',
     track:'Theo dõi',nutrition:'Dinh dưỡng',profile:'Hồ sơ',
+    // Home
     startFree:'Bắt đầu tập tự do',choosePlan:'Chọn từ plan',
     exerciseLib:'Thư viện bài tập & Form Guide',
     finishBtn:'Xong ✓',cancelBtn:'Hủy',
@@ -1797,11 +1805,38 @@ const LANG={
     restLabel:'REST',skipRest:'Skip Rest ✓',
     addFood:'Thêm món',mealPlan:'Gợi ý meal plan hôm nay',
     greeting_morning:'Chào buổi sáng ☀️',greeting_afternoon:'Chào buổi chiều 🌤️',greeting_evening:'Chào buổi tối 🌙',
+    // Settings
     settings:'Cài đặt',language:'Ngôn ngữ',sound:'Âm thanh rest timer',haptic:'Rung khi xong set',
     autoRest:'Tự động bắt đầu rest',defaultRest:'Thời gian nghỉ mặc định',fontSize:'Cỡ chữ',
     waterGoal:'Mục tiêu nước uống',inviteFriend:'Mời bạn bè — nhận Pro!',
     installApp:'Cài app về máy (PWA)',exportData:'Export data CSV',deleteAll:'Xóa tất cả dữ liệu',
     noWorkouts:'Chưa có buổi tập nào\nBắt đầu buổi đầu tiên ngay!',
+    // data-i18n keys (scanned)
+    navHome:'Trang chủ',navWorkout:'Tập',navPlan:'Plan',navSchedule:'Lịch',navProgress:'Tiến độ',navNut:'Dinh dưỡng',
+    weekThis:'Tuần này',todayWorkout:'Buổi tập hôm nay',todayFeel:'Cảm giác hôm nay',todayChallenge:'Thách thức hôm nay',
+    quickStats:'Thống kê nhanh',recent:'Gần đây',quickCardio:'Cardio nhanh',savedTemplate:'Template đã lưu',history:'Lịch sử',
+    planLibTitle:'Kho',nutHistory:'Lịch sử dinh dưỡng',mealSuggest:'Gợi ý Meal Plan',
+    infoSection:'Thông tin',nameLbl:'Tên',weightLbl:'Cân nặng (kg)',heightLbl:'Chiều cao (cm)',ageLbl:'Tuổi',
+    daysPerWeek:'Buổi/tuần',goalLbl:'Mục tiêu',levelLbl:'Trình độ',equipLbl:'Thiết bị',weightUnit:'Đơn vị trọng lượng',
+    customExSection:'Bài tập tùy chỉnh',customExHint:'Thêm bài tập không có trong thư viện',menuSection:'Menu',
+    nutStatsSection:'Chỉ số dinh dưỡng',nutStatsHint:'Dựa trên cân nặng và mục tiêu của bạn',
+    menuProgress:'Tiến độ & số đo',menuPlanStore:'Kho plan',menuExLib:'Thư viện bài tập',menuPlate:'Tính đĩa tạ',
+    menuInvite:'Mời bạn bè — nhận Pro!',menuInstall:'Cài app về máy (PWA)',menuExport:'Export data CSV',
+    menuUpgrade:'Nâng cấp Pro',menuReset:'Xóa tất cả dữ liệu',
+    premiumTitle:'FitAI Premium',premiumHint:'Nâng cấp để mở khoá tính năng AI',
+    settingsTitle:'Cài đặt',settingLang:'Ngôn ngữ / Language',settingWorkout:'Workout',
+    setDefaultLbl:'Số sets mặc định',restTimeLbl:'Thời gian nghỉ mặc định',
+    closeBtn:'Đóng',
+    // Nutrition tab
+    calGoalLabel:'MỤC TIÊU CALO MỖI NGÀY',editBtn:'⚙️ Tuỳ chỉnh',waterLabel:'💧 NƯỚC UỐNG',
+    suggestMeal:'⚡ Gợi ý Meal Plan',historyBtn:'📅 Lịch sử',
+    macroToday:'Phân bổ macro hôm nay',todayKcal:'Hôm nay',
+    // Goal modal
+    goalModalTitle:'⚙️ Mục tiêu dinh dưỡng',goalModalSub:'Tùy chỉnh theo nhu cầu cá nhân của bạn',
+    autoCalc:'TỰ ĐỘNG TÍNH (TDEE)',quickPreset:'CHỌN NHANH THEO MỤC TIÊU',
+    presetCut:'🔥 Giảm mỡ (-15%)',presetMaintain:'⚖️ Duy trì',presetBulk:'💪 Tăng cơ (+10%)',presetAggBulk:'🚀 Bulk mạnh (+20%)',
+    calTargetLabel:'CALO MỤC TIÊU (kcal/ngày)',resetAuto:'↺ Auto',cancelBtn2:'Huỷ',saveGoal:'Lưu mục tiêu',
+    mealFilterAll:'Tất cả',mealMorning:'🌅 Sáng',mealNoon:'☀️ Trưa',mealEvening:'🌙 Tối',mealSnack:'🍎 Phụ',
   },
   en:{
     home:'Home',workout:'Workout',plan:'Plans',schedule:'Schedule',
@@ -1819,6 +1854,30 @@ const LANG={
     waterGoal:'Daily water goal',inviteFriend:'Invite friends — get Pro!',
     installApp:'Install app (PWA)',exportData:'Export data CSV',deleteAll:'Delete all data',
     noWorkouts:'No workouts yet\nStart your first one!',
+    // scanned
+    navHome:'Home',navWorkout:'Train',navPlan:'Plan',navSchedule:'Schedule',navProgress:'Progress',navNut:'Nutrition',
+    weekThis:'This Week',todayWorkout:"Today's Workout",todayFeel:'How do you feel today',todayChallenge:"Today's Challenge",
+    quickStats:'Quick Stats',recent:'Recent',quickCardio:'Quick Cardio',savedTemplate:'Saved Templates',history:'History',
+    planLibTitle:'Plan',nutHistory:'Nutrition History',mealSuggest:'Meal Plan Suggestion',
+    infoSection:'Information',nameLbl:'Name',weightLbl:'Weight (kg)',heightLbl:'Height (cm)',ageLbl:'Age',
+    daysPerWeek:'Days/week',goalLbl:'Goal',levelLbl:'Level',equipLbl:'Equipment',weightUnit:'Weight unit',
+    customExSection:'Custom Exercises',customExHint:'Add an exercise not in the library',menuSection:'Menu',
+    nutStatsSection:'Nutrition Stats',nutStatsHint:'Based on your weight and goal',
+    menuProgress:'Progress & Measurements',menuPlanStore:'Plan Store',menuExLib:'Exercise Library',menuPlate:'Plate Calculator',
+    menuInvite:'Invite friends — get Pro!',menuInstall:'Install app (PWA)',menuExport:'Export data CSV',
+    menuUpgrade:'Upgrade to Pro',menuReset:'Delete all data',
+    premiumTitle:'FitAI Premium',premiumHint:'Upgrade to unlock AI features',
+    settingsTitle:'Settings',settingLang:'Language / Ngôn ngữ',settingWorkout:'Workout',
+    setDefaultLbl:'Default sets',restTimeLbl:'Default rest time',
+    closeBtn:'Close',
+    calGoalLabel:'DAILY CALORIE GOAL',editBtn:'⚙️ Customize',waterLabel:'💧 WATER',
+    suggestMeal:'⚡ Suggest Meal Plan',historyBtn:'📅 History',
+    macroToday:"Today's Macro Split",todayKcal:'Today',
+    goalModalTitle:'⚙️ Nutrition Goals',goalModalSub:'Customize to your personal needs',
+    autoCalc:'AUTO-CALCULATED (TDEE)',quickPreset:'QUICK-SET BY GOAL',
+    presetCut:'🔥 Cut (-15%)',presetMaintain:'⚖️ Maintain',presetBulk:'💪 Lean Bulk (+10%)',presetAggBulk:'🚀 Aggressive (+20%)',
+    calTargetLabel:'TARGET CALORIES (kcal/day)',resetAuto:'↺ Auto',cancelBtn2:'Cancel',saveGoal:'Save Goal',
+    mealFilterAll:'All',mealMorning:'🌅 Breakfast',mealNoon:'☀️ Lunch',mealEvening:'🌙 Dinner',mealSnack:'🍎 Snack',
   },
 };
 let currentLang='vi';
@@ -1846,11 +1905,19 @@ function applyLanguage(){
   // Rest timer
   const rl=document.querySelector('.rest-label');if(rl)rl.textContent=t('restLabel');
   const rb=document.querySelector('.rest-skip-btn');if(rb)rb.textContent=t('skipRest');
-  // Week strip label
-  document.querySelectorAll('.sec-label').forEach(el=>{
-    if(el.textContent.includes('Tuần này')||el.textContent.includes('This Week'))
-      el.textContent=t('weeklyStrip');
+  // Generic scan: any element tagged with data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    const val=LANG[currentLang]?.[key];
+    if(val!=null)el.textContent=val;
   });
+  // Placeholders tagged with data-i18n-ph
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const key=el.getAttribute('data-i18n-ph');
+    const val=LANG[currentLang]?.[key];
+    if(val!=null)el.setAttribute('placeholder',val);
+  });
+  if(typeof updateCalGoalDisplay==='function')updateCalGoalDisplay();
 }
 
 const PLANS=[
@@ -2494,6 +2561,50 @@ const EXERCISES=[
    sets:{'muscle':'3×30-60s','strength':'','endurance':'4×45-90s'},diffVi:'Cơ bản'},
 ];
 
+// ── Alias map: plan/program names → canonical EXERCISES entry name ──
+// Fixes swap/form-guide/video/muscle for exercises named differently in plans
+const EX_ALIASES={
+  'Squat':'Barbell Squat',
+  'Pause Squat':'Barbell Squat',
+  'DB Squat':'Goblet Squat',
+  'DB Goblet Squat':'Goblet Squat',
+  'Front Squat':'Front Squat',
+  'Deadlift':'Barbell Deadlift',
+  'Deficit DL':'Barbell Deadlift',
+  'Romanian Deadlift':'Romanian DL',
+  'DB Romanian DL':'Romanian DL',
+  'DB Row':'Single Arm DB Row',
+  'Single Arm Row':'Single Arm DB Row',
+  'Cable Row':'Seated Cable Row',
+  'DB Bench Press':'Bench Press',
+  'Competition Bench':'Bench Press',
+  'DB Incline Press':'Incline DB Press',
+  'Shoulder Press':'DB Shoulder Press',
+  'DB Lateral Raise':'Lateral Raise',
+  'Bicep Curl':'Barbell Curl',
+  'DB Curl':'Hammer Curl',
+  'Overhead Tricep':'Overhead Tricep Extension',
+  'DB Tricep Ext':'Overhead Tricep Extension',
+  'Tricep Dip':'Dips',
+  'DB Hip Thrust':'Hip Thrust',
+  'DB Lunge':'Walking Lunge',
+  'Step Up':'Walking Lunge',
+  'Leg Press 45°':'Leg Press',
+  'Lateral Band Walk':'Hip Abduction',
+  'Pike Push-up':'Push Up',
+};
+function findEx(name){
+  if(!name)return null;
+  let ex=EXERCISES.find(e=>e.name===name||e.nameVi===name);
+  if(ex)return ex;
+  const alias=EX_ALIASES[name];
+  if(alias)ex=EXERCISES.find(e=>e.name===alias);
+  if(ex)return ex;
+  // loose match: strip common prefixes
+  const stripped=name.replace(/^(DB|Barbell|Cable|Machine|Smith Machine)\s+/i,'').trim();
+  return EXERCISES.find(e=>e.name===stripped||e.name.includes(stripped))||null;
+}
+
 const FOOD_PRESETS=[
   // ── CƠM & CÁC MÓN CƠM ──
   {name:'Cơm trắng 200g',cal:260,p:5,c:57,f:0.4},
@@ -3073,17 +3184,18 @@ function startTimer(){
 }
 function addEx(name){
   ST.exCtr++;const id='e'+ST.exCtr;
-  const exInfo=EXERCISES.find(e=>e.name===name||e.nameVi===name);
+  const exInfo=findEx(name);
   const lastW=ST.workouts.find(w=>w.exDetails&&w.exDetails[name]);
   let prevSets=[];
   if(lastW?.exDetails[name]){
     prevSets=lastW.exDetails[name].split(', ').map(s=>{const m=s.match(/(\d+\.?\d*)kg×(\d+)/);return m?{kg:+m[1],reps:+m[2]}:null;}).filter(Boolean);
   }
-  ST.exData[id]={name,note:'',sets:[
-    {kg:prevSets[0]?.kg||0,reps:prevSets[0]?.reps||0,rpe:0,done:false},
-    {kg:prevSets[1]?.kg||0,reps:prevSets[1]?.reps||0,rpe:0,done:false},
-    {kg:prevSets[2]?.kg||0,reps:prevSets[2]?.reps||0,rpe:0,done:false},
-  ]};
+  const nSets=Math.max(1,Math.min(8,+ST.settings?.defaultSets||3));
+  const setsArr=[];
+  for(let i=0;i<nSets;i++){
+    setsArr.push({kg:prevSets[i]?.kg||0,reps:prevSets[i]?.reps||0,rpe:0,done:false});
+  }
+  ST.exData[id]={name,note:'',sets:setsArr};
   const cont=document.getElementById('aw-exercises');
   const wrap=document.createElement('div');
   wrap.className='ex-block';wrap.id=id+'_b';
@@ -3131,9 +3243,9 @@ function addEx(name){
     </div>
     <div id="${id}_tip" class="ai-tip" style="display:none"></div>`;
   cont.appendChild(wrap);
-  // Render 3 set rows
+  // Render set rows (uses default sets count)
   const setsDiv=document.getElementById(id+'_sets');
-  for(let i=0;i<3;i++){
+  for(let i=0;i<nSets;i++){
     const div=document.createElement('div');
     div.className='set-row';div.id=id+'_row'+i;
     div.style.cssText='padding:4px 14px;display:grid;grid-template-columns:28px 64px 1fr 64px 36px;gap:4px;align-items:center';
@@ -3251,7 +3363,7 @@ function removeEx(id){
 }
 function openAITip(id,name){
   const tip=document.getElementById(id+'_tip');if(!tip)return;
-  const ex=EXERCISES.find(e=>e.name===name||e.nameVi===name);
+  const ex=findEx(name);
   const done=ST.exData[id]?.sets.filter(s=>s.done&&s.kg>0&&s.reps>0)||[];
   let txt='';
   if(done.length>0){
@@ -3269,7 +3381,7 @@ function openAITip(id,name){
 }
 
 function swapEx(id,name){
-  const ex=EXERCISES.find(e=>e.name===name||e.nameVi===name);
+  const ex=findEx(name);
   if(!ex){toast('Không tìm thấy bài này trong database');return;}
   // Find alternatives by same muscle group
   const alts=EXERCISES.filter(e=>
@@ -3803,7 +3915,8 @@ function openAddFood(meal,mealName){
   document.getElementById('add-food-modal').classList.add('show');
 }
 function removeFood(meal,i){ST.nut[meal].splice(i,1);renderNutMeals();save();}
-function genMealPlan(){
+let _mealVariantIdx={};
+function genMealPlan(forceNext){
   const targets=calcMacroTargets();
   const hw=document.getElementById('nut-history-wrap');
   if(hw)hw.style.display='none';
@@ -3812,66 +3925,98 @@ function genMealPlan(){
   const goal=ST.profile.goal||'general';
   const targetCal=targets.cal;
   const targetP=targets.protein;
-
-  // Dynamic meal templates scaled to target calories
-  // Base template at 2000 kcal, scale proportionally
   const scale=targetCal/2000;
 
-  const mealTemplates={
+  // Multiple variants per goal so "Gợi ý khác" gives a real new plan each time
+  const mealVariants={
     muscle:[
-      {time:'🌅 Sáng 7h',desc:'Bột yến mạch + Trứng + Sữa',calBase:420,pBase:30,
-       foods:['Bột yến mạch 50g','Trứng luộc 3 quả','Sữa tươi không đường 200ml']},
-      {time:'🍌 Bữa phụ 10h',desc:'Trái cây + Protein',calBase:200,pBase:12,
-       foods:['Chuối 1 quả','Hạt điều 30g','Greek yogurt 100g']},
-      {time:'☀️ Trưa 12h',desc:'Cơm + Thịt + Rau',calBase:580,pBase:45,
-       foods:['Cơm trắng 200g','Ức gà luộc 200g','Rau cải xào tỏi']},
-      {time:'⚡ Pre-workout 4h',desc:'Tinh bột nhanh + Protein',calBase:230,pBase:27,
-       foods:['Chuối 1 quả','Whey protein 1 scoop 35g']},
-      {time:'🌙 Tối 7h',desc:'Protein cao + Ít tinh bột',calBase:570,pBase:42,
-       foods:['Cơm trắng 150g','Cá hồi nướng 150g','Rau luộc','Trứng luộc 1 quả']},
+      [
+        {time:'🌅 Sáng 7h',desc:'Bột yến mạch + Trứng + Sữa',calBase:420,pBase:30,foods:['Bột yến mạch 50g','Trứng luộc 3 quả','Sữa tươi không đường 200ml']},
+        {time:'🍌 Bữa phụ 10h',desc:'Trái cây + Protein',calBase:200,pBase:12,foods:['Chuối 1 quả','Hạt điều 30g','Greek yogurt 100g']},
+        {time:'☀️ Trưa 12h',desc:'Cơm + Thịt + Rau',calBase:580,pBase:45,foods:['Cơm trắng 200g','Ức gà luộc 200g','Rau cải xào tỏi']},
+        {time:'⚡ Pre-workout 4h',desc:'Tinh bột nhanh + Protein',calBase:230,pBase:27,foods:['Chuối 1 quả','Whey protein 1 scoop 35g']},
+        {time:'🌙 Tối 7h',desc:'Protein cao + Ít tinh bột',calBase:570,pBase:42,foods:['Cơm trắng 150g','Cá hồi nướng 150g','Rau luộc','Trứng luộc 1 quả']},
+      ],
+      [
+        {time:'🌅 Sáng 7h',desc:'Bánh mì + Trứng ốp + Bơ',calBase:440,pBase:28,foods:['Bánh mì nguyên cám 2 lát','Trứng ốp 2 quả','Bơ 1/2 quả','Sữa hạnh nhân 200ml']},
+        {time:'🍌 Bữa phụ 10h',desc:'Sinh tố protein',calBase:230,pBase:25,foods:['Whey 1 scoop','Chuối 1 quả','Yến mạch 20g','Sữa tươi 150ml']},
+        {time:'☀️ Trưa 12h',desc:'Bún bò + Trứng',calBase:600,pBase:42,foods:['Bún bò 1 tô','Thịt bò 150g','Trứng luộc 1 quả','Rau sống']},
+        {time:'⚡ Bữa phụ 4h',desc:'Cơm gà',calBase:250,pBase:24,foods:['Cơm trắng 100g','Ức gà 120g']},
+        {time:'🌙 Tối 7h',desc:'Thịt bò + Khoai',calBase:560,pBase:44,foods:['Khoai lang 200g','Thịt bò xào 180g','Bông cải xanh']},
+      ],
+      [
+        {time:'🌅 Sáng 7h',desc:'Phở gà + Trứng',calBase:430,pBase:32,foods:['Phở gà 1 tô','Thịt gà 150g','Trứng luộc 2 quả']},
+        {time:'🍌 Bữa phụ 10h',desc:'Hạt + Sữa chua',calBase:210,pBase:14,foods:['Sữa chua Hy Lạp 150g','Hạnh nhân 25g','Mật ong 1 muỗng']},
+        {time:'☀️ Trưa 12h',desc:'Cơm + Cá + Đậu',calBase:570,pBase:43,foods:['Cơm trắng 200g','Cá basa kho 180g','Đậu hũ 100g','Rau muống']},
+        {time:'⚡ Pre-workout 4h',desc:'Yến mạch + Whey',calBase:240,pBase:28,foods:['Yến mạch 40g','Whey 1 scoop']},
+        {time:'🌙 Tối 7h',desc:'Tôm + Cơm + Rau',calBase:560,pBase:43,foods:['Cơm trắng 150g','Tôm hấp 200g','Salad rau củ']},
+      ],
     ],
     fat:[
-      {time:'🌅 Sáng 7h',desc:'Protein + Chất béo tốt',calBase:380,pBase:24,
-       foods:['Trứng chiên 2 quả','Bơ 50g','Rau xào','Phô mai cottage 100g']},
-      {time:'☀️ Trưa 12h',desc:'Protein cao + Salad',calBase:520,pBase:45,
-       foods:['Ức gà luộc 200g','Salad trộn dầu giấm 200g','Dầu ô liu 1 muỗng canh']},
-      {time:'🍎 Bữa phụ 4h',desc:'Low-carb snack',calBase:150,pBase:16,
-       foods:['Sữa chua Hy Lạp không đường 150g','Hạt chia 10g']},
-      {time:'🌙 Tối 7h',desc:'Cá + Rau + Khoai lang',calBase:350,pBase:32,
-       foods:['Cá ngừ tươi 150g','Rau luộc','Khoai lang luộc 100g']},
-      {time:'🌃 Khuya (tuỳ)',desc:'Casein trước ngủ',calBase:130,pBase:22,
-       foods:['Casein protein 1 scoop','Sữa tươi 100ml']},
+      [
+        {time:'🌅 Sáng 7h',desc:'Protein + Chất béo tốt',calBase:380,pBase:24,foods:['Trứng chiên 2 quả','Bơ 50g','Rau xào','Phô mai cottage 100g']},
+        {time:'☀️ Trưa 12h',desc:'Protein cao + Salad',calBase:520,pBase:45,foods:['Ức gà luộc 200g','Salad dầu giấm 200g','Dầu ô liu 1 muỗng']},
+        {time:'🍎 Bữa phụ 4h',desc:'Low-carb snack',calBase:150,pBase:16,foods:['Sữa chua Hy Lạp 150g','Hạt chia 10g']},
+        {time:'🌙 Tối 7h',desc:'Cá + Rau + Khoai',calBase:350,pBase:32,foods:['Cá ngừ 150g','Rau luộc','Khoai lang 100g']},
+        {time:'🌃 Khuya (tuỳ)',desc:'Casein trước ngủ',calBase:130,pBase:22,foods:['Casein 1 scoop','Sữa tươi 100ml']},
+      ],
+      [
+        {time:'🌅 Sáng 7h',desc:'Trứng + Yến mạch',calBase:360,pBase:26,foods:['Trứng luộc 3 quả','Yến mạch 30g','Việt quất 50g']},
+        {time:'☀️ Trưa 12h',desc:'Bò + Salad',calBase:500,pBase:44,foods:['Thịt bò nạc 180g','Salad lớn','Dầu ô liu 1 muỗng','Cà chua bi']},
+        {time:'🍎 Bữa phụ 4h',desc:'Snack protein',calBase:140,pBase:18,foods:['Phô mai cottage 120g','Dưa leo']},
+        {time:'🌙 Tối 7h',desc:'Cá hồi + Rau',calBase:380,pBase:34,foods:['Cá hồi 150g','Bông cải xanh','Măng tây']},
+        {time:'🌃 Khuya (tuỳ)',desc:'Sữa chua',calBase:120,pBase:18,foods:['Sữa chua Hy Lạp 150g','Hạt óc chó 10g']},
+      ],
+      [
+        {time:'🌅 Sáng 7h',desc:'Sinh tố low-carb',calBase:340,pBase:30,foods:['Whey 1.5 scoop','Sữa hạnh nhân 250ml','Bơ đậu phộng 1 muỗng']},
+        {time:'☀️ Trưa 12h',desc:'Gà + Rau hấp',calBase:490,pBase:46,foods:['Ức gà nướng 220g','Rau hấp thập cẩm','Dầu ô liu nhẹ']},
+        {time:'🍎 Bữa phụ 4h',desc:'Trứng + Hạt',calBase:160,pBase:14,foods:['Trứng luộc 2 quả','Hạnh nhân 15g']},
+        {time:'🌙 Tối 7h',desc:'Tôm + Salad',calBase:360,pBase:34,foods:['Tôm hấp 200g','Salad rau xanh','Chanh dây']},
+        {time:'🌃 Khuya (tuỳ)',desc:'Casein',calBase:120,pBase:20,foods:['Casein 1 scoop','Nước lọc']},
+      ],
     ],
     general:[
-      {time:'🌅 Sáng 7h',desc:'Bữa sáng cân bằng',calBase:400,pBase:20,
-       foods:['Phở gà 1 tô nhỏ hoặc Bánh mì trứng']},
-      {time:'☀️ Trưa 12h',desc:'Cơm và thức ăn mặn',calBase:550,pBase:28,
-       foods:['Cơm trắng 200g','Sườn kho 150g','Rau luộc']},
-      {time:'🍎 Bữa phụ 4h',desc:'Snack nhẹ',calBase:180,pBase:8,
-       foods:['Sữa chua 1 hũ','Chuối 1 quả']},
-      {time:'🌙 Tối 7h',desc:'Bữa tối nhẹ nhàng',calBase:470,pBase:25,
-       foods:['Cơm trắng 150g','Cá kho 150g','Canh rau']},
+      [
+        {time:'🌅 Sáng 7h',desc:'Bữa sáng cân bằng',calBase:400,pBase:20,foods:['Phở gà 1 tô nhỏ hoặc Bánh mì trứng']},
+        {time:'☀️ Trưa 12h',desc:'Cơm và thức ăn mặn',calBase:550,pBase:28,foods:['Cơm trắng 200g','Sườn kho 150g','Rau luộc']},
+        {time:'🍎 Bữa phụ 4h',desc:'Snack nhẹ',calBase:180,pBase:8,foods:['Sữa chua 1 hũ','Chuối 1 quả']},
+        {time:'🌙 Tối 7h',desc:'Bữa tối nhẹ nhàng',calBase:470,pBase:25,foods:['Cơm trắng 150g','Cá kho 150g','Canh rau']},
+      ],
+      [
+        {time:'🌅 Sáng 7h',desc:'Bún + Trứng',calBase:410,pBase:22,foods:['Bún riêu 1 tô','Trứng luộc 1 quả']},
+        {time:'☀️ Trưa 12h',desc:'Cơm gà',calBase:540,pBase:30,foods:['Cơm gà 1 phần','Dưa leo','Canh']},
+        {time:'🍎 Bữa phụ 4h',desc:'Trái cây',calBase:170,pBase:6,foods:['Táo 1 quả','Hạt điều 20g']},
+        {time:'🌙 Tối 7h',desc:'Cơm + Thịt + Canh',calBase:460,pBase:26,foods:['Cơm 150g','Thịt heo luộc 120g','Canh bí']},
+      ],
+      [
+        {time:'🌅 Sáng 7h',desc:'Bánh mì ốp la',calBase:420,pBase:21,foods:['Bánh mì 1 ổ','Trứng ốp 2 quả','Pa-tê nhẹ']},
+        {time:'☀️ Trưa 12h',desc:'Cơm tấm',calBase:560,pBase:29,foods:['Cơm tấm sườn 1 phần','Canh','Đồ chua']},
+        {time:'🍎 Bữa phụ 4h',desc:'Sữa chua trái cây',calBase:175,pBase:9,foods:['Sữa chua 1 hũ','Dâu tây 50g']},
+        {time:'🌙 Tối 7h',desc:'Bún cá',calBase:450,pBase:27,foods:['Bún cá 1 tô','Rau sống']},
+      ],
     ],
   };
 
-  const template=mealTemplates[goal]||mealTemplates.general;
+  const variants=mealVariants[goal]||mealVariants.general;
+  // rotate index per goal
+  if(forceNext){_mealVariantIdx[goal]=((_mealVariantIdx[goal]??0)+1)%variants.length;}
+  else if(_mealVariantIdx[goal]==null){_mealVariantIdx[goal]=0;}
+  const vIdx=_mealVariantIdx[goal];
+  const template=variants[vIdx];
 
-  // Scale calories based on target
   const scaled=template.map(m=>({
     ...m,
     cal:Math.round(m.calBase*scale),
-    p:Math.round(m.pBase*(targetP/120)), // scale protein proportionally (base 120g)
+    p:Math.round(m.pBase*(targetP/120)),
   }));
 
   const totalCal=scaled.reduce((t,m)=>t+m.cal,0);
   const totalP=scaled.reduce((t,m)=>t+m.p,0);
   const calDiff=totalCal-targetCal;
-  const pDiff=totalP-targetP;
 
   const el=document.getElementById('nut-ai-txt');
   if(!el)return;
 
-  // Status indicator
   const calStatus=Math.abs(calDiff)<100?{icon:'✅',color:'var(--lime)',text:'Đạt mục tiêu'}
     :calDiff>0?{icon:'⬆️',color:'var(--amber)',text:`Dư ${calDiff}kcal — giảm portion`}
     :{icon:'⬇️',color:'var(--blue)',text:`Thiếu ${Math.abs(calDiff)}kcal — thêm portion`};
@@ -3879,7 +4024,7 @@ function genMealPlan(){
   el.innerHTML=`
     <div style="background:var(--bg4);border-radius:10px;padding:10px 12px;margin-bottom:12px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <span style="font-size:10px;font-family:var(--FM);color:var(--txt3)">MỤC TIÊU CỦA BẠN</span>
+        <span style="font-size:10px;font-family:var(--FM);color:var(--txt3)">MỤC TIÊU CỦA BẠN · Plan ${vIdx+1}/${variants.length}</span>
         <span style="font-size:10px;font-family:var(--FM);color:${calStatus.color}">${calStatus.icon} ${calStatus.text}</span>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
@@ -3905,10 +4050,10 @@ function genMealPlan(){
         <div style="font-size:11px;color:var(--txt3)">Tổng ước tính</div>
         <div style="font-family:var(--FM);font-size:13px;color:var(--lime)">${totalCal}kcal · ${totalP}g P</div>
       </div>
-      <button onclick="genMealPlan()" class="btn bg bsm" style="font-size:11px">🔄 Gợi ý khác</button>
+      <button onclick="genMealPlan(true)" class="btn bg bsm" style="font-size:11px">🔄 Gợi ý khác</button>
     </div>
     <div style="margin-top:10px;font-size:10px;color:var(--txt3);text-align:center">
-      Muốn thay đổi mục tiêu? Nhấn ⚙️ để tùy chỉnh
+      Muốn thay đổi mục tiêu? Bấm vào thanh 🎯 Mục tiêu calo để tùy chỉnh
     </div>`;
 }
 
@@ -4067,7 +4212,7 @@ function updateProfileDisplay(){
   // Macro targets in profile
   try{
     const t=calcMacroTargets();
-    const te=document.getElementById('p-tdee');if(te)te.textContent=t.cal;
+    const te=document.getElementById('p-tdee');if(te)te.textContent=calcTDEE();
     const pe=document.getElementById('p-macro-p');if(pe)pe.textContent=t.protein+'g';
     const ce=document.getElementById('p-macro-cal');if(ce)ce.textContent=t.cal;
   }catch(e){}
@@ -4763,14 +4908,17 @@ function updateWaterDisplay(){
   if(bar){bar.style.width=wpct+'%';bar.style.background=wpct>=100?'var(--lime)':wpct>=75?'var(--blue)':'var(--blue)';}
   if(wpct>=100&&!ST._waterCelebrated){ST._waterCelebrated=true;toast('💧 Đã uống đủ nước hôm nay! 🎉');}
   if(goalEl)goalEl.textContent=goal;
+  updateCalGoalDisplay();
+}
+function updateCalGoalDisplay(){
   const tdeeEl=document.getElementById('tdee-disp');
   if(tdeeEl)tdeeEl.textContent=calcTDEE();
   const calDisp=document.getElementById('custom-cal-disp');
-  if(calDisp)calDisp.textContent=ST.profile.customCal?ST.profile.customCal+'kcal':'Auto';
-}
-function setCustomCal(v){
-  ST.profile.customCal=+v||null;
-  renderNutMeals();save();
+  if(calDisp){
+    const cc=ST.settings?.customCal||{};
+    const t=calcMacroTargets();
+    calDisp.textContent=cc.cal?cc.cal+' kcal':t.cal+' kcal';
+  }
 }
 
 // ════════════════════════════════════════════════════════
@@ -4878,7 +5026,7 @@ function renderMuscleVolChart(){
   const muscleVi={chest:'Ngực',back:'Lưng',shoulders:'Vai',arms:'Bắp tay',legs:'Chân',glutes:'Mông',core:'Core'};
   weekWorkouts.forEach(w=>{
     Object.keys(w.exDetails||{}).forEach(exName=>{
-      const ex=EXERCISES.find(e=>e.name===exName||e.nameVi===exName);
+      const ex=findEx(exName);
       if(ex&&ex.muscle in muscleVol){
         const setsStr=w.exDetails[exName];
         const setsCount=(setsStr.match(/×/g)||[]).length;
@@ -5401,11 +5549,18 @@ function addTransitionCSS(){
   s.textContent=`
     @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
     @keyframes popIn{0%{transform:scale(1)}45%{transform:scale(1.3)}100%{transform:scale(1)}}
+    @keyframes screenIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
     .ex-block{animation:fadeUp .22s ease both}
     .bni:active{opacity:.6;transform:scale(.88)}
     .btn:active{transform:scale(.95)}
     .plan-card:active{transform:scale(.982)}
     .s-done-btn.done{animation:popIn .2s ease}
+    .screen.active{animation:screenIn .2s ease both}
+    .screen{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scroll-behavior:smooth}
+    .screen>*{overscroll-behavior:contain}
+    .bni,.btn,.pill,.menu-item,.card[onclick],.cal-preset-btn{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+    .menu-item:active{background:var(--bg4)}
+    .pill:active{transform:scale(.94)}
   `;
   document.head.appendChild(s);
 }
@@ -6045,7 +6200,7 @@ function addSuperset(nameA,nameB){
     </div>`;
   [nameA,nameB].forEach((name,idx)=>{
     const id=idx===0?idA:idB;
-    const exInfo=EXERCISES.find(e=>e.name===name);
+    const exInfo=findEx(name);
     const mini=document.createElement('div');
     mini.style.cssText='background:var(--bg2);border:1px solid var(--brd);border-radius:10px;padding:10px;margin-bottom:6px';
     mini.id=id+'_b';
@@ -6163,7 +6318,7 @@ function showExHistory(exName){
 // ════════════════════════════════════════════════════════
 function autoLoadCoachTip(id,name){
   const tip=document.getElementById(id+'_tip');if(!tip)return;
-  const ex=EXERCISES.find(e=>e.name===name||e.nameVi===name);
+  const ex=findEx(name);
   const lastW=ST.workouts.find(w=>w.exDetails?.[name]);
   let txt='';
   if(lastW?.exDetails?.[name]){
@@ -6629,7 +6784,7 @@ let _panelCurrentEx=null;
 let _panelAddId=null; // which workout exercise triggered this
 
 function openExPanel(exName,fromWorkoutId){
-  const ex=EXERCISES.find(e=>e.name===exName||e.nameVi===exName);
+  const ex=findEx(exName);
   if(!ex)return;
   _panelCurrentEx=ex;
   _panelAddId=fromWorkoutId||null;
@@ -6782,7 +6937,44 @@ function renderMuscleEquip(ex){
     </div>`;
 }
 
+function getTempoBreathing(ex){
+  // Derive tempo + breathing guidance from muscle/movement type
+  const m=ex?.muscle;
+  const name=(ex?.name||'').toLowerCase();
+  const isHold=/plank|hold|side plank|hollow|dead bug/.test(name);
+  const isExplosive=/jump|box jump|burpee|clean|snatch|rope|mountain|sprint/.test(name);
+  const isCardio=ex?.sets?.muscle===''&&ex?.sets?.strength==='';
+  if(isHold)return{tempo:'Giữ tĩnh — siết cơ tối đa',breath:'Thở đều, KHÔNG nín hơi',icon:'🧘'};
+  if(isExplosive)return{tempo:'Bùng nổ lên · tiếp đất mềm',breath:'Thở ra khi bật, hít vào khi xuống',icon:'⚡'};
+  if(isCardio)return{tempo:'Nhịp đều, duy trì ổn định',breath:'Hít mũi – thở miệng theo nhịp',icon:'🏃'};
+  // Standard resistance movement
+  return{tempo:'Hạ chậm 2-3s · Đẩy 1s · Siết ở đỉnh',breath:'Hít vào khi hạ · Thở ra khi đẩy',icon:'🌬️'};
+}
+function renderQuickFacts(ex){
+  const el=document.getElementById('eqp-quickfacts');
+  if(!el)return;
+  const mInfo=MUSCLE_MAP[ex.muscle]||{label:ex.muscle,color:'var(--txt2)'};
+  const equipVi={full:'Full gym',barbell:'Tạ đòn',dumbbell:'Tạ đơn',cable:'Cáp',machine:'Máy',bodyweight:'Bodyweight',band:'Dây kháng lực'};
+  const tb=getTempoBreathing(ex);
+  el.innerHTML=`
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+      <span style="font-size:11px;padding:5px 10px;border-radius:8px;background:${mInfo.color}22;color:${mInfo.color};font-weight:600">🎯 ${mInfo.label}</span>
+      <span style="font-size:11px;padding:5px 10px;border-radius:8px;background:var(--bg4);color:var(--txt2)">📊 ${ex.diffVi||'—'}</span>
+      <span style="font-size:11px;padding:5px 10px;border-radius:8px;background:var(--bg4);color:var(--txt2)">🏋️ ${equipVi[ex.equip]||ex.equip||'—'}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="background:var(--bg3);border-radius:10px;padding:10px">
+        <div style="font-size:9px;font-family:var(--FM);color:var(--txt3);letter-spacing:.06em;margin-bottom:4px">⏱️ TEMPO</div>
+        <div style="font-size:11.5px;color:var(--txt);line-height:1.45">${tb.tempo}</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:10px;padding:10px">
+        <div style="font-size:9px;font-family:var(--FM);color:var(--txt3);letter-spacing:.06em;margin-bottom:4px">${tb.icon} NHỊP THỞ</div>
+        <div style="font-size:11.5px;color:var(--txt);line-height:1.45">${tb.breath}</div>
+      </div>
+    </div>`;
+}
 function renderFormGuide(ex){
+  renderQuickFacts(ex);
   // Cues
   const cuesEl=document.getElementById('eqp-cues');
   if(cuesEl){
@@ -6907,6 +7099,7 @@ function showCustomCalModal(){
   if(calInp)calInp.value=cc.cal||'';
   if(pInp)pInp.value=cc.protein||'';
   if(cInp)cInp.value=cc.carbs||'';
+  document.querySelectorAll('.cal-preset-btn').forEach(b=>b.classList.remove('on'));
 }
 function closeCustomCalModal(){
   const m=document.getElementById('custom-cal-modal');
@@ -6920,7 +7113,7 @@ function saveCustomCal(){
   ST.settings.customCal={
     cal:cal||null,protein:protein||null,carbs:carbs||null
   };
-  save();renderNutMeals();closeCustomCalModal();
+  save();renderNutMeals();updateCalGoalDisplay();closeCustomCalModal();
   toast('✅ Đã lưu mục tiêu calo: '+(cal||'tự động')+'kcal');
 }
 function resetCustomCal(){
@@ -6929,17 +7122,25 @@ function resetCustomCal(){
   document.getElementById('ccm-cal-input').value='';
   document.getElementById('ccm-p-input').value='';
   document.getElementById('ccm-c-input').value='';
-  toast('Reset về tự động');
+  document.querySelectorAll('.cal-preset-btn').forEach(b=>b.classList.remove('on'));
+  save();renderNutMeals();updateCalGoalDisplay();
+  toast('↺ Đã reset về tự động (TDEE)');
 }
-function applyCalPreset(preset){
+function applyCalPreset(preset,btn){
   const auto=calcMacroTargets();
   const mults={cut:0.85,maintain:1,bulk:1.1,aggressive_bulk:1.2};
   const mult=mults[preset]||1;
-  const newCal=Math.round(auto.cal*mult);
-  const newP=Math.round(auto.protein*(preset==='cut'?1.1:1));
+  // Recompute from raw TDEE so presets don't stack on a prior custom value
+  const tdee=calcTDEE();
+  const kg=ST.profile.kg||70,goal=ST.profile.goal;
+  const baseP=Math.round(goal==='muscle'?kg*2.2:goal==='fat'?kg*2.0:kg*1.8);
+  const newCal=Math.round(tdee*mult);
+  const newP=Math.round(baseP*(preset==='cut'?1.1:1));
   document.getElementById('ccm-cal-input').value=newCal;
   document.getElementById('ccm-p-input').value=newP;
   document.getElementById('ccm-c-input').value='';
+  document.querySelectorAll('.cal-preset-btn').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');
 }
 
 
@@ -6966,7 +7167,24 @@ function getBeginnerTip(ex){
   };
   const name=ex?.name||'';
   const nameVi=ex?.nameVi||'';
-  return tips[name]||tips[nameVi]||null;
+  if(tips[name]||tips[nameVi])return tips[name]||tips[nameVi];
+  // Fallback: generate a useful tip based on muscle + equipment so NO exercise feels empty
+  const muscleTips={
+    chest:'Giữ vai ép xuống và ra sau, ngực ưỡn nhẹ. Hạ tạ chậm 2-3s để cảm nhận ngực căng, đẩy lên mạnh và squeeze ở đỉnh.',
+    back:'Bắt đầu mỗi rep bằng cách "ép vai" trước khi kéo. Dẫn động tác bằng khuỷu tay, không dùng bắp tay kéo. Giữ lưng thẳng suốt.',
+    legs:'Gối luôn đi theo hướng mũi chân, không để gối đổ vào trong. Xuống có kiểm soát, dồn lực vào gót chân khi đẩy lên.',
+    glutes:'Tập trung "siết mông" ở đỉnh động tác và giữ 1 giây. Đừng arch lưng dưới để bù — lực phải đến từ mông.',
+    shoulders:'Dùng tạ nhẹ để học form trước. Không nhún vai (shrug) khi nâng. Kiểm soát cả lúc hạ tạ xuống.',
+    arms:'Cố định khuỷu tay, chỉ gập/duỗi ở khớp khuỷu. Không lắc người tạo đà — chậm và kiểm soát mới hiệu quả.',
+    core:'Siết bụng như chuẩn bị bị đấm. Thở đều, không nín hơi. Chất lượng từng rep quan trọng hơn số lượng.',
+  };
+  const equipTips={
+    bodyweight:'Bài tập với trọng lượng cơ thể — tập trung vào kỹ thuật chuẩn và full range of motion trước khi tăng số rep.',
+    machine:'Máy giúp cố định quỹ đạo, an toàn cho người mới. Chỉnh ghế/đệm vừa với cơ thể trước khi tập.',
+    cable:'Cáp giữ lực căng liên tục. Di chuyển chậm, kiểm soát cả chiều đi và về để tận dụng tối đa.',
+  };
+  const eq=ex?.equip||'';
+  return muscleTips[ex?.muscle]||equipTips[eq]||'Tập trung vào kỹ thuật chuẩn và biên độ đầy đủ. Dùng mức tạ kiểm soát được, hạ chậm 2-3 giây.';
 }
 
 
@@ -7300,6 +7518,7 @@ window.onload=async()=>{
 
       <!-- TAB 2: FORM GUIDE -->
       <div class="ex-ptab-content" id="eqtc-guide">
+        <div id="eqp-quickfacts" style="margin-bottom:14px"></div>
         <div id="eqp-beginner-tip" style="display:none;background:rgba(77,159,255,.08);border:1px solid rgba(77,159,255,.2);border-radius:10px;padding:10px 12px;margin-bottom:12px">
           <div style="font-size:10px;font-family:var(--FM);color:var(--blue);letter-spacing:.06em;margin-bottom:4px">💡 CHO NGƯỜI MỚI</div>
           <div id="eqp-beginner-text" style="font-size:12px;color:var(--txt2);line-height:1.6"></div>
@@ -7340,51 +7559,51 @@ window.onload=async()=>{
   </div>
 
   <!-- Custom Calorie Goal Modal -->
-  <div id="custom-cal-modal" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);align-items:flex-end">
-    <div style="background:var(--bg2);border-radius:20px 20px 0 0;border-top:1px solid var(--brd2);width:100%;max-width:430px;margin:0 auto;padding:20px 16px calc(20px + env(safe-area-inset-bottom))">
+  <div id="custom-cal-modal" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);align-items:flex-end" onclick="if(event.target===this)closeCustomCalModal()">
+    <div style="background:var(--bg2);border-radius:20px 20px 0 0;border-top:1px solid var(--brd2);width:100%;max-width:430px;margin:0 auto;padding:20px 18px calc(20px + env(safe-area-inset-bottom));max-height:90vh;overflow-y:auto">
       <div style="width:36px;height:4px;background:var(--brd2);border-radius:2px;margin:0 auto 16px"></div>
-      <div style="font-size:17px;font-weight:700;margin-bottom:4px">⚙️ Mục tiêu dinh dưỡng</div>
-      <div style="font-size:12px;color:var(--txt3);margin-bottom:16px">Tùy chỉnh theo nhu cầu cá nhân của bạn</div>
-      
+      <div style="font-size:18px;font-weight:700;margin-bottom:4px" data-i18n="goalModalTitle">⚙️ Mục tiêu dinh dưỡng</div>
+      <div style="font-size:12px;color:var(--txt3);margin-bottom:18px" data-i18n="goalModalSub">Tùy chỉnh theo nhu cầu cá nhân của bạn</div>
+
       <!-- Auto calculated -->
-      <div style="background:var(--bg3);border-radius:10px;padding:12px;margin-bottom:14px" id="ccm-auto-display">
-        <div style="font-size:10px;font-family:var(--FM);color:var(--txt3);margin-bottom:6px">TỰ ĐỘNG TÍNH (TDEE)</div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap" id="ccm-auto-vals"></div>
+      <div style="background:var(--bg3);border-radius:12px;padding:14px;margin-bottom:16px" id="ccm-auto-display">
+        <div style="font-size:10px;font-family:var(--FM);color:var(--txt3);margin-bottom:10px;letter-spacing:.06em" data-i18n="autoCalc">TỰ ĐỘNG TÍNH (TDEE)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px" id="ccm-auto-vals"></div>
       </div>
-      
-      <!-- Custom override -->
-      <div style="margin-bottom:12px">
-        <label style="font-size:12px;color:var(--txt3);font-family:var(--FM);letter-spacing:.06em;display:block;margin-bottom:6px">CALO MỤC TIÊU (kcal/ngày)</label>
-        <div style="display:flex;gap:8px">
-          <input class="inp" type="number" inputmode="decimal" id="ccm-cal-input" placeholder="Nhập số calo..." style="flex:1;height:44px;width:auto;min-width:0;font-size:16px;font-weight:600">
-          <button class="btn bg" onclick="resetCustomCal()" style="height:44px;padding:0 12px;font-size:12px">Reset</button>
+
+      <!-- Preset quick-set FIRST (most used) -->
+      <div style="margin-bottom:18px">
+        <div style="font-size:11px;color:var(--txt3);font-family:var(--FM);margin-bottom:10px;letter-spacing:.06em" data-i18n="quickPreset">CHỌN NHANH THEO MỤC TIÊU</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onclick="applyCalPreset('cut',this)" class="cal-preset-btn" data-i18n="presetCut">🔥 Giảm mỡ (-15%)</button>
+          <button onclick="applyCalPreset('maintain',this)" class="cal-preset-btn" data-i18n="presetMaintain">⚖️ Duy trì</button>
+          <button onclick="applyCalPreset('bulk',this)" class="cal-preset-btn" data-i18n="presetBulk">💪 Tăng cơ (+10%)</button>
+          <button onclick="applyCalPreset('aggressive_bulk',this)" class="cal-preset-btn" data-i18n="presetAggBulk">🚀 Bulk mạnh (+20%)</button>
         </div>
       </div>
-      <div class="g2" style="gap:8px;margin-bottom:14px">
-        <div>
-          <label style="font-size:11px;color:var(--txt3);display:block;margin-bottom:4px">Protein (g)</label>
-          <input class="inp" type="number" inputmode="decimal" id="ccm-p-input" placeholder="Auto" style="height:40px;font-size:14px">
-        </div>
-        <div>
-          <label style="font-size:11px;color:var(--txt3);display:block;margin-bottom:4px">Carbs (g)</label>
-          <input class="inp" type="number" inputmode="decimal" id="ccm-c-input" placeholder="Auto" style="height:40px;font-size:14px">
-        </div>
-      </div>
-      
-      <!-- Goal quick-set -->
+
+      <!-- Custom calorie override -->
       <div style="margin-bottom:16px">
-        <div style="font-size:11px;color:var(--txt3);font-family:var(--FM);margin-bottom:8px">PRESET NHANH</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <button onclick="applyCalPreset('cut')" class="pill">🔥 Giảm mỡ (-15%)</button>
-          <button onclick="applyCalPreset('maintain')" class="pill">⚖️ Duy trì</button>
-          <button onclick="applyCalPreset('bulk')" class="pill">💪 Tăng cơ (+10%)</button>
-          <button onclick="applyCalPreset('aggressive_bulk')" class="pill">🚀 Bulk mạnh (+20%)</button>
+        <label style="font-size:12px;color:var(--txt2);font-family:var(--FM);letter-spacing:.04em;display:block;margin-bottom:8px" data-i18n="calTargetLabel">CALO MỤC TIÊU (kcal/ngày)</label>
+        <input class="inp" type="number" inputmode="decimal" id="ccm-cal-input" placeholder="VD: 2200" style="height:52px;font-size:20px;font-weight:700;text-align:center;letter-spacing:.04em">
+      </div>
+
+      <!-- Macro overrides -->
+      <div class="g2" style="gap:10px;margin-bottom:20px">
+        <div>
+          <label style="font-size:12px;color:var(--txt2);display:block;margin-bottom:8px">Protein (g)</label>
+          <input class="inp" type="number" inputmode="decimal" id="ccm-p-input" placeholder="Auto" style="height:48px;font-size:16px;text-align:center">
+        </div>
+        <div>
+          <label style="font-size:12px;color:var(--txt2);display:block;margin-bottom:8px">Carbs (g)</label>
+          <input class="inp" type="number" inputmode="decimal" id="ccm-c-input" placeholder="Auto" style="height:48px;font-size:16px;text-align:center">
         </div>
       </div>
-      
+
       <div style="display:flex;gap:8px">
-        <button class="btn bg" style="flex:1;height:46px" onclick="closeCustomCalModal()">Huỷ</button>
-        <button class="btn bl" style="flex:2;height:46px" onclick="saveCustomCal()">Lưu mục tiêu</button>
+        <button class="btn bg" style="flex:1;height:50px" onclick="resetCustomCal()" data-i18n="resetAuto">↺ Auto</button>
+        <button class="btn bg" style="flex:1;height:50px" onclick="closeCustomCalModal()" data-i18n="cancelBtn2">Huỷ</button>
+        <button class="btn bl" style="flex:2;height:50px;font-weight:700" onclick="saveCustomCal()" data-i18n="saveGoal">Lưu mục tiêu</button>
       </div>
     </div>
   </div>
