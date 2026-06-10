@@ -1,7 +1,7 @@
 // FitAI Service Worker — Push Notifications + Offline Cache
 
-const CACHE = 'fitai-v4';
-const ASSETS = ['/', '/app.html', '/index.html', '/icon-192.png', '/icon-512.png'];
+const CACHE = 'fitai-v5';
+const ASSETS = ['/', '/app.html', '/index.html', '/manifest.json', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));

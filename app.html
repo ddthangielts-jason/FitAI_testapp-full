@@ -4,7 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#080808">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FitAI">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/png" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/icon-180.png">
 <title>FitAI — Workout Tracker</title>
 <!-- Self-hosted fonts — no Google Fonts needed, works offline + Vietnam -->
 <style>
@@ -1632,7 +1638,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
 
       <div style="text-align:center;padding:8px 0;margin-bottom:4px">
-        <span class="xxs muted">FitAI v3.2.0 · Workout Tracker 🇻🇳</span>
+        <span class="xxs muted">FitAI v3.3.0 · Workout Tracker 🇻🇳</span>
       </div>
 
       <!-- Macro targets display -->
@@ -6696,37 +6702,8 @@ function getPlanWorkoutCount(planId){
 // PWA MANIFEST
 // ════════════════════════════════════════════════════════
 function injectPWAMeta(){
-  // Inject manifest dynamically
-  const manifest={
-    name:'FitAI — Workout Tracker',
-    short_name:'FitAI',
-    description:'AI Workout Coach tiếng Việt',
-    start_url:'/app.html',
-    display:'standalone',
-    background_color:'#080808',
-    theme_color:'#c8f135',
-    icons:[
-      {src:'/icon-192.png',sizes:'192x192',type:'image/png',purpose:'any'},
-      {src:'/icon-512.png',sizes:'512x512',type:'image/png',purpose:'any'},
-      {src:'/icon-maskable-192.png',sizes:'192x192',type:'image/png',purpose:'maskable'},
-      {src:'/icon-maskable-512.png',sizes:'512x512',type:'image/png',purpose:'maskable'},
-    ],
-    categories:['health','fitness','sports'],
-    lang:'vi',
-  };
-  const blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const link=document.createElement('link');
-  link.rel='manifest';link.href=url;
-  document.head.appendChild(link);
-  // Apple touch icon + favicon + theme color
-  const add=(rel,href,extra={})=>{const l=document.createElement('link');l.rel=rel;l.href=href;Object.entries(extra).forEach(([k,v])=>l.setAttribute(k,v));document.head.appendChild(l);};
-  add('apple-touch-icon','/icon-180.png',{sizes:'180x180'});
-  add('icon','/icon-192.png',{type:'image/png',sizes:'192x192'});
-  add('shortcut icon','/favicon-32.png',{type:'image/png'});
-  const tc=document.createElement('meta');tc.name='theme-color';tc.content='#0a0a0a';document.head.appendChild(tc);
-  const am=document.createElement('meta');am.name='apple-mobile-web-app-capable';am.content='yes';document.head.appendChild(am);
-  const as=document.createElement('meta');as.name='apple-mobile-web-app-status-bar-style';as.content='black-translucent';document.head.appendChild(as);
+  // Manifest + icons are now declared statically in <head> (real /manifest.json file).
+  // Nothing to inject at runtime — Blob-URL manifests aren't installable on mobile.
 }
 
 // ════════════════════════════════════════════════════════
@@ -7595,6 +7572,12 @@ async function payWithPayOS(){
     const data=await res.json();
     if(data.success&&data.checkoutUrl){
       ST.pendingPayment={orderCode:data.orderCode,plan:_payPlan,gateway:'payos'};save();
+      const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if(isMobile){
+        // Mobile: điều hướng thẳng (tab mới hay bị chặn / không quay lại được)
+        window.location.href=data.checkoutUrl;
+        return;
+      }
       window.open(data.checkoutUrl,'_blank');
       if(ld)ld.style.display='none';closePremium();
       notif('💳','Đang chờ thanh toán','Hoàn tất rồi quay lại app để kích hoạt Premium',8000);
@@ -7681,27 +7664,29 @@ async function checkPaymentOnLoad(){
   history.replaceState({},'','/app');
   if(!pending){toast('Không tìm thấy đơn hàng để xác nhận');return;}
   toast('⏳ Đang xác nhận thanh toán...');
-  try{
-    if(pending.gateway==='payos'&&pending.orderCode){
-      const res=await fetch('/api/payos-verify',{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({orderCode:pending.orderCode})
-      });
-      const d=await res.json();
-      if(d.paid){activatePremium(d.plan||pending.plan,d.expiresAt);}
-      else{toast('⚠️ Chưa nhận được thanh toán. Nếu đã trả, đợi 1-2 phút rồi mở lại app.');}
-    } else if(pending.gateway==='momo'&&pending.orderId){
-      const res=await fetch('/api/momo-verify',{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({orderId:pending.orderId})
-      });
-      const d=await res.json();
-      if(d.paid){activatePremium(d.plan||pending.plan,d.expiresAt);}
-      else{toast('⚠️ Chưa nhận được thanh toán MoMo. Đợi 1-2 phút rồi mở lại app.');}
-    }
-  }catch(e){
-    toast('Không xác nhận được thanh toán: '+e.message);
+  const uid=getUserId();
+  const verifyOnce=async()=>{
+    try{
+      if(pending.gateway==='payos'&&pending.orderCode){
+        const res=await fetch('/api/payos-verify',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({orderCode:pending.orderCode,userId:uid})});
+        const d=await res.json();
+        if(d.paid){activatePremium(d.plan||pending.plan,d.expiresAt);delete ST.pendingPayment;save();return true;}
+      } else if(pending.gateway==='momo'&&pending.orderId){
+        const res=await fetch('/api/momo-verify',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({orderId:pending.orderId,userId:uid})});
+        const d=await res.json();
+        if(d.paid){activatePremium(d.plan||pending.plan,d.expiresAt);delete ST.pendingPayment;save();return true;}
+      }
+    }catch(e){}
+    return false;
+  };
+  // Thử tối đa 5 lần (thanh toán có thể mất vài giây mới ghi nhận)
+  for(let i=0;i<5;i++){
+    if(await verifyOnce()){return;}
+    if(i<4)await new Promise(r=>setTimeout(r,2500));
   }
+  toast('⚠️ Chưa nhận được thanh toán. Nếu đã chuyển khoản, đợi 1-2 phút rồi mở lại app.');
 }
 
 window.onload=async()=>{
