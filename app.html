@@ -1632,7 +1632,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
 
       <div style="text-align:center;padding:8px 0;margin-bottom:4px">
-        <span class="xxs muted">FitAI v3.0.0 · Workout Tracker 🇻🇳</span>
+        <span class="xxs muted">FitAI v3.2.0 · Workout Tracker 🇻🇳</span>
       </div>
 
       <!-- Macro targets display -->
@@ -6039,7 +6039,7 @@ function addCardioEx(type='Chạy bộ'){
   wrap.className='ex-block';wrap.id=id+'_b';
   wrap.innerHTML=`
     <div class="ex-block-header">
-      <div class="ex-block-thumb">${type==='Chạy bộ'?'🏃':'type'==='Đạp xe'?'🚴':'🏊'}</div>
+      <div class="ex-block-thumb">${type==='Chạy bộ'?'🏃':type==='Đạp xe'?'🚴':'🏊'}</div>
       <div style="flex:1"><div class="ex-block-name">${type}</div><div class="xxs muted">Cardio</div></div>
       <button class="btn bg bxs" onclick="removeEx('${id}')">✕</button>
     </div>
@@ -7373,6 +7373,14 @@ function renderVideoTab(ex){
   } else {
     thumbWrap.innerHTML='<div style="aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg3);border-radius:12px;color:var(--txt3)"><div style="font-size:40px;margin-bottom:8px">🎬</div><div style="font-size:13px">Chưa có video</div></div>';
   }
+  // Fallback link: always let user open a working video on YouTube
+  const fb=document.getElementById('eqp-yt-fallback');
+  if(fb){
+    const q=encodeURIComponent((ex?.nameVi||ex?.name||'')+' exercise form');
+    const url=ex?.ytId?('https://www.youtube.com/watch?v='+ex.ytId):('https://www.youtube.com/results?search_query='+q);
+    fb.href=url;
+    fb.style.display='flex';
+  }
 }
 
 function playExPanelVideo(){
@@ -7540,7 +7548,7 @@ function getBeginnerTip(ex){
 // ════════════════════════════════════════════
 // PREMIUM & PAYMENT (PayOS + MoMo)
 // ════════════════════════════════════════════
-let _payPlan='yearly';
+let _payPlan='halfyear';
 
 function isPremium(){
   const p=ST.premium||{};
@@ -7555,7 +7563,7 @@ function showPremium(){
   if(isPremium()){toast('⭐ Premium còn '+getDaysLeft()+' ngày');return;}
   const m=document.getElementById('premium-modal');
   if(m){m.classList.add('show');document.body.style.overflow='hidden';}
-  selectPayPlan('yearly');
+  selectPayPlan('halfyear');
 }
 function closePremium(){
   const m=document.getElementById('premium-modal');
@@ -7564,7 +7572,7 @@ function closePremium(){
 }
 function selectPayPlan(plan){
   _payPlan=plan;
-  ['monthly','quarterly','yearly'].forEach(p=>{
+  ['monthly','quarterly','halfyear','yearly'].forEach(p=>{
     const c=document.getElementById('pc-'+p);
     const k=document.getElementById('pcc-'+p);
     if(c)c.classList.toggle('selected',p===plan);
@@ -7627,7 +7635,7 @@ async function payWithMoMo(){
   if(btn)btn.disabled=false;
 }
 function activatePremium(plan,expiresAt){
-  const months={monthly:1,quarterly:3,yearly:12}[plan]||1;
+  const months={monthly:1,quarterly:3,halfyear:6,yearly:12}[plan]||1;
   const expiry=expiresAt?new Date(expiresAt):new Date(Date.now()+months*30*86400000);
   ST.premium={plan,activatedAt:new Date().toISOString(),expiresAt:expiry.toISOString()};
   delete ST.pendingPayment;save();
@@ -7939,6 +7947,7 @@ window.onload=async()=>{
         <div style="padding:10px;background:var(--bg3);border-radius:10px;font-size:12px;color:var(--txt3)">
           Nhấn thumbnail để xem video hướng dẫn form. Video mở ngay tại đây — không cần rời màn hình tập.
         </div>
+        <a id="eqp-yt-fallback" href="#" target="_blank" rel="noopener" style="display:none;align-items:center;justify-content:center;gap:6px;margin-top:8px;height:40px;border:1px solid var(--brd2);border-radius:10px;color:var(--txt2);font-size:12px;text-decoration:none">▶ Mở trên YouTube (nếu video không hiện)</a>
       </div>
 
     </div><!-- end panel body -->
@@ -8010,21 +8019,27 @@ window.onload=async()=>{
         <div style="font-size:12px;color:var(--txt3);margin-top:6px">Mở khoá toàn bộ AI coaching · Lịch sử không giới hạn</div>
       </div>
       <div style="padding:0 20px 14px">
-        <div style="font-size:10px;font-family:var(--FM);color:var(--txt3);letter-spacing:.1em;margin-bottom:10px">CHỌN GÓI</div>
-        <div class="plan-card-pay selected" id="pc-yearly" onclick="selectPayPlan('yearly')">
-          <div class="plan-best-tag">TIẾT KIỆM 37%</div>
-          <div style="flex:1"><div style="font-size:14px;font-weight:700">12 tháng</div><div style="font-size:11px;color:var(--txt3)">≈ 49.900đ/tháng</div></div>
+        <div style="font-size:10px;font-family:var(--FM);color:var(--txt3);letter-spacing:.1em;margin-bottom:10px">CHỌN GÓI · TẬP CÀNG LÂU CÀNG RẺ</div>
+        <div class="plan-card-pay selected" id="pc-halfyear" onclick="selectPayPlan('halfyear')">
+          <div class="plan-best-tag">ĐÁNG TIỀN NHẤT · -20%</div>
+          <div style="flex:1"><div style="font-size:14px;font-weight:700">6 tháng</div><div style="font-size:11px;color:var(--txt3)">≈ 79.000đ/tháng</div></div>
+          <div style="text-align:right"><div style="font-family:var(--FD);font-size:22px;color:var(--lime)">474.000đ</div><div style="font-size:10px;color:var(--txt3)">6 tháng</div></div>
+          <div id="pcc-halfyear" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--lime);background:var(--lime);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#0a0a0a">✓</div>
+        </div>
+        <div class="plan-card-pay" id="pc-yearly" onclick="selectPayPlan('yearly')">
+          <div class="plan-best-tag">-50%</div>
+          <div style="flex:1"><div style="font-size:14px;font-weight:700">12 tháng</div><div style="font-size:11px;color:var(--txt3)">≈ 49.900đ/tháng · rẻ nhất</div></div>
           <div style="text-align:right"><div style="font-family:var(--FD);font-size:22px;color:var(--lime)">599.000đ</div><div style="font-size:10px;color:var(--txt3)">/năm</div></div>
-          <div id="pcc-yearly" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--lime);background:var(--lime);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#0a0a0a">✓</div>
+          <div id="pcc-yearly" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--brd2);display:flex;align-items:center;justify-content:center;flex-shrink:0"></div>
         </div>
         <div class="plan-card-pay" id="pc-quarterly" onclick="selectPayPlan('quarterly')">
-          <div style="flex:1"><div style="font-size:14px;font-weight:700">3 tháng</div><div style="font-size:11px;color:var(--txt3)">≈ 66.300đ/tháng</div></div>
-          <div style="text-align:right"><div style="font-family:var(--FD);font-size:22px">199.000đ</div><div style="font-size:10px;color:var(--txt3)">/quý</div></div>
+          <div style="flex:1"><div style="font-size:14px;font-weight:700">3 tháng</div><div style="font-size:11px;color:var(--txt3)">≈ 89.000đ/tháng</div></div>
+          <div style="text-align:right"><div style="font-family:var(--FD);font-size:22px">267.000đ</div><div style="font-size:10px;color:var(--txt3)">/quý</div></div>
           <div id="pcc-quarterly" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--brd2);display:flex;align-items:center;justify-content:center;flex-shrink:0"></div>
         </div>
         <div class="plan-card-pay" id="pc-monthly" onclick="selectPayPlan('monthly')">
-          <div style="flex:1"><div style="font-size:14px;font-weight:700">1 tháng</div><div style="font-size:11px;color:var(--txt3)">Thử nghiệm</div></div>
-          <div style="text-align:right"><div style="font-family:var(--FD);font-size:22px">79.000đ</div><div style="font-size:10px;color:var(--txt3)">/tháng</div></div>
+          <div style="flex:1"><div style="font-size:14px;font-weight:700">1 tháng</div><div style="font-size:11px;color:var(--txt3)">Dùng thử</div></div>
+          <div style="text-align:right"><div style="font-family:var(--FD);font-size:22px">99.000đ</div><div style="font-size:10px;color:var(--txt3)">/tháng</div></div>
           <div id="pcc-monthly" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--brd2);display:flex;align-items:center;justify-content:center;flex-shrink:0"></div>
         </div>
         <button class="pay-method-btn payos" onclick="payWithPayOS()" id="btn-payos">⚡ Thanh toán qua PayOS</button>
