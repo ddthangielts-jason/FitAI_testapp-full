@@ -233,6 +233,7 @@
 .pay-method-btn.payos{background:var(--lime);color:#0a0a0a}
 .pay-method-btn.momo{background:#ae2070;color:#fff}
 @keyframes spin3{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 </style>
 <!-- JetBrains Mono from CDN (small, works in VN) -->
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -1639,7 +1640,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
 
       <div style="text-align:center;padding:8px 0;margin-bottom:4px">
-        <span class="xxs muted">FitAI v3.5.0 · Workout Tracker 🇻🇳</span>
+        <span class="xxs muted">FitAI v3.6.0 · Workout Tracker 🇻🇳</span>
       </div>
 
       <!-- Macro targets display -->
@@ -2261,6 +2262,8 @@ const PLANS=[
    ]},
 ];
 
+const EXGIF={"Bench Press": "Dumbbell_Bench_Press", "Incline DB Press": "Incline_Dumbbell_Press", "Cable Fly": "Butterfly", "Push Up": "Pushups", "Barbell Deadlift": "Barbell_Deadlift", "Pull-up": "Pullups", "Lat Pulldown": "One_Arm_Lat_Pulldown", "Seated Cable Row": "Seated_Cable_Rows", "Barbell Row": "Sled_Row", "DB Shoulder Press": "Barbell_Shoulder_Press", "Lateral Raise": "Dumbbell_Raise", "Face Pull": "Face_Pull", "Barbell Curl": "Barbell_Curl", "Hammer Curl": "Barbell_Curl", "Barbell Squat": "Barbell_Squat", "Leg Press": "Leg_Press", "Hip Thrust": "Barbell_Hip_Thrust", "Glute Bridge": "Barbell_Glute_Bridge", "Bulgarian Split Squat": "Barbell_Squat", "Plank": "Plank", "Calf Raise": "Dumbbell_Raise", "Leg Curl": "Barbell_Curl", "Chest Press Machine": "Cable_Chest_Press", "Dips": "Ring_Dips", "Seated Row Machine": "Seated_Cable_Rows", "T-Bar Row": "Lying_T-Bar_Row", "Cable Lateral Raise": "Dumbbell_Raise", "Arnold Press": "Arnold_Dumbbell_Press", "Upright Row": "Upright_Barbell_Row", "Preacher Curl": "Cable_Preacher_Curl", "Cable Curl": "Barbell_Curl", "Close Grip Bench": "Close-Grip_Barbell_Bench_Press", "Leg Extension": "Leg_Extensions", "Hack Squat": "Barbell_Hack_Squat", "Walking Lunge": "Barbell_Walking_Lunge", "Sumo Deadlift": "Sumo_Deadlift", "Good Morning": "Good_Morning", "Cable Kickback": "Glute_Kickback", "Russian Twist": "Russian_Twist", "Dead Bug": "Dead_Bug", "Seated Calf Raise": "Barbell_Seated_Calf_Raise", "Smith Machine Squat": "Smith_Machine_Squat", "Cable Pull Through": "Pull_Through", "Incline Curl": "Incline_Dumbbell_Curl", "EZ Bar Curl": "EZ-Bar_Curl", "Skull Crusher": "Band_Skull_Crusher", "Seated Leg Curl": "Seated_Leg_Curl", "Reverse Fly": "Reverse_Flyes", "Dumbbell Shrug": "Barbell_Shrug", "Wrist Curl": "Cable_Wrist_Curl", "Reverse Curl": "Reverse_Barbell_Curl", "Sissy Squat": "Barbell_Squat", "Box Jump": "Front_Box_Jump", "Cable Crossover": "Cable_Crossover", "Straight Arm Pulldown": "Straight-Arm_Pulldown", "Cable Face Pull": "Face_Pull", "Seated DB Press": "Seated_Dumbbell_Press", "Front Squat": "Front_Barbell_Squat", "Leg Press (Close Stance)": "Leg_Press", "Nordic Curl": "Barbell_Curl", "Glute Kickback Cable": "Glute_Kickback", "Spider Curl": "Spider_Curl", "Overhead Cable Tricep": "Overhead_Triceps", "Hanging Leg Raise": "Hanging_Leg_Raise", "Cable Crunch": "Cable_Crunch", "Pallof Press": "Pallof_Press", "Cable Chest Press": "Cable_Chest_Press", "Band Pull Apart": "Band_Pull_Apart", "Goblet Squat": "Goblet_Squat", "Machine Shoulder Press": "Barbell_Shoulder_Press", "Concentration Curl": "Barbell_Curl", "Ab Rollout": "Barbell_Ab_Rollout", "Side Plank": "Plank", "Smith Machine Hip Thrust": "Barbell_Hip_Thrust", "Hack Squat Machine": "Barbell_Hack_Squat", "Mountain Climber": "Mountain_Climbers", "Overhead Press": "Standing_Military_Press", "Tricep Pushdown": "Triceps_Pushdown", "Romanian DL": "Romanian_Deadlift", "Pec Deck": "Butterfly", "Single Arm DB Row": "One-Arm_Dumbbell_Row", "Overhead Tricep Extension": "Standing_Dumbbell_Triceps_Extension", "Donkey Kicks": "Glute_Kickback", "Ab Wheel": "Ab_Roller", "Rope Pushdown": "Triceps_Pushdown", "Hip Abduction": "Thigh_Abductor", "Pec Deck Fly": "Butterfly", "Meadows Row": "One-Arm_Dumbbell_Row", "Chest Supported Row": "Incline_Bench_Pull", "Landmine Press": "Standing_Military_Press", "Pendlay Row": "Bent_Over_Barbell_Row", "Hollow Body Hold": "Plank", "Single Arm Row": "One-Arm_Dumbbell_Row", "Reverse Grip Pulldown": "Underhand_Cable_Pulldowns", "Treadmill Walking Incline": "Barbell_Walking_Lunge"};
+const EXGIF_BASE='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
 const EXERCISES=[
   {id:1,name:'Bench Press',nameVi:'Bench Press Barbell',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'SCVCLChPQFY',
    cues:['Nằm ngửa, mắt thẳng dưới bar','Grip rộng hơn vai 1 nắm tay, cổ tay thẳng','Hạ bar chậm 3s đến ngực dưới (nipple line)','Khuỷu 45-75° — không flare 90°','Đẩy theo đường chéo lên và ra phía trước','Lưng uốn nhẹ tự nhiên, vai kẹp vào bench'],
@@ -3339,19 +3342,36 @@ function startTimer(){
 }
 function toggleQuickForm(id,name){
   const box=document.getElementById(id+'_qform');if(!box)return;
-  if(box.style.display!=='none'){box.style.display='none';box.innerHTML='';return;}
+  if(box.style.display!=='none'){box.style.display='none';box.innerHTML='';if(box._anim){clearInterval(box._anim);box._anim=null;}return;}
   const ex=findEx(name);
-  if(!ex){box.style.display='block';box.innerHTML='<div style="padding:12px 14px;font-size:12px;color:var(--txt3)">Chưa có hướng dẫn cho bài này.</div>';return;}
-  const cues=(ex.cues||[]).slice(0,5);
-  const mistakes=(ex.mistakes||[]).slice(0,3);
   box.style.display='block';
+  const folder=EXGIF[name];
+  const cues=(ex?.cues||[]).slice(0,5);
+  const mistakes=(ex?.mistakes||[]).slice(0,3);
+  let demoHTML='';
+  if(folder){
+    const f0=EXGIF_BASE+folder+'/0.jpg', f1=EXGIF_BASE+folder+'/1.jpg';
+    demoHTML=`<div style="position:relative;border-radius:10px;overflow:hidden;margin-bottom:12px;background:#000;aspect-ratio:3/2">
+      <img id="${id}_demo" src="${f0}" data-f0="${f0}" data-f1="${f1}" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentElement.style.display='none'">
+      <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));padding:14px 12px 8px;display:flex;align-items:center;gap:6px">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse 1s infinite"></span>
+        <span style="font-size:11px;color:#fff;font-family:var(--FM)">Động tác mẫu — nhìn theo và tập</span>
+      </div>
+    </div>`;
+  }
   box.innerHTML=`<div style="margin:0 14px 10px;padding:12px 14px;background:var(--bg3);border:1px solid var(--brd);border-radius:10px">
+    ${demoHTML}
     <div style="font-size:11px;font-family:var(--FM);color:var(--lime);letter-spacing:.06em;margin-bottom:8px">✅ KỸ THUẬT ĐÚNG</div>
-    ${cues.map((c,i)=>`<div style="font-size:13px;color:var(--txt);line-height:1.5;margin-bottom:5px;display:flex;gap:7px"><span style="color:var(--lime);font-weight:700;flex-shrink:0">${i+1}.</span><span>${c}</span></div>`).join('')}
+    ${cues.map((c,i)=>`<div style="font-size:13px;color:var(--txt);line-height:1.5;margin-bottom:5px;display:flex;gap:7px"><span style="color:var(--lime);font-weight:700;flex-shrink:0">${i+1}.</span><span>${c}</span></div>`).join('')||'<div style="font-size:12px;color:var(--txt3)">Chưa có hướng dẫn chữ cho bài này.</div>'}
     ${mistakes.length?`<div style="font-size:11px;font-family:var(--FM);color:var(--red);letter-spacing:.06em;margin:12px 0 8px">⚠️ TRÁNH LỖI</div>
     ${mistakes.map(m=>`<div style="font-size:13px;color:var(--txt2);line-height:1.5;margin-bottom:5px;display:flex;gap:7px"><span style="color:var(--red);flex-shrink:0">✕</span><span>${m}</span></div>`).join('')}`:''}
-    <button onclick="openExPanel('${name}','${id}')" style="margin-top:10px;width:100%;height:36px;background:none;border:1px solid var(--brd2);border-radius:8px;color:var(--txt2);font-size:12px;cursor:pointer">🎬 Xem video nếu cần</button>
+    <button onclick="openExPanel('${name}','${id}')" style="margin-top:10px;width:100%;height:36px;background:none;border:1px solid var(--brd2);border-radius:8px;color:var(--txt2);font-size:12px;cursor:pointer">🎬 Xem video chi tiết</button>
   </div>`;
+  // Animate demo: alternate start/end frame every 0.9s → hiệu ứng GIF
+  if(folder){
+    const img=document.getElementById(id+'_demo');
+    if(img){let on=false;box._anim=setInterval(()=>{on=!on;img.src=on?img.dataset.f1:img.dataset.f0;},900);}
+  }
   if(navigator.vibrate)navigator.vibrate(20);
 }
 function addEx(name){
