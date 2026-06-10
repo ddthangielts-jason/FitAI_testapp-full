@@ -377,9 +377,10 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
    SET INPUT TABLE (core workout logger)
 ═══════════════════════════════════════════ */
 .set-table-head{display:grid;grid-template-columns:28px 1fr 1fr 1fr 36px;gap:5px;font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;padding:0 2px;margin-bottom:5px;font-family:var(--FM)}
-.set-row{display:grid;grid-template-columns:28px 1fr 1fr 1fr 36px;gap:5px;align-items:center;margin-bottom:5px}
+.set-row{display:grid;grid-template-columns:26px 0.7fr 1.5fr 1fr 30px 26px;gap:5px;align-items:center;margin-bottom:7px}
 .sn{font-family:var(--FM);font-size:11px;color:var(--txt3);text-align:center}
-.si{background:var(--bg4);border:1px solid var(--brd2);border-radius:6px;padding:7px 4px;color:var(--txt);font-size:13px;text-align:center;width:100%;font-family:var(--FM);transition:border .15s}
+.si{background:var(--bg4);border:1px solid var(--brd2);border-radius:7px;padding:11px 4px;color:var(--txt);font-size:17px;font-weight:600;text-align:center;width:100%;font-family:var(--FM);transition:border .15s}
+.si:focus{border-color:var(--lime);outline:none;background:var(--bg3)}
 .si:focus{border-color:var(--lime)}
 .si.prev{color:var(--txt3);font-style:italic}
 .sdone{width:36px;height:36px;border-radius:6px;border:1px solid var(--brd2);background:var(--bg4);color:var(--txt3);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
@@ -1638,7 +1639,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
 
       <div style="text-align:center;padding:8px 0;margin-bottom:4px">
-        <span class="xxs muted">FitAI v3.3.0 · Workout Tracker 🇻🇳</span>
+        <span class="xxs muted">FitAI v3.5.0 · Workout Tracker 🇻🇳</span>
       </div>
 
       <!-- Macro targets display -->
@@ -1762,6 +1763,12 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         </div>
 
         <!-- Workout defaults -->
+        <div class="sec-label">Cài đặt ứng dụng</div>
+        <div class="card" style="margin-bottom:12px;padding:12px">
+          <div style="font-size:12px;color:var(--txt3);margin-bottom:8px">Cài FitAI lên màn hình chính để mở nhanh như app thật.</div>
+          <button class="btn bl" style="height:40px;font-size:13px" onclick="promptInstall()">📲 Cài app lên máy</button>
+        </div>
+
         <div class="sec-label">AI & Kết nối</div>
         <div class="card" style="margin-bottom:12px;padding:12px">
           <div style="font-size:12px;color:var(--txt3);margin-bottom:8px">Kiểm tra tính năng AI (meal plan, nhận diện ảnh) đã sẵn sàng chưa.</div>
@@ -2189,6 +2196,67 @@ const PLANS=[
        {day:'Thứ 6',type:'Upper Pump',exs:[{n:'Pec Deck Fly',s:'3×15',r:''},{n:'Straight Arm Pulldown',s:'3×15',r:''},{n:'Cable Face Pull',s:'4×20',r:''},{n:'Preacher Curl',s:'3×15',r:''},{n:'Overhead Cable Tricep',s:'3×15',r:''},{n:'Cable Crossover',s:'3×15',r:''}]},
        {day:'Thứ 7',type:'Lower Pump + Core',exs:[{n:'Walking Lunge',s:'3×12/leg',r:''},{n:'Cable Pull Through',s:'3×15',r:''},{n:'Seated Calf Raise',s:'5×20',r:''},{n:'Cable Crunch',s:'4×15',r:''},{n:'Hanging Leg Raise',s:'3×15',r:''},{n:'Mountain Climber',s:'3×30s',r:''}]},
        {day:'CN',type:'REST',exs:[]},
+     ]},
+   ]},
+  {id:17,name:'Full Body 3 ngày — Người mới',short:'FB3',lvl:'beginner',goal:'muscle',days:3,eq:'full',female:false,color:'#001a14',acc:'#2dd4bf',
+   desc:'Toàn thân 3 buổi/tuần cho người mới hoàn toàn. Tập đủ nhóm cơ mỗi buổi, nghỉ xen kẽ — nền tảng vững trước khi lên split.',
+   weeks:[
+     {name:'Mỗi tuần',days:[
+       {day:'Thứ 2',type:'Full Body A',exs:[{n:'Squat',s:'3×8-10',r:'RPE 7'},{n:'Bench Press',s:'3×8-10',r:'RPE 7'},{n:'Barbell Row',s:'3×10-12',r:'RPE 7'},{n:'Shoulder Press',s:'2×10-12',r:'RPE 7'},{n:'Plank',s:'3×30s',r:''}]},
+       {day:'Thứ 3',type:'REST',exs:[]},
+       {day:'Thứ 4',type:'Full Body B',exs:[{n:'Deadlift',s:'3×5',r:'RPE 7'},{n:'Incline DB Press',s:'3×10-12',r:'RPE 7'},{n:'Lat Pulldown',s:'3×10-12',r:'RPE 7'},{n:'Leg Press',s:'3×12-15',r:'RPE 7'},{n:'Bicep Curl',s:'2×12-15',r:'RPE 8'}]},
+       {day:'Thứ 5',type:'REST',exs:[]},
+       {day:'Thứ 6',type:'Full Body C',exs:[{n:'Romanian DL',s:'3×10',r:'RPE 7'},{n:'Push Up',s:'3×12-15',r:'RPE 7'},{n:'Cable Row',s:'3×12-15',r:'RPE 7'},{n:'Lateral Raise',s:'3×15',r:'RPE 7'},{n:'Tricep Pushdown',s:'2×12-15',r:'RPE 8'}]},
+       {day:'Thứ 7',type:'REST',exs:[]},{day:'CN',type:'REST',exs:[]},
+     ]},
+   ]},
+  {id:18,name:'5/3/1 — Sức mạnh nền',short:'531',lvl:'intermediate',goal:'strength',days:4,eq:'full',female:false,color:'#1a0000',acc:'#ff6b6b',
+   desc:'Chương trình tăng sức mạnh kinh điển của Jim Wendler. Xoay quanh 4 bài compound chính, tăng tạ chậm mà chắc theo % 1RM. Hợp người đã biết kỹ thuật.',
+   weeks:[
+     {name:'Week 1 (5s)',days:[
+       {day:'Thứ 2',type:'OHP Day',exs:[{n:'Shoulder Press',s:'3×5 @65-85%',r:'RPE 8'},{n:'Pull-up',s:'5×10',r:'RPE 8'},{n:'DB Bench Press',s:'5×10',r:'RPE 7'},{n:'Face Pull',s:'3×15',r:'RPE 7'}]},
+       {day:'Thứ 3',type:'Deadlift Day',exs:[{n:'Deadlift',s:'3×5 @65-85%',r:'RPE 8'},{n:'Leg Press',s:'5×10',r:'RPE 8'},{n:'Leg Curl',s:'5×12',r:'RPE 8'},{n:'Hanging Leg Raise',s:'3×12',r:''}]},
+       {day:'Thứ 4',type:'REST',exs:[]},
+       {day:'Thứ 5',type:'Bench Day',exs:[{n:'Bench Press',s:'3×5 @65-85%',r:'RPE 8'},{n:'Barbell Row',s:'5×10',r:'RPE 8'},{n:'Incline DB Press',s:'5×12',r:'RPE 7'},{n:'Tricep Pushdown',s:'3×15',r:'RPE 8'}]},
+       {day:'Thứ 6',type:'Squat Day',exs:[{n:'Squat',s:'3×5 @65-85%',r:'RPE 8'},{n:'Romanian DL',s:'5×10',r:'RPE 8'},{n:'Leg Extension',s:'5×15',r:'RPE 8'},{n:'Calf Raise',s:'5×15',r:'RPE 8'}]},
+       {day:'Thứ 7',type:'REST',exs:[]},{day:'CN',type:'REST',exs:[]},
+     ]},
+   ]},
+  {id:19,name:'Arnold Split — 6 ngày',short:'ARN',lvl:'advanced',goal:'muscle',days:6,eq:'full',female:false,color:'#14001a',acc:'#c084fc',
+   desc:'Split 6 ngày huyền thoại của Arnold: Ngực+Lưng, Vai+Tay, Chân — lặp 2 lần/tuần. Volume rất cao, dành cho người tập lâu năm hồi phục tốt.',
+   weeks:[
+     {name:'Mỗi tuần',days:[
+       {day:'Thứ 2',type:'Ngực + Lưng',exs:[{n:'Bench Press',s:'4×8-10',r:'RPE 8'},{n:'Incline DB Press',s:'4×10-12',r:'RPE 8'},{n:'Pull-up',s:'4×8-10',r:'RPE 8'},{n:'Barbell Row',s:'4×10-12',r:'RPE 8'},{n:'Cable Fly',s:'3×15',r:'RPE 8'}]},
+       {day:'Thứ 3',type:'Vai + Tay',exs:[{n:'Shoulder Press',s:'4×8-10',r:'RPE 8'},{n:'Lateral Raise',s:'4×15-20',r:'RPE 8'},{n:'Bicep Curl',s:'4×10-12',r:'RPE 8'},{n:'Tricep Pushdown',s:'4×12-15',r:'RPE 8'},{n:'Hammer Curl',s:'3×12',r:'RPE 8'}]},
+       {day:'Thứ 4',type:'Chân',exs:[{n:'Squat',s:'5×8-10',r:'RPE 8'},{n:'Leg Press',s:'4×12-15',r:'RPE 8'},{n:'Romanian DL',s:'4×10-12',r:'RPE 8'},{n:'Leg Curl',s:'4×12-15',r:'RPE 8'},{n:'Calf Raise',s:'5×15-20',r:'RPE 8'}]},
+       {day:'Thứ 5',type:'Ngực + Lưng',exs:[{n:'Incline Bench Press',s:'4×8-10',r:'RPE 8'},{n:'DB Bench Press',s:'4×10-12',r:'RPE 8'},{n:'Lat Pulldown',s:'4×10-12',r:'RPE 8'},{n:'Cable Row',s:'4×12-15',r:'RPE 8'},{n:'Pec Deck',s:'3×15',r:'RPE 8'}]},
+       {day:'Thứ 6',type:'Vai + Tay',exs:[{n:'Arnold Press',s:'4×10-12',r:'RPE 8'},{n:'Lateral Raise',s:'4×15-20',r:'RPE 8'},{n:'Cable Curl',s:'4×12-15',r:'RPE 8'},{n:'Overhead Tricep',s:'4×12-15',r:'RPE 8'},{n:'Face Pull',s:'3×15',r:'RPE 7'}]},
+       {day:'Thứ 7',type:'Chân',exs:[{n:'Front Squat',s:'4×8-10',r:'RPE 8'},{n:'Bulgarian Split Squat',s:'3×10-12',r:'RPE 8'},{n:'Leg Extension',s:'4×15',r:'RPE 8'},{n:'Leg Curl',s:'4×15',r:'RPE 8'},{n:'Calf Raise',s:'5×20',r:'RPE 8'}]},
+       {day:'CN',type:'REST',exs:[]},
+     ]},
+   ]},
+  {id:20,name:'Calisthenics — Không tạ',short:'CAL',lvl:'beginner',goal:'muscle',days:4,eq:'home',female:false,color:'#001a0a',acc:'#34d399',
+   desc:'Toàn thân bằng trọng lượng cơ thể — không cần phòng gym. Hợp tập tại nhà, công viên. Tăng độ khó bằng biến thể động tác thay vì thêm tạ.',
+   weeks:[
+     {name:'Mỗi tuần',days:[
+       {day:'Thứ 2',type:'Đẩy (Push)',exs:[{n:'Push Up',s:'4×8-15',r:'RPE 8'},{n:'Pike Push Up',s:'3×8-12',r:'RPE 8'},{n:'Dip',s:'3×6-12',r:'RPE 8'},{n:'Diamond Push Up',s:'3×8-12',r:'RPE 8'}]},
+       {day:'Thứ 3',type:'Kéo (Pull)',exs:[{n:'Pull-up',s:'4×4-10',r:'RPE 8'},{n:'Inverted Row',s:'4×8-12',r:'RPE 8'},{n:'Chin-up',s:'3×4-8',r:'RPE 8'},{n:'Superman',s:'3×15',r:'RPE 7'}]},
+       {day:'Thứ 4',type:'REST',exs:[]},
+       {day:'Thứ 5',type:'Chân + Core',exs:[{n:'Bodyweight Squat',s:'4×15-25',r:'RPE 8'},{n:'Bulgarian Split Squat',s:'3×10-15',r:'RPE 8'},{n:'Glute Bridge',s:'3×15-20',r:'RPE 8'},{n:'Plank',s:'3×45s',r:''},{n:'Hanging Leg Raise',s:'3×10-15',r:''}]},
+       {day:'Thứ 6',type:'Toàn thân',exs:[{n:'Push Up',s:'3×max',r:'RPE 9'},{n:'Pull-up',s:'3×max',r:'RPE 9'},{n:'Pistol Squat',s:'3×5-8',r:'RPE 8'},{n:'Mountain Climber',s:'3×30s',r:''}]},
+       {day:'Thứ 7',type:'REST',exs:[]},{day:'CN',type:'REST',exs:[]},
+     ]},
+   ]},
+  {id:21,name:'Glute Focus Nữ — 5 ngày',short:'GLT',lvl:'intermediate',goal:'muscle',days:5,eq:'full',female:true,color:'#1a0014',acc:'#f472b6',
+   desc:'Chương trình 5 ngày tập trung phát triển mông & chân cho nữ, kết hợp upper nhẹ. Volume hip thrust & glute cao, rest time tối ưu cho nữ.',
+   weeks:[
+     {name:'Mỗi tuần',days:[
+       {day:'Thứ 2',type:'Glute (nặng)',exs:[{n:'Hip Thrust',s:'4×8-10',r:'RPE 8'},{n:'Squat',s:'4×8-10',r:'RPE 8'},{n:'Romanian DL',s:'3×10-12',r:'RPE 8'},{n:'Cable Kickback',s:'3×15',r:'RPE 8'}]},
+       {day:'Thứ 3',type:'Upper',exs:[{n:'DB Bench Press',s:'3×10-12',r:'RPE 7'},{n:'Lat Pulldown',s:'3×12',r:'RPE 7'},{n:'Lateral Raise',s:'3×15-20',r:'RPE 7'},{n:'Bicep Curl',s:'3×12-15',r:'RPE 7'}]},
+       {day:'Thứ 4',type:'Glute (nhịp)',exs:[{n:'Glute Bridge',s:'4×15-20',r:'RPE 8'},{n:'Bulgarian Split Squat',s:'4×10-12',r:'RPE 8'},{n:'Leg Press',s:'3×15-20',r:'RPE 8'},{n:'Lateral Band Walk',s:'3×20',r:'RPE 7'}]},
+       {day:'Thứ 5',type:'REST',exs:[]},
+       {day:'Thứ 6',type:'Lower toàn diện',exs:[{n:'Hip Thrust',s:'4×12-15',r:'RPE 8'},{n:'Leg Curl',s:'4×12-15',r:'RPE 8'},{n:'Leg Extension',s:'3×15-20',r:'RPE 8'},{n:'Calf Raise',s:'4×20',r:'RPE 8'},{n:'Plank',s:'3×45s',r:''}]},
+       {day:'Thứ 7',type:'REST',exs:[]},{day:'CN',type:'REST',exs:[]},
      ]},
    ]},
 ];
@@ -2923,6 +2991,7 @@ function save(){
     lastActiveDate:new Date().toDateString(),
     moodLog:ST.moodLog||[],settings:ST.settings||{},
     nutHistory:ST.nutHistory||[],
+    activeW:ST.activeW,exData:ST.exData||{},exCtr:ST.exCtr||0,
   }));}catch(e){}
 }
 function load(){
@@ -2953,6 +3022,10 @@ function load(){
     if(d.templates)ST.templates=d.templates;
     if(d.trialStart)ST.trialStart=d.trialStart;
     if(d.bestStreak)ST.stats.bestStreak=d.bestStreak;
+    // Restore unfinished workout (so exiting app mid-session doesn't lose numbers)
+    if(d.activeW&&d.exData&&Object.keys(d.exData).length){
+      ST.activeW=d.activeW;ST.exData=d.exData;ST.exCtr=d.exCtr||0;ST._restoreWorkout=true;
+    }
 
     // ── DAILY RESET ──
     const todayStr=new Date().toDateString(); // use toDateString for reliable comparison
@@ -3191,6 +3264,44 @@ function startFreeWorkout(){
   initWorkout('Buổi tập tự do');
   addEx('Barbell Squat');
 }
+function restoreWorkout(){
+  if(!ST.activeW||!ST.exData||!Object.keys(ST.exData).length){ST._restoreWorkout=false;return;}
+  // Lưu lại dữ liệu, dựng lại UI từng bài rồi gắn lại số đã nhập
+  const saved=ST.exData; const savedCtr=ST.exCtr; const title=ST.activeW.title;
+  ST.exData={}; ST.exCtr=0;
+  workoutPaused=false;
+  const pb=document.getElementById('aw-pause-btn'); if(pb)pb.textContent='⏸';
+  document.getElementById('w-idle').style.display='none';
+  const wa=document.getElementById('w-active'); wa.style.display='flex';
+  document.getElementById('aw-title').textContent=title;
+  document.getElementById('aw-exercises').innerHTML='';
+  startTimer();
+  setTimeout(initSessionNote,100);
+  // Re-add each exercise, then restore its sets + done states
+  Object.values(saved).forEach(ex=>{
+    addEx(ex.name);
+    const id='e'+ST.exCtr; // addEx dùng id mới nhất
+    if(ST.exData[id]){
+      ST.exData[id].sets=ex.sets.map(s=>({kg:s.kg||0,reps:s.reps||0,rpe:s.rpe||0,done:!!s.done}));
+      ST.exData[id].note=ex.note||'';
+      // cập nhật ô input + trạng thái done
+      const setsDiv=document.getElementById(id+'_sets');
+      if(setsDiv){
+        setsDiv.innerHTML='';
+        ST.exData[id].sets.forEach((s,i)=>{
+          const row=document.createElement('div');row.className='set-row';row.id=id+'_row'+i;
+          row.innerHTML=makeSetRowHTML(id,i,s.kg||'',s.reps||'',(ex.sets[i]?(ex.sets[i].kg+'×'+ex.sets[i].reps):'—'));
+          setsDiv.appendChild(row);
+          if(s.done){const db=document.getElementById(id+'_done'+i);if(db){db.textContent='✓';db.classList.add('on');}}
+        });
+      }
+    }
+  });
+  ST._restoreWorkout=false;
+  if(typeof updateVolumeDisplay==='function')updateVolumeDisplay();
+  if(typeof updateWorkoutProgress==='function')updateWorkoutProgress();
+  toast('⏱️ Đã khôi phục buổi tập đang dở');
+}
 function startPlanWorkout(){
   if(!ST.currentPlan)return;
   const p=ST.currentPlan;
@@ -3225,6 +3336,23 @@ function startTimer(){
     const s=(ST.timerSec%60).toString().padStart(2,'0');
     document.getElementById('aw-timer').textContent=h>0?h+':'+m+':'+s:m+':'+s;
   },1000);
+}
+function toggleQuickForm(id,name){
+  const box=document.getElementById(id+'_qform');if(!box)return;
+  if(box.style.display!=='none'){box.style.display='none';box.innerHTML='';return;}
+  const ex=findEx(name);
+  if(!ex){box.style.display='block';box.innerHTML='<div style="padding:12px 14px;font-size:12px;color:var(--txt3)">Chưa có hướng dẫn cho bài này.</div>';return;}
+  const cues=(ex.cues||[]).slice(0,5);
+  const mistakes=(ex.mistakes||[]).slice(0,3);
+  box.style.display='block';
+  box.innerHTML=`<div style="margin:0 14px 10px;padding:12px 14px;background:var(--bg3);border:1px solid var(--brd);border-radius:10px">
+    <div style="font-size:11px;font-family:var(--FM);color:var(--lime);letter-spacing:.06em;margin-bottom:8px">✅ KỸ THUẬT ĐÚNG</div>
+    ${cues.map((c,i)=>`<div style="font-size:13px;color:var(--txt);line-height:1.5;margin-bottom:5px;display:flex;gap:7px"><span style="color:var(--lime);font-weight:700;flex-shrink:0">${i+1}.</span><span>${c}</span></div>`).join('')}
+    ${mistakes.length?`<div style="font-size:11px;font-family:var(--FM);color:var(--red);letter-spacing:.06em;margin:12px 0 8px">⚠️ TRÁNH LỖI</div>
+    ${mistakes.map(m=>`<div style="font-size:13px;color:var(--txt2);line-height:1.5;margin-bottom:5px;display:flex;gap:7px"><span style="color:var(--red);flex-shrink:0">✕</span><span>${m}</span></div>`).join('')}`:''}
+    <button onclick="openExPanel('${name}','${id}')" style="margin-top:10px;width:100%;height:36px;background:none;border:1px solid var(--brd2);border-radius:8px;color:var(--txt2);font-size:12px;cursor:pointer">🎬 Xem video nếu cần</button>
+  </div>`;
+  if(navigator.vibrate)navigator.vibrate(20);
 }
 function addEx(name){
   ST.exCtr++;const id='e'+ST.exCtr;
@@ -3270,21 +3398,23 @@ function addEx(name){
     </div>
     ${prevBar}
     <div style="overflow-x:auto">
-      <div style="padding:6px 14px 2px;display:grid;grid-template-columns:28px 64px 1fr 64px 36px;gap:4px;align-items:center">
+      <div style="padding:6px 14px 2px;display:grid;grid-template-columns:26px 0.7fr 1.5fr 1fr 30px 26px;gap:5px;align-items:center">
         <span style="font-size:9px;font-family:var(--FM);color:var(--txt3)">#</span>
         <span style="font-size:9px;font-family:var(--FM);color:var(--blue);text-align:center">TRƯỚC</span>
-        <span style="font-size:9px;font-family:var(--FM);color:var(--txt3);text-align:center">KG</span>
+        <span style="font-size:9px;font-family:var(--FM);color:var(--txt3);text-align:center">KG (− / +)</span>
         <span style="font-size:9px;font-family:var(--FM);color:var(--txt3);text-align:center">REPS</span>
         <span style="font-size:9px;font-family:var(--FM);color:var(--txt3);text-align:center">✓</span>
+        <span></span>
       </div>
       <div id="${id}_sets"></div>
     </div>
     <div class="ex-block-actions">
       <button class="ex-act-btn" onclick="addSet('${id}')">＋ Set</button>
       <button class="ex-act-btn" onclick="swapEx('${id}','${name}')">⇄ Đổi</button>
-      <button class="ex-act-btn" style="color:var(--lime);border-color:rgba(200,241,53,.2);background:rgba(200,241,53,.06)" onclick="openExPanel('${name}','${id}')">💪 Form Guide</button>
-      <button class="ex-act-btn" onclick="removeEx('${id}')">✕</button>
+      <button class="ex-act-btn" style="color:var(--lime);border-color:rgba(200,241,53,.2);background:rgba(200,241,53,.06)" onclick="toggleQuickForm('${id}','${name}')">💡 Mẹo tập đúng</button>
+      <button class="ex-act-btn" onclick="openExPanel('${name}','${id}')">🎬 Video</button>
     </div>
+    <div id="${id}_qform" style="display:none"></div>
     <div id="${id}_tip" class="ai-tip" style="display:none"></div>`;
   cont.appendChild(wrap);
   // Render set rows (uses default sets count)
@@ -3313,7 +3443,7 @@ function copyAllPrev(id){
   if(navigator.vibrate)navigator.vibrate(40);
 }
 
-function setV(id,i,f,v){if(ST.exData[id]?.sets[i])ST.exData[id].sets[i][f]=+v;}
+function setV(id,i,f,v){if(ST.exData[id]?.sets[i]){ST.exData[id].sets[i][f]=+v;clearTimeout(window._svT);window._svT=setTimeout(save,800);}}
 function doneSet(id,i,btn){
   if(!ST.exData[id]?.sets[i])return;
   const done=!ST.exData[id].sets[i].done;
@@ -3321,7 +3451,7 @@ function doneSet(id,i,btn){
   if(btn){btn.classList.toggle('on',done);btn.textContent=done?'✓':'○';}
   const row=document.getElementById(id+'_row'+i);
   if(row)row.style.opacity=done?'.55':'1';
-  if(!done){updateVolumeDisplay();updateWorkoutProgress();updateExVolBadge(id);}
+  if(!done){updateVolumeDisplay();updateWorkoutProgress();updateExVolBadge(id);save();}
   if(done){
     const s=ST.exData[id].sets[i];
     if(s.kg>0&&s.reps>0){
@@ -3332,7 +3462,7 @@ function doneSet(id,i,btn){
         confetti&&confetti(6);
       } else {if(navigator.vibrate&&ST.settings?.haptic!==false)navigator.vibrate(28);}
     }
-    updateVolumeDisplay();updateWorkoutProgress();updateExVolBadge(id);
+    updateVolumeDisplay();updateWorkoutProgress();updateExVolBadge(id);save();
     const restSec=+document.getElementById(id+'_rest')?.value||ST.settings?.defaultRest||90;
     showInlineRest(id,restSec);
     // Auto-focus next input
@@ -3343,40 +3473,60 @@ function doneSet(id,i,btn){
 function showInlineRest(exId,sec){
   // Remove existing rest bar for this exercise
   const old=document.getElementById('irest_'+exId);if(old)old.remove();
+  const prev=window._irest?.[exId]; if(prev)clearInterval(prev.timer);
   const body=document.getElementById(exId+'_b');if(!body)return;
   const div=document.createElement('div');
   div.id='irest_'+exId;
   div.style.cssText='margin:0 14px 10px;padding:10px 13px;background:rgba(200,241,53,.07);border:1px solid rgba(200,241,53,.2);border-radius:10px;display:flex;align-items:center;gap:10px';
-  let rem=sec;
-  div.innerHTML=`<div style="font-family:var(--FD);font-size:26px;color:var(--lime);min-width:46px" id="irt_${exId}">${Math.floor(rem/60)}:${String(rem%60).padStart(2,'0')}</div>
-    <div style="flex:1"><div style="height:3px;background:var(--bg4);border-radius:2px"><div id="irb_${exId}" style="height:100%;background:var(--lime);border-radius:2px;width:100%;transition:width .9s linear"></div></div></div>
-    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-      <div style="display:flex;gap:4px">
-        <button onclick="irestAdj('${exId}',-15)" style="font-size:9px;font-family:var(--FM);color:var(--lime);padding:3px 7px;background:rgba(200,241,53,.1);border:1px solid rgba(200,241,53,.2);border-radius:4px;cursor:pointer">−15s</button>
-        <button onclick="irestAdj('${exId}',30)" style="font-size:9px;font-family:var(--FM);color:var(--lime);padding:3px 7px;background:rgba(200,241,53,.1);border:1px solid rgba(200,241,53,.2);border-radius:4px;cursor:pointer">+30s</button>
+  div.innerHTML=`<div style="font-family:var(--FD);font-size:30px;color:var(--lime);min-width:58px;text-align:center" id="irt_${exId}">0:00</div>
+    <div style="flex:1"><div style="height:4px;background:var(--bg4);border-radius:2px"><div id="irb_${exId}" style="height:100%;background:var(--lime);border-radius:2px;width:100%;transition:width .3s linear"></div></div></div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
+      <div style="display:flex;gap:5px">
+        <button onclick="irestAdj('${exId}',-15)" style="font-size:12px;font-family:var(--FM);color:var(--lime);padding:6px 10px;background:rgba(200,241,53,.1);border:1px solid rgba(200,241,53,.3);border-radius:6px;cursor:pointer;font-weight:600">−15s</button>
+        <button onclick="irestAdj('${exId}',30)" style="font-size:12px;font-family:var(--FM);color:var(--lime);padding:6px 10px;background:rgba(200,241,53,.1);border:1px solid rgba(200,241,53,.3);border-radius:6px;cursor:pointer;font-weight:600">+30s</button>
       </div>
-      <span onclick="irestSkip('${exId}')" style="font-size:10px;color:var(--lime);cursor:pointer;font-family:var(--FM)">Skip ✓</span>
+      <span onclick="irestSkip('${exId}')" style="font-size:12px;color:var(--lime);cursor:pointer;font-family:var(--FM);padding:2px 4px">Bỏ qua ✓</span>
     </div>`;
-  // Insert before ex-block-actions
   const actions=body.querySelector('.ex-block-actions');
   if(actions)body.insertBefore(div,actions);else body.appendChild(div);
-  // Countdown
-  const timer=setInterval(()=>{
-    rem--;
+  // State object holds rem + total; render reads from it (single source of truth)
+  const st={rem:sec,total:sec,timer:null};
+  const render=()=>{
     const te=document.getElementById('irt_'+exId);
     const be=document.getElementById('irb_'+exId);
-    if(!te){clearInterval(timer);return;}
-    te.textContent=Math.floor(rem/60)+':'+String(Math.max(0,rem%60)).padStart(2,'0');
-    if(be)be.style.width=(rem/sec*100)+'%';
-    if(rem<=3&&rem>0&&navigator.vibrate)navigator.vibrate(60);
-    if(rem<=0){clearInterval(timer);if(ST.settings?.sound!==false)playRestDone?.();
+    if(!te){if(st.timer)clearInterval(st.timer);return;}
+    const r=Math.max(0,st.rem);
+    te.textContent=Math.floor(r/60)+':'+String(r%60).padStart(2,'0');
+    if(be)be.style.width=Math.max(0,Math.min(100,(r/st.total*100)))+'%';
+  };
+  render();
+  st.timer=setInterval(()=>{
+    st.rem--;
+    render();
+    if(st.rem<=3&&st.rem>0&&navigator.vibrate)navigator.vibrate(60);
+    if(st.rem<=0){
+      clearInterval(st.timer);
+      if(ST.settings?.sound!==false)playRestDone?.();
       if(navigator.vibrate)navigator.vibrate([200,100,200]);
-      const d=document.getElementById('irest_'+exId);if(d)d.remove();}
+      notif?.('⏱️','Hết giờ nghỉ!','Sẵn sàng cho set tiếp theo 💪',4000);
+      const d=document.getElementById('irest_'+exId);if(d)d.remove();
+      delete window._irest[exId];
+    }
   },1000);
-  window._irest=window._irest||{};window._irest[exId]={timer,get rem(){return rem;},set rem(v){rem=v;}};
+  window._irest=window._irest||{};
+  window._irest[exId]=st;
+  window._irestRender=window._irestRender||{};
+  window._irestRender[exId]=render;
 }
-function irestSkip(id){const t=window._irest?.[id];if(t)clearInterval(t.timer);const d=document.getElementById('irest_'+id);if(d)d.remove();}
-function irestAdj(id,d){const t=window._irest?.[id];if(!t)return;t.rem=Math.max(5,t.rem+d);}
+function irestSkip(id){const t=window._irest?.[id];if(t)clearInterval(t.timer);const d=document.getElementById('irest_'+id);if(d)d.remove();if(window._irest)delete window._irest[id];}
+function irestAdj(id,d){
+  const t=window._irest?.[id];if(!t)return;
+  t.rem=Math.max(5,t.rem+d);
+  // Khi cộng giờ vượt mốc ban đầu, nới total để thanh % không quá 100
+  if(t.rem>t.total)t.total=t.rem;
+  // Cập nhật hiển thị NGAY (không đợi tick kế tiếp)
+  const render=window._irestRender?.[id];if(render)render();
+}
 
 function updateVolumeDisplay(){
   let v=0,sets=0;
@@ -3574,7 +3724,7 @@ function finishWorkout(){
   ST.workouts.unshift(w);
   document.getElementById('w-idle').style.display='block';
   document.getElementById('w-active').style.display='none';
-  ST.activeW=null;workoutPaused=false;
+  ST.activeW=null;workoutPaused=false;ST.exData={};ST.exCtr=0;ST._restoreWorkout=false;
   ST.weekDone[new Date().getDay()===0?6:new Date().getDay()-1]=true;
   save();renderHome();renderWHist();
   showWS(w);
@@ -5767,13 +5917,13 @@ function addSet(id){
 function makeSetRowHTML(id,i,kg,reps,prevTxt){
   return `<span class="sn" style="position:relative">${i+1}<span id="${id}_pr${i}" style="display:none;position:absolute;top:-6px;right:-4px;background:var(--lime);color:#111;font-size:7px;font-weight:800;border-radius:3px;padding:1px 3px;font-family:var(--FM)">PR</span></span>
     <span class="prev" onclick="fillPrev('${id}',${i})" style="font-size:10px;color:var(--txt3);font-family:var(--FM);padding:3px 7px;background:var(--bg3);border:1px solid var(--brd2);border-radius:5px;cursor:pointer;min-width:44px;text-align:center;display:inline-block">${prevTxt}</span>
-    <div style="display:flex;align-items:center;gap:3px">
-      <button onclick="adjKg('${id}',${i},-2.5)" style="width:22px;height:22px;border-radius:5px;background:var(--bg4);border:1px solid var(--brd2);color:var(--txt2);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">−</button>
-      <div style="position:relative"><input class="si" type="number" step="0.5" inputmode="decimal" id="${id}_kg${i}" value="${kg||''}" placeholder="${kg||'0'}" oninput="setV('${id}',${i},'kg',this.value);checkSetPR('${id}',${i})" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('${id}_reps${i}')?.focus()}" onfocus="this.select()"></div>
-      <button onclick="adjKg('${id}',${i},2.5)" style="width:22px;height:22px;border-radius:5px;background:var(--bg4);border:1px solid var(--brd2);color:var(--txt2);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">+</button>
+    <div style="display:flex;align-items:center;gap:4px">
+      <button onclick="adjKg('${id}',${i},-2.5)" style="width:30px;height:42px;border-radius:7px;background:var(--bg4);border:1px solid var(--brd2);color:var(--lime);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">−</button>
+      <input class="si" type="number" step="0.5" inputmode="decimal" id="${id}_kg${i}" value="${kg||''}" placeholder="${kg||'0'}" oninput="setV('${id}',${i},'kg',this.value);checkSetPR('${id}',${i})" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('${id}_reps${i}')?.focus()}" onfocus="this.select()">
+      <button onclick="adjKg('${id}',${i},2.5)" style="width:30px;height:42px;border-radius:7px;background:var(--bg4);border:1px solid var(--brd2);color:var(--lime);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">+</button>
     </div>
     <input class="si" type="number" inputmode="numeric" id="${id}_reps${i}" value="${reps||''}" placeholder="${reps||'0'}" oninput="setV('${id}',${i},'reps',this.value);checkSetPR('${id}',${i})" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('${id}_done${i}')?.click()}" onfocus="this.select()">
-    <button class="sdone" id="${id}_done${i}" onclick="doneSet('${id}',${i},this)">○</button><button onclick="removeSet('${id}',${i})" style="background:none;border:none;color:var(--txt3);cursor:pointer;font-size:14px;width:24px;padding:0;opacity:.5" title="Xóa set">✕</button>`;
+    <button class="sdone" id="${id}_done${i}" onclick="doneSet('${id}',${i},this)">○</button><button onclick="removeSet('${id}',${i})" style="background:none;border:none;color:var(--txt3);cursor:pointer;font-size:16px;width:26px;padding:0;opacity:.5" title="Xóa set">✕</button>`;
 }
 function adjKg(id,i,d){
   const el=document.getElementById(id+'_kg'+i);if(!el)return;
@@ -6704,6 +6854,51 @@ function getPlanWorkoutCount(planId){
 function injectPWAMeta(){
   // Manifest + icons are now declared statically in <head> (real /manifest.json file).
   // Nothing to inject at runtime — Blob-URL manifests aren't installable on mobile.
+}
+// Gợi ý cài đặt — Android: nút cài tự động; iPhone: hướng dẫn thủ công (iOS bắt buộc)
+let _deferredInstall=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();_deferredInstall=e;});
+function isStandalone(){return window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;}
+async function promptInstall(){
+  const ua=navigator.userAgent;
+  const isIOS=/iPhone|iPad|iPod/i.test(ua);
+  if(isStandalone()){toast('✅ Bạn đang dùng app đã cài rồi!');return;}
+  if(_deferredInstall){
+    // Android/Chrome: cài trực tiếp
+    _deferredInstall.prompt();
+    const r=await _deferredInstall.userChoice.catch(()=>null);
+    _deferredInstall=null;
+    if(r&&r.outcome==='accepted')toast('🎉 Đang cài FitAI vào máy...');
+    return;
+  }
+  if(isIOS){
+    // iOS không cho cài tự động — hiện hướng dẫn
+    showIOSInstallGuide();
+    return;
+  }
+  toast('Mở menu trình duyệt → "Thêm vào màn hình chính" để cài app');
+}
+function showIOSInstallGuide(){
+  let m=document.getElementById('ios-install');
+  if(!m){
+    m=document.createElement('div');m.id='ios-install';
+    m.style.cssText='position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.8);display:flex;align-items:flex-end;justify-content:center';
+    m.onclick=e=>{if(e.target===m)m.remove();};
+    m.innerHTML=`<div style="background:var(--bg2,#101010);border:1px solid var(--brd2,#2a2a2a);border-radius:18px 18px 0 0;padding:24px 22px 32px;max-width:430px;width:100%;text-align:center">
+      <div style="width:44px;height:4px;background:#333;border-radius:2px;margin:0 auto 18px"></div>
+      <img src="/icon-192.png" style="width:64px;height:64px;border-radius:15px;margin:0 auto 14px">
+      <div style="font-size:17px;font-weight:700;margin-bottom:8px;color:#f2f1ea">Cài FitAI lên iPhone</div>
+      <div style="font-size:14px;color:#9a9a92;line-height:1.6;margin-bottom:18px">iPhone yêu cầu cài thủ công qua Safari (chỉ mất 5 giây):</div>
+      <div style="text-align:left;font-size:14px;color:#f2f1ea;line-height:2;background:var(--bg3,#161616);border-radius:12px;padding:14px 16px;margin-bottom:18px">
+        1️⃣ Bấm nút <b>Chia sẻ</b> ⬆️ (ô vuông có mũi tên, ở thanh dưới Safari)<br>
+        2️⃣ Cuộn xuống, chọn <b>"Thêm vào MH chính"</b><br>
+        3️⃣ Bấm <b>"Thêm"</b> → xong!
+      </div>
+      <div style="font-size:12px;color:#5a5a54;margin-bottom:16px">⚠️ Phải mở bằng <b>Safari</b> (không phải Chrome) mới cài được — đây là quy định của Apple.</div>
+      <button onclick="document.getElementById('ios-install').remove()" style="width:100%;height:46px;background:var(--lime,#c8f135);color:#111;border:none;border-radius:10px;font-size:15px;font-weight:600">Đã hiểu</button>
+    </div>`;
+    document.body.appendChild(m);
+  } else { m.style.display='flex'; }
 }
 
 // ════════════════════════════════════════════════════════
@@ -7653,16 +7848,17 @@ async function syncPremium(){
 async function checkPaymentOnLoad(){
   const p=new URLSearchParams(window.location.search);
   const status=p.get('payment');
+  // Always clean the URL params first so a refresh can't re-trigger this
+  if(status){ try{history.replaceState({},'',location.pathname);}catch(e){} }
   if(status==='cancel'){
-    history.replaceState({},'','/app');
-    toast('Thanh toán đã hủy');
+    delete ST.pendingPayment; save();
+    toast('Đã huỷ thanh toán');
     return;
   }
   if(status!=='success')return;
   // SECURITY: never trust the URL. Verify with PayOS/MoMo server before activating.
   const pending=ST.pendingPayment;
-  history.replaceState({},'','/app');
-  if(!pending){toast('Không tìm thấy đơn hàng để xác nhận');return;}
+  if(!pending){return;} // không có đơn treo → bỏ qua, không báo lỗi
   toast('⏳ Đang xác nhận thanh toán...');
   const uid=getUserId();
   const verifyOnce=async()=>{
@@ -7686,7 +7882,9 @@ async function checkPaymentOnLoad(){
     if(await verifyOnce()){return;}
     if(i<4)await new Promise(r=>setTimeout(r,2500));
   }
-  toast('⚠️ Chưa nhận được thanh toán. Nếu đã chuyển khoản, đợi 1-2 phút rồi mở lại app.');
+  // Hết lượt thử mà chưa thấy trả: xoá đơn treo để không kẹt lần sau
+  delete ST.pendingPayment; save();
+  toast('⚠️ Chưa nhận được thanh toán. Nếu đã chuyển khoản, mở lại app sau 1-2 phút.');
 }
 
 window.onload=async()=>{
@@ -7697,6 +7895,7 @@ window.onload=async()=>{
     document.getElementById('app').style.display='flex';
     document.getElementById('onboarding').style.display='none';
     initApp();
+    if(ST._restoreWorkout){setTimeout(restoreWorkout,150);}
     checkPaymentOnLoad();
     syncPremium();
     setTimeout(()=>notif('💪',`Chào ${ST.profile.name}!`,`Streak ${ST.stats.streak} ngày · ${ST.stats.total} buổi tập`),800);
