@@ -28,9 +28,10 @@ module.exports = async function handler(req, res) {
   const { plan, userEmail, userId } = req.body || {};
 
   const PLANS = {
-    monthly:  { amount: 79000,  name: 'FitAI Premium 1 tháng'  },
-    quarterly:{ amount: 199000, name: 'FitAI Premium 3 tháng'  },
-    yearly:   { amount: 599000, name: 'FitAI Premium 12 tháng' },
+    monthly:  { amount: 99000,  name: 'FitAI Premium 1 thang'  },
+    quarterly:{ amount: 267000, name: 'FitAI Premium 3 thang'  },
+    halfyear: { amount: 474000, name: 'FitAI Premium 6 thang'  },
+    yearly:   { amount: 599000, name: 'FitAI Premium 12 thang' },
   };
 
   const selectedPlan = PLANS[plan];

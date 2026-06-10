@@ -46,7 +46,7 @@ module.exports = async function handler(req, res) {
     if (resultCode === 0) {
       const planMatch = orderId.match(/FITAI_\d+_(\w+)/);
       const plan = planMatch?.[1] || 'monthly';
-      const monthsMap = { monthly: 1, quarterly: 3, yearly: 12 };
+      const monthsMap = { monthly: 1, quarterly: 3, halfyear: 6, yearly: 12 };
       const months = monthsMap[plan] || 1;
       const expiresAt = new Date();
       expiresAt.setMonth(expiresAt.getMonth() + months);

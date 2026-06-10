@@ -29,9 +29,9 @@ module.exports = async function handler(req, res) {
 
     if (code === '00' && data?.status === 'PAID') {
       const { orderCode, amount } = data;
-      const planMap = { 79000: 'monthly', 199000: 'quarterly', 599000: 'yearly' };
+      const planMap = { 99000: 'monthly', 267000: 'quarterly', 474000: 'halfyear', 599000: 'yearly' };
       const plan = planMap[amount] || 'monthly';
-      const months = { monthly: 1, quarterly: 3, yearly: 12 }[plan] || 1;
+      const months = { monthly: 1, quarterly: 3, halfyear: 6, yearly: 12 }[plan] || 1;
       const expiresAt = new Date(); expiresAt.setMonth(expiresAt.getMonth() + months);
 
       if (KV_ENABLED) {

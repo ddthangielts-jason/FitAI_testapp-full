@@ -34,9 +34,9 @@ module.exports = async function handler(req, res) {
     if (data.code === '00') {
       const isPaid = data.data?.status === 'PAID';
       const amount = data.data?.amount;
-      const planMap = { 79000: 'monthly', 199000: 'quarterly', 599000: 'yearly' };
+      const planMap = { 99000: 'monthly', 267000: 'quarterly', 474000: 'halfyear', 599000: 'yearly' };
       const plan = planMap[amount] || 'monthly';
-      const monthsMap = { monthly: 1, quarterly: 3, yearly: 12 };
+      const monthsMap = { monthly: 1, quarterly: 3, halfyear: 6, yearly: 12 };
       const months = monthsMap[plan] || 1;
       const expiresAt = new Date(); expiresAt.setMonth(expiresAt.getMonth() + months);
 

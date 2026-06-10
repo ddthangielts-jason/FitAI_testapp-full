@@ -41,7 +41,7 @@ module.exports = async function handler(req, res) {
     const isPaid = data.resultCode === 0;
     const planMatch = orderId.match(/FITAI_\d+_(\w+)/);
     const plan = planMatch?.[1] || 'monthly';
-    const months = { monthly: 1, quarterly: 3, yearly: 12 }[plan] || 1;
+    const months = { monthly: 1, quarterly: 3, halfyear: 6, yearly: 12 }[plan] || 1;
     const expiresAt = new Date(); expiresAt.setMonth(expiresAt.getMonth() + months);
 
     if (isPaid && KV_ENABLED && userId) {

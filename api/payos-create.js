@@ -32,9 +32,10 @@ module.exports = async function handler(req, res) {
 
   // Pricing (VNĐ)
   const PLANS = {
-    monthly:  { amount: 79000,  desc: 'FitAI Premium - 1 tháng',   months: 1  },
-    quarterly:{ amount: 199000, desc: 'FitAI Premium - 3 tháng',   months: 3  },
-    yearly:   { amount: 599000, desc: 'FitAI Premium - 12 tháng',  months: 12 },
+    monthly:  { amount: 99000,  desc: 'FitAI Premium - 1 thang',   months: 1  },
+    quarterly:{ amount: 267000, desc: 'FitAI Premium - 3 thang',   months: 3  },
+    halfyear: { amount: 474000, desc: 'FitAI Premium - 6 thang',   months: 6  },
+    yearly:   { amount: 599000, desc: 'FitAI Premium - 12 thang',  months: 12 },
   };
 
   const selectedPlan = PLANS[plan];
@@ -43,15 +44,20 @@ module.exports = async function handler(req, res) {
   // Unique order code (PayOS requires integer, max 9999999999)
   const orderCode = Date.now() % 9999999999;
 
-  // Build signature for PayOS
-  // Format: amount={}&cancelUrl={}&description={}&orderCode={}&returnUrl={}
-  const signData = [
-    `amount=${selectedPlan.amount}`,
-    `cancelUrl=${APP_URL}/app?payment=cancel`,
-    `description=${selectedPlan.desc.replace(/\s/g,'_').substring(0,25)}`,
-    `orderCode=${orderCode}`,
-    `returnUrl=${APP_URL}/app?payment=success&plan=${plan}`,
-  ].join('&');
+  // Các giá trị sẽ gửi đi — PHẢI ký đúng y hệt các giá trị này
+  const amount = selectedPlan.amount;
+  const description = selectedPlan.desc.substring(0, 25); // <=25 ký tự
+  const cancelUrl = `${APP_URL}/app?payment=cancel`;
+  const returnUrl = `${APP_URL}/app?payment=success&plan=${plan}&userId=${userId || ''}`;
+
+  // Chữ ký PayOS: HMAC_SHA256 theo thứ tự alphabet, dùng CHÍNH giá trị gửi đi
+  // Format bắt buộc: amount=&cancelUrl=&description=&orderCode=&returnUrl=
+  const signData =
+    `amount=${amount}` +
+    `&cancelUrl=${cancelUrl}` +
+    `&description=${description}` +
+    `&orderCode=${orderCode}` +
+    `&returnUrl=${returnUrl}`;
 
   const signature = crypto
     .createHmac('sha256', PAYOS_CHECKSUM_KEY)
@@ -60,17 +66,17 @@ module.exports = async function handler(req, res) {
 
   const body = {
     orderCode,
-    amount: selectedPlan.amount,
-    description: selectedPlan.desc.substring(0, 25),
+    amount,
+    description,
     buyerEmail: userEmail || '',
     buyerName:  'FitAI User',
     items: [{
       name:     'FitAI Premium',
       quantity: 1,
-      price:    selectedPlan.amount,
+      price:    amount,
     }],
-    cancelUrl:  `${APP_URL}/app?payment=cancel`,
-    returnUrl:  `${APP_URL}/app?payment=success&plan=${plan}&userId=${userId||''}`,
+    cancelUrl,
+    returnUrl,
     expiredAt:  Math.floor(Date.now()/1000) + 3600, // 1 hour
     signature,
   };
