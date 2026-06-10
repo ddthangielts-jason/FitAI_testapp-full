@@ -1640,7 +1640,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
 
       <div style="text-align:center;padding:8px 0;margin-bottom:4px">
-        <span class="xxs muted">FitAI v3.7.0 · Workout Tracker 🇻🇳</span>
+        <span class="xxs muted">FitAI v3.8.0 · Workout Tracker 🇻🇳</span>
       </div>
 
       <!-- Macro targets display -->
@@ -3092,6 +3092,24 @@ function obNext(n){
   document.querySelectorAll('.ob-slide').forEach(s=>s.classList.remove('show'));
   document.getElementById('ob'+n).classList.add('show');
 }
+function recommendPlan(profile){
+  // Chấm điểm từng plan theo hồ sơ người dùng → chọn plan hợp nhất
+  const goal=profile.goal||'muscle', level=profile.level||'beginner';
+  const days=+profile.days||4, equip=profile.equip||'full', female=profile.sex==='female';
+  let best=null,bestScore=-1;
+  PLANS.forEach(p=>{
+    let s=0;
+    if(p.lvl===level)s+=40; else if(Math.abs(['beginner','intermediate','advanced'].indexOf(p.lvl)-['beginner','intermediate','advanced'].indexOf(level))===1)s+=15;
+    if(p.goal===goal)s+=30; else if((goal==='fat'&&p.goal==='muscle')||(goal==='maintain'))s+=10;
+    // days fit: gần số ngày người dùng tập càng tốt
+    if(p.days){const diff=Math.abs(p.days-days);s+=Math.max(0,20-diff*7);}
+    if(female&&p.female)s+=25; if(!female&&!p.female)s+=8;
+    // equipment: home-only user cần plan home
+    if(equip==='home'&&p.eq==='home')s+=20; if(equip==='full'&&p.eq==='full')s+=8;
+    if(s>bestScore){bestScore=s;best=p;}
+  });
+  return best||PLANS[0];
+}
 function finishOB(){
   ST.profile.name=document.getElementById('ob-name').value||'Lifter';
   ST.profile.kg=+document.getElementById('ob-kg').value||70;
@@ -3099,17 +3117,36 @@ function finishOB(){
   ST.profile.age=+document.getElementById('ob-age').value||25;
   ST.profile.days=+document.getElementById('ob-days').value||4;
   Object.assign(ST.profile,ST.ob);
-  if(!ST.currentPlan)ST.currentPlan=PLANS.find(p=>p.lvl===(ST.profile.level||'beginner'))||PLANS[0];
-  // Auto-pick best plan
-  const match=PLANS.find(p=>p.lvl===ST.profile.level&&(ST.profile.sex==='female'?p.female:!p.female))||PLANS.find(p=>p.lvl===ST.profile.level)||PLANS[0];
+  // Smart recommendation engine
+  const match=recommendPlan(ST.profile);
   ST.currentPlan=match;
+  ST.planStartDate=new Date().toISOString();
   document.getElementById('onboarding').classList.remove('show');
   document.getElementById('app').style.display='flex';
   save();
   initApp();
   checkPaymentOnLoad();
   setTimeout(updatePremiumBadge,400);
-  notif('🎉',`Chào ${ST.profile.name}!`,`Plan "${match.name}" đã được chọn. Bắt đầu thôi!`);
+  // Hiện màn gợi ý plan cá nhân hóa
+  setTimeout(()=>showPlanRecommendation(match),300);
+}
+function showPlanRecommendation(p){
+  const goalVi={muscle:'tăng cơ',fat:'giảm mỡ',maintain:'giữ dáng',strength:'tăng sức mạnh'}[p.goal]||p.goal;
+  const lvlVi={beginner:'người mới',intermediate:'trung cấp',advanced:'nâng cao'}[p.lvl]||p.lvl;
+  let m=document.getElementById('plan-rec-modal');
+  if(m)m.remove();
+  m=document.createElement('div');m.id='plan-rec-modal';
+  m.style.cssText='position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:20px';
+  m.innerHTML=`<div style="background:var(--bg2);border:1px solid var(--brd2);border-radius:18px;padding:26px 22px;max-width:380px;width:100%;text-align:center">
+    <div style="font-size:40px;margin-bottom:10px">🎯</div>
+    <div style="font-size:12px;font-family:var(--FM);color:var(--lime);letter-spacing:.08em;margin-bottom:6px">PLAN DÀNH RIÊNG CHO BẠN</div>
+    <div style="font-size:22px;font-family:var(--FD);margin-bottom:6px">${p.name}</div>
+    <div style="font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:16px">Dựa trên mục tiêu <b style="color:var(--lime)">${goalVi}</b>, trình độ <b style="color:var(--lime)">${lvlVi}</b> và ${ST.profile.days} ngày/tuần của bạn — đây là plan phù hợp nhất.</div>
+    <div style="background:var(--bg3);border-radius:10px;padding:12px;margin-bottom:16px;text-align:left;font-size:12px;color:var(--txt2);line-height:1.6">${p.desc||''}</div>
+    <button onclick="document.getElementById('plan-rec-modal').remove();goTab('s-plan')" style="width:100%;height:46px;background:var(--lime);color:#111;border:none;border-radius:10px;font-size:15px;font-weight:600;margin-bottom:8px">Xem plan của tôi →</button>
+    <button onclick="document.getElementById('plan-rec-modal').remove()" style="width:100%;height:40px;background:none;border:none;color:var(--txt3);font-size:13px;cursor:pointer">Để sau</button>
+  </div>`;
+  document.body.appendChild(m);
 }
 
 // ════════════════════════════════════════════════════════
@@ -3229,12 +3266,30 @@ function renderTodayCard(){
     </div>`;return;
   }
   const p=ST.currentPlan;
-  const todayExs=p.weeks[0]?.days.find(d=>d.type!=='REST')?.exs||[];
+  // Buổi tập đúng cho HÔM NAY (theo thứ + override lịch)
+  const now=new Date();
+  const dayVi={0:'CN',1:'Thứ 2',2:'Thứ 3',3:'Thứ 4',4:'Thứ 5',5:'Thứ 6',6:'Thứ 7'};
+  const dkey=`${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+  const ov=(ST.schedOverrides||{})[dkey];
+  let todayDay;
+  if(ov!==undefined){todayDay=ov==='REST'?{type:'REST',exs:[]}:p.weeks[0]?.days.find(d=>d.type===ov);}
+  else{todayDay=p.weeks[0]?.days.find(d=>d.day===dayVi[now.getDay()]);}
+  const alreadyDone=ST.workouts.some(w=>w.date===now.toLocaleDateString('vi-VN'));
+  // Nếu hôm nay là ngày nghỉ
+  if(todayDay&&todayDay.type==='REST'){
+    el.innerHTML=`<div class="today-plan-card" style="border-color:${p.acc}33">
+      <div class="today-plan-top"><div><div class="sm" style="font-weight:500">${p.name}</div><div class="xs muted">Hôm nay theo lịch</div></div></div>
+      <div style="text-align:center;padding:20px 12px"><div style="font-size:34px;margin-bottom:6px">😴</div><div class="sm" style="color:var(--txt2)">Hôm nay là ngày nghỉ</div><div class="xs muted" style="margin-top:4px">Phục hồi cũng là một phần của tiến bộ. Vẫn muốn tập?</div>
+      <button class="btn bg" style="margin-top:12px;height:38px;font-size:12px" onclick="startFreeWorkout()">Tập tự do</button></div>
+    </div>`;return;
+  }
+  const todayExs=(todayDay&&todayDay.exs)||p.weeks[0]?.days.find(d=>d.type!=='REST')?.exs||[];
+  const todayType=todayDay?todayDay.type:(p.weeks[0]?.days.find(d=>d.type!=='REST')?.type||'');
   el.innerHTML=`<div class="today-plan-card" style="border-color:${p.acc}33">
     <div class="today-plan-top">
       <div>
-        <div class="sm" style="font-weight:500">${p.name}</div>
-        <div class="xs muted">${p.days}x/tuần · ${p.weeks[0]?.days.filter(d=>d.type!=='REST').length||0} buổi/tuần</div>
+        <div class="sm" style="font-weight:500">${p.name} ${todayType?`· <span style="color:${p.acc}">${todayType}</span>`:''}</div>
+        <div class="xs muted">${alreadyDone?'✅ Hôm nay đã tập rồi — ngon!':'Hôm nay tập: '+(todayType||'tự do')}</div>
       </div>
       <span class="tag" style="background:${p.acc}22;color:${p.acc}">${p.lvl==='beginner'?'B':p.lvl==='intermediate'?'I':'A'}</span>
     </div>
@@ -3255,7 +3310,7 @@ function renderTodayCard(){
     <div style="padding:0 12px 12px">
       <button class="btn bl" style="font-size:13px" onclick="startPlanWorkout()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Bắt đầu ngay
+        ${alreadyDone?'Tập thêm buổi nữa':'Bắt đầu ngay'}
       </button>
     </div>
   </div>`;
@@ -3308,6 +3363,21 @@ function restoreWorkout(){
   toast('⏱️ Đã khôi phục buổi tập đang dở');
 }
 function startPlanWorkout(){
+  if(!ST.currentPlan)return;
+  const p=ST.currentPlan;
+  const now=new Date();
+  const dayVi={0:'CN',1:'Thứ 2',2:'Thứ 3',3:'Thứ 4',4:'Thứ 5',5:'Thứ 6',6:'Thứ 7'};
+  const dkey=`${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+  const ov=(ST.schedOverrides||{})[dkey];
+  let today;
+  if(ov!==undefined&&ov!=='REST')today=p.weeks[0]?.days.find(d=>d.type===ov);
+  else today=p.weeks[0]?.days.find(d=>d.day===dayVi[now.getDay()]&&d.type!=='REST');
+  if(!today)today=p.weeks[0]?.days.find(d=>d.type!=='REST');
+  initWorkout(today?.type?`${p.name} · ${today.type}`:p.name);
+  if(today?.exs)today.exs.slice(0,8).forEach(e=>addEx(e.n));
+  goTab('s-workout');
+}
+function _oldStartPlanWorkout(){
   if(!ST.currentPlan)return;
   const p=ST.currentPlan;
   const today=p.weeks[0]?.days.find(d=>d.type!=='REST');
@@ -3825,7 +3895,26 @@ function showWS(w){
   aiTxt.textContent=localMsg;
   if((ST.isPro||isPremium())){
     aiTxt.innerHTML='<span class="td"></span><span class="td"></span><span class="td"></span>';
-    aiCoach(`${ST.profile.name} vừa tập: ${w.dur}ph, ${w.vol}kg volume, ${w.exCount} bài, ${w.totalSets} sets. Trình độ ${ST.profile.level}, mục tiêu ${ST.profile.goal}. Nhận xét ngắn (2 câu tiếng Việt) và 1 gợi ý cho buổi tiếp theo. Chỉ trả lời text, không markdown.`)
+    // Build a rich progress comparison: this session vs the previous time each exercise was done
+    const prog=[];
+    Object.keys(w.exDetails||{}).forEach(nm=>{
+      const prevW=ST.workouts.slice(1).find(x=>x.exDetails&&x.exDetails[nm]);
+      const cur=w.exDetails[nm];
+      if(prevW){prog.push(`${nm}: nay ${cur} | trước ${prevW.exDetails[nm]}`);}
+      else{prog.push(`${nm}: ${cur} (bài mới)`);}
+    });
+    const recentVol=ST.workouts.slice(1,5).map(x=>x.vol||0);
+    const avgVol=recentVol.length?Math.round(recentVol.reduce((a,b)=>a+b,0)/recentVol.length):0;
+    const prompt=`Bạn là HLV thể hình người Việt. Học viên ${ST.profile.name} (trình độ ${ST.profile.level}, mục tiêu ${ST.profile.goal==='muscle'?'tăng cơ':ST.profile.goal==='fat'?'giảm mỡ':'giữ dáng'}) vừa xong buổi "${w.title}":
+- ${w.dur} phút, ${w.vol}kg tổng volume (trung bình 4 buổi gần đây: ${avgVol}kg), ${w.totalSets} sets.
+Chi tiết từng bài (so với lần trước):
+${prog.join('\n')}
+
+Hãy phân tích NGẮN GỌN bằng tiếng Việt thân thiện như HLV thật:
+1. Khen/nhận xét cụ thể về tiến bộ (chỉ ra bài nào tăng, bài nào chững).
+2. Một lời khuyên hành động cho buổi sau (tạ/reps/kỹ thuật).
+Tối đa 3-4 câu. KHÔNG markdown, KHÔNG gạch đầu dòng, viết liền mạch tự nhiên.`;
+    aiCoach(prompt)
       .then(r=>{if(r)aiTxt.textContent=r;else aiTxt.textContent=localMsg;})
       .catch(()=>{aiTxt.textContent=localMsg;});
   }
@@ -7091,28 +7180,41 @@ function showLocalWeeklyReview(){
   if(!el)return;
   const now=new Date();
   const weekStart=new Date(now);weekStart.setDate(now.getDate()-now.getDay()+1);weekStart.setHours(0,0,0,0);
-  const weekW=ST.workouts.filter(w=>{const d=new Date(w.date.split('/').reverse().join('-'));return d>=weekStart;});
-  const totalVol=weekW.reduce((t,w)=>t+(w.vol||0),0);
-  const totalDur=weekW.reduce((t,w)=>t+(w.dur||0),0);
-  const totalCal=weekW.reduce((t,w)=>t+(w.calBurned||0),0);
-  const totalSets=weekW.reduce((t,w)=>t+(w.totalSets||0),0);
-  if(!weekW.length){el.textContent='Tuần này chưa có buổi tập nào. Bắt đầu thôi!';return;}
-  // Muscle groups hit
+  const lastWeekStart=new Date(weekStart);lastWeekStart.setDate(weekStart.getDate()-7);
+  const inRange=(w,start,end)=>{const d=new Date(w.date.split('/').reverse().join('-'));return d>=start&&(!end||d<end);};
+  const weekW=ST.workouts.filter(w=>inRange(w,weekStart,null));
+  const lastW=ST.workouts.filter(w=>inRange(w,lastWeekStart,weekStart));
+  const sum=arr=>({n:arr.length,vol:arr.reduce((t,w)=>t+(w.vol||0),0),dur:arr.reduce((t,w)=>t+(w.dur||0),0),sets:arr.reduce((t,w)=>t+(w.totalSets||0),0),cal:arr.reduce((t,w)=>t+(w.calBurned||0),0)});
+  const cur=sum(weekW),prev=sum(lastW);
+  if(!weekW.length){el.textContent='Tuần này chưa có buổi tập nào. Bắt đầu thôi! 💪';return;}
   const muscles={};
   weekW.forEach(w=>Object.keys(w.exDetails||{}).forEach(n=>{
     const ex=EXERCISES.find(e=>e.name===n||e.nameVi===n);
     if(ex)muscles[ex.muscle]=(muscles[ex.muscle]||0)+1;
   }));
-  const muscleList=Object.entries(muscles).sort((a,b)=>b[1]-a[1]).map(([m,c])=>`${m}(${c})`).join(', ');
-  const avg=Math.round(totalDur/weekW.length);
+  const muscleViMap={chest:'Ngực',back:'Lưng',legs:'Chân',shoulders:'Vai',arms:'Tay',core:'Core',glutes:'Mông'};
+  const muscleList=Object.entries(muscles).sort((a,b)=>b[1]-a[1]).map(([m,c])=>`${muscleViMap[m]||m}`).join(' · ');
+  const avg=Math.round(cur.dur/weekW.length);
   const lv=getLevel();
+  // Week-over-week deltas
+  const delta=(c,p)=>{if(!p)return'';const d=c-p;const pct=p?Math.round(d/p*100):0;if(d>0)return`<span style="color:var(--lime);font-size:11px;font-family:var(--FM)"> ↑${pct}%</span>`;if(d<0)return`<span style="color:#ff7a7a;font-size:11px;font-family:var(--FM)"> ↓${Math.abs(pct)}%</span>`;return'';};
+  let headline='';
+  if(prev.n){
+    if(cur.vol>prev.vol)headline='🔥 Tuần này khỏe hơn tuần trước — tiến bộ rõ rệt!';
+    else if(cur.n>prev.n)headline='👏 Tập đều hơn tuần trước, giữ phong độ!';
+    else if(cur.vol<prev.vol*0.7)headline='💪 Tuần này nhẹ hơn — tuần sau bứt phá nhé!';
+    else headline='✅ Giữ vững nhịp độ, ổn định là chìa khoá!';
+  } else headline='🌱 Tuần đầu có dữ liệu — tuần sau sẽ có so sánh!';
   el.innerHTML=`
-    <div style="margin-bottom:8px">📅 <strong>Tuần này: ${weekW.length} buổi</strong></div>
-    <div style="margin-bottom:4px">⏱ Tổng: ${totalDur}ph · Trung bình: ${avg}ph/buổi</div>
-    <div style="margin-bottom:4px">🏋️ Volume: ${totalVol.toLocaleString()}kg · ${totalSets} sets</div>
-    <div style="margin-bottom:4px">🔥 Calories đốt: ~${totalCal}kcal</div>
-    <div style="margin-bottom:8px">💪 Nhóm cơ: ${muscleList||'--'}</div>
-    <div style="color:var(--lime)">${lv.emoji} Level ${lv.lv} · ${lv.xp} XP · Streak ${ST.stats.streak} ngày 🔥</div>`;
+    <div style="font-size:13px;color:var(--lime);margin-bottom:10px;font-weight:600">${headline}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+      <div style="background:var(--bg3);border-radius:8px;padding:9px 11px"><div style="font-size:18px;font-family:var(--FD);color:var(--lime)">${cur.n}${delta(cur.n,prev.n)}</div><div style="font-size:10px;color:var(--txt3)">buổi tập</div></div>
+      <div style="background:var(--bg3);border-radius:8px;padding:9px 11px"><div style="font-size:18px;font-family:var(--FD);color:var(--lime)">${cur.vol>999?(cur.vol/1000).toFixed(1)+'k':cur.vol}${delta(cur.vol,prev.vol)}</div><div style="font-size:10px;color:var(--txt3)">kg volume</div></div>
+      <div style="background:var(--bg3);border-radius:8px;padding:9px 11px"><div style="font-size:18px;font-family:var(--FD);color:var(--lime)">${cur.sets}${delta(cur.sets,prev.sets)}</div><div style="font-size:10px;color:var(--txt3)">sets</div></div>
+      <div style="background:var(--bg3);border-radius:8px;padding:9px 11px"><div style="font-size:18px;font-family:var(--FD);color:var(--lime)">${cur.dur}<span style="font-size:11px">ph</span></div><div style="font-size:10px;color:var(--txt3)">TB ${avg}ph/buổi</div></div>
+    </div>
+    <div style="font-size:12px;color:var(--txt2);margin-bottom:6px">💪 Nhóm cơ tuần này: ${muscleList||'--'}</div>
+    <div style="font-size:12px;color:var(--lime)">${lv.emoji} Level ${lv.lv} · ${lv.xp} XP · 🔥 Streak ${ST.stats.streak} ngày</div>`;
 }
 
 // ════════════════════════════════════════════════════════
