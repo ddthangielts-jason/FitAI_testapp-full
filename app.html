@@ -1303,6 +1303,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
       <div class="pill-row" id="plan-filters" style="overflow-x:auto;flex-wrap:nowrap">
         <button class="pill on" onclick="filterPlans('all',this)">Tất cả</button>
+        <button class="pill" onclick="filterPlans('mine',this)">⭐ Của tôi</button>
         <button class="pill" onclick="filterPlans('beginner',this)">🌱 Mới</button>
         <button class="pill" onclick="filterPlans('intermediate',this)">🔶 Trung cấp</button>
         <button class="pill" onclick="filterPlans('advanced',this)">🏆 Nâng cao</button>
@@ -1312,6 +1313,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         <button class="pill" onclick="filterPlans('muscle',this)">🏋️ Hypertrophy</button>
         <button class="pill" onclick="filterPlans('fat',this)">🔥 Giảm mỡ</button>
       </div>
+      <button class="btn bl" style="margin-top:10px;height:42px;font-size:14px;font-weight:600" onclick="openPlanBuilder()">+ Tạo plan của riêng tôi</button>
     </div>
     <div style="flex:1;overflow-y:auto;padding:8px 16px 16px" id="plan-list"></div>
   </div>
@@ -1649,7 +1651,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
 
       <div style="text-align:center;padding:8px 0;margin-bottom:4px">
-        <span class="xxs muted">FitAI v4.0.0 · Workout Tracker 🇻🇳</span>
+        <span class="xxs muted">FitAI v4.1.0 · Workout Tracker 🇻🇳</span>
       </div>
 
       <!-- Macro targets display -->
@@ -2271,7 +2273,7 @@ const PLANS=[
    ]},
 ];
 
-const EXGIF={"Bench Press": "Barbell_Bench_Press_-_Medium_Grip", "Incline DB Press": "Incline_Dumbbell_Press", "Cable Fly": "Cable_Crossover", "Push Up": "Pushups", "Barbell Deadlift": "Barbell_Deadlift", "Pull-up": "Pullups", "Lat Pulldown": "Wide-Grip_Lat_Pulldown", "Seated Cable Row": "Seated_Cable_Rows", "Barbell Row": "Bent_Over_Barbell_Row", "DB Shoulder Press": "Dumbbell_Shoulder_Press", "Lateral Raise": "Side_Lateral_Raise", "Face Pull": "Face_Pull", "Overhead Press": "Standing_Military_Press", "Barbell Curl": "Barbell_Curl", "Hammer Curl": "Hammer_Curls", "Tricep Pushdown": "Triceps_Pushdown", "Barbell Squat": "Barbell_Full_Squat", "Leg Press": "Leg_Press", "Romanian DL": "Romanian_Deadlift", "Hip Thrust": "Barbell_Hip_Thrust", "Glute Bridge": "Butt_Lift_Bridge", "Plank": "Plank", "Calf Raise": "Standing_Calf_Raises", "Leg Curl": "Lying_Leg_Curls", "Chest Press Machine": "Leverage_Chest_Press", "Pec Deck": "Butterfly", "Dips": "Dips_-_Triceps_Version", "Seated Row Machine": "Leverage_High_Row", "T-Bar Row": "T-Bar_Row_with_Handle", "Single Arm DB Row": "One-Arm_Dumbbell_Row", "Cable Lateral Raise": "Cable_Seated_Lateral_Raise", "Arnold Press": "Arnold_Dumbbell_Press", "Upright Row": "Upright_Barbell_Row", "Preacher Curl": "Preacher_Curl", "Cable Curl": "Standing_Biceps_Cable_Curl", "Overhead Tricep Extension": "Standing_Dumbbell_Triceps_Extension", "Close Grip Bench": "Close-Grip_Barbell_Bench_Press", "Leg Extension": "Leg_Extensions", "Hack Squat": "Hack_Squat", "Sumo Deadlift": "Sumo_Deadlift", "Good Morning": "Good_Morning", "Donkey Kicks": "Glute_Kickback", "Cable Kickback": "Glute_Kickback", "Ab Wheel": "Ab_Roller", "Russian Twist": "Russian_Twist", "Dead Bug": "Dead_Bug", "Seated Calf Raise": "Seated_Calf_Raise", "Smith Machine Squat": "Smith_Machine_Squat", "Cable Pull Through": "Pull_Through", "Incline Curl": "Incline_Dumbbell_Curl", "EZ Bar Curl": "EZ-Bar_Curl", "Skull Crusher": "Lying_Triceps_Press", "Rope Pushdown": "Triceps_Pushdown_-_Rope_Attachment", "Seated Leg Curl": "Seated_Leg_Curl", "Hip Abduction": "Thigh_Abductor", "Reverse Fly": "Reverse_Flyes", "Dumbbell Shrug": "Dumbbell_Shrug", "Wrist Curl": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench", "Reverse Curl": "Reverse_Barbell_Curl", "Box Jump": "Box_Jump_Multiple_Response", "Cable Crossover": "Cable_Crossover", "Pec Deck Fly": "Butterfly", "Meadows Row": "One-Arm_Dumbbell_Row", "Chest Supported Row": "Incline_Bench_Pull", "Straight Arm Pulldown": "Straight-Arm_Pulldown", "Cable Face Pull": "Face_Pull", "Seated DB Press": "Seated_Dumbbell_Press", "Front Squat": "Front_Barbell_Squat", "Leg Press (Close Stance)": "Leg_Press", "Nordic Curl": "Lying_Leg_Curls", "Glute Kickback Cable": "Glute_Kickback", "Spider Curl": "Spider_Curl", "Overhead Cable Tricep": "Cable_Rope_Overhead_Triceps_Extension", "Hanging Leg Raise": "Hanging_Leg_Raise", "Cable Crunch": "Cable_Crunch", "Pallof Press": "Cable_Crunch", "Landmine Press": "Standing_Military_Press", "Cable Chest Press": "Cable_Chest_Press", "Pendlay Row": "Bent_Over_Barbell_Row", "Band Pull Apart": "Face_Pull", "Goblet Squat": "Goblet_Squat", "Machine Shoulder Press": "Machine_Shoulder_Military_Press", "Concentration Curl": "Concentration_Curls", "Hollow Body Hold": "Plank", "Ab Rollout": "Ab_Roller", "Side Plank": "Side_Bridge", "Smith Machine Hip Thrust": "Barbell_Hip_Thrust", "Single Arm Row": "One-Arm_Dumbbell_Row", "Hack Squat Machine": "Hack_Squat", "Reverse Grip Pulldown": "Close-Grip_Front_Lat_Pulldown", "Treadmill Walking Incline": "Walking_Treadmill", "Mountain Climber": "Mountain_Climbers", "Bulgarian Split Squat": "Split_Squat_with_Dumbbells", "Walking Lunge": "Bodyweight_Walking_Lunge", "Sissy Squat": "Weighted_Sissy_Squat"};
+const EXGIF={"Bench Press": "Barbell_Bench_Press_-_Medium_Grip", "Incline DB Press": "Incline_Dumbbell_Press", "Cable Fly": "Cable_Crossover", "Push Up": "Pushups", "Barbell Deadlift": "Barbell_Deadlift", "Pull-up": "Pullups", "Lat Pulldown": "Wide-Grip_Lat_Pulldown", "Seated Cable Row": "Seated_Cable_Rows", "Barbell Row": "Bent_Over_Barbell_Row", "DB Shoulder Press": "Dumbbell_Shoulder_Press", "Lateral Raise": "Side_Lateral_Raise", "Face Pull": "Face_Pull", "Overhead Press": "Standing_Military_Press", "Barbell Curl": "Barbell_Curl", "Hammer Curl": "Hammer_Curls", "Tricep Pushdown": "Triceps_Pushdown", "Barbell Squat": "Barbell_Full_Squat", "Leg Press": "Leg_Press", "Romanian DL": "Romanian_Deadlift", "Hip Thrust": "Barbell_Hip_Thrust", "Glute Bridge": "Butt_Lift_Bridge", "Plank": "Plank", "Calf Raise": "Standing_Calf_Raises", "Leg Curl": "Lying_Leg_Curls", "Chest Press Machine": "Leverage_Chest_Press", "Pec Deck": "Butterfly", "Dips": "Dips_-_Triceps_Version", "Seated Row Machine": "Leverage_High_Row", "T-Bar Row": "T-Bar_Row_with_Handle", "Single Arm DB Row": "One-Arm_Dumbbell_Row", "Cable Lateral Raise": "Cable_Seated_Lateral_Raise", "Arnold Press": "Arnold_Dumbbell_Press", "Upright Row": "Upright_Barbell_Row", "Preacher Curl": "Preacher_Curl", "Cable Curl": "Standing_Biceps_Cable_Curl", "Overhead Tricep Extension": "Standing_Dumbbell_Triceps_Extension", "Close Grip Bench": "Close-Grip_Barbell_Bench_Press", "Leg Extension": "Leg_Extensions", "Hack Squat": "Hack_Squat", "Sumo Deadlift": "Sumo_Deadlift", "Good Morning": "Good_Morning", "Donkey Kicks": "Glute_Kickback", "Cable Kickback": "Glute_Kickback", "Ab Wheel": "Ab_Roller", "Russian Twist": "Russian_Twist", "Dead Bug": "Dead_Bug", "Seated Calf Raise": "Seated_Calf_Raise", "Smith Machine Squat": "Smith_Machine_Squat", "Cable Pull Through": "Pull_Through", "Incline Curl": "Incline_Dumbbell_Curl", "EZ Bar Curl": "EZ-Bar_Curl", "Skull Crusher": "Lying_Triceps_Press", "Rope Pushdown": "Triceps_Pushdown_-_Rope_Attachment", "Seated Leg Curl": "Seated_Leg_Curl", "Hip Abduction": "Thigh_Abductor", "Reverse Fly": "Reverse_Flyes", "Dumbbell Shrug": "Dumbbell_Shrug", "Wrist Curl": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench", "Reverse Curl": "Reverse_Barbell_Curl", "Box Jump": "Box_Jump_Multiple_Response", "Cable Crossover": "Cable_Crossover", "Pec Deck Fly": "Butterfly", "Meadows Row": "One-Arm_Dumbbell_Row", "Chest Supported Row": "Incline_Bench_Pull", "Straight Arm Pulldown": "Straight-Arm_Pulldown", "Cable Face Pull": "Face_Pull", "Seated DB Press": "Seated_Dumbbell_Press", "Front Squat": "Front_Barbell_Squat", "Leg Press (Close Stance)": "Leg_Press", "Nordic Curl": "Lying_Leg_Curls", "Glute Kickback Cable": "Glute_Kickback", "Spider Curl": "Spider_Curl", "Overhead Cable Tricep": "Cable_Rope_Overhead_Triceps_Extension", "Hanging Leg Raise": "Hanging_Leg_Raise", "Cable Crunch": "Cable_Crunch", "Pallof Press": "Cable_Crunch", "Landmine Press": "Standing_Military_Press", "Cable Chest Press": "Cable_Chest_Press", "Pendlay Row": "Bent_Over_Barbell_Row", "Band Pull Apart": "Face_Pull", "Goblet Squat": "Goblet_Squat", "Machine Shoulder Press": "Machine_Shoulder_Military_Press", "Concentration Curl": "Concentration_Curls", "Hollow Body Hold": "Plank", "Ab Rollout": "Ab_Roller", "Side Plank": "Side_Bridge", "Smith Machine Hip Thrust": "Barbell_Hip_Thrust", "Single Arm Row": "One-Arm_Dumbbell_Row", "Hack Squat Machine": "Hack_Squat", "Reverse Grip Pulldown": "Close-Grip_Front_Lat_Pulldown", "Treadmill Walking Incline": "Walking_Treadmill", "Mountain Climber": "Mountain_Climbers", "Bulgarian Split Squat": "Split_Squat_with_Dumbbells", "Walking Lunge": "Bodyweight_Walking_Lunge", "Sissy Squat": "Weighted_Sissy_Squat", "Decline Bench Press": "Decline_Barbell_Bench_Press", "Cable Crossover Low": "Low_Cable_Crossover", "Dumbbell Pullover": "Bent-Arm_Dumbbell_Pullover", "Machine Fly": "Butterfly", "Svend Press": "Plate_Pinch", "Deficit Deadlift": "Deficit_Deadlift", "Rack Pull": "Rack_Pulls", "Wide Grip Pulldown": "Wide-Grip_Lat_Pulldown", "Inverted Row": "Inverted_Row", "Cable Pullover": "Cable_Incline_Pushdown", "Shrug Barbell": "Barbell_Shrug", "Behind Neck Press": "Standing_Military_Press", "Cable Front Raise": "Front_Cable_Raise", "Bent Over Reverse Fly": "Reverse_Flyes", "Cuban Press": "Cuban_Press", "Zottman Curl": "Zottman_Curl", "Cable Hammer Curl": "Cable_Hammer_Curls_-_Rope_Attachment", "Tricep Kickback": "Tricep_Dumbbell_Kickback", "Bench Dips": "Bench_Dips", "Wrist Curl Reverse": "Cable_Reverse_Crunch", "Pause Squat": "Barbell_Full_Squat", "Leg Press Single": "Leg_Press", "Step Up": "Dumbbell_Step_Ups", "Glute Ham Raise": "Natural_Glute_Ham_Raise", "Standing Calf Raise Barbell": "Standing_Barbell_Calf_Raise", "Cable Woodchopper": "Alternating_Cable_Shoulder_Press", "Decline Crunch": "Decline_Crunch", "Toes to Bar": "Hanging_Leg_Raise", "Jumping Jack": "Rope_Jumping"};
 const EXGIF_BASE='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
 const EXERCISES=[
   {id:1,name:'Bench Press',nameVi:'Bench Press Barbell',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'SCVCLChPQFY',
@@ -2683,6 +2685,127 @@ const EXERCISES=[
    cues:['Bắt đầu từ plank position','Kéo gối lên ngực xen kẽ nhanh','Hông không nhấc lên','Core braced suốt bài'],
    mistakes:['Hông lên cao','Quá chậm mất nhịp'],
    sets:{'muscle':'3×30-60s','strength':'','endurance':'4×45-90s'},diffVi:'Cơ bản'},
+,
+  {id:107,name:'Decline Bench Press',nameVi:'Decline Bench Press',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Ghế dốc xuống ~15-30°','Hạ tạ xuống ngực dưới','Đẩy lên theo đường thẳng','Giữ vai kẹp chặt'],
+   mistakes:['Dốc quá sâu','Khoá khuỷu đột ngột'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:108,name:'Cable Crossover Low',nameVi:'Cable Crossover Low',muscle:'chest',equip:'cable',emoji:'🔗',ytId:'',
+   cues:['Cáp ở vị trí thấp','Kéo chéo lên trên trước ngực','Ép ngực ở đỉnh','Khuỷu hơi cong cố định'],
+   mistakes:['Dùng vai kéo','Thân ngả nhiều'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:109,name:'Dumbbell Pullover',nameVi:'Dumbbell Pullover',muscle:'chest',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Nằm ngang ghế, hông thấp','Hạ tạ ra sau đầu vòng cung','Kéo về bằng ngực & lưng','Khuỷu hơi cong'],
+   mistakes:['Cong khuỷu nhiều','Hạ quá sâu hại vai'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:110,name:'Machine Fly',nameVi:'Machine Fly',muscle:'chest',equip:'machine',emoji:'⚙️',ytId:'',
+   cues:['Lưng áp đệm','Ép tay về trước ngực','Siết ngực ở giữa','Về chậm có kiểm soát'],
+   mistakes:['Đẩy bằng vai','Mở tay quá rộng'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:111,name:'Svend Press',nameVi:'Svend Press',muscle:'chest',equip:'plate',emoji:'🍽️',ytId:'',
+   cues:['Ép 2 đĩa tạ vào nhau trước ngực','Đẩy thẳng ra trước','Siết ngực toàn bộ','Về chậm'],
+   mistakes:['Lỏng tay rớt đĩa','Đẩy lệch'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:112,name:'Deficit Deadlift',nameVi:'Deficit Deadlift',muscle:'back',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Đứng trên bục ~3-5cm','Hip hinge, lưng thẳng','Kéo qua range dài hơn','Khoá hông ở đỉnh'],
+   mistakes:['Lưng cong','Giật tạ'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Nâng cao'},
+  {id:113,name:'Rack Pull',nameVi:'Rack Pull',muscle:'back',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Thanh tạ đặt ngang gối','Kéo từ rack, khoá hông','Lưng thẳng suốt','Siết lưng trên'],
+   mistakes:['Giật lưng dưới','Không khoá hông'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:114,name:'Wide Grip Pulldown',nameVi:'Wide Grip Pulldown',muscle:'back',equip:'cable',emoji:'🔗',ytId:'',
+   cues:['Grip rộng hơn vai','Kéo xà xuống ngực trên','Ép bả vai xuống','Về chậm kiểm soát'],
+   mistakes:['Ngả người kéo','Kéo sau gáy'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:115,name:'Inverted Row',nameVi:'Inverted Row',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Thân thẳng dưới thanh','Kéo ngực lên thanh','Ép bả vai','Hạ chậm'],
+   mistakes:['Hông xệ','Range ngắn'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:116,name:'Cable Pullover',nameVi:'Cable Pullover',muscle:'back',equip:'cable',emoji:'🔗',ytId:'',
+   cues:['Đứng trước cáp cao','Kéo thẳng tay xuống hông','Dùng lưng xô','Khuỷu cố định'],
+   mistakes:['Cong khuỷu','Dùng tay trước'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:117,name:'Shrug Barbell',nameVi:'Shrug Barbell',muscle:'back',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Cầm tạ trước đùi','Nhún vai lên cao tối đa','Giữ 1 giây ở đỉnh','Hạ chậm'],
+   mistakes:['Xoay vai','Dùng tay kéo'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:118,name:'Behind Neck Press',nameVi:'Behind Neck Press',muscle:'shoulders',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Đẩy tạ từ sau gáy lên (cẩn thận)','Range vừa phải','Core siết','Chỉ dùng nếu vai dẻo'],
+   mistakes:['Vai cứng vẫn tập','Tạ quá nặng'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Nâng cao'},
+  {id:119,name:'Cable Front Raise',nameVi:'Cable Front Raise',muscle:'shoulders',equip:'cable',emoji:'🔗',ytId:'',
+   cues:['Cáp thấp, kéo thẳng tay ra trước','Lên ngang vai','Không vung','Hạ chậm'],
+   mistakes:['Vung người','Lên quá cao'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:120,name:'Bent Over Reverse Fly',nameVi:'Bent Over Reverse Fly',muscle:'shoulders',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Cúi người ~45°','Mở tay sang ngang','Siết vai sau','Khuỷu hơi cong'],
+   mistakes:['Dùng lưng','Tạ quá nặng'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:121,name:'Cuban Press',nameVi:'Cuban Press',muscle:'shoulders',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Kéo cao khuỷu','Xoay ngoài cẳng tay','Đẩy lên qua đầu','Đảo ngược chậm'],
+   mistakes:['Bỏ bước xoay','Tạ nặng'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:122,name:'Zottman Curl',nameVi:'Zottman Curl',muscle:'arms',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Cuốn lên lòng bàn tay hướng lên','Xoay cổ tay ở đỉnh','Hạ với lòng tay úp','Kiểm soát toàn bộ'],
+   mistakes:['Xoay sai thời điểm','Vung tạ'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:123,name:'Cable Hammer Curl',nameVi:'Cable Hammer Curl',muscle:'arms',equip:'cable',emoji:'🔗',ytId:'',
+   cues:['Dùng dây thừng','Cuốn kiểu búa (ngón cái lên)','Siết bắp tay','Hạ chậm'],
+   mistakes:['Vung khuỷu','Range ngắn'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:124,name:'Tricep Kickback',nameVi:'Tricep Kickback',muscle:'arms',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Cúi người, cánh tay sát thân','Duỗi cẳng tay ra sau','Siết tam đầu','Về chậm'],
+   mistakes:['Vung tay','Khuỷu di chuyển'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:125,name:'Bench Dips',nameVi:'Bench Dips',muscle:'arms',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Tay đặt mép ghế','Hạ người xuống bằng khuỷu','Đẩy lên dùng tam đầu','Vai không rụt'],
+   mistakes:['Hạ quá sâu hại vai','Dùng chân đẩy'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:126,name:'Wrist Curl Reverse',nameVi:'Wrist Curl Reverse',muscle:'arms',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Cầm tạ úp tay','Nâng cổ tay lên','Siết cẳng tay ngoài','Hạ chậm'],
+   mistakes:['Range quá lớn','Dùng đà'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:127,name:'Front Squat',nameVi:'Front Squat',muscle:'legs',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Tạ đặt trước vai, khuỷu cao','Squat thẳng lưng','Gối theo mũi chân','Ngực ưỡn'],
+   mistakes:['Khuỷu rớt','Lưng cong'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Nâng cao'},
+  {id:128,name:'Pause Squat',nameVi:'Pause Squat',muscle:'legs',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Squat xuống đáy','Dừng 2-3 giây','Đẩy bật lên','Giữ thân chặt'],
+   mistakes:['Bật mất pause','Mất thăng bằng'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:129,name:'Leg Press Single',nameVi:'Leg Press Single',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'',
+   cues:['Đặt 1 chân giữa bàn đạp','Đẩy có kiểm soát','Không khoá gối','Đổi chân'],
+   mistakes:['Gối khoá','Range ngắn'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:130,name:'Step Up',nameVi:'Step Up',muscle:'legs',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Bước lên bục cao ngang gối','Đẩy bằng gót chân trên','Đứng thẳng hẳn','Hạ chậm đổi chân'],
+   mistakes:['Đẩy bằng chân dưới','Bục quá cao'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:131,name:'Glute Ham Raise',nameVi:'Glute Ham Raise',muscle:'legs',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Cố định chân','Hạ thân xuống chậm','Dùng gân kheo kéo lên','Giữ thẳng người'],
+   mistakes:['Dùng đà','Hạ quá nhanh'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Nâng cao'},
+  {id:132,name:'Standing Calf Raise Barbell',nameVi:'Standing Calf Raise Barbell',muscle:'legs',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Tạ trên vai','Kiễng chân cao tối đa','Giữ 1 giây','Hạ gót sâu'],
+   mistakes:['Range ngắn','Bật nhanh'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:133,name:'Cable Woodchopper',nameVi:'Cable Woodchopper',muscle:'core',equip:'cable',emoji:'🔗',ytId:'',
+   cues:['Kéo cáp chéo từ cao xuống thấp','Xoay thân bằng core','Tay thẳng','Đổi bên'],
+   mistakes:['Dùng tay','Xoay lưng dưới'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:134,name:'Decline Crunch',nameVi:'Decline Crunch',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Ghế dốc ngược','Gập thân lên bằng bụng','Siết ở đỉnh','Hạ chậm'],
+   mistakes:['Kéo cổ','Dùng đà'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:135,name:'Toes to Bar',nameVi:'Toes to Bar',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Treo xà','Kéo mũi chân lên chạm xà','Dùng bụng dưới','Hạ kiểm soát'],
+   mistakes:['Đung đưa lấy đà','Cong lưng'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Nâng cao'},
+  {id:136,name:'Jumping Jack',nameVi:'Jumping Jack',muscle:'cardio',equip:'bodyweight',emoji:'🏃',ytId:'',
+   cues:['Bật nhảy dang tay chân','Nhịp nhanh đều','Tiếp đất nhẹ','Thở đều'],
+   mistakes:['Tiếp đất nặng','Mất nhịp'],
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'}
 ];
 
 // ── Alias map: plan/program names → canonical EXERCISES entry name ──
@@ -2953,6 +3076,76 @@ const FOOD_PRESETS=[
   {name:'Multivitamin 1 viên',cal:0,p:0,c:0,f:0},
   {name:'Collagen peptide 10g',cal:40,p:9,c:0,f:0},
 
+  // ── ĐỒ UỐNG HẰNG NGÀY ──
+  {name:'Nước lọc 500ml',cal:0,p:0,c:0,f:0},
+  {name:'Cà phê đen không đường',cal:5,p:0,c:1,f:0},
+  {name:'Cà phê sữa đá',cal:140,p:3,c:22,f:5},
+  {name:'Cà phê sữa (bạc xỉu)',cal:180,p:4,c:26,f:7},
+  {name:'Trà đá',cal:0,p:0,c:0,f:0},
+  {name:'Trà sữa trân châu (size M)',cal:340,p:5,c:55,f:11},
+  {name:'Trà sữa size L',cal:450,p:6,c:72,f:14},
+  {name:'Nước cam ép 250ml',cal:110,p:2,c:26,f:0.5},
+  {name:'Nước mía 1 ly',cal:190,p:0,c:48,f:0},
+  {name:'Nước dừa 1 trái',cal:90,p:2,c:18,f:1},
+  {name:'Sinh tố bơ 1 ly',cal:300,p:5,c:35,f:17},
+  {name:'Sinh tố xoài 1 ly',cal:220,p:3,c:48,f:3},
+  {name:'Nước ngọt Coca 330ml',cal:140,p:0,c:39,f:0},
+  {name:'Nước ngọt 7Up 330ml',cal:150,p:0,c:38,f:0},
+  {name:'Bia 1 lon 330ml',cal:150,p:1.6,c:13,f:0},
+  {name:'Bia 1 chai 500ml',cal:215,p:2.3,c:18,f:0},
+  {name:'Nước tăng lực Red Bull',cal:110,p:0,c:28,f:0},
+  {name:'Nước suối có ga 500ml',cal:0,p:0,c:0,f:0},
+  {name:'Trà chanh 1 ly',cal:90,p:0,c:23,f:0},
+  {name:'Nước ép dưa hấu 250ml',cal:80,p:1.5,c:19,f:0.2},
+  {name:'Sữa đậu nành 1 ly',cal:140,p:7,c:18,f:4.5},
+  {name:'Sữa đặc 1 muỗng',cal:60,p:1.5,c:10,f:1.6},
+  {name:'Soda chanh đường',cal:120,p:0,c:31,f:0},
+  // ── MÓN ĂN SÁNG ──
+  {name:'Xôi mặn 1 gói',cal:420,p:12,c:68,f:11},
+  {name:'Xôi xéo 1 gói',cal:380,p:10,c:62,f:10},
+  {name:'Cháo lòng 1 tô',cal:320,p:18,c:40,f:10},
+  {name:'Cháo gà 1 tô',cal:280,p:18,c:42,f:5},
+  {name:'Bánh bao 1 cái',cal:250,p:10,c:38,f:7},
+  {name:'Bánh giò 1 cái',cal:290,p:9,c:42,f:10},
+  {name:'Bánh ướt 1 đĩa',cal:230,p:8,c:40,f:5},
+  {name:'Bún đậu mắm tôm 1 suất',cal:550,p:22,c:60,f:25},
+  // ── MÓN NƯỚC & MÓN CHÍNH ──
+  {name:'Hủ tiếu gõ 1 tô',cal:350,p:16,c:50,f:9},
+  {name:'Bún thịt nướng 1 tô',cal:480,p:24,c:58,f:16},
+  {name:'Cơm gà Hải Nam',cal:560,p:30,c:62,f:20},
+  {name:'Bò kho bánh mì',cal:480,p:26,c:50,f:18},
+  {name:'Lẩu thái 1 phần',cal:400,p:28,c:25,f:20},
+  {name:'Gỏi cuốn 2 cuốn',cal:160,p:10,c:22,f:3},
+  {name:'Chả giò 3 cuốn',cal:280,p:9,c:28,f:15},
+  {name:'Canh chua cá 1 tô',cal:180,p:18,c:14,f:6},
+  {name:'Thịt kho trứng 1 phần',cal:380,p:24,c:8,f:28},
+  {name:'Cá kho tộ 1 phần',cal:280,p:26,c:6,f:16},
+  {name:'Rau muống xào tỏi',cal:120,p:4,c:10,f:8},
+  {name:'Đậu hũ sốt cà',cal:180,p:10,c:14,f:10},
+  // ── TRÁI CÂY ──
+  {name:'Chuối 1 quả',cal:105,p:1.3,c:27,f:0.3},
+  {name:'Táo 1 quả',cal:95,p:0.5,c:25,f:0.3},
+  {name:'Cam 1 quả',cal:62,p:1.2,c:15,f:0.2},
+  {name:'Xoài 1 quả',cal:150,p:2,c:38,f:0.6},
+  {name:'Ổi 1 quả',cal:68,p:2.6,c:14,f:1},
+  {name:'Dưa hấu 200g',cal:60,p:1.2,c:15,f:0.3},
+  {name:'Thanh long 1 quả',cal:60,p:1.2,c:13,f:0},
+  {name:'Nho 100g',cal:69,p:0.7,c:18,f:0.2},
+  {name:'Đu đủ 200g',cal:86,p:1,c:22,f:0.3},
+  // ── ĂN VẶT ──
+  {name:'Bánh tráng trộn 1 bịch',cal:330,p:8,c:42,f:15},
+  {name:'Bánh tráng nướng 1 cái',cal:300,p:10,c:35,f:14},
+  {name:'Khoai tây chiên 100g',cal:312,p:3.4,c:41,f:15},
+  {name:'Gà rán 1 miếng',cal:290,p:19,c:11,f:19},
+  {name:'Snack khoai tây 1 gói',cal:280,p:3,c:30,f:17},
+  {name:'Bắp rang bơ 1 phần',cal:150,p:3,c:19,f:8},
+  {name:'Kem 1 cây',cal:200,p:3,c:24,f:11},
+  {name:'Chè 1 ly',cal:250,p:4,c:50,f:5},
+  {name:'Bánh flan 1 cái',cal:150,p:4,c:22,f:5},
+  {name:'Hạt điều 30g',cal:170,p:5,c:9,f:14},
+  {name:'Hạnh nhân 30g',cal:175,p:6,c:6,f:15},
+  {name:'Đậu phộng rang 30g',cal:170,p:7,c:5,f:14},
+
 ];
 
 const ACHIEVEMENTS=[
@@ -3006,6 +3199,7 @@ function save(){
     activeW:ST.activeW,exData:ST.exData||{},exCtr:ST.exCtr||0,
     _activeRest:ST._activeRest||null,
     schedOverrides:ST.schedOverrides||{},
+    customPlans:ST.customPlans||[],
   }));}catch(e){}
 }
 function load(){
@@ -3016,7 +3210,8 @@ function load(){
     if(d.profile)Object.assign(ST.profile,d.profile);
     if(d.workouts)ST.workouts=d.workouts;
     if(d.stats)Object.assign(ST.stats,d.stats);
-    if(d.currentPlanId)ST.currentPlan=PLANS.find(p=>p.id===d.currentPlanId)||null;
+    if(d.customPlans)ST.customPlans=d.customPlans;
+    if(d.currentPlanId)ST.currentPlan=allPlans().find(p=>p.id===d.currentPlanId)||null;
     if(d.measurements)ST.measurements=d.measurements;
     if(d.weekDone)ST.weekDone=d.weekDone;
     // nut handled in daily reset section below
@@ -4093,18 +4288,149 @@ function filterPlans(f,btn){
   document.querySelectorAll('#plan-filters .pill').forEach(p=>p.classList.remove('on'));
   btn.classList.add('on');renderPlans(f);
 }
+// ════════════════════════════════════════════════════════
+// CUSTOM PLAN BUILDER — tự tạo & đặt tên plan
+// ════════════════════════════════════════════════════════
+let _builder=null;
+function openPlanBuilder(){
+  _builder={name:'',days:[]};
+  renderBuilderStep1();
+}
+function renderBuilderStep1(){
+  let m=document.getElementById('plan-builder');
+  if(m)m.remove();
+  m=document.createElement('div');m.id='plan-builder';
+  m.style.cssText='position:fixed;inset:0;z-index:9000;background:var(--bg);display:flex;flex-direction:column';
+  m.innerHTML=`
+    <div style="padding:18px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;gap:12px;flex-shrink:0">
+      <button onclick="document.getElementById('plan-builder').remove()" style="background:none;border:none;color:var(--txt2);font-size:24px;cursor:pointer">←</button>
+      <div style="font-family:var(--FD);font-size:24px">Tạo plan của tôi</div>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:20px 16px">
+      <div class="sec-label">Tên plan</div>
+      <input id="bld-name" placeholder="VD: Lịch tập của Minh, Push Pull custom..." value="${_builder.name}" style="width:100%;height:48px;background:var(--bg3);border:1px solid var(--brd2);border-radius:10px;color:var(--txt);padding:0 14px;font-size:16px;margin-bottom:20px" oninput="_builder.name=this.value">
+      <div class="sec-label">Các buổi tập trong plan</div>
+      <div class="xs muted" style="margin-bottom:12px">Thêm từng buổi (VD: Push, Pull, Legs, Upper...) rồi chọn bài cho mỗi buổi.</div>
+      <div id="bld-days"></div>
+      <button class="btn bg" style="margin-top:12px;height:44px" onclick="addBuilderDay()">+ Thêm buổi tập</button>
+    </div>
+    <div style="padding:14px 16px;border-top:1px solid var(--brd);flex-shrink:0">
+      <button class="btn bl" style="height:50px;font-size:16px;font-weight:600" onclick="saveCustomPlan()">Lưu plan</button>
+    </div>`;
+  document.body.appendChild(m);
+  renderBuilderDays();
+}
+function addBuilderDay(){
+  _builder.days.push({type:'',exs:[]});
+  renderBuilderDays();
+}
+function renderBuilderDays(){
+  const el=document.getElementById('bld-days');if(!el)return;
+  if(!_builder.days.length){el.innerHTML='<div class="xs muted" style="padding:10px 0">Chưa có buổi nào.</div>';return;}
+  el.innerHTML=_builder.days.map((d,i)=>`
+    <div style="background:var(--bg3);border:1px solid var(--brd2);border-radius:12px;padding:14px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <input placeholder="Tên buổi (VD: Push)" value="${d.type}" style="flex:1;height:40px;background:var(--bg4);border:1px solid var(--brd2);border-radius:8px;color:var(--txt);padding:0 12px;font-size:15px;font-weight:600" oninput="_builder.days[${i}].type=this.value">
+        <button onclick="_builder.days.splice(${i},1);renderBuilderDays()" style="background:none;border:none;color:#ff7a7a;font-size:18px;cursor:pointer;padding:6px">🗑</button>
+      </div>
+      <div style="margin-bottom:8px">
+        ${d.exs.length?d.exs.map((e,j)=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--bg4);border-radius:7px;margin-bottom:5px;font-size:13px"><span>${e.n} <span style="color:var(--txt3)">· ${e.s}</span></span><span onclick="_builder.days[${i}].exs.splice(${j},1);renderBuilderDays()" style="color:#ff7a7a;cursor:pointer">✕</span></div>`).join(''):'<div class="xs muted" style="padding:4px 0">Chưa có bài tập</div>'}
+      </div>
+      <button class="btn bg" style="height:36px;font-size:12px" onclick="openExPickerForDay(${i})">+ Thêm bài tập</button>
+    </div>`).join('');
+}
+let _pickerDay=null;
+function openExPickerForDay(dayIdx){
+  _pickerDay=dayIdx;
+  let m=document.getElementById('ex-picker');if(m)m.remove();
+  m=document.createElement('div');m.id='ex-picker';
+  m.style.cssText='position:fixed;inset:0;z-index:9100;background:var(--bg);display:flex;flex-direction:column';
+  m.innerHTML=`
+    <div style="padding:16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;gap:12px;flex-shrink:0">
+      <button onclick="document.getElementById('ex-picker').remove()" style="background:none;border:none;color:var(--txt2);font-size:24px;cursor:pointer">←</button>
+      <input id="picker-search" placeholder="🔍 Tìm bài tập..." style="flex:1;height:42px;background:var(--bg3);border:1px solid var(--brd2);border-radius:10px;color:var(--txt);padding:0 14px;font-size:15px" oninput="renderPickerList(this.value)">
+    </div>
+    <div id="picker-list" style="flex:1;overflow-y:auto;padding:8px 16px 16px"></div>`;
+  document.body.appendChild(m);
+  renderPickerList('');
+}
+function renderPickerList(q){
+  const el=document.getElementById('picker-list');if(!el)return;
+  q=(q||'').toLowerCase().trim();
+  const muscleVi={chest:'Ngực',back:'Lưng',legs:'Chân',shoulders:'Vai',arms:'Tay',core:'Core',glutes:'Mông',cardio:'Cardio'};
+  const list=EXERCISES.filter(e=>!q||e.name.toLowerCase().includes(q)||(e.nameVi||'').toLowerCase().includes(q)||(muscleVi[e.muscle]||'').toLowerCase().includes(q));
+  el.innerHTML=list.slice(0,60).map(e=>`
+    <div onclick="pickExForDay('${e.name.replace(/'/g,"\\'")}')" style="display:flex;align-items:center;gap:12px;padding:11px;background:var(--bg3);border:1px solid var(--brd2);border-radius:10px;margin-bottom:7px;cursor:pointer">
+      <div style="font-size:22px">${e.emoji||'💪'}</div>
+      <div style="flex:1"><div style="font-size:14px;font-weight:500">${e.name}</div><div class="xs muted">${muscleVi[e.muscle]||e.muscle} · ${e.diffVi||''}</div></div>
+      <div style="color:var(--lime);font-size:20px">+</div>
+    </div>`).join('')||'<div class="xs muted" style="text-align:center;padding:30px">Không tìm thấy bài nào</div>';
+}
+function pickExForDay(name){
+  if(_pickerDay===null)return;
+  const ex=findEx(name);
+  const defSets=ex?.sets?.muscle||'3×10';
+  _builder.days[_pickerDay].exs.push({n:name,s:defSets,r:''});
+  document.getElementById('ex-picker')?.remove();
+  renderBuilderDays();
+  if(navigator.vibrate)navigator.vibrate(20);
+}
+function saveCustomPlan(){
+  const name=((document.getElementById('bld-name')?.value)||_builder.name||'').trim();
+  if(!name){toast('⚠️ Hãy đặt tên cho plan');return;}
+  const days=_builder.days.filter(d=>d.type.trim()&&d.exs.length);
+  if(!days.length){toast('⚠️ Thêm ít nhất 1 buổi có bài tập');return;}
+  // Map days to weekday slots
+  const weekdays=['Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','CN'];
+  const planDays=[];let di=0;
+  for(let w=0;w<7;w++){
+    if(di<days.length && (w%2===0 || days.length>=5 || (days.length<=3&&[0,2,4].includes(w)))){
+      planDays.push({day:weekdays[w],type:days[di].type,exs:days[di].exs});di++;
+    } else {
+      planDays.push({day:weekdays[w],type:'REST',exs:[]});
+    }
+  }
+  // assign any leftover days
+  while(di<days.length){for(let w=0;w<7;w++){if(planDays[w].type==='REST'){planDays[w]={day:weekdays[w],type:days[di].type,exs:days[di].exs};di++;break;}}if(di>=days.length)break;}
+  const plan={
+    id:'custom_'+Date.now(),custom:true,
+    name:name,short:name.substring(0,4).toUpperCase(),
+    lvl:ST.profile.level||'intermediate',goal:ST.profile.goal||'muscle',
+    days:days.length,eq:ST.profile.equip||'full',female:ST.profile.sex==='female',
+    color:'#1a1410',acc:'#c8f135',
+    desc:'Plan tự tạo: '+days.map(d=>d.type).join(' · '),
+    weeks:[{name:'Mỗi tuần',days:planDays}],
+  };
+  ST.customPlans=ST.customPlans||[];
+  ST.customPlans.unshift(plan);
+  save();
+  document.getElementById('plan-builder')?.remove();
+  toast('🎉 Đã tạo plan "'+name+'"!');
+  renderPlans('mine');
+  document.querySelectorAll('#plan-filters .pill').forEach(p=>p.classList.toggle('on',p.textContent.includes('Của tôi')));
+}
+function deleteCustomPlan(id){
+  if(!confirm('Xoá plan này?'))return;
+  ST.customPlans=(ST.customPlans||[]).filter(p=>p.id!==id);
+  if(ST.currentPlan?.id===id)ST.currentPlan=null;
+  save();renderPlans('mine');
+  toast('Đã xoá plan');
+}
+function allPlans(){return [...(ST.customPlans||[]),...PLANS];}
 function renderPlans(f){
   const lvlMap={beginner:'B',intermediate:'I',advanced:'A'};
   const lvlCls={beginner:'tb',intermediate:'ta',advanced:'tr'};
-  const list=f==='all'?PLANS:f==='female'?PLANS.filter(p=>p.female):f==='home'?PLANS.filter(p=>p.eq==='home'):f==='strength'?PLANS.filter(p=>p.goal==='strength'):f==='fat'?PLANS.filter(p=>p.goal==='fat'):f==='muscle'?PLANS.filter(p=>p.goal==='muscle'):PLANS.filter(p=>p.lvl===f);
-  if(!list.length){document.getElementById('plan-list').innerHTML='<div style="text-align:center;padding:40px 20px"><div style="font-size:48px;margin-bottom:12px">📋</div><div class="xs muted">Không có plan nào phù hợp</div></div>';return;}
+  const ALL=allPlans();
+  const list=f==='all'?ALL:f==='mine'?ALL.filter(p=>p.custom):f==='female'?ALL.filter(p=>p.female):f==='home'?ALL.filter(p=>p.eq==='home'):f==='strength'?ALL.filter(p=>p.goal==='strength'):f==='fat'?ALL.filter(p=>p.goal==='fat'):f==='muscle'?ALL.filter(p=>p.goal==='muscle'):ALL.filter(p=>p.lvl===f);
+  if(!list.length){document.getElementById('plan-list').innerHTML=f==='mine'?'<div style="text-align:center;padding:40px 20px"><div style="font-size:48px;margin-bottom:12px">⭐</div><div class="xs muted">Bạn chưa tạo plan nào.<br>Bấm "+ Tạo plan của riêng tôi" ở trên!</div></div>':'<div style="text-align:center;padding:40px 20px"><div style="font-size:48px;margin-bottom:12px">📋</div><div class="xs muted">Không có plan nào phù hợp</div></div>';return;}
   document.getElementById('plan-list').innerHTML=list.map(p=>`
-    <div class="plan-card" onclick="openPlanDetail(${p.id})">
+    <div class="plan-card" onclick="openPlanDetail(${JSON.stringify(p.id).replace(/"/g,'&quot;')})">
       <div class="plan-cover" style="background:${p.color}">
         <div class="plan-cover-text">${p.short}</div>
         <div class="plan-cover-info">
           <span class="tag" style="background:${p.acc}22;color:${p.acc}">${p.name}</span>
         </div>
+        ${p.custom?'<span style="position:absolute;top:10px;right:10px;background:var(--lime);color:#111;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;font-family:var(--FM)">⭐ CỦA TÔI</span>':''}
       </div>
       <div class="plan-body">
         <div class="rb" style="margin-bottom:6px">
@@ -4114,20 +4440,19 @@ function renderPlans(f){
             ${p.female?'<span class="tag tp">♀</span>':''}
           </div>
         </div>
-        <div class="xs muted" style="margin-bottom:8px;line-height:1.5">${p.desc.substring(0,80)}...</div>
+        <div class="xs muted" style="margin-bottom:8px;line-height:1.5">${(p.desc||'').substring(0,80)}${(p.desc||'').length>80?'...':''}</div>
         <div class="plan-meta">
           <span class="tag tg">${p.days}x/tuần</span>
           <span class="tag tg">${p.goal==='muscle'?'Hypertrophy':p.goal==='strength'?'Strength':p.goal==='fat'?'Fat loss':'General'}</span>
-          <span class="tag tg">${p.eq==='full'?'Full gym':p.eq==='barbell'?'Barbell':p.eq==='dumbbell'?'Dumbbell':'Home'}</span>
-          <span class="tag ${p.lvl==='beginner'?'tb':p.lvl==='intermediate'?'ta':'tr'}">${p.lvl==='beginner'?'🌱 Beginner':p.lvl==='intermediate'?'🔶 Intermediate':'🏆 Advanced'}</span>
           ${getPlanWorkoutCount(p.id)>0?`<span class="tag" style="background:var(--lime-dim);color:var(--lime)">${getPlanWorkoutCount(p.id)} buổi</span>`:''}
           ${ST.currentPlan?.id===p.id?'<span class="tag tl">Đang dùng ✓</span>':''}
+          ${p.custom?`<span class="tag" style="background:#2a1a1a;color:#ff7a7a;cursor:pointer" onclick="event.stopPropagation();deleteCustomPlan(${JSON.stringify(p.id).replace(/"/g,'&quot;')})">🗑 Xoá</span>`:''}
         </div>
       </div>
     </div>`).join('');
 }
 function openPlanDetail(id){
-  const p=PLANS.find(x=>x.id===id);if(!p)return;
+  const p=allPlans().find(x=>x.id===id);if(!p)return;
   ST.currentDetailPlan=p;ST.currentDetailWeek=0;
   const hero=document.getElementById('pd-hero');
   hero.style.background=`linear-gradient(135deg,${p.color} 0%,${p.color}88 100%)`;
@@ -7071,7 +7396,7 @@ function calcTrainingAge(){
 // PLAN: PROGRESS % IN LIST VIEW
 // ════════════════════════════════════════════════════════
 function getPlanWorkoutCount(planId){
-  const plan=PLANS.find(p=>p.id===planId);
+  const plan=allPlans().find(p=>p.id===planId);
   if(!plan)return 0;
   return ST.workouts.filter(w=>w.title.includes(plan.name.split(' ')[0])).length;
 }
