@@ -378,10 +378,19 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
    SET INPUT TABLE (core workout logger)
 ═══════════════════════════════════════════ */
 .set-table-head{display:grid;grid-template-columns:28px 1fr 1fr 1fr 36px;gap:5px;font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;padding:0 2px;margin-bottom:5px;font-family:var(--FM)}
-.set-row{display:grid;grid-template-columns:26px 0.7fr 1.5fr 1fr 30px 26px;gap:5px;align-items:center;margin-bottom:7px}
+.set-row{display:grid;grid-template-columns:16px minmax(150px,1.7fr) minmax(50px,0.7fr) 28px 16px;gap:7px;align-items:center;margin-bottom:11px}
+.set-row>*{min-width:0}
 .sn{font-family:var(--FM);font-size:11px;color:var(--txt3);text-align:center}
-.si{background:var(--bg4);border:1px solid var(--brd2);border-radius:7px;padding:11px 4px;color:var(--txt);font-size:17px;font-weight:600;text-align:center;width:100%;font-family:var(--FM);transition:border .15s}
+.si{background:var(--bg4);border:1px solid var(--brd2);border-radius:9px;padding:14px 4px;color:var(--txt);font-size:20px;font-weight:700;text-align:center;width:100%;min-width:0;font-family:var(--FM);transition:border .15s}
 .si:focus{border-color:var(--lime);outline:none;background:var(--bg3)}
+.si::-webkit-inner-spin-button,.si::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.kg-cell{display:flex;align-items:stretch;background:var(--bg4);border:1px solid var(--brd2);border-radius:9px;overflow:hidden;min-width:0}
+.kg-cell .kg-in{flex:1 1 auto;min-width:0;background:transparent;border:none;border-radius:0;padding:15px 2px;font-size:23px}
+.kg-cell .kg-in:focus{background:var(--bg3)}
+.kg-step{flex:0 0 auto;width:40px;background:var(--bg3);border:none;border-left:1px solid var(--brd2);border-right:1px solid var(--brd2);color:var(--lime);font-size:24px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;-webkit-tap-highlight-color:transparent;user-select:none}
+.kg-step:active{background:var(--lime);color:#111}
+.kg-cell .kg-step:first-child{border-left:none;border-right:1px solid var(--brd2)}
+.kg-cell .kg-step:last-child{border-right:none;border-left:1px solid var(--brd2)}
 .si:focus{border-color:var(--lime)}
 .si.prev{color:var(--txt3);font-style:italic}
 .sdone{width:36px;height:36px;border-radius:6px;border:1px solid var(--brd2);background:var(--bg4);color:var(--txt3);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
@@ -1640,7 +1649,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
 
       <div style="text-align:center;padding:8px 0;margin-bottom:4px">
-        <span class="xxs muted">FitAI v3.8.0 · Workout Tracker 🇻🇳</span>
+        <span class="xxs muted">FitAI v4.0.0 · Workout Tracker 🇻🇳</span>
       </div>
 
       <!-- Macro targets display -->
@@ -2995,6 +3004,7 @@ function save(){
     moodLog:ST.moodLog||[],settings:ST.settings||{},
     nutHistory:ST.nutHistory||[],
     activeW:ST.activeW,exData:ST.exData||{},exCtr:ST.exCtr||0,
+    _activeRest:ST._activeRest||null,
     schedOverrides:ST.schedOverrides||{},
   }));}catch(e){}
 }
@@ -3025,6 +3035,7 @@ function load(){
     if(d.settings)ST.settings=Object.assign({sound:true,haptic:true,autoRest:true,defaultRest:120,defaultSets:3,fontSize:15},d.settings);
     if(d.templates)ST.templates=d.templates;
     if(d.schedOverrides)ST.schedOverrides=d.schedOverrides;
+    if(d._activeRest&&Date.now()<d._activeRest.endAt)ST._activeRest=d._activeRest;
     if(d.trialStart)ST.trialStart=d.trialStart;
     if(d.bestStreak)ST.stats.bestStreak=d.bestStreak;
     // Restore unfinished workout (so exiting app mid-session doesn't lose numbers)
@@ -3074,6 +3085,24 @@ function getWeekKey(){
   return `${d.getFullYear()}-W${week}`;
 }
 setInterval(save,20000);
+// Khi quay lại app sau khi thoát/khoá màn → đồng bộ lại timer (timestamp nên luôn đúng)
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  // Buổi tập đang chạy: render lại đồng hồ theo thời gian thật
+  if(ST.activeW&&ST.activeW.start&&!workoutPaused){renderTimer();}
+  // Nghỉ: nếu đã hết giờ lúc ở app khác → dọn + báo; còn thì render tiếp
+  if(ST._activeRest){
+    const id=ST._activeRest.exId;
+    if(Date.now()>=ST._activeRest.endAt){
+      const d=document.getElementById('irest_'+id);if(d)d.remove();
+      if(window._irest&&window._irest[id]){clearInterval(window._irest[id].timer);delete window._irest[id];}
+      delete ST._activeRest;save();
+    } else {
+      const render=window._irestRender?.[id];if(render)render();
+    }
+  }
+});
+window.addEventListener('focus',()=>{ if(ST.activeW&&ST.activeW.start&&!workoutPaused)renderTimer(); });
 
 // ════════════════════════════════════════════════════════
 // ONBOARDING
@@ -3386,7 +3415,7 @@ function _oldStartPlanWorkout(){
   goTab('s-workout');
 }
 function initWorkout(title){
-  ST.activeW={title,start:Date.now()};
+  ST.activeW={title,start:Date.now(),pausedTotal:0,pauseStart:null};
   ST.exData={};ST.exCtr=0;
   workoutPaused=false;
   const pb=document.getElementById('aw-pause-btn');
@@ -3400,17 +3429,28 @@ function initWorkout(title){
   setTimeout(initSessionNote,100);
   goTab('s-workout');
 }
+function fmtDur(sec){
+  const totalMin=Math.floor(sec/60);
+  const h=Math.floor(totalMin/60);
+  const m=(totalMin%60).toString().padStart(2,'0');
+  const s=(sec%60).toString().padStart(2,'0');
+  return h>0?h+':'+m+':'+s:m+':'+s;
+}
+function renderTimer(){
+  if(!ST.activeW||!ST.activeW.start)return;
+  // Thời gian thực = hiện tại - lúc bắt đầu - tổng thời gian đã pause
+  const paused=ST.activeW.pausedTotal||0;
+  const sec=Math.max(0,Math.floor((Date.now()-ST.activeW.start-paused)/1000));
+  ST.timerSec=sec;
+  const el=document.getElementById('aw-timer');
+  if(el)el.textContent=fmtDur(sec);
+}
 function startTimer(){
-  ST.timerSec=0;
   if(ST.timerInt)clearInterval(ST.timerInt);
-  ST.timerInt=setInterval(()=>{
-    ST.timerSec++;
-    const totalMin=Math.floor(ST.timerSec/60);
-    const h=Math.floor(totalMin/60);
-    const m=(totalMin%60).toString().padStart(2,'0');
-    const s=(ST.timerSec%60).toString().padStart(2,'0');
-    document.getElementById('aw-timer').textContent=h>0?h+':'+m+':'+s:m+':'+s;
-  },1000);
+  // Đếm dựa trên mốc thời gian thật (chính xác kể cả khi thoát app)
+  if(!ST.activeW.start)ST.activeW.start=Date.now();
+  renderTimer();
+  ST.timerInt=setInterval(renderTimer,1000);
 }
 function toggleQuickForm(id,name){
   const box=document.getElementById(id+'_qform');if(!box)return;
@@ -3491,10 +3531,9 @@ function addEx(name){
     </div>
     ${prevBar}
     <div style="overflow-x:auto">
-      <div style="padding:6px 14px 2px;display:grid;grid-template-columns:26px 0.7fr 1.5fr 1fr 30px 26px;gap:5px;align-items:center">
+      <div style="padding:6px 14px 4px;display:grid;grid-template-columns:16px minmax(150px,1.7fr) minmax(50px,0.7fr) 28px 16px;gap:8px;align-items:center">
         <span style="font-size:9px;font-family:var(--FM);color:var(--txt3)">#</span>
-        <span style="font-size:9px;font-family:var(--FM);color:var(--blue);text-align:center">TRƯỚC</span>
-        <span style="font-size:9px;font-family:var(--FM);color:var(--txt3);text-align:center">KG (− / +)</span>
+        <span style="font-size:9px;font-family:var(--FM);color:var(--txt3);text-align:center">MỨC TẠ · KG</span>
         <span style="font-size:9px;font-family:var(--FM);color:var(--txt3);text-align:center">REPS</span>
         <span style="font-size:9px;font-family:var(--FM);color:var(--txt3);text-align:center">✓</span>
         <span></span>
@@ -3515,7 +3554,7 @@ function addEx(name){
   for(let i=0;i<nSets;i++){
     const div=document.createElement('div');
     div.className='set-row';div.id=id+'_row'+i;
-    div.style.cssText='padding:4px 14px;display:grid;grid-template-columns:28px 64px 1fr 64px 36px;gap:4px;align-items:center';
+    div.className='set-row';div.style.cssText='padding:4px 14px';
     div.innerHTML=makeSetRowHTML(id,i,prevSets[i]?.kg||0,prevSets[i]?.reps||0,prevTxts[i]||'—');
     setsDiv.appendChild(div);
   }
@@ -3582,42 +3621,74 @@ function showInlineRest(exId,sec){
     </div>`;
   const actions=body.querySelector('.ex-block-actions');
   if(actions)body.insertBefore(div,actions);else body.appendChild(div);
-  // State object holds rem + total; render reads from it (single source of truth)
-  const st={rem:sec,total:sec,timer:null};
+  // State dùng MỐC THỜI GIAN KẾT THÚC (endAt) → chính xác kể cả khi thoát app
+  const st={endAt:Date.now()+sec*1000,total:sec,timer:null,notified:false,exId};
   const render=()=>{
     const te=document.getElementById('irt_'+exId);
     const be=document.getElementById('irb_'+exId);
     if(!te){if(st.timer)clearInterval(st.timer);return;}
-    const r=Math.max(0,st.rem);
-    te.textContent=Math.floor(r/60)+':'+String(r%60).padStart(2,'0');
-    if(be)be.style.width=Math.max(0,Math.min(100,(r/st.total*100)))+'%';
+    const rem=Math.max(0,Math.round((st.endAt-Date.now())/1000));
+    te.textContent=Math.floor(rem/60)+':'+String(rem%60).padStart(2,'0');
+    if(be)be.style.width=Math.max(0,Math.min(100,(rem/st.total*100)))+'%';
   };
   render();
+  // Đặt lịch thông báo hệ thống (hoạt động cả khi ở app khác / khoá màn)
+  scheduleRestNotif(st.endAt);
   st.timer=setInterval(()=>{
-    st.rem--;
+    const rem=Math.round((st.endAt-Date.now())/1000);
     render();
-    if(st.rem<=3&&st.rem>0&&navigator.vibrate)navigator.vibrate(60);
-    if(st.rem<=0){
+    if(rem<=3&&rem>0&&navigator.vibrate)navigator.vibrate(60);
+    if(rem<=0&&!st.notified){
+      st.notified=true;
       clearInterval(st.timer);
       if(ST.settings?.sound!==false)playRestDone?.();
       if(navigator.vibrate)navigator.vibrate([200,100,200]);
-      notif?.('⏱️','Hết giờ nghỉ!','Sẵn sàng cho set tiếp theo 💪',4000);
+      fireRestDoneNotif();
       const d=document.getElementById('irest_'+exId);if(d)d.remove();
       delete window._irest[exId];
     }
-  },1000);
+  },500);
   window._irest=window._irest||{};
   window._irest[exId]=st;
   window._irestRender=window._irestRender||{};
   window._irestRender[exId]=render;
+  // Lưu để khôi phục nếu thoát app
+  ST._activeRest={exId,endAt:st.endAt,total:sec};save();
 }
-function irestSkip(id){const t=window._irest?.[id];if(t)clearInterval(t.timer);const d=document.getElementById('irest_'+id);if(d)d.remove();if(window._irest)delete window._irest[id];}
+// ── Hệ thống thông báo nghỉ (chạy nền) ──
+let _restNotifTimer=null;
+function scheduleRestNotif(endAt){
+  if(_restNotifTimer)clearTimeout(_restNotifTimer);
+  const ms=endAt-Date.now();
+  if(ms<=0)return;
+  _restNotifTimer=setTimeout(()=>{fireRestDoneNotif();},ms);
+}
+function fireRestDoneNotif(){
+  // Thông báo hệ thống — hiện cả khi đang ở app khác
+  try{
+    if('Notification' in window && Notification.permission==='granted'){
+      const n=new Notification('⏱️ Hết giờ nghỉ!',{
+        body:'Sẵn sàng cho set tiếp theo 💪',
+        icon:'/icon-192.png',badge:'/icon-192.png',tag:'fitai-rest',renotify:true,
+        vibrate:[200,100,200]
+      });
+      setTimeout(()=>n.close(),6000);
+      n.onclick=()=>{window.focus();n.close();};
+    } else {
+      notif?.('⏱️','Hết giờ nghỉ!','Sẵn sàng cho set tiếp theo 💪',4000);
+    }
+  }catch(e){ notif?.('⏱️','Hết giờ nghỉ!','Sẵn sàng cho set tiếp theo',4000); }
+  if(ST._activeRest){delete ST._activeRest;save();}
+}
+function irestSkip(id){const t=window._irest?.[id];if(t){clearInterval(t.timer);}if(_restNotifTimer)clearTimeout(_restNotifTimer);const d=document.getElementById('irest_'+id);if(d)d.remove();if(window._irest)delete window._irest[id];if(ST._activeRest){delete ST._activeRest;save();}}
 function irestAdj(id,d){
   const t=window._irest?.[id];if(!t)return;
-  t.rem=Math.max(5,t.rem+d);
-  // Khi cộng giờ vượt mốc ban đầu, nới total để thanh % không quá 100
-  if(t.rem>t.total)t.total=t.rem;
-  // Cập nhật hiển thị NGAY (không đợi tick kế tiếp)
+  t.endAt+=d*1000;
+  const rem=Math.round((t.endAt-Date.now())/1000);
+  if(rem<5)t.endAt=Date.now()+5000;
+  if(rem>t.total)t.total=rem;
+  scheduleRestNotif(t.endAt);
+  if(ST._activeRest)ST._activeRest.endAt=t.endAt;save();
   const render=window._irestRender?.[id];if(render)render();
 }
 
@@ -3731,7 +3802,7 @@ function removeSet(id,i){
     ST.exData[id].sets.forEach((s,idx)=>{
       const div=document.createElement('div');
       div.className='set-row';div.id=id+'_row'+idx;
-      div.style.cssText='padding:4px 14px;display:grid;grid-template-columns:28px 64px 1fr 64px 36px;gap:4px;align-items:center';
+      div.className='set-row';div.style.cssText='padding:4px 14px';
       const prevTxt=prevSets[idx]?prevSets[idx].kg+'×'+prevSets[idx].reps:'—';
       div.innerHTML=makeSetRowHTML(id,idx,s.kg||0,s.reps||0,prevTxt);
       // restore done state visual
@@ -6056,23 +6127,22 @@ function addSet(id){
   const prev2=prevSets[i];
   const prevTxt=prev2?prev2.kg+'×'+prev2.reps:'—';
   const div=document.createElement('div');
-  div.className='set-row';div.id=id+'_row'+i;
-  div.style.cssText='padding:4px 14px;display:grid;grid-template-columns:28px 64px 1fr 64px 36px;gap:4px;align-items:center';
+  div.className='set-row';div.id=id+'_row'+i;div.style.cssText='padding:4px 14px';
   div.innerHTML=makeSetRowHTML(id,i,prev.kg||0,prev.reps||0,prevTxt);
   tbody.appendChild(div);
   updateExVolBadge(id);updateWorkoutProgress();
   setTimeout(()=>document.getElementById(id+'_kg'+i)?.focus(),50);
 }
 function makeSetRowHTML(id,i,kg,reps,prevTxt){
+  const prevClean=(prevTxt&&prevTxt!=='—')?prevTxt:'';
   return `<span class="sn" style="position:relative">${i+1}<span id="${id}_pr${i}" style="display:none;position:absolute;top:-6px;right:-4px;background:var(--lime);color:#111;font-size:7px;font-weight:800;border-radius:3px;padding:1px 3px;font-family:var(--FM)">PR</span></span>
-    <span class="prev" onclick="fillPrev('${id}',${i})" style="font-size:10px;color:var(--txt3);font-family:var(--FM);padding:3px 7px;background:var(--bg3);border:1px solid var(--brd2);border-radius:5px;cursor:pointer;min-width:44px;text-align:center;display:inline-block">${prevTxt}</span>
-    <div style="display:flex;align-items:center;gap:4px">
-      <button onclick="adjKg('${id}',${i},-2.5)" style="width:30px;height:42px;border-radius:7px;background:var(--bg4);border:1px solid var(--brd2);color:var(--lime);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">−</button>
-      <input class="si" type="number" step="0.5" inputmode="decimal" id="${id}_kg${i}" value="${kg||''}" placeholder="${kg||'0'}" oninput="setV('${id}',${i},'kg',this.value);checkSetPR('${id}',${i})" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('${id}_reps${i}')?.focus()}" onfocus="this.select()">
-      <button onclick="adjKg('${id}',${i},2.5)" style="width:30px;height:42px;border-radius:7px;background:var(--bg4);border:1px solid var(--brd2);color:var(--lime);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">+</button>
+    <div class="kg-cell">
+      <button class="kg-step" onclick="adjKg('${id}',${i},-2.5)" tabindex="-1">−</button>
+      <input class="si kg-in" type="number" step="0.5" inputmode="decimal" id="${id}_kg${i}" value="${kg||''}" placeholder="0" oninput="setV('${id}',${i},'kg',this.value);checkSetPR('${id}',${i})" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('${id}_reps${i}')?.focus()}" onfocus="this.select()">
+      <button class="kg-step" onclick="adjKg('${id}',${i},2.5)" tabindex="-1">+</button>
     </div>
-    <input class="si" type="number" inputmode="numeric" id="${id}_reps${i}" value="${reps||''}" placeholder="${reps||'0'}" oninput="setV('${id}',${i},'reps',this.value);checkSetPR('${id}',${i})" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('${id}_done${i}')?.click()}" onfocus="this.select()">
-    <button class="sdone" id="${id}_done${i}" onclick="doneSet('${id}',${i},this)">○</button><button onclick="removeSet('${id}',${i})" style="background:none;border:none;color:var(--txt3);cursor:pointer;font-size:16px;width:26px;padding:0;opacity:.5" title="Xóa set">✕</button>`;
+    <input class="si" type="number" inputmode="numeric" id="${id}_reps${i}" value="${reps||''}" placeholder="0" oninput="setV('${id}',${i},'reps',this.value);checkSetPR('${id}',${i})" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('${id}_done${i}')?.click()}" onfocus="this.select()">
+    <button class="sdone" id="${id}_done${i}" onclick="doneSet('${id}',${i},this)">○</button><button onclick="removeSet('${id}',${i})" style="background:none;border:none;color:var(--txt3);cursor:pointer;font-size:15px;width:20px;padding:0;opacity:.5" title="Xóa">✕</button>`;
 }
 function adjKg(id,i,d){
   const el=document.getElementById(id+'_kg'+i);if(!el)return;
@@ -6274,16 +6344,25 @@ function setFontSize(px){
 // ════════════════════════════════════════════════════════
 let workoutPaused=false;
 function togglePauseWorkout(){
+  if(!ST.activeW)return;
   workoutPaused=!workoutPaused;
   const btn=document.getElementById('aw-pause-btn');
   if(workoutPaused){
     clearInterval(ST.timerInt);
+    ST.activeW.pauseStart=Date.now();
     if(btn)btn.textContent='▶';
     toast('⏸ Đã tạm dừng — nhấn ▶ để tiếp tục');
+    save();
   } else {
+    // Cộng dồn khoảng thời gian đã tạm dừng
+    if(ST.activeW.pauseStart){
+      ST.activeW.pausedTotal=(ST.activeW.pausedTotal||0)+(Date.now()-ST.activeW.pauseStart);
+      ST.activeW.pauseStart=null;
+    }
     startTimer();
     if(btn)btn.textContent='⏸';
     toast('▶ Tiếp tục buổi tập!');
+    save();
   }
 }
 
