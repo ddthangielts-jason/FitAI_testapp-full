@@ -423,7 +423,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
    REST TIMER (floating)
 ═══════════════════════════════════════════ */
 /* REST TIMER — FULLSCREEN like Hevy */
-#rest-overlay{position:fixed;inset:0;z-index:300;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(8,8,8,.97);max-width:430px;margin:0 auto;backdrop-filter:blur(20px)}
+#rest-overlay{position:fixed;inset:0;z-index:300;display:none!important;flex-direction:column;align-items:center;justify-content:center;background:rgba(8,8,8,.97);max-width:430px;margin:0 auto;backdrop-filter:blur(20px)}
 #rest-overlay.show{display:flex}
 .rest-ex-name{font-size:12px;color:var(--txt3);text-transform:uppercase;letter-spacing:.12em;font-family:var(--FM);margin-bottom:8px}
 .rest-label{font-size:14px;color:var(--txt3);text-transform:uppercase;letter-spacing:.15em;font-family:var(--FM);margin-bottom:16px}
@@ -1263,32 +1263,37 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
 
       <div style="flex:1;overflow-y:auto;padding:12px 16px 16px" id="aw-exercises"></div>
 
-      <div style="padding:0 16px 12px;border-top:1px solid var(--brd);flex-shrink:0">
-        <!-- Quick add by muscle group -->
-        <div class="pill-row" style="margin-bottom:8px" id="quick-muscle-row">
-          <button class="pill on" onclick="quickAddByMuscle('all',this)">Tất cả</button>
-          <button class="pill" onclick="quickAddByMuscle('chest',this)">Ngực</button>
-          <button class="pill" onclick="quickAddByMuscle('back',this)">Lưng</button>
-          <button class="pill" onclick="quickAddByMuscle('shoulders',this)">Vai</button>
-          <button class="pill" onclick="quickAddByMuscle('arms',this)">Tay</button>
-          <button class="pill" onclick="quickAddByMuscle('legs',this)">Chân</button>
-          <button class="pill" onclick="quickAddByMuscle('glutes',this)">Mông</button>
-          <button class="pill" onclick="quickAddByMuscle('core',this)">Core</button>
-        </div>
-        <!-- Exercise search in workout -->
-        <div style="position:relative;margin-bottom:8px">
-          <svg style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--txt3)" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="inp" id="workout-ex-search" placeholder="🔍 Tìm bài tập..." style="padding-left:32px;font-size:13px" oninput="searchWorkoutEx(this.value)">
-        </div>
-        <div id="workout-ex-results" style="display:none;max-height:160px;overflow-y:auto;border:1px solid var(--brd);border-radius:var(--r);background:var(--bg3);margin-bottom:8px"></div>
-        <div style="display:flex;gap:8px">
-          <button class="btn bg" style="flex:1" onclick="openExLib(true)">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Thư viện
+      <div style="padding:8px 16px 12px;border-top:1px solid var(--brd);flex-shrink:0">
+        <!-- Nút gọn: mở/đóng khu thêm bài -->
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn bl" style="flex:1;height:46px;font-size:14px;font-weight:600" onclick="toggleAddPanel()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span id="add-panel-lbl">Thêm bài tập</span>
           </button>
-          <button class="btn bg bxs" style="width:auto" onclick="promptSuperset()" title="Superset">SS</button>
-          <button class="btn bg bsm" style="width:auto" onclick="saveWorkoutTemplate()" title="Template">💾</button>
-          <button class="btn bd bsm" style="width:auto" onclick="cancelWorkout()">Hủy</button>
+          <button class="btn bg" style="width:48px;height:46px;flex-shrink:0" onclick="promptSuperset()" title="Superset">SS</button>
+          <button class="btn bg" style="width:48px;height:46px;flex-shrink:0" onclick="saveWorkoutTemplate()" title="Lưu mẫu">💾</button>
+        </div>
+        <!-- Panel thêm bài (ẩn mặc định) -->
+        <div id="add-panel" style="display:none;margin-top:10px">
+          <div class="pill-row" style="margin-bottom:8px" id="quick-muscle-row">
+            <button class="pill on" onclick="quickAddByMuscle('all',this)">Tất cả</button>
+            <button class="pill" onclick="quickAddByMuscle('chest',this)">Ngực</button>
+            <button class="pill" onclick="quickAddByMuscle('back',this)">Lưng</button>
+            <button class="pill" onclick="quickAddByMuscle('shoulders',this)">Vai</button>
+            <button class="pill" onclick="quickAddByMuscle('arms',this)">Tay</button>
+            <button class="pill" onclick="quickAddByMuscle('legs',this)">Chân</button>
+            <button class="pill" onclick="quickAddByMuscle('glutes',this)">Mông</button>
+            <button class="pill" onclick="quickAddByMuscle('core',this)">Core</button>
+          </div>
+          <div style="position:relative;margin-bottom:8px">
+            <svg style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--txt3)" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="inp" id="workout-ex-search" placeholder="🔍 Tìm bài tập..." style="padding-left:32px;font-size:13px" oninput="searchWorkoutEx(this.value)">
+          </div>
+          <div id="workout-ex-results" style="display:none;max-height:200px;overflow-y:auto;border:1px solid var(--brd);border-radius:var(--r);background:var(--bg3);margin-bottom:8px"></div>
+          <div style="display:flex;gap:8px">
+            <button class="btn bg" style="flex:1" onclick="openExLib(true)">📚 Mở thư viện đầy đủ</button>
+            <button class="btn bd" style="width:auto;padding:0 16px" onclick="cancelWorkout()">Hủy buổi</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1651,7 +1656,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
 
       <div style="text-align:center;padding:8px 0;margin-bottom:4px">
-        <span class="xxs muted">FitAI v4.1.0 · Workout Tracker 🇻🇳</span>
+        <span class="xxs muted">FitAI v4.2.0 · Workout Tracker 🇻🇳</span>
       </div>
 
       <!-- Macro targets display -->
@@ -5282,7 +5287,25 @@ function closeAddFood(){cancelAddFood();}
 // REST TIMER — FULLSCREEN
 // ════════════════════════════════════════════════════════
 let restState={total:120,remaining:120,interval:null,active:false,exName:''};
+function toggleAddPanel(){
+  const p=document.getElementById('add-panel');
+  const lbl=document.getElementById('add-panel-lbl');
+  if(!p)return;
+  const open=p.style.display==='none';
+  p.style.display=open?'block':'none';
+  if(lbl)lbl.textContent=open?'Đóng':'Thêm bài tập';
+  if(open)setTimeout(()=>document.getElementById('workout-ex-search')?.focus(),100);
+}
 function startRest(sec=120,nextMsg='',exName=''){
+  // Hệ thống nghỉ cũ (toàn màn hình) đã bỏ — chuyển sang thanh nghỉ inline gọn hơn.
+  // Tìm bài tập đang mở để gắn thanh nghỉ, nếu không có thì bỏ qua.
+  const firstEx=Object.keys(ST.exData||{})[0];
+  if(firstEx){showInlineRest(firstEx,sec);}
+  // Đảm bảo overlay cũ không bao giờ hiện
+  const ov=document.getElementById('rest-overlay');
+  if(ov)ov.classList.remove('show');
+}
+function _oldStartRest(sec=120,nextMsg='',exName=''){
   restState.total=sec;restState.remaining=sec;restState.active=true;
   restState.exName=exName;
   clearInterval(restState.interval);

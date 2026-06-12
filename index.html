@@ -3,319 +3,370 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FitAI — App tập gym AI cho người Việt</title>
-<link rel="icon" type="image/png" href="/favicon-32.png">
-<link rel="apple-touch-icon" href="/icon-180.png">
-<meta name="theme-color" content="#0a0a0a">
-<meta name="description" content="FitAI — app tập gym tiếng Việt: theo dõi buổi tập, 98 bài có video form, meal plan AI, chụp ảnh tính calo. Hiểu người tập Việt.">
-<meta property="og:title" content="FitAI — App tập gym AI cho người Việt">
-<meta property="og:description" content="Theo dõi buổi tập, form guide, meal plan AI tiếng Việt. Dùng thử miễn phí.">
-<meta property="og:image" content="/icon-512.png">
-<meta property="og:type" content="website">
+<title>FitAI — App tập gym thông minh cho người Việt</title>
+<meta name="description" content="Theo dõi buổi tập, làm theo giáo án có sẵn, hình động tác cho từng bài, và AI lo dinh dưỡng món Việt — tất cả trong một app tiếng Việt.">
+<meta property="og:title" content="FitAI — Tập có kế hoạch, tiến bộ thấy rõ">
+<meta property="og:description" content="App tập gym tiếng Việt: track buổi tập như Hevy + dinh dưỡng như MyFitnessPal, gộp trong một app.">
+<link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --lime:#c8f135;--lime-d:#a8d015;
-  --bg:#0a0a0a;--bg2:#101010;--bg3:#161616;--bg4:#1c1c1c;
-  --txt:#f2f1ea;--txt2:#9a9a92;--txt3:#5a5a54;
-  --brd:#1e1e1e;--brd2:#2a2a2a;
-  --ff-d:'Oswald',sans-serif;--ffd-w:700;
-  --ff:'DM Sans',sans-serif;
-  --ff-m:'JetBrains Mono',monospace;
+  --bg:#0a0a0a;--bg2:#111214;--bg3:#16181d;--bg4:#1c1f26;
+  --txt:#f2f1ea;--txt2:#b8b8b0;--txt3:#76766e;
+  --lime:#c8f135;--lime-d:#9ed400;--brd:#222;--brd2:#2c2f36;
+  --ff:'Be Vietnam Pro',-apple-system,sans-serif;--ff-m:'JetBrains Mono',monospace;
+  --r:16px;--maxw:1140px;
 }
-html{background:var(--bg);color:var(--txt);font-family:var(--ff);scroll-behavior:smooth;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-body{line-height:1.5}
-::selection{background:var(--lime);color:#111}
-a{color:inherit}
-img{display:block;max-width:100%}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 6%;display:flex;align-items:center;justify-content:space-between;transition:all .3s;border-bottom:1px solid transparent}
-nav.scrolled{background:rgba(10,10,10,.85);backdrop-filter:blur(14px);border-bottom-color:var(--brd)}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo img{width:30px;height:30px;border-radius:7px}
-.logo-txt{font-family:var(--ff-d);font-size:25px;letter-spacing:.05em;color:var(--txt)}
-.logo-txt span{color:var(--lime)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--bg);color:var(--txt);font-family:var(--ff);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.lime{color:var(--lime)}
+section{position:relative}
+nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd)}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;letter-spacing:-.02em}
+.logo svg{width:30px;height:30px}
 .nav-links{display:flex;align-items:center;gap:30px}
-.nav-links a{font-size:14px;color:var(--txt2);text-decoration:none;transition:color .2s}
+.nav-links a{font-size:14px;color:var(--txt2);font-weight:500;transition:color .2s}
 .nav-links a:hover{color:var(--txt)}
-.nav-cta{background:var(--lime);color:#111!important;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s}
-.nav-cta:hover{background:var(--lime-d);transform:translateY(-1px)}
+.nav-cta{background:var(--lime);color:#0a0a0a !important;padding:10px 20px;border-radius:100px;font-weight:700;font-size:14px;transition:transform .15s}
+.nav-cta:hover{transform:translateY(-1px)}
 @media(max-width:720px){.nav-links a:not(.nav-cta){display:none}}
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:140px 6% 90px;position:relative;overflow:hidden}
-.hero-glow{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;max-width:120vw;border-radius:50%;background:radial-gradient(circle,rgba(200,241,53,.10) 0%,transparent 65%);pointer-events:none}
-.hero-eyebrow{font-family:var(--ff-m);font-size:12px;letter-spacing:.12em;color:var(--lime);text-transform:uppercase;margin-bottom:26px;display:inline-flex;align-items:center;gap:9px;border:1px solid var(--brd2);padding:7px 14px;border-radius:100px;background:var(--bg2)}
-.hero-eyebrow b{color:var(--txt);font-weight:500}
-.hero h1{font-family:var(--ff-d);font-size:clamp(52px,9vw,104px);line-height:.92;letter-spacing:.01em;margin-bottom:24px;max-width:14ch}
-.hero h1 .accent{color:var(--lime)}
-.hero-sub{font-size:clamp(16px,2.2vw,19px);color:var(--txt2);max-width:540px;line-height:1.65;margin-bottom:38px;font-weight:300}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:center}
-.btn-primary{background:var(--lime);color:#111;padding:15px 30px;border-radius:10px;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
-.btn-primary:hover{background:var(--lime-d);transform:translateY(-2px)}
-.btn-ghost{color:var(--txt2);font-size:14px;text-decoration:none;padding:15px 8px;transition:color .2s}
-.btn-ghost:hover{color:var(--txt)}
-.hero-note{margin-top:18px;font-size:13px;color:var(--txt3)}
-section{padding:90px 6%;max-width:1120px;margin:0 auto}
-.eyebrow{font-family:var(--ff-m);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);margin-bottom:14px}
-.sec-h{font-family:var(--ff-d);font-size:clamp(36px,5.5vw,60px);letter-spacing:.02em;line-height:1.02;margin-bottom:16px}
-.sec-sub{font-size:16px;color:var(--txt2);max-width:520px;line-height:1.6;font-weight:300}
-.feature{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:70px 0;border-top:1px solid var(--brd)}
-.feature:nth-child(even) .feature-visual{order:2}
-.feature-tag{font-family:var(--ff-m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-bottom:12px}
-.feature h3{font-family:var(--ff-d);font-size:clamp(30px,4vw,46px);letter-spacing:.02em;line-height:1.04;margin-bottom:16px}
-.feature p{font-size:15px;color:var(--txt2);line-height:1.6;font-weight:300;margin-bottom:20px}
-.feature ul{list-style:none;display:flex;flex-direction:column;gap:11px}
-.feature li{font-size:14px;color:var(--txt);display:flex;gap:10px;align-items:flex-start}
-.feature li::before{content:'';width:16px;height:16px;border-radius:5px;background:rgba(200,241,53,.15);border:1px solid var(--lime);flex-shrink:0;margin-top:2px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8f135' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");background-size:11px;background-repeat:no-repeat;background-position:center}
-.feature-visual{background:var(--bg2);border:1px solid var(--brd);border-radius:18px;padding:22px;min-height:230px}
-@media(max-width:780px){.feature{grid-template-columns:1fr;gap:28px;padding:48px 0}.feature:nth-child(even) .feature-visual{order:0}}
-.mock-label{font-family:var(--ff-m);font-size:10px;letter-spacing:.08em;color:var(--txt3);margin-bottom:14px}
-.set-row{display:grid;grid-template-columns:24px 1fr 1fr 1fr;gap:8px;align-items:center;margin-bottom:8px;font-size:13px}
-.set-row .cell{background:var(--bg3);border:1px solid var(--brd2);border-radius:7px;padding:9px;text-align:center;color:var(--txt)}
-.set-row .num{color:var(--txt3);text-align:center;font-family:var(--ff-m)}
-.coach-card{background:rgba(200,241,53,.07);border:1px solid rgba(200,241,53,.25);border-radius:12px;padding:13px;margin-top:14px;font-size:13px;color:var(--txt);line-height:1.55}
-.coach-card .ct{font-family:var(--ff-m);font-size:10px;color:var(--lime);letter-spacing:.06em;margin-bottom:6px}
-.swap-opt{background:var(--bg3);border:1px solid var(--brd2);border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:13px}
-.swap-opt.on{background:rgba(200,241,53,.08);border-color:var(--lime)}
-.swap-opt .s{font-size:11px;color:var(--txt3);margin-top:2px}
-.meal-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--brd);font-size:13px}
-.meal-row .kc{color:var(--lime);font-family:var(--ff-m);font-size:12px}
-.stat-chips{display:flex;gap:7px;flex-wrap:wrap}
-.stat-chip{font-size:11px;padding:5px 10px;border-radius:7px;background:var(--bg3);color:var(--txt2);border:1px solid var(--brd2)}
-.strip{border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);background:var(--bg2)}
-.strip-inner{max-width:1120px;margin:0 auto;padding:48px 6%;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
-.strip-num{font-family:var(--ff-d);font-size:clamp(38px,6vw,56px);color:var(--lime);letter-spacing:.03em;line-height:1}
-.strip-lbl{font-size:13px;color:var(--txt2);margin-top:6px}
-@media(max-width:680px){.strip-inner{grid-template-columns:1fr 1fr;gap:32px 20px}}
-.pricing{text-align:center}
-.toggle-note{font-size:14px;color:var(--txt2);margin-bottom:44px}
-.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;text-align:left;max-width:1120px;margin:0 auto}
-.plan{background:var(--bg2);border:1px solid var(--brd);border-radius:16px;padding:24px 20px;display:flex;flex-direction:column;position:relative;transition:border-color .2s}
-.plan:hover{border-color:var(--brd2)}
-.plan.best{border-color:var(--lime);background:linear-gradient(180deg,rgba(200,241,53,.06),var(--bg2))}
-.plan-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--lime);color:#111;font-size:10px;font-weight:700;font-family:var(--ff-m);letter-spacing:.05em;padding:4px 12px;border-radius:100px;white-space:nowrap}
-.plan-term{font-family:var(--ff-m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--txt2);margin-bottom:14px}
-.plan-price{font-family:var(--ff-d);font-size:46px;color:var(--lime);letter-spacing:.02em;line-height:1}
-.plan-price small{font-size:15px;color:var(--txt2);font-family:var(--ff)}
-.plan-perm{font-size:13px;color:var(--txt);margin-top:8px;font-weight:500}
-.plan-old{font-size:12px;color:var(--txt3);text-decoration:line-through;margin-top:3px}
-.plan-save{display:inline-block;margin-top:10px;font-size:11px;font-family:var(--ff-m);color:var(--lime);background:rgba(200,241,53,.1);padding:4px 9px;border-radius:6px}
-.plan-cta{margin-top:auto;padding-top:20px}
-.plan-cta a{display:block;text-align:center;padding:12px;border-radius:9px;font-size:14px;font-weight:600;text-decoration:none;transition:all .15s}
-.plan .buy-ghost{border:1px solid var(--brd2);color:var(--txt)}
-.plan .buy-ghost:hover{border-color:var(--lime);color:var(--lime)}
-.plan .buy-fill{background:var(--lime);color:#111}
-.plan .buy-fill:hover{background:var(--lime-d)}
-.price-feats{max-width:560px;margin:40px auto 0;text-align:left;display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.price-feats li{list-style:none;font-size:13px;color:var(--txt2);display:flex;gap:8px;align-items:flex-start}
-.price-feats li::before{content:'✓';color:var(--lime);font-weight:700}
-@media(max-width:880px){.plans{grid-template-columns:1fr 1fr}}
-@media(max-width:480px){.plans{grid-template-columns:1fr}.price-feats{grid-template-columns:1fr}}
-.final{text-align:center;padding:110px 6%}
-.final h2{font-family:var(--ff-d);font-size:clamp(40px,7vw,80px);letter-spacing:.02em;line-height:1;margin-bottom:20px}
-.final h2 .accent{color:var(--lime)}
-.final p{color:var(--txt2);margin-bottom:32px;font-size:16px;font-weight:300}
-footer{border-top:1px solid var(--brd);padding:40px 6%;text-align:center}
-.foot-logo{font-family:var(--ff-d);font-size:22px;letter-spacing:.05em;margin-bottom:8px}
-.foot-logo span{color:var(--lime)}
-.foot-sub{font-size:13px;color:var(--txt3);margin-bottom:18px}
-.foot-links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;font-size:13px}
-.foot-links a{color:var(--txt2);text-decoration:none}
-.foot-links a:hover{color:var(--txt)}
-.foot-copy{margin-top:24px;font-size:12px;color:var(--txt3)}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.hero{padding:80px 0 60px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:700px;background:radial-gradient(circle,rgba(200,241,53,.13),transparent 62%);pointer-events:none;z-index:0}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--brd2);color:var(--lime);font-size:12.5px;font-weight:600;padding:7px 15px;border-radius:100px;margin-bottom:26px;font-family:var(--ff-m);letter-spacing:.02em}
+.hero h1{font-size:clamp(40px,6.2vw,72px);font-weight:800;line-height:1.04;letter-spacing:-.03em;margin-bottom:22px}
+.hero p.sub{font-size:clamp(17px,2vw,20px);color:var(--txt2);margin-bottom:32px;max-width:30ch}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn-primary{background:var(--lime);color:#0a0a0a;padding:16px 30px;border-radius:100px;font-weight:700;font-size:16px;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .2s;box-shadow:0 8px 30px rgba(200,241,53,.22)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 38px rgba(200,241,53,.3)}
+.btn-ghost{color:var(--txt2);padding:16px 22px;font-weight:600;font-size:15px;border:1px solid var(--brd2);border-radius:100px;transition:all .2s}
+.btn-ghost:hover{border-color:var(--txt3);color:var(--txt)}
+.hero-note{margin-top:18px;font-size:13px;color:var(--txt3);display:flex;align-items:center;gap:7px}
+.phone{position:relative;width:300px;margin:0 auto;border-radius:42px;background:#1c1c1e;padding:11px;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.05);border:1px solid #2a2a2c}
+.phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:90px;height:24px;background:#000;border-radius:14px;z-index:3}
+.phone img{width:100%;border-radius:32px;display:block}
+.hero-phone-wrap{position:relative}
+.float-tag{position:absolute;background:var(--bg3);border:1px solid var(--brd2);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:5;display:flex;align-items:center;gap:8px}
+.float-1{top:60px;left:-44px}
+.float-2{bottom:90px;right:-40px}
+@media(max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:30px;text-align:center}
+  .hero p.sub{margin-left:auto;margin-right:auto}
+  .hero-cta{justify-content:center}
+  .hero-note{justify-content:center}
+  .float-1{left:0}.float-2{right:0}
+}
+.proof{padding:30px 0;border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);background:var(--bg2)}
+.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.proof-num{font-size:clamp(28px,4vw,40px);font-weight:800;color:var(--lime);letter-spacing:-.02em}
+.proof-lbl{font-size:13px;color:var(--txt3);margin-top:2px}
+@media(max-width:620px){.proof-grid{grid-template-columns:repeat(2,1fr);gap:24px}}
+.sec{padding:90px 0}
+.sec-eyebrow{font-family:var(--ff-m);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--lime);margin-bottom:14px;text-align:center}
+.sec-title{font-size:clamp(30px,4.6vw,48px);font-weight:800;letter-spacing:-.025em;line-height:1.08;text-align:center;margin-bottom:16px}
+.sec-sub{font-size:17px;color:var(--txt2);text-align:center;max-width:52ch;margin:0 auto 56px}
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.prob-card{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--r);padding:26px 22px}
+.prob-card .x{font-size:26px;margin-bottom:12px;display:block}
+.prob-card h4{font-size:17px;font-weight:700;margin-bottom:7px}
+.prob-card p{font-size:14.5px;color:var(--txt2)}
+.prob-arrow{text-align:center;margin:40px 0 10px;font-size:15px;color:var(--lime);font-weight:600}
+@media(max-width:760px){.prob-grid{grid-template-columns:1fr}}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:110px}
+.feat:nth-child(even) .feat-text{order:2}
+.feat-tag{font-family:var(--ff-m);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-bottom:14px}
+.feat h3{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:16px}
+.feat p{font-size:16px;color:var(--txt2);margin-bottom:20px}
+.feat ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.feat li{display:flex;align-items:flex-start;gap:11px;font-size:15px;color:var(--txt)}
+.feat li svg{width:20px;height:20px;flex-shrink:0;margin-top:1px;color:var(--lime)}
+.feat-visual{display:flex;justify-content:center}
+.feat-visual .phone{width:270px}
+@media(max-width:860px){
+  .feat{grid-template-columns:1fr;gap:34px;margin-bottom:70px}
+  .feat:nth-child(even) .feat-text{order:0}
+  .feat-text{text-align:center}
+  .feat ul{text-align:left;max-width:340px;margin:0 auto}
+}
+.combo{background:linear-gradient(135deg,var(--bg3),var(--bg2));border:1px solid var(--brd2);border-radius:24px;padding:48px 40px;text-align:center;position:relative;overflow:hidden}
+.combo-glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(circle,rgba(200,241,53,.1),transparent 65%)}
+.combo h3{font-size:clamp(26px,3.6vw,40px);font-weight:800;letter-spacing:-.02em;margin-bottom:16px;position:relative}
+.combo p{font-size:17px;color:var(--txt2);max-width:48ch;margin:0 auto 28px;position:relative}
+.combo-apps{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;position:relative}
+.combo-chip{background:var(--bg);border:1px solid var(--brd2);border-radius:12px;padding:14px 22px;font-weight:600;font-size:15px}
+.combo-plus{font-size:26px;color:var(--lime);font-weight:800}
+.combo-eq{font-size:22px;color:var(--txt3)}
+.combo-result{background:var(--lime);color:#0a0a0a;border-radius:12px;padding:14px 24px;font-weight:800;font-size:16px}
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+.price-card{background:var(--bg2);border:1px solid var(--brd);border-radius:18px;padding:26px 22px;display:flex;flex-direction:column;position:relative}
+.price-card.feat-price{border-color:var(--lime);background:linear-gradient(180deg,rgba(200,241,53,.07),var(--bg2))}
+.price-flag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--lime);color:#0a0a0a;font-size:11px;font-weight:800;padding:4px 12px;border-radius:100px;white-space:nowrap;font-family:var(--ff-m)}
+.price-term{font-size:14px;color:var(--txt3);font-weight:600;margin-bottom:10px}
+.price-big{font-size:34px;font-weight:800;letter-spacing:-.02em}
+.price-perm{font-size:13px;color:var(--txt3);margin-bottom:6px}
+.price-save{font-size:12.5px;color:var(--lime);font-weight:600;margin-bottom:18px;min-height:18px}
+.price-btn{margin-top:auto;text-align:center;padding:12px;border-radius:100px;font-weight:700;font-size:14px;border:1px solid var(--brd2);color:var(--txt);transition:all .2s}
+.price-btn:hover{border-color:var(--txt3)}
+.price-btn.fill{background:var(--lime);color:#0a0a0a;border-color:var(--lime)}
+@media(max-width:860px){.price-grid{grid-template-columns:repeat(2,1fr);gap:14px}.price-flag{font-size:10px}}
+@media(max-width:480px){.price-grid{grid-template-columns:1fr}}
+.faq{max-width:760px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--brd);padding:22px 0;cursor:pointer}
+.faq-q{display:flex;justify-content:space-between;align-items:center;font-size:16.5px;font-weight:600;gap:16px}
+.faq-q span.ic{color:var(--lime);font-size:22px;flex-shrink:0;transition:transform .25s}
+.faq-item.open span.ic{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s;color:var(--txt2);font-size:15px}
+.faq-item.open .faq-a{max-height:260px;padding-top:14px}
+.final{text-align:center;padding:100px 0;position:relative;overflow:hidden}
+.final-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:500px;background:radial-gradient(circle,rgba(200,241,53,.12),transparent 60%);pointer-events:none}
+.final h2{font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:20px;position:relative}
+.final p{font-size:18px;color:var(--txt2);margin-bottom:34px;position:relative}
+footer{border-top:1px solid var(--brd);padding:40px 0;background:var(--bg2)}
+.foot-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.foot-links{display:flex;gap:24px;font-size:14px;color:var(--txt3)}
+.foot-credit{font-size:12px;color:var(--txt3);margin-top:16px;text-align:center;line-height:1.7}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
 .reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
-
-.logo-txt,.hero h1,.sec-h,.final h2,.strip-num,.plan-price,.foot-logo{font-weight:700}
-.plan-term{font-weight:600}
 </style>
 </head>
 <body>
-<nav id="nav">
-  <a href="#" class="logo"><img src="/icon-192.png" alt="FitAI"><span class="logo-txt">FIT<span>AI</span></span></a>
-  <div class="nav-links">
-    <a href="#features">Tính năng</a>
-    <a href="#pricing">Giá</a>
-    <a href="app.html" class="nav-cta">Dùng thử miễn phí</a>
+
+<nav>
+  <div class="nav-in">
+    <a href="#" class="logo">
+      <svg viewBox="0 0 36 36" fill="none"><path d="M18 4c-1.5 0-3 1-3.5 3-2-1-5 0-5 3 0 1.5 1 2.5 1 4-1.5 1-2 3-1 4.5 1 1.5 3 1.5 4.5 2 1 .5 2 2 2 3.5 0 2 2 4 4.5 4s4.5-2 4.5-5c0-1.5-.5-3-2-4 1.5-1 2.5-3 1.5-5-.5-1.5-2-2-3.5-2.5.5-2-1-5.5-3-5.5z" fill="#c8f135"/></svg>
+      FITAI
+    </a>
+    <div class="nav-links">
+      <a href="#features">Tính năng</a>
+      <a href="#combo">Vì sao FitAI</a>
+      <a href="#pricing">Bảng giá</a>
+      <a href="#faq">Hỏi đáp</a>
+      <a href="app.html" class="nav-cta">Dùng thử miễn phí</a>
+    </div>
   </div>
 </nav>
+
 <header class="hero">
   <div class="hero-glow"></div>
-  <div class="hero-eyebrow">🇻🇳 App tập gym <b>cho người Việt</b></div>
-  <h1>Tập có <span class="accent">kế hoạch.</span><br>Tiến bộ thấy rõ.</h1>
-  <p class="hero-sub">Ghi lại từng buổi tập, theo dõi tạ và số đo, làm theo plan có sẵn, và để AI lo phần dinh dưỡng — tất cả bằng tiếng Việt.</p>
-  <div class="hero-ctas">
-    <a href="app.html" class="btn-primary">Mở app ngay →</a>
-    <a href="#features" class="btn-ghost">Xem tính năng</a>
-  </div>
-  <div class="hero-note">Miễn phí để bắt đầu · Cài thẳng lên điện thoại</div>
-</header>
-<div class="strip">
-  <div class="strip-inner">
-    <div><div class="strip-num">98</div><div class="strip-lbl">Bài tập có video form</div></div>
-    <div><div class="strip-num">30+</div><div class="strip-lbl">Plan B / I / A</div></div>
-    <div><div class="strip-num">AI</div><div class="strip-lbl">Meal plan tiếng Việt</div></div>
-    <div><div class="strip-num">100%</div><div class="strip-lbl">Tiếng Việt</div></div>
-  </div>
-</div>
-<section id="features">
-  <div class="eyebrow reveal">Tính năng</div>
-  <h2 class="sec-h reveal">Những gì FitAI làm cho bạn</h2>
-  <p class="sec-sub reveal">Không hứa hẹn viển vông. Đây là những thứ bạn dùng được mỗi buổi tập.</p>
-  <div class="feature reveal">
-    <div class="feature-content">
-      <div class="feature-tag">Theo dõi buổi tập</div>
-      <h3>Ghi tạ, reps — gọn trong vài chạm</h3>
-      <p>Mỗi bài tự nhớ số liệu lần trước để bạn biết buổi này cần đẩy bao nhiêu. Tổng volume, số set, thời gian — tính tự động.</p>
-      <ul>
-        <li>Hiện số liệu buổi trước ngay khi thêm bài</li>
-        <li>Gợi ý tăng tạ nhẹ để tiến bộ đều</li>
-        <li>Rest timer tự chạy, rung báo khi hết giờ nghỉ</li>
-        <li>Tổng kết buổi tập + check-in ảnh tiến độ</li>
-      </ul>
-    </div>
-    <div class="feature-visual">
-      <div class="mock-label">BENCH PRESS · BUỔI HÔM NAY</div>
-      <div class="set-row"><div class="num">#</div><div class="cell" style="color:var(--txt3)">KG</div><div class="cell" style="color:var(--txt3)">REPS</div><div class="cell" style="color:var(--txt3)">✓</div></div>
-      <div class="set-row"><div class="num">1</div><div class="cell">70</div><div class="cell">8</div><div class="cell" style="color:var(--lime)">✓</div></div>
-      <div class="set-row"><div class="num">2</div><div class="cell">70</div><div class="cell">8</div><div class="cell" style="color:var(--lime)">✓</div></div>
-      <div class="set-row"><div class="num">3</div><div class="cell" style="color:var(--lime)">72.5</div><div class="cell" style="color:var(--txt3)">—</div><div class="cell" style="color:var(--txt3)">○</div></div>
-      <div class="coach-card"><div class="ct">⚡ GỢI Ý TỪ LẦN TRƯỚC</div>Buổi trước bạn đẩy 70kg × 8 khá dễ. Thử <b>72.5kg</b> set này để tiến bộ.</div>
-    </div>
-  </div>
-  <div class="feature reveal">
-    <div class="feature-content">
-      <div class="feature-tag">Thư viện bài tập</div>
-      <h3>98 bài có video, kỹ thuật & sơ đồ cơ</h3>
-      <p>Không chắc tập đúng chưa? Mỗi bài có video hướng dẫn, các bước kỹ thuật, lỗi thường gặp, và sơ đồ cơ tô sáng đúng nhóm cơ đang làm việc.</p>
-      <ul>
-        <li>Video form cho từng bài</li>
-        <li>Cues kỹ thuật + lỗi sai phổ biến bằng tiếng Việt</li>
-        <li>Sơ đồ cơ thể tô sáng nhóm cơ tác động</li>
-        <li>Gợi ý tempo & nhịp thở theo động tác</li>
-      </ul>
-    </div>
-    <div class="feature-visual">
-      <div class="mock-label">BARBELL SQUAT · KỸ THUẬT</div>
-      <div class="stat-chips" style="margin-bottom:14px">
-        <span class="stat-chip" style="color:var(--lime)">🎯 Chân (Quads)</span>
-        <span class="stat-chip">📊 Trung cấp</span>
-        <span class="stat-chip">🏋️ Tạ đòn</span>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <div class="hero-badge">🇻🇳 App tập gym cho người Việt</div>
+      <h1>Tập có <span class="lime">kế hoạch.</span><br>Tiến bộ thấy rõ.</h1>
+      <p class="sub">Track từng buổi tập, làm theo giáo án có sẵn, xem hình động tác cho mỗi bài — và để AI lo dinh dưỡng món Việt. Tất cả trong một app.</p>
+      <div class="hero-cta">
+        <a href="app.html" class="btn-primary">Mở app ngay <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#features" class="btn-ghost">Xem app làm được gì</a>
       </div>
-      <div class="swap-opt"><b style="color:var(--lime)">1.</b> Chân rộng bằng vai, mũi chân hơi xòe</div>
-      <div class="swap-opt"><b style="color:var(--lime)">2.</b> Squat tới đùi song song sàn hoặc sâu hơn</div>
-      <div class="swap-opt"><b style="color:var(--lime)">3.</b> Ngực ưỡn, lưng thẳng, mắt nhìn tới</div>
+      <div class="hero-note">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c8f135" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+        Miễn phí để bắt đầu · Cài lên điện thoại như app thật
+      </div>
+    </div>
+    <div class="hero-phone-wrap">
+      <div class="float-tag float-1">🔥 <span>Streak 12 ngày</span></div>
+      <div class="float-tag float-2">💪 <span>+5kg bench tuần này</span></div>
+      <div class="phone"><img src="shots/scr_home.png" alt="Màn hình chính FitAI"></div>
     </div>
   </div>
-  <div class="feature reveal">
-    <div class="feature-content">
-      <div class="feature-tag">Đổi bài thông minh</div>
-      <h3>Máy bận? Đổi bài chỉ 1 chạm</h3>
-      <p>Thiết bị đang có người dùng, hoặc bạn muốn bài khác cho cùng nhóm cơ? Bấm "Đổi" để thấy các lựa chọn thay thế hợp lý ngay.</p>
-      <ul>
-        <li>Gợi ý bài cùng nhóm cơ, cùng tác động</li>
-        <li>Đổi ngay trong lúc đang tập, không mất số liệu</li>
-        <li>Lọc theo thiết bị bạn có</li>
-      </ul>
-    </div>
-    <div class="feature-visual">
-      <div class="mock-label">BARBELL SQUAT · CHỌN BÀI THAY THẾ</div>
-      <div class="swap-opt"><b>Smith Machine Squat</b><div class="s">Cùng nhóm cơ · Dùng máy Smith</div></div>
-      <div class="swap-opt on"><b style="color:var(--lime)">Hack Squat Machine ✓</b><div class="s">Tốt cho phát triển đùi trước</div></div>
-      <div class="swap-opt"><b>Goblet Squat</b><div class="s">Chỉ cần 1 tạ đơn</div></div>
-    </div>
+</header>
+
+<section class="proof">
+  <div class="wrap proof-grid">
+    <div><div class="proof-num">128</div><div class="proof-lbl">bài tập có hình động tác</div></div>
+    <div><div class="proof-num">30+</div><div class="proof-lbl">giáo án dựng sẵn</div></div>
+    <div><div class="proof-num">256</div><div class="proof-lbl">món ăn &amp; đồ uống Việt</div></div>
+    <div><div class="proof-num">100%</div><div class="proof-lbl">tiếng Việt</div></div>
   </div>
-  <div class="feature reveal">
-    <div class="feature-content">
-      <div class="feature-tag">Dinh dưỡng AI</div>
-      <h3>Meal plan & tính calo bằng món Việt</h3>
-      <p>Nhập nguyên liệu bạn có hoặc khẩu vị riêng, AI lên thực đơn món Việt bám đúng mục tiêu calo & macro. Hoặc chụp ảnh món ăn để ước lượng dinh dưỡng.</p>
+</section>
+
+<section class="sec wrap">
+  <div class="sec-eyebrow reveal">Nghe quen không?</div>
+  <h2 class="sec-title reveal">Tập mãi mà không thấy tiến bộ</h2>
+  <p class="sec-sub reveal">Phần lớn người tập gym bỏ cuộc không phải vì lười — mà vì thiếu hệ thống.</p>
+  <div class="prob-grid">
+    <div class="prob-card reveal"><span class="x">😕</span><h4>Không biết tập gì hôm nay</h4><p>Vào phòng gym rồi mới nghĩ "nay tập gì ta?", tập lung tung không theo kế hoạch.</p></div>
+    <div class="prob-card reveal"><span class="x">📵</span><h4>Quên mất lần trước nâng bao nhiêu</h4><p>Không nhớ tuần trước bench bao nhiêu kg, nên cứ giậm chân một mức tạ.</p></div>
+    <div class="prob-card reveal"><span class="x">🤔</span><h4>Tập đúng kỹ thuật chưa?</h4><p>Phải dừng lại lên YouTube tìm video, mất thời gian mà vẫn không chắc đúng.</p></div>
+  </div>
+  <div class="prob-arrow reveal">↓ FitAI giải quyết tất cả</div>
+</section>
+
+<section class="sec wrap" id="features" style="padding-top:30px">
+  <div class="feat">
+    <div class="feat-text reveal">
+      <div class="feat-tag">Theo dõi buổi tập</div>
+      <h3>Ghi tạ &amp; reps gọn trong vài chạm</h3>
+      <p>Mỗi buổi tập được lưu lại tự động. App nhớ mức tạ lần trước và gợi ý tăng — bạn chỉ việc tập.</p>
       <ul>
-        <li>Thực đơn món Việt theo mục tiêu (giảm mỡ / tăng cơ / giữ dáng)</li>
-        <li>Chụp ảnh món ăn → ước lượng calo & macro</li>
-        <li>Theo dõi calo & nước uống hằng ngày</li>
-        <li>Tự tính TDEE & macro từ chỉ số cơ thể</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Nút +/− chỉnh tạ nhanh, số to dễ nhìn</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Gợi ý "lần trước 70kg → thử 72.5kg"</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Hẹn giờ nghỉ chạy cả khi thoát app</li>
       </ul>
     </div>
-    <div class="feature-visual">
-      <div class="mock-label">THỰC ĐƠN HÔM NAY · MỤC TIÊU 2.200 KCAL</div>
-      <div class="meal-row"><span>🌅 Sáng — Yến mạch + trứng</span><span class="kc">450 kcal</span></div>
-      <div class="meal-row"><span>☀️ Trưa — Cơm gà + rau</span><span class="kc">680 kcal</span></div>
-      <div class="meal-row"><span>🍎 Phụ — Sữa chua Hy Lạp</span><span class="kc">180 kcal</span></div>
-      <div class="meal-row" style="border:none"><span>🌙 Tối — Cá hồi + khoai</span><span class="kc">620 kcal</span></div>
-      <div class="coach-card"><div class="ct">✨ TẠO BẰNG AI</div>Bám đúng 2.200 kcal · 165g đạm — toàn món Việt dễ mua dễ nấu.</div>
+    <div class="feat-visual reveal"><div class="phone"><img src="shots/scr_workout.png" alt="Màn tập"></div></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-text reveal">
+      <div class="feat-tag">Hình động tác + kỹ thuật</div>
+      <h3>Nhìn theo là tập đúng ngay</h3>
+      <p>Mỗi bài có hình động tác minh hoạ, các bước kỹ thuật và lỗi cần tránh — không cần rời app để tìm video.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> 128 bài, mỗi bài có demo động tác</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Hướng dẫn từng bước bằng tiếng Việt</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Cảnh báo lỗi sai thường gặp</li>
+      </ul>
+    </div>
+    <div class="feat-visual reveal"><div class="phone"><img src="shots/scr_formguide.png" alt="Hình động tác"></div></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-text reveal">
+      <div class="feat-tag">Dinh dưỡng AI</div>
+      <h3>Meal plan món Việt, tính calo tự động</h3>
+      <p>AI lên thực đơn món Việt theo đúng mục tiêu calo của bạn. Hoặc chụp ảnh món ăn để ước lượng calo &amp; macro.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> 256 món ăn &amp; đồ uống Việt sẵn có</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Tính TDEE &amp; chia macro theo mục tiêu</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Chụp ảnh món ăn → AI tính calo</li>
+      </ul>
+    </div>
+    <div class="feat-visual reveal"><div class="phone"><img src="shots/scr_nut.png" alt="Dinh dưỡng"></div></div>
+  </div>
+
+  <div class="feat">
+    <div class="feat-text reveal">
+      <div class="feat-tag">Giáo án &amp; tiến độ</div>
+      <h3>30+ giáo án, hoặc tự tạo plan của bạn</h3>
+      <p>Chọn từ PPL, Upper/Lower, Strong Curves cho nữ, 5/3/1... App tự gợi ý plan hợp với bạn. Hoặc tự tạo và đặt tên plan riêng.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Biểu đồ sức mạnh, cân nặng, streak</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Tự tạo plan, chọn bài cho từng buổi</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Lịch tập linh hoạt, đổi buổi dễ dàng</li>
+      </ul>
+    </div>
+    <div class="feat-visual reveal"><div class="phone"><img src="shots/scr_progress.png" alt="Tiến độ"></div></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="combo" style="padding-top:20px">
+  <div class="combo reveal">
+    <div class="combo-glow"></div>
+    <h3>Một app thay cho hai</h3>
+    <p>Bình thường bạn phải dùng một app để track buổi tập, một app khác để theo dõi dinh dưỡng. FitAI gộp cả hai — đỡ phiền, đỡ tốn.</p>
+    <div class="combo-apps">
+      <div class="combo-chip">🏋️ Track buổi tập</div>
+      <span class="combo-plus">+</span>
+      <div class="combo-chip">🍜 Dinh dưỡng</div>
+      <span class="combo-eq">=</span>
+      <div class="combo-result">FitAI</div>
     </div>
   </div>
 </section>
-<section id="pricing" class="pricing">
-  <div class="eyebrow reveal" style="text-align:center">Bảng giá</div>
-  <h2 class="sec-h reveal">Tập càng lâu, càng tiết kiệm</h2>
-  <p class="toggle-note reveal">Bắt đầu miễn phí. Nâng cấp khi bạn thấy hợp — huỷ bất cứ lúc nào.</p>
-  <div class="plans reveal">
-    <div class="plan">
-      <div class="plan-term">1 tháng</div>
-      <div class="plan-price">99K<small>đ</small></div>
-      <div class="plan-perm">99.000đ / tháng</div>
-      <div class="plan-cta"><a href="app.html" class="buy-ghost">Bắt đầu</a></div>
+
+<section class="sec wrap" id="pricing">
+  <div class="sec-eyebrow reveal">Bảng giá</div>
+  <h2 class="sec-title reveal">Tập càng lâu, càng tiết kiệm</h2>
+  <p class="sec-sub reveal">Dùng thử miễn phí trước. Nâng cấp khi bạn thấy đáng. Thanh toán qua PayOS — quét QR ngân hàng Việt Nam.</p>
+  <div class="price-grid">
+    <div class="price-card reveal">
+      <div class="price-term">1 tháng</div>
+      <div class="price-big">99K</div>
+      <div class="price-perm">99.000đ / tháng</div>
+      <div class="price-save"></div>
+      <a href="app.html" class="price-btn">Bắt đầu</a>
     </div>
-    <div class="plan">
-      <div class="plan-term">3 tháng</div>
-      <div class="plan-price">267K<small>đ</small></div>
-      <div class="plan-perm">89.000đ / tháng</div>
-      <div class="plan-old">Tính theo tháng: 297.000đ</div>
-      <span class="plan-save">Tiết kiệm 10%</span>
-      <div class="plan-cta"><a href="app.html" class="buy-ghost">Chọn gói</a></div>
+    <div class="price-card reveal">
+      <div class="price-term">3 tháng</div>
+      <div class="price-big">267K</div>
+      <div class="price-perm">89.000đ / tháng</div>
+      <div class="price-save">Tiết kiệm 10%</div>
+      <a href="app.html" class="price-btn">Chọn gói</a>
     </div>
-    <div class="plan best">
-      <div class="plan-badge">ĐÁNG TIỀN NHẤT</div>
-      <div class="plan-term">6 tháng</div>
-      <div class="plan-price">474K<small>đ</small></div>
-      <div class="plan-perm">79.000đ / tháng</div>
-      <div class="plan-old">Tính theo tháng: 594.000đ</div>
-      <span class="plan-save">Tiết kiệm 20%</span>
-      <div class="plan-cta"><a href="app.html" class="buy-fill">Chọn gói</a></div>
+    <div class="price-card feat-price reveal">
+      <div class="price-flag">ĐÁNG TIỀN NHẤT</div>
+      <div class="price-term">6 tháng</div>
+      <div class="price-big">474K</div>
+      <div class="price-perm">79.000đ / tháng</div>
+      <div class="price-save">Tiết kiệm 20%</div>
+      <a href="app.html" class="price-btn fill">Chọn gói</a>
     </div>
-    <div class="plan">
-      <div class="plan-term">12 tháng</div>
-      <div class="plan-price">599K<small>đ</small></div>
-      <div class="plan-perm">49.900đ / tháng</div>
-      <div class="plan-old">Tính theo tháng: 1.188.000đ</div>
-      <span class="plan-save">Tiết kiệm 50%</span>
-      <div class="plan-cta"><a href="app.html" class="buy-ghost">Chọn gói</a></div>
+    <div class="price-card reveal">
+      <div class="price-term">12 tháng</div>
+      <div class="price-big">599K</div>
+      <div class="price-perm">49.900đ / tháng</div>
+      <div class="price-save">Tiết kiệm 50%</div>
+      <a href="app.html" class="price-btn">Chọn gói</a>
     </div>
   </div>
-  <ul class="price-feats reveal">
-    <li>Theo dõi buổi tập không giới hạn</li>
-    <li>98 bài + video form & sơ đồ cơ</li>
-    <li>30+ plan B / I / A (có plan cho nữ)</li>
-    <li>Đổi bài thông minh theo thiết bị</li>
-    <li>Meal plan AI bằng món Việt</li>
-    <li>Chụp ảnh món ăn tính calo</li>
-    <li>Theo dõi số đo & ảnh tiến độ</li>
-    <li>Giao diện song ngữ Việt – Anh</li>
-  </ul>
 </section>
-<div class="final">
-  <h2>Sẵn sàng <span class="accent">tập nghiêm túc?</span></h2>
-  <p>Mở app, tạo hồ sơ trong 1 phút, bắt đầu buổi tập đầu tiên hôm nay.</p>
-  <a href="app.html" class="btn-primary">Mở FitAI →</a>
-</div>
+
+<section class="sec wrap" id="faq">
+  <div class="sec-eyebrow reveal">Hỏi đáp</div>
+  <h2 class="sec-title reveal">Câu hỏi thường gặp</h2>
+  <div class="faq" style="margin-top:40px">
+    <div class="faq-item reveal" onclick="this.classList.toggle('open')">
+      <div class="faq-q">FitAI có miễn phí không? <span class="ic">+</span></div>
+      <div class="faq-a">Có. Bạn dùng thử miễn phí các tính năng cốt lõi: track buổi tập, hình động tác, giáo án, theo dõi dinh dưỡng cơ bản. Một số tính năng AI nâng cao thuộc gói Premium.</div>
+    </div>
+    <div class="faq-item reveal" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Cài lên điện thoại như thế nào? <span class="ic">+</span></div>
+      <div class="faq-a">FitAI là web app — mở bằng trình duyệt rồi thêm vào màn hình chính. Trên iPhone: Safari → nút Chia sẻ → "Thêm vào MH chính". Trên Android: Chrome sẽ hiện nút cài đặt. Sau đó dùng như app thật.</div>
+    </div>
+    <div class="faq-item reveal" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Thanh toán bằng cách nào? <span class="ic">+</span></div>
+      <div class="faq-a">Thanh toán qua PayOS — quét mã QR bằng app ngân hàng Việt Nam của bạn. Nhanh gọn, không cần thẻ quốc tế.</div>
+    </div>
+    <div class="faq-item reveal" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Tôi tập theo giáo án riêng được không? <span class="ic">+</span></div>
+      <div class="faq-a">Được. Ngoài 30+ giáo án dựng sẵn, bạn có thể tự tạo plan, đặt tên, thêm từng buổi và chọn bài tập cho mỗi buổi từ thư viện 128 bài.</div>
+    </div>
+    <div class="faq-item reveal" onclick="this.classList.toggle('open')">
+      <div class="faq-q">Có cần kết nối mạng liên tục không? <span class="ic">+</span></div>
+      <div class="faq-a">Phần lớn tính năng (track buổi tập, hình động tác, hẹn giờ nghỉ) hoạt động mượt. Các tính năng AI (meal plan, chụp ảnh tính calo) cần kết nối mạng để xử lý.</div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="final-glow"></div>
+  <div class="wrap">
+    <h2>Sẵn sàng tập nghiêm túc?</h2>
+    <p>Tạo hồ sơ trong 1 phút. Bắt đầu buổi tập đầu tiên hôm nay.</p>
+    <a href="app.html" class="btn-primary">Mở FitAI ngay <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
 <footer>
-  <div class="foot-logo">FIT<span>AI</span></div>
-  <div class="foot-sub">App tập gym AI cho người Việt</div>
-  <div class="foot-links">
-    <a href="#features">Tính năng</a>
-    <a href="#pricing">Giá</a>
-    <a href="app.html">Mở app</a>
+  <div class="wrap">
+    <div class="foot-in">
+      <a href="#" class="logo">
+        <svg viewBox="0 0 36 36" fill="none"><path d="M18 4c-1.5 0-3 1-3.5 3-2-1-5 0-5 3 0 1.5 1 2.5 1 4-1.5 1-2 3-1 4.5 1 1.5 3 1.5 4.5 2 1 .5 2 2 2 3.5 0 2 2 4 4.5 4s4.5-2 4.5-5c0-1.5-.5-3-2-4 1.5-1 2.5-3 1.5-5-.5-1.5-2-2-3.5-2.5.5-2-1-5.5-3-5.5z" fill="#c8f135"/></svg>
+        FITAI
+      </a>
+      <div class="foot-links">
+        <a href="#features">Tính năng</a>
+        <a href="#pricing">Bảng giá</a>
+        <a href="#faq">Hỏi đáp</a>
+        <a href="app.html">Mở app</a>
+      </div>
+    </div>
+    <div class="foot-credit">
+      FitAI — App tập gym thông minh cho người Việt · Made in Vietnam 🇻🇳<br>
+      Icon bắp tay phỏng theo Twemoji (CC-BY 4.0).
+    </div>
   </div>
-  <div class="foot-copy">© 2026 FitAI · Biểu tượng dựa trên Twemoji (CC-BY 4.0)</div>
 </footer>
+
 <script>
-const nav=document.getElementById('nav');
-addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
 </body>
