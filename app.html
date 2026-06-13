@@ -87,9 +87,9 @@
 }
 .start-card-main:active{transform:scale(.98)}
 /* Bottom nav */
-.bnav{height:calc(54px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom)}
+.bnav{height:calc(64px + max(env(safe-area-inset-bottom),10px));padding-bottom:max(env(safe-area-inset-bottom),10px)}
 /* Screen */
-.screen{bottom:calc(54px + env(safe-area-inset-bottom))}
+.screen{bottom:calc(64px + max(env(safe-area-inset-bottom),10px))}
 /* ═══════════════════════════════════════════════════
    EXERCISE QUICK-VIEW PANEL - Nudges Me style
    Slides up from bottom, stays within workout screen
@@ -160,6 +160,7 @@
   position:relative;margin:0 auto 16px;width:180px;height:260px;
 }
 .muscle-svg{width:100%;height:100%}
+.muscle-region{stroke:#13151b;stroke-width:.8;transition:fill .3s,filter .3s}
 
 /* Animated muscle highlight */
 @keyframes musclePulse{
@@ -272,15 +273,15 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
    APP SHELL
 ═══════════════════════════════════════════ */
 #app{width:100%;max-width:430px;height:100dvh;margin:0 auto;display:flex;flex-direction:column;position:relative;background:var(--bg);overflow:hidden}
-.screen{position:absolute;inset:0;bottom:calc(60px + var(--safe-bottom));overflow-y:auto;display:none;flex-direction:column;background:var(--bg)}
+.screen{position:absolute;inset:0;bottom:calc(64px + max(var(--safe-bottom),10px));overflow-y:auto;display:none;flex-direction:column;background:var(--bg)}
 .screen.active{display:flex}
 
 /* ═══════════════════════════════════════════
    BOTTOM NAV
 ═══════════════════════════════════════════ */
-.bnav{position:absolute;bottom:0;left:0;right:0;height:calc(60px + var(--safe-bottom));padding-bottom:var(--safe-bottom);background:var(--bg2);border-top:1px solid var(--brd);display:flex;z-index:100;backdrop-filter:blur(20px)}
-.bni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5px;background:none;border:none;color:var(--txt3);font-size:9.5px;letter-spacing:.05em;cursor:pointer;transition:color .2s;text-transform:uppercase;padding:8px 2px}
-.bni svg{width:22px;height:22px;transition:transform .2s}
+.bnav{position:absolute;bottom:0;left:0;right:0;height:calc(64px + max(var(--safe-bottom),10px));padding-bottom:max(var(--safe-bottom),10px);background:var(--bg2);border-top:1px solid var(--brd);display:flex;z-index:100;backdrop-filter:blur(20px)}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;color:var(--txt3);font-size:10px;letter-spacing:.04em;cursor:pointer;transition:color .2s;text-transform:uppercase;padding:6px 2px}
+.bni svg{width:23px;height:23px;transition:transform .2s}
 .bni.on{color:var(--lime)}
 .bni.on svg{transform:scale(1.08)}
 
@@ -1158,15 +1159,15 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
             </svg>
             <div class="streak-ring-val">
               <div class="streak-num" id="h-streak">0</div>
-              <div class="streak-lbl">streak</div>
+              <div class="streak-lbl" data-i18n="statStreak">streak</div>
             </div>
           </div>
           <div style="flex:1">
             <div class="g2">
-              <div class="sb" style="padding:10px"><div class="sv" style="font-size:22px" id="h-workouts">0</div><div class="sk">Buổi tập</div></div>
-              <div class="sb" style="padding:10px"><div class="sv" style="font-size:22px" id="h-volume">0</div><div class="sk">Total kg</div></div>
-              <div class="sb" style="padding:10px"><div class="sv" style="font-size:16px;color:var(--amber)" id="h-hours">0h</div><div class="sk">Giờ tập</div></div>
-              <div class="sb" style="padding:10px"><div class="sv" style="font-size:16px;color:var(--pink)" id="h-level">Lv 1</div><div class="sk">Level</div></div>
+              <div class="sb" style="padding:10px"><div class="sv" style="font-size:22px" id="h-workouts">0</div><div class="sk" data-i18n="statWorkouts">Buổi tập</div></div>
+              <div class="sb" style="padding:10px"><div class="sv" style="font-size:22px" id="h-volume">0</div><div class="sk" data-i18n="statTotalKg">Total kg</div></div>
+              <div class="sb" style="padding:10px"><div class="sv" style="font-size:16px;color:var(--amber)" id="h-hours">0h</div><div class="sk" data-i18n="statHours">Giờ tập</div></div>
+              <div class="sb" style="padding:10px"><div class="sv" style="font-size:16px;color:var(--pink)" id="h-level">Lv 1</div><div class="sk" data-i18n="statLevel">Level</div></div>
             </div>
           </div>
         </div>
@@ -1175,10 +1176,10 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         <div class="row" style="gap:8px;margin-bottom:10px">
           <div class="sb" style="flex:1;padding:10px">
             <div class="sv" style="font-size:20px;color:var(--red)" id="h-cal-burned">0</div>
-            <div class="sk">kcal đốt</div>
+            <div class="sk" data-i18n="statKcal">kcal đốt</div>
           </div>
           <div class="card" style="flex:2;padding:10px">
-            <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);letter-spacing:.06em;margin-bottom:3px">NGÀY MAI</div>
+            <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);letter-spacing:.06em;margin-bottom:3px" data-i18n="tomorrow">NGÀY MAI</div>
             <div class="xs" id="home-next-workout" style="color:var(--txt2)">--</div>
           </div>
         </div>
@@ -1245,16 +1246,17 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
     <!-- ACTIVE WORKOUT -->
     <div id="w-active" style="display:none;flex-direction:column;height:100%">
       <div class="wtb">
-        <div>
-          <div class="wtb-title" id="aw-title">Buổi tập</div>
+        <div style="flex:1;min-width:0">
+          <div class="wtb-title" id="aw-title" onclick="renameWorkout()" style="cursor:pointer" title="Chạm để đổi tên">Buổi tập ✎</div>
           <div class="wtb-timer" id="aw-timer">00:00</div>
         </div>
-        <div class="row" style="gap:8px">
+        <div class="row" style="gap:6px">
           <div style="text-align:right">
             <div class="wtb-vol" id="aw-vol">0 kg volume</div>
             <div class="xs" style="color:var(--txt3)" id="aw-sets-done">0 sets</div>
           </div>
           <button class="btn bg bxs" id="aw-pause-btn" onclick="togglePauseWorkout()" title="Tạm dừng">⏸</button>
+          <button class="btn bg bxs" onclick="exitWorkout()" title="Thoát" style="color:var(--txt2)">✕</button>
           <button class="btn bl bsm" onclick="finishWorkout()">Xong ✓</button>
         </div>
       </div>
@@ -1656,7 +1658,7 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
 
       <div style="text-align:center;padding:8px 0;margin-bottom:4px">
-        <span class="xxs muted">FitAI v4.2.0 · Workout Tracker 🇻🇳</span>
+        <span class="xxs muted">FitAI v4.7.0 · Workout Tracker 🇻🇳</span>
       </div>
 
       <!-- Macro targets display -->
@@ -1825,31 +1827,31 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
   <nav class="bnav">
     <button class="bni on" onclick="goTab('s-home')" id="bn-home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Trang chủ
+      <span data-i18n="navHome">Trang chủ</span>
     </button>
     <button class="bni" onclick="goTab('s-workout')" id="bn-workout">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-      Tập luyện
+      <span data-i18n="navWorkout">Tập luyện</span>
     </button>
     <button class="bni" onclick="goTab('s-plan')" id="bn-plan">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-      Plan
+      <span data-i18n="navPlan">Plan</span>
     </button>
     <button class="bni" onclick="goTab('s-schedule')" id="bn-schedule">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Lịch
+      <span data-i18n="navSchedule">Lịch</span>
     </button>
     <button class="bni" onclick="goTab('s-progress')" id="bn-progress">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      Tiến độ
+      <span data-i18n="navProgress">Tiến độ</span>
     </button>
     <button class="bni" onclick="goTab('s-nut')" id="bn-nut">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M5 8H4a4 4 0 0 0 0 8h1"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M12 2v4M12 18v4"/></svg>
-      Dinh dưỡng
+      <span data-i18n="navNut">Dinh dưỡng</span>
     </button>
       <button class="bni" onclick="goTab('s-profile')" id="bn-profile">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      Cá nhân
+      <span data-i18n="navProfile">Cá nhân</span>
     </button>
 </nav>
 <script>
@@ -1880,7 +1882,7 @@ const LANG={
     installApp:'Cài app về máy (PWA)',exportData:'Export data CSV',deleteAll:'Xóa tất cả dữ liệu',
     noWorkouts:'Chưa có buổi tập nào\nBắt đầu buổi đầu tiên ngay!',
     // data-i18n keys (scanned)
-    navHome:'Trang chủ',navWorkout:'Tập',navPlan:'Plan',navSchedule:'Lịch',navProgress:'Tiến độ',navNut:'Dinh dưỡng',
+    navHome:'Trang chủ',navWorkout:'Tập luyện',navPlan:'Plan',navSchedule:'Lịch',navProgress:'Tiến độ',navNut:'Dinh dưỡng',navProfile:'Cá nhân',
     weekThis:'Tuần này',todayWorkout:'Buổi tập hôm nay',todayFeel:'Cảm giác hôm nay',todayChallenge:'Thách thức hôm nay',
     quickStats:'Thống kê nhanh',recent:'Gần đây',quickCardio:'Cardio nhanh',savedTemplate:'Template đã lưu',history:'Lịch sử',
     planLibTitle:'Kho',nutHistory:'Lịch sử dinh dưỡng',mealSuggest:'Gợi ý Meal Plan',
@@ -1905,6 +1907,7 @@ const LANG={
     presetCut:'🔥 Giảm mỡ (-15%)',presetMaintain:'⚖️ Duy trì',presetBulk:'💪 Tăng cơ (+10%)',presetAggBulk:'🚀 Bulk mạnh (+20%)',
     calTargetLabel:'CALO MỤC TIÊU (kcal/ngày)',resetAuto:'↺ Auto',cancelBtn2:'Huỷ',saveGoal:'Lưu mục tiêu',
     mealFilterAll:'Tất cả',mealMorning:'🌅 Sáng',mealNoon:'☀️ Trưa',mealEvening:'🌙 Tối',mealSnack:'🍎 Phụ',
+    statWorkouts:'Buổi tập',statTotalKg:'Tổng kg',statHours:'Giờ tập',statLevel:'Cấp độ',statKcal:'kcal đốt',statStreak:'streak',tomorrow:'NGÀY MAI',noPlanYet:'Chưa có plan — chọn plan phù hợp',feelToday:'Hôm nay cảm giác thế nào?',
   },
   en:{
     home:'Home',workout:'Workout',plan:'Plans',schedule:'Schedule',
@@ -1923,7 +1926,7 @@ const LANG={
     installApp:'Install app (PWA)',exportData:'Export data CSV',deleteAll:'Delete all data',
     noWorkouts:'No workouts yet\nStart your first one!',
     // scanned
-    navHome:'Home',navWorkout:'Train',navPlan:'Plan',navSchedule:'Schedule',navProgress:'Progress',navNut:'Nutrition',
+    navHome:'Home',navWorkout:'Workout',navPlan:'Plans',navSchedule:'Schedule',navProgress:'Progress',navNut:'Nutrition',navProfile:'Profile',
     weekThis:'This Week',todayWorkout:"Today's Workout",todayFeel:'How do you feel today',todayChallenge:"Today's Challenge",
     quickStats:'Quick Stats',recent:'Recent',quickCardio:'Quick Cardio',savedTemplate:'Saved Templates',history:'History',
     planLibTitle:'Plan',nutHistory:'Nutrition History',mealSuggest:'Meal Plan Suggestion',
@@ -1946,6 +1949,7 @@ const LANG={
     presetCut:'🔥 Cut (-15%)',presetMaintain:'⚖️ Maintain',presetBulk:'💪 Lean Bulk (+10%)',presetAggBulk:'🚀 Aggressive (+20%)',
     calTargetLabel:'TARGET CALORIES (kcal/day)',resetAuto:'↺ Auto',cancelBtn2:'Cancel',saveGoal:'Save Goal',
     mealFilterAll:'All',mealMorning:'🌅 Breakfast',mealNoon:'☀️ Lunch',mealEvening:'🌙 Dinner',mealSnack:'🍎 Snack',
+    statWorkouts:'Workouts',statTotalKg:'Total kg',statHours:'Hours',statLevel:'Level',statKcal:'kcal burned',statStreak:'streak',tomorrow:'TOMORROW',noPlanYet:'No plan yet — pick one that fits',feelToday:'How do you feel today?',
   },
 };
 let currentLang='vi';
@@ -1958,17 +1962,15 @@ function setLanguage(lang){
   applyLanguage();
   renderNavLabels();
   syncLangUI();
+  // Re-render các màn hình động để cập nhật nhãn
+  try{renderHome&&renderHome();}catch(e){}
+  try{renderPlans&&renderPlans('all');}catch(e){}
   toast(lang==='vi'?'🇻🇳 Tiếng Việt':'🇬🇧 English');
 }
 function applyLanguage(){
-  // Bottom nav labels
-  const navMap={
-    'bn-home':'home','bn-workout':'workout','bn-plan':'plan',
-    'bn-schedule':'schedule','bn-progress':'track','bn-nut':'nutrition',
-  };
-  Object.entries(navMap).forEach(([id,key])=>{
-    const el=document.getElementById(id);
-    if(el){const txt=el.querySelector('span')||el.lastChild;if(txt)txt.textContent=t(key);}
+  // Bottom nav labels (giờ dùng span[data-i18n], xoá text node cũ nếu còn)
+  document.querySelectorAll('.bni').forEach(btn=>{
+    [...btn.childNodes].forEach(n=>{if(n.nodeType===3&&n.textContent.trim())n.textContent='';});
   });
   // Rest timer
   const rl=document.querySelector('.rest-label');if(rl)rl.textContent=t('restLabel');
@@ -2278,7 +2280,7 @@ const PLANS=[
    ]},
 ];
 
-const EXGIF={"Bench Press": "Barbell_Bench_Press_-_Medium_Grip", "Incline DB Press": "Incline_Dumbbell_Press", "Cable Fly": "Cable_Crossover", "Push Up": "Pushups", "Barbell Deadlift": "Barbell_Deadlift", "Pull-up": "Pullups", "Lat Pulldown": "Wide-Grip_Lat_Pulldown", "Seated Cable Row": "Seated_Cable_Rows", "Barbell Row": "Bent_Over_Barbell_Row", "DB Shoulder Press": "Dumbbell_Shoulder_Press", "Lateral Raise": "Side_Lateral_Raise", "Face Pull": "Face_Pull", "Overhead Press": "Standing_Military_Press", "Barbell Curl": "Barbell_Curl", "Hammer Curl": "Hammer_Curls", "Tricep Pushdown": "Triceps_Pushdown", "Barbell Squat": "Barbell_Full_Squat", "Leg Press": "Leg_Press", "Romanian DL": "Romanian_Deadlift", "Hip Thrust": "Barbell_Hip_Thrust", "Glute Bridge": "Butt_Lift_Bridge", "Plank": "Plank", "Calf Raise": "Standing_Calf_Raises", "Leg Curl": "Lying_Leg_Curls", "Chest Press Machine": "Leverage_Chest_Press", "Pec Deck": "Butterfly", "Dips": "Dips_-_Triceps_Version", "Seated Row Machine": "Leverage_High_Row", "T-Bar Row": "T-Bar_Row_with_Handle", "Single Arm DB Row": "One-Arm_Dumbbell_Row", "Cable Lateral Raise": "Cable_Seated_Lateral_Raise", "Arnold Press": "Arnold_Dumbbell_Press", "Upright Row": "Upright_Barbell_Row", "Preacher Curl": "Preacher_Curl", "Cable Curl": "Standing_Biceps_Cable_Curl", "Overhead Tricep Extension": "Standing_Dumbbell_Triceps_Extension", "Close Grip Bench": "Close-Grip_Barbell_Bench_Press", "Leg Extension": "Leg_Extensions", "Hack Squat": "Hack_Squat", "Sumo Deadlift": "Sumo_Deadlift", "Good Morning": "Good_Morning", "Donkey Kicks": "Glute_Kickback", "Cable Kickback": "Glute_Kickback", "Ab Wheel": "Ab_Roller", "Russian Twist": "Russian_Twist", "Dead Bug": "Dead_Bug", "Seated Calf Raise": "Seated_Calf_Raise", "Smith Machine Squat": "Smith_Machine_Squat", "Cable Pull Through": "Pull_Through", "Incline Curl": "Incline_Dumbbell_Curl", "EZ Bar Curl": "EZ-Bar_Curl", "Skull Crusher": "Lying_Triceps_Press", "Rope Pushdown": "Triceps_Pushdown_-_Rope_Attachment", "Seated Leg Curl": "Seated_Leg_Curl", "Hip Abduction": "Thigh_Abductor", "Reverse Fly": "Reverse_Flyes", "Dumbbell Shrug": "Dumbbell_Shrug", "Wrist Curl": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench", "Reverse Curl": "Reverse_Barbell_Curl", "Box Jump": "Box_Jump_Multiple_Response", "Cable Crossover": "Cable_Crossover", "Pec Deck Fly": "Butterfly", "Meadows Row": "One-Arm_Dumbbell_Row", "Chest Supported Row": "Incline_Bench_Pull", "Straight Arm Pulldown": "Straight-Arm_Pulldown", "Cable Face Pull": "Face_Pull", "Seated DB Press": "Seated_Dumbbell_Press", "Front Squat": "Front_Barbell_Squat", "Leg Press (Close Stance)": "Leg_Press", "Nordic Curl": "Lying_Leg_Curls", "Glute Kickback Cable": "Glute_Kickback", "Spider Curl": "Spider_Curl", "Overhead Cable Tricep": "Cable_Rope_Overhead_Triceps_Extension", "Hanging Leg Raise": "Hanging_Leg_Raise", "Cable Crunch": "Cable_Crunch", "Pallof Press": "Cable_Crunch", "Landmine Press": "Standing_Military_Press", "Cable Chest Press": "Cable_Chest_Press", "Pendlay Row": "Bent_Over_Barbell_Row", "Band Pull Apart": "Face_Pull", "Goblet Squat": "Goblet_Squat", "Machine Shoulder Press": "Machine_Shoulder_Military_Press", "Concentration Curl": "Concentration_Curls", "Hollow Body Hold": "Plank", "Ab Rollout": "Ab_Roller", "Side Plank": "Side_Bridge", "Smith Machine Hip Thrust": "Barbell_Hip_Thrust", "Single Arm Row": "One-Arm_Dumbbell_Row", "Hack Squat Machine": "Hack_Squat", "Reverse Grip Pulldown": "Close-Grip_Front_Lat_Pulldown", "Treadmill Walking Incline": "Walking_Treadmill", "Mountain Climber": "Mountain_Climbers", "Bulgarian Split Squat": "Split_Squat_with_Dumbbells", "Walking Lunge": "Bodyweight_Walking_Lunge", "Sissy Squat": "Weighted_Sissy_Squat", "Decline Bench Press": "Decline_Barbell_Bench_Press", "Cable Crossover Low": "Low_Cable_Crossover", "Dumbbell Pullover": "Bent-Arm_Dumbbell_Pullover", "Machine Fly": "Butterfly", "Svend Press": "Plate_Pinch", "Deficit Deadlift": "Deficit_Deadlift", "Rack Pull": "Rack_Pulls", "Wide Grip Pulldown": "Wide-Grip_Lat_Pulldown", "Inverted Row": "Inverted_Row", "Cable Pullover": "Cable_Incline_Pushdown", "Shrug Barbell": "Barbell_Shrug", "Behind Neck Press": "Standing_Military_Press", "Cable Front Raise": "Front_Cable_Raise", "Bent Over Reverse Fly": "Reverse_Flyes", "Cuban Press": "Cuban_Press", "Zottman Curl": "Zottman_Curl", "Cable Hammer Curl": "Cable_Hammer_Curls_-_Rope_Attachment", "Tricep Kickback": "Tricep_Dumbbell_Kickback", "Bench Dips": "Bench_Dips", "Wrist Curl Reverse": "Cable_Reverse_Crunch", "Pause Squat": "Barbell_Full_Squat", "Leg Press Single": "Leg_Press", "Step Up": "Dumbbell_Step_Ups", "Glute Ham Raise": "Natural_Glute_Ham_Raise", "Standing Calf Raise Barbell": "Standing_Barbell_Calf_Raise", "Cable Woodchopper": "Alternating_Cable_Shoulder_Press", "Decline Crunch": "Decline_Crunch", "Toes to Bar": "Hanging_Leg_Raise", "Jumping Jack": "Rope_Jumping"};
+const EXGIF={"Bench Press": "Barbell_Bench_Press_-_Medium_Grip", "Incline DB Press": "Incline_Dumbbell_Press", "Cable Fly": "Cable_Crossover", "Push Up": "Pushups", "Barbell Deadlift": "Barbell_Deadlift", "Pull-up": "Pullups", "Lat Pulldown": "Wide-Grip_Lat_Pulldown", "Seated Cable Row": "Seated_Cable_Rows", "Barbell Row": "Bent_Over_Barbell_Row", "DB Shoulder Press": "Dumbbell_Shoulder_Press", "Lateral Raise": "Side_Lateral_Raise", "Face Pull": "Face_Pull", "Overhead Press": "Standing_Military_Press", "Barbell Curl": "Barbell_Curl", "Hammer Curl": "Hammer_Curls", "Tricep Pushdown": "Triceps_Pushdown", "Barbell Squat": "Barbell_Full_Squat", "Leg Press": "Leg_Press", "Romanian DL": "Romanian_Deadlift", "Hip Thrust": "Barbell_Hip_Thrust", "Glute Bridge": "Butt_Lift_Bridge", "Plank": "Plank", "Calf Raise": "Standing_Calf_Raises", "Leg Curl": "Lying_Leg_Curls", "Chest Press Machine": "Leverage_Chest_Press", "Pec Deck": "Butterfly", "Dips": "Dips_-_Triceps_Version", "Seated Row Machine": "Leverage_High_Row", "T-Bar Row": "T-Bar_Row_with_Handle", "Single Arm DB Row": "One-Arm_Dumbbell_Row", "Cable Lateral Raise": "Cable_Seated_Lateral_Raise", "Arnold Press": "Arnold_Dumbbell_Press", "Upright Row": "Upright_Barbell_Row", "Preacher Curl": "Preacher_Curl", "Cable Curl": "Standing_Biceps_Cable_Curl", "Overhead Tricep Extension": "Standing_Dumbbell_Triceps_Extension", "Close Grip Bench": "Close-Grip_Barbell_Bench_Press", "Leg Extension": "Leg_Extensions", "Hack Squat": "Hack_Squat", "Sumo Deadlift": "Sumo_Deadlift", "Good Morning": "Good_Morning", "Donkey Kicks": "Glute_Kickback", "Cable Kickback": "Glute_Kickback", "Ab Wheel": "Ab_Roller", "Russian Twist": "Russian_Twist", "Dead Bug": "Dead_Bug", "Seated Calf Raise": "Seated_Calf_Raise", "Smith Machine Squat": "Smith_Machine_Squat", "Cable Pull Through": "Pull_Through", "Incline Curl": "Incline_Dumbbell_Curl", "EZ Bar Curl": "EZ-Bar_Curl", "Skull Crusher": "Lying_Triceps_Press", "Rope Pushdown": "Triceps_Pushdown_-_Rope_Attachment", "Seated Leg Curl": "Seated_Leg_Curl", "Hip Abduction": "Thigh_Abductor", "Reverse Fly": "Reverse_Flyes", "Dumbbell Shrug": "Dumbbell_Shrug", "Wrist Curl": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench", "Reverse Curl": "Reverse_Barbell_Curl", "Box Jump": "Box_Jump_Multiple_Response", "Cable Crossover": "Cable_Crossover", "Pec Deck Fly": "Butterfly", "Meadows Row": "One-Arm_Dumbbell_Row", "Chest Supported Row": "Incline_Bench_Pull", "Straight Arm Pulldown": "Straight-Arm_Pulldown", "Cable Face Pull": "Face_Pull", "Seated DB Press": "Seated_Dumbbell_Press", "Front Squat": "Front_Barbell_Squat", "Leg Press (Close Stance)": "Leg_Press", "Nordic Curl": "Lying_Leg_Curls", "Glute Kickback Cable": "Glute_Kickback", "Spider Curl": "Spider_Curl", "Overhead Cable Tricep": "Cable_Rope_Overhead_Triceps_Extension", "Hanging Leg Raise": "Hanging_Leg_Raise", "Cable Crunch": "Cable_Crunch", "Pallof Press": "Cable_Crunch", "Landmine Press": "Standing_Military_Press", "Cable Chest Press": "Cable_Chest_Press", "Pendlay Row": "Bent_Over_Barbell_Row", "Band Pull Apart": "Face_Pull", "Goblet Squat": "Goblet_Squat", "Machine Shoulder Press": "Machine_Shoulder_Military_Press", "Concentration Curl": "Concentration_Curls", "Hollow Body Hold": "Plank", "Ab Rollout": "Ab_Roller", "Side Plank": "Side_Bridge", "Smith Machine Hip Thrust": "Barbell_Hip_Thrust", "Single Arm Row": "One-Arm_Dumbbell_Row", "Hack Squat Machine": "Hack_Squat", "Reverse Grip Pulldown": "Close-Grip_Front_Lat_Pulldown", "Treadmill Walking Incline": "Walking_Treadmill", "Mountain Climber": "Mountain_Climbers", "Bulgarian Split Squat": "Split_Squat_with_Dumbbells", "Walking Lunge": "Bodyweight_Walking_Lunge", "Sissy Squat": "Weighted_Sissy_Squat", "Decline Bench Press": "Decline_Barbell_Bench_Press", "Cable Crossover Low": "Low_Cable_Crossover", "Dumbbell Pullover": "Bent-Arm_Dumbbell_Pullover", "Machine Fly": "Butterfly", "Svend Press": "Plate_Pinch", "Deficit Deadlift": "Deficit_Deadlift", "Rack Pull": "Rack_Pulls", "Wide Grip Pulldown": "Wide-Grip_Lat_Pulldown", "Inverted Row": "Inverted_Row", "Cable Pullover": "Cable_Incline_Pushdown", "Shrug Barbell": "Barbell_Shrug", "Behind Neck Press": "Standing_Military_Press", "Cable Front Raise": "Front_Cable_Raise", "Bent Over Reverse Fly": "Reverse_Flyes", "Cuban Press": "Cuban_Press", "Zottman Curl": "Zottman_Curl", "Cable Hammer Curl": "Cable_Hammer_Curls_-_Rope_Attachment", "Tricep Kickback": "Tricep_Dumbbell_Kickback", "Bench Dips": "Bench_Dips", "Wrist Curl Reverse": "Cable_Reverse_Crunch", "Pause Squat": "Barbell_Full_Squat", "Leg Press Single": "Leg_Press", "Step Up": "Dumbbell_Step_Ups", "Glute Ham Raise": "Natural_Glute_Ham_Raise", "Standing Calf Raise Barbell": "Standing_Barbell_Calf_Raise", "Cable Woodchopper": "Alternating_Cable_Shoulder_Press", "Decline Crunch": "Decline_Crunch", "Toes to Bar": "Hanging_Leg_Raise", "Jumping Jack": "Rope_Jumping", "Incline Bench Press": "Alternate_Incline_Dumbbell_Curl", "Smith Machine Bench": "Smith_Machine_Bench_Press", "Dumbbell Floor Press": "Floor_Press", "Cable Upper Chest Fly": "Low_Cable_Crossover", "Pull Up Wide": "Wide-Grip_Barbell_Bench_Press", "Chin Up": "Chin-Up", "Machine Row": "Seated_Cable_Rows", "Cable Row Wide": "Seated_Cable_Rows", "Hyperextension": "Hyperextensions_Back_Extensions", "Dumbbell Deadlift": "Alternate_Incline_Dumbbell_Curl", "Seated DB Lateral Raise": "Side_Lateral_Raise", "Machine Lateral Raise": "Side_Lateral_Raise", "Plate Front Raise": "Front_Plate_Raise", "Rear Delt Machine": "Reverse_Machine_Flyes", "Barbell Curl Wide": "Wide-Grip_Standing_Barbell_Curl", "Dumbbell Curl": "Dumbbell_Bicep_Curl", "Cable Tricep Overhead": "Cable_Rope_Overhead_Triceps_Extension", "Diamond Push Up": "Pushups_Close_and_Wide_Hand_Positions", "JM Press": "JM_Press", "Leg Press Wide": "Leg_Press", "Goblet Squat DB": "Goblet_Squat", "Dumbbell Lunge": "Dumbbell_Lunges", "Seated Leg Extension": "Leg_Extensions", "Standing Leg Curl": "Standing_Leg_Curl", "Calf Press Machine": "Calf_Press_On_The_Leg_Press_Machine", "Cable Crunch Kneeling": "Cable_Crunch", "Bicycle Crunch": "Air_Bike", "Leg Raise Lying": "Flat_Bench_Lying_Leg_Raise", "Plank Side": "Side_Bridge", "High Knees": "Mountain_Climbers"};
 const EXGIF_BASE='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
 const EXERCISES=[
   {id:1,name:'Bench Press',nameVi:'Bench Press Barbell',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'SCVCLChPQFY',
@@ -2690,7 +2692,6 @@ const EXERCISES=[
    cues:['Bắt đầu từ plank position','Kéo gối lên ngực xen kẽ nhanh','Hông không nhấc lên','Core braced suốt bài'],
    mistakes:['Hông lên cao','Quá chậm mất nhịp'],
    sets:{'muscle':'3×30-60s','strength':'','endurance':'4×45-90s'},diffVi:'Cơ bản'},
-,
   {id:107,name:'Decline Bench Press',nameVi:'Decline Bench Press',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'',
    cues:['Ghế dốc xuống ~15-30°','Hạ tạ xuống ngực dưới','Đẩy lên theo đường thẳng','Giữ vai kẹp chặt'],
    mistakes:['Dốc quá sâu','Khoá khuỷu đột ngột'],
@@ -2810,7 +2811,128 @@ const EXERCISES=[
   {id:136,name:'Jumping Jack',nameVi:'Jumping Jack',muscle:'cardio',equip:'bodyweight',emoji:'🏃',ytId:'',
    cues:['Bật nhảy dang tay chân','Nhịp nhanh đều','Tiếp đất nhẹ','Thở đều'],
    mistakes:['Tiếp đất nặng','Mất nhịp'],
-   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'}
+   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
+  {id:137,name:'Incline Bench Press',nameVi:'Incline Bench Press',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Ghế nghiêng 30°','Hạ tạ xuống ngực trên','Đẩy lên thẳng','Vai kẹp chặt'],
+   mistakes:['Nghiêng quá dốc','Đẩy lệch'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:138,name:'Smith Machine Bench',nameVi:'Smith Machine Bench',muscle:'chest',equip:'machine',emoji:'⚙️',ytId:'',
+   cues:['Nằm dưới thanh Smith','Hạ xuống ngực giữa','Đẩy theo ray','Kiểm soát'],
+   mistakes:['Khoá khuỷu','Hạ nhanh'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:139,name:'Dumbbell Floor Press',nameVi:'Dumbbell Floor Press',muscle:'chest',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Nằm sàn, tạ đôi','Hạ tới khi khuỷu chạm sàn','Đẩy lên','Tốt cho vai yếu'],
+   mistakes:['Nảy khuỷu','Range sai'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:140,name:'Cable Upper Chest Fly',nameVi:'Cable Upper Chest Fly',muscle:'chest',equip:'cable',emoji:'🔗',ytId:'',
+   cues:['Cáp thấp kéo chéo lên','Ép ngực trên','Khuỷu hơi cong','Về chậm'],
+   mistakes:['Dùng vai','Mở rộng quá'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:141,name:'Pull Up Wide',nameVi:'Pull Up Wide',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Grip rộng','Kéo cằm qua xà','Ép xô','Hạ chậm'],
+   mistakes:['Đung đưa','Range ngắn'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:142,name:'Chin Up',nameVi:'Chin Up',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Grip ngửa hẹp','Kéo lên dùng tay+lưng','Cằm qua xà','Hạ kiểm soát'],
+   mistakes:['Lấy đà','Không hạ hết'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:143,name:'Machine Row',nameVi:'Machine Row',muscle:'back',equip:'machine',emoji:'⚙️',ytId:'',
+   cues:['Ngồi máy chèo','Kéo về siết bả vai','Ngực tựa đệm','Về chậm'],
+   mistakes:['Giật lưng','Range ngắn'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:144,name:'Cable Row Wide',nameVi:'Cable Row Wide',muscle:'back',equip:'cable',emoji:'🔗',ytId:'',
+   cues:['Grip rộng thanh cáp','Kéo về bụng trên','Ép bả vai','Lưng thẳng'],
+   mistakes:['Ngả người','Cong lưng'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:145,name:'Hyperextension',nameVi:'Hyperextension',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Cố định chân, hông ở mép','Hạ thân xuống','Nâng lên dùng lưng dưới','Không ưỡn quá'],
+   mistakes:['Ưỡn quá mức','Giật'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:146,name:'Dumbbell Deadlift',nameVi:'Dumbbell Deadlift',muscle:'back',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Tạ đôi 2 bên','Hip hinge lưng thẳng','Kéo lên khoá hông','Hạ chậm'],
+   mistakes:['Lưng cong','Giật'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:147,name:'Seated DB Lateral Raise',nameVi:'Seated DB Lateral Raise',muscle:'shoulders',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Ngồi, tạ đôi','Nâng ngang sang bên','Khuỷu hơi cong','Hạ chậm'],
+   mistakes:['Vung','Lên quá cao'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:148,name:'Machine Lateral Raise',nameVi:'Machine Lateral Raise',muscle:'shoulders',equip:'machine',emoji:'⚙️',ytId:'',
+   cues:['Ngồi máy, tay vào đệm','Nâng sang ngang','Siết vai giữa','Về chậm'],
+   mistakes:['Dùng đà','Range ngắn'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:149,name:'Plate Front Raise',nameVi:'Plate Front Raise',muscle:'shoulders',equip:'plate',emoji:'🍽️',ytId:'',
+   cues:['Cầm 1 đĩa tạ','Nâng thẳng ra trước ngang vai','Không vung','Hạ chậm'],
+   mistakes:['Vung người','Lên quá đầu'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:150,name:'Rear Delt Machine',nameVi:'Rear Delt Machine',muscle:'shoulders',equip:'machine',emoji:'⚙️',ytId:'',
+   cues:['Ngồi máy ngược','Mở tay ra sau','Siết vai sau','Về chậm'],
+   mistakes:['Dùng lưng','Tạ nặng'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:151,name:'Barbell Curl Wide',nameVi:'Barbell Curl Wide',muscle:'arms',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Grip rộng hơn vai','Cuốn lên siết bắp','Khuỷu cố định','Hạ chậm'],
+   mistakes:['Vung khuỷu','Đung đưa'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:152,name:'Dumbbell Curl',nameVi:'Dumbbell Curl',muscle:'arms',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Tạ đôi 2 bên','Cuốn lên xoay cổ tay','Siết bắp tay','Hạ chậm'],
+   mistakes:['Vung','Range ngắn'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:153,name:'Cable Tricep Overhead',nameVi:'Cable Tricep Overhead',muscle:'arms',equip:'cable',emoji:'🔗',ytId:'',
+   cues:['Dây thừng qua đầu','Duỗi tay lên trên','Siết tam đầu','Về chậm'],
+   mistakes:['Khuỷu xoè','Lưng ưỡn'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:154,name:'Diamond Push Up',nameVi:'Diamond Push Up',muscle:'arms',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['2 tay tạo hình kim cương','Hạ ngực xuống','Đẩy dùng tam đầu','Thân thẳng'],
+   mistakes:['Khuỷu xoè','Hông xệ'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:155,name:'JM Press',nameVi:'JM Press',muscle:'arms',equip:'barbell',emoji:'🏋️',ytId:'',
+   cues:['Lai giữa close-grip & skull','Hạ về cổ/cằm','Đẩy lên','Khuỷu kiểm soát'],
+   mistakes:['Range sai','Nặng quá'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:156,name:'Leg Press Wide',nameVi:'Leg Press Wide',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'',
+   cues:['Chân rộng trên bàn đạp','Đẩy có kiểm soát','Không khoá gối','Nhắm đùi trong'],
+   mistakes:['Gối khoá','Range ngắn'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:157,name:'Goblet Squat DB',nameVi:'Goblet Squat DB',muscle:'legs',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Ôm 1 tạ đôi trước ngực','Squat sâu lưng thẳng','Gối theo mũi chân','Đẩy lên'],
+   mistakes:['Lưng cong','Gối chụm'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:158,name:'Dumbbell Lunge',nameVi:'Dumbbell Lunge',muscle:'legs',equip:'dumbbell',emoji:'🏋️',ytId:'',
+   cues:['Tạ đôi 2 bên','Bước tới hạ gối sau','Đẩy về dùng gót','Đổi chân'],
+   mistakes:['Gối quá mũi','Mất thăng bằng'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:159,name:'Seated Leg Extension',nameVi:'Seated Leg Extension',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'',
+   cues:['Ngồi máy, chân dưới đệm','Duỗi thẳng siết đùi trước','Giữ 1 giây','Hạ chậm'],
+   mistakes:['Giật','Range ngắn'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:160,name:'Standing Leg Curl',nameVi:'Standing Leg Curl',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'',
+   cues:['Đứng máy, cuốn 1 chân','Siết gân kheo','Giữ ở đỉnh','Hạ chậm'],
+   mistakes:['Dùng đà','Hông di chuyển'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:161,name:'Calf Press Machine',nameVi:'Calf Press Machine',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'',
+   cues:['Đẩy bằng mũi chân trên leg press','Duỗi cổ chân tối đa','Hạ gót sâu','Kiểm soát'],
+   mistakes:['Range ngắn','Bật nhanh'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:162,name:'Cable Crunch Kneeling',nameVi:'Cable Crunch Kneeling',muscle:'core',equip:'cable',emoji:'🔗',ytId:'',
+   cues:['Quỳ dưới cáp','Gập thân bằng bụng','Siết ở đáy','Về chậm'],
+   mistakes:['Dùng tay kéo','Hông di chuyển'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:163,name:'Bicycle Crunch',nameVi:'Bicycle Crunch',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Nằm, đạp xe trên không','Khuỷu chạm gối đối diện','Siết chéo bụng','Nhịp đều'],
+   mistakes:['Kéo cổ','Nhanh ẩu'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:164,name:'Leg Raise Lying',nameVi:'Leg Raise Lying',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Nằm, nâng 2 chân lên','Hạ chậm không chạm sàn','Lưng ép sàn','Bụng dưới siết'],
+   mistakes:['Cong lưng','Đà'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:165,name:'Plank Side',nameVi:'Plank Side',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'',
+   cues:['Chống 1 khuỷu nghiêng','Thân thẳng','Hông nâng cao','Giữ thở đều'],
+   mistakes:['Hông xệ','Vẹo'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:166,name:'High Knees',nameVi:'High Knees',muscle:'cardio',equip:'bodyweight',emoji:'🏃',ytId:'',
+   cues:['Chạy tại chỗ nâng gối cao','Nhịp nhanh','Tiếp đất nhẹ','Tay vung'],
+   mistakes:['Gối thấp','Tiếp đất nặng'],
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'}
+
 ];
 
 // ── Alias map: plan/program names → canonical EXERCISES entry name ──
@@ -3490,7 +3612,7 @@ function renderTodayCard(){
   if(!ST.currentPlan){
     el.innerHTML=`<div class="card" style="text-align:center;padding:24px">
       <div style="font-size:36px;margin-bottom:8px">🏋️</div>
-      <div class="xs muted">Chưa có plan — chọn plan phù hợp</div>
+      <div class="xs muted" data-i18n="noPlanYet">Chưa có plan — chọn plan phù hợp</div>
       <button class="btn bg" style="margin-top:12px;height:36px;font-size:12px" onclick="goTab('s-plan')">Chọn plan</button>
     </div>`;return;
   }
@@ -4030,12 +4152,43 @@ function doSwapEx(id,newName){
   toast('✅ Đã đổi sang '+newName);
 }
 
-function cancelWorkout(){
-  if(!confirm('Hủy buổi tập?'))return;
-  clearInterval(ST.timerInt);skipRest();
+function exitWorkout(){
+  // Thoát buổi tập (có cảnh báo nếu đã nhập set)
+  const hasData=Object.values(ST.exData||{}).some(e=>e.sets?.some(s=>s.kg>0||s.reps>0));
+  if(hasData && !confirm('Thoát buổi tập? Dữ liệu chưa lưu sẽ mất.'))return;
+  clearInterval(ST.timerInt);
+  if(window._irest)Object.values(window._irest).forEach(t=>{if(t.timer)clearInterval(t.timer);});
+  if(_restNotifTimer)clearTimeout(_restNotifTimer);
+  ST.activeW=null;ST.exData={};ST.exCtr=0;workoutPaused=false;
+  if(ST._activeRest)delete ST._activeRest;
+  save();
   document.getElementById('w-idle').style.display='block';
   document.getElementById('w-active').style.display='none';
-  ST.activeW=null;
+  const ap=document.getElementById('add-panel');if(ap)ap.style.display='none';
+  goTab('s-home');
+  toast('Đã thoát buổi tập');
+}
+function renameWorkout(){
+  if(!ST.activeW)return;
+  const cur=ST.activeW.title||'';
+  const name=prompt('Đổi tên buổi tập:',cur);
+  if(name===null)return;
+  const clean=name.trim()||'Buổi tập';
+  ST.activeW.title=clean;
+  const el=document.getElementById('aw-title');
+  if(el)el.textContent=clean+' ✎';
+  save();
+}
+function cancelWorkout(){
+  if(!confirm('Hủy buổi tập?'))return;
+  clearInterval(ST.timerInt);
+  if(window._irest)Object.values(window._irest).forEach(t=>{if(t.timer)clearInterval(t.timer);});
+  document.getElementById('w-idle').style.display='block';
+  document.getElementById('w-active').style.display='none';
+  const ap=document.getElementById('add-panel');if(ap)ap.style.display='none';
+  ST.activeW=null;ST.exData={};ST.exCtr=0;
+  if(ST._activeRest)delete ST._activeRest;
+  save();
 }
 function finishWorkout(){
   clearInterval(ST.timerInt);skipRest();
@@ -4115,8 +4268,20 @@ function renderWHist(){
             <span style="color:var(--txt2)">${n}</span>
             <span class="mono" style="font-size:11px;color:var(--lime)">${d}</span>
           </div>`).join('')}
+        <button class="btn bd" style="margin-top:10px;height:34px;font-size:12px" onclick="event.stopPropagation();deleteWorkout(${i})">🗑 Xoá buổi tập này</button>
       </div>
     </div>`).join('');
+}
+function deleteWorkout(i){
+  const w=ST.workouts[i];if(!w)return;
+  if(!confirm(`Xoá buổi "${w.title}" (${w.date})?`))return;
+  ST.workouts.splice(i,1);
+  // cập nhật lại tổng số buổi
+  if(ST.stats.total>0)ST.stats.total=ST.workouts.length;
+  save();
+  renderWHist();renderHome();
+  try{renderProgress();}catch(e){}
+  toast('Đã xoá buổi tập');
 }
 function toggleWDetail(i){
   const el=document.getElementById('whist-detail-'+i);
@@ -4646,13 +4811,11 @@ function closeExDetail(){
 }
 function addExFromDetail(){
   if(!ST.currentExDetail)return;
-  if(exLibForWorkout&&ST.activeW){
-    addEx(ST.currentExDetail.name);
-    closeExDetail();closeExLib();
-    notif('💪','Đã thêm bài tập!',ST.currentExDetail.nameVi);
-  } else {
-    closeExDetail();
-  }
+  if(!ST.activeW)startFreeWorkout();
+  addEx(ST.currentExDetail.name);
+  closeExDetail();closeExLib();
+  goTab('s-workout');
+  notif('💪','Đã thêm bài tập!',ST.currentExDetail.nameVi||ST.currentExDetail.name);
 }
 
 
@@ -4992,34 +5155,78 @@ function renderProgress(){
   renderStrengthStandards();
   renderWeeklyVolumeChart();
   renderBodyFat();
-  renderNutHistory()
+  renderNutHistory();
+  showLocalWeeklyReview();
+  analyzeProgressiveOverload();
   }catch(e){console.log(e);}
 }
+function analyzeProgressiveOverload(){
+  const el=document.getElementById('progressive-log');
+  if(!el)return;
+  if(!ST.workouts.length){el.textContent='Chưa có dữ liệu. Hoàn thành vài buổi tập để xem phân tích tiến độ!';return;}
+  // Phân tích từng bài: so sánh lần gần nhất với lần trước đó
+  const exProgress={};
+  ST.workouts.forEach(w=>{
+    Object.entries(w.exDetails||{}).forEach(([name,detail])=>{
+      const sets=String(detail).split(', ');
+      let best=0;
+      sets.forEach(s=>{const m=s.match(/(\d+\.?\d*)kg×(\d+)/);if(m){const e=calc1RM(+m[1],+m[2]);if(e>best)best=e;}});
+      if(best>0){(exProgress[name]=exProgress[name]||[]).push({date:w.date,e1rm:best});}
+    });
+  });
+  const rows=[];
+  Object.entries(exProgress).forEach(([name,arr])=>{
+    if(arr.length>=2){
+      const latest=arr[0].e1rm, prev=arr[1].e1rm;
+      const diff=latest-prev;
+      if(diff>0.5)rows.push(`✅ <b>${name}</b>: tăng ${diff.toFixed(1)}kg (1RM ước tính) — tiến bộ tốt!`);
+      else if(diff<-0.5)rows.push(`⚠️ <b>${name}</b>: giảm ${Math.abs(diff).toFixed(1)}kg — thử deload hoặc nghỉ thêm.`);
+      else rows.push(`➡️ <b>${name}</b>: đang chững — thử tăng 2.5kg hoặc thêm 1-2 reps buổi sau.`);
+    }
+  });
+  if(!rows.length){el.innerHTML='Cần ít nhất 2 buổi có cùng bài tập để so sánh tiến độ. Tiếp tục tập đều nhé! 💪';return;}
+  el.innerHTML=rows.slice(0,6).join('<br>');
+}
 function renderCharts(){
-  // Build from actual workout data
-  const exMap={'Bench Press':'bench','Barbell Squat':'squat'};
-  ['Bench Press','Barbell Squat'].forEach(exName=>{
-    const key=exMap[exName];
-    const logs=ST.workouts.filter(w=>w.exDetails?.[exName]).slice(0,8).reverse();
-    if(logs.length>=2){
+  // Tự động chọn 2 bài tập người dùng tập nhiều nhất để vẽ biểu đồ (thay vì cố định Bench/Squat)
+  const freq={};
+  ST.workouts.forEach(w=>Object.keys(w.exDetails||{}).forEach(n=>{freq[n]=(freq[n]||0)+1;}));
+  const topEx=Object.entries(freq).filter(([n,c])=>c>=2).sort((a,b)=>b[1]-a[1]).slice(0,2).map(([n])=>n);
+  const slots=['bench','squat'];
+  const titleIds=['bench-chart-card','squat-chart-card'];
+  slots.forEach((key,idx)=>{
+    const card=document.getElementById(titleIds[idx]);
+    const exName=topEx[idx];
+    // tiêu đề động
+    const titleEl=card?.querySelector('.chart-title');
+    if(exName){
+      if(titleEl)titleEl.textContent=exName;
+      const logs=ST.workouts.filter(w=>w.exDetails?.[exName]).slice(0,8).reverse();
       const data=logs.map(w=>{
-        const sets=w.exDetails[exName].split(', ');
+        const sets=String(w.exDetails[exName]).split(', ');
         const best=sets.reduce((b,s)=>{const m=s.match(/(\d+\.?\d*)kg×(\d+)/);return m&&calc1RM(+m[1],+m[2])>b?calc1RM(+m[1],+m[2]):b;},0);
-        return best||60;
-      });
+        return best||0;
+      }).filter(v=>v>0);
       const lbls=logs.map(w=>w.date.substring(0,5));
-      drawChart(key,data,lbls);
-      const delta=data[data.length-1]-data[0];
-      const el=document.getElementById(key+'-delta');
-      if(el)el.textContent=(delta>=0?'+':'')+delta.toFixed(1)+'kg';
-      if(el)el.className='tag '+(delta>=0?'tl':'tr');
-    } else {
-      // Placeholder with demo data
-      const demo=key==='bench'?[60,62.5,65,67.5,70,72.5,75,77.5]:[80,85,87.5,90,92.5,97.5,100,102.5];
-      const lbls=['T1','T2','T3','T4','T5','T6','T7','T8'];
-      drawChart(key,demo,lbls);
-      const el=document.getElementById(key+'-delta');
-      if(el){el.textContent='Demo';el.className='tag tg';}
+      if(data.length>=2){
+        if(card)card.style.display='';
+        drawChart(key,data,lbls.slice(0,data.length));
+        const delta=data[data.length-1]-data[0];
+        const el=document.getElementById(key+'-delta');
+        if(el){el.textContent=(delta>=0?'+':'')+delta.toFixed(1)+'kg';el.className='tag '+(delta>=0?'tl':'tr');}
+      } else if(card){card.style.display='none';}
+    } else if(card){
+      // Không có đủ dữ liệu → ẩn card, hiện hướng dẫn ở card đầu
+      if(idx===0){
+        card.style.display='';
+        if(titleEl)titleEl.textContent='Chưa có dữ liệu';
+        const sub=card.querySelector('.chart-sub');if(sub)sub.textContent='Tập một bài ≥2 lần để xem biểu đồ sức mạnh';
+        const el=document.getElementById(key+'-delta');if(el){el.textContent='--';el.className='tag tg';}
+        document.getElementById(key+'-line')?.setAttribute('d','');
+        document.getElementById(key+'-area')?.setAttribute('d','');
+        const dots=document.getElementById(key+'-dots');if(dots)dots.innerHTML='';
+        const l=document.getElementById(key+'-lbls');if(l)l.innerHTML='';
+      } else {card.style.display='none';}
     }
   });
 }
@@ -6758,8 +6965,19 @@ function searchWorkoutEx(q){
   },250);
 }
 function addExFromSearch(name){
-  // Show panel first (so user can see form guide), then add
-  previewThenAdd(name);
+  // Nếu đang trong buổi tập → thêm thẳng vào buổi. Nếu chưa → bắt đầu buổi tự do rồi thêm.
+  if(!ST.activeW){startFreeWorkout();}
+  // tránh trùng bài đã có trong buổi
+  const exists=Object.values(ST.exData||{}).some(e=>e.name===name);
+  addEx(name);
+  // dọn ô tìm kiếm + đóng kết quả
+  const sr=document.getElementById('workout-ex-results');if(sr){sr.style.display='none';sr.innerHTML='';}
+  const si=document.getElementById('workout-ex-search');if(si)si.value='';
+  // cuộn xuống bài vừa thêm
+  const cont=document.getElementById('aw-exercises');
+  if(cont)setTimeout(()=>cont.scrollTo({top:cont.scrollHeight,behavior:'smooth'}),100);
+  toast(exists?'Đã thêm (bài này đã có sẵn)':'✅ Đã thêm '+name);
+  if(navigator.vibrate)navigator.vibrate(25);
 }
 
 function addCardioEx(type='Chạy bộ'){
@@ -6842,7 +7060,7 @@ function renderMoodTracker(){
   const today=new Date().toLocaleDateString('vi-VN');
   const todayMood=ST.moodLog?.find(m=>m.date===today);
   el.innerHTML=`
-    <div class="xs muted" style="margin-bottom:8px">Hôm nay cảm giác thế nào?</div>
+    <div class="xs muted" style="margin-bottom:8px" data-i18n="feelToday">Hôm nay cảm giác thế nào?</div>
     <div style="display:flex;gap:6px">
       ${MOODS.map(m=>`
         <div onclick="logMood(${m.val})" style="flex:1;text-align:center;padding:8px 4px;border-radius:8px;cursor:pointer;transition:all .2s;border:1.5px solid ${todayMood?.val===m.val?'var(--lime)':'var(--brd2)'};background:${todayMood?.val===m.val?'var(--lime-dim)':'transparent'}">
@@ -7655,25 +7873,8 @@ function syncLangUI(){
   if(en){en.style.borderColor=!isVI?'var(--lime)':'var(--brd2)';en.style.background=!isVI?'var(--lime-dim)':'transparent';}
 }
 
-// Update bottom nav text labels for language
-function renderNavLabels(){
-  const labels={
-    'bn-home':[['Trang chủ','Home']],
-    'bn-workout':[['Tập luyện','Workout']],
-    'bn-plan':[['Plan','Plan']],
-    'bn-schedule':[['Lịch','Schedule']],
-    'bn-progress':[['Tiến độ','Progress']],
-    'bn-nut':[['Dinh dưỡng','Nutrition']],
-  };
-  const isVI=currentLang==='vi';
-  Object.entries(labels).forEach(([id,vals])=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    // Last text node
-    const nodes=[...el.childNodes].filter(n=>n.nodeType===3);
-    if(nodes.length){nodes[nodes.length-1].textContent='\n'+vals[0][isVI?0:1];}
-  });
-}
+// Nav labels giờ dùng span[data-i18n] + applyLanguage(), hàm này không cần nữa
+function renderNavLabels(){ /* deprecated — applyLanguage handles nav via data-i18n */ }
 
 // ════════════════════════════════════════════════════════
 // BOOT
@@ -7972,10 +8173,12 @@ function renderMuscleHighlight(muscle,exName){
   const color=MUSCLE_MAP[muscle]?.color||'#4d9fff';
   const secondColor=MUSCLE_MAP[muscle]?.secondColor||'rgba(77,159,255,.35)';
 
-  // Reset all
+  // Reset all to soft resting tone with subtle definition (muscle bellies visible)
   document.querySelectorAll('.muscle-region').forEach(el=>{
-    el.setAttribute('fill','#1a1a2e');
-    el.style.filter='none';el.style.animation='none';el.style.opacity='1';
+    el.setAttribute('fill','url(#restMus)');
+    el.setAttribute('stroke','#13151b');
+    el.setAttribute('stroke-width','0.8');
+    el.style.filter='none';el.style.animation='none';
   });
   if(!info)return;
 
@@ -8167,9 +8370,11 @@ function previewThenAdd(name){
 }
 
 function addExFromPanel(){
-  if(!_panelCurrentEx||!ST.activeW)return;
+  if(!_panelCurrentEx)return;
+  if(!ST.activeW)startFreeWorkout();
   addEx(_panelCurrentEx.name);
   closeExPanel();
+  goTab('s-workout');
   toast(`✅ Đã thêm ${_panelCurrentEx.nameVi||_panelCurrentEx.name}`);
 }
 
@@ -8487,7 +8692,7 @@ window.onload=async()=>{
     if(ST._restoreWorkout){setTimeout(restoreWorkout,150);}
     checkPaymentOnLoad();
     syncPremium();
-    setTimeout(()=>notif('💪',`Chào ${ST.profile.name}!`,`Streak ${ST.stats.streak} ngày · ${ST.stats.total} buổi tập`),800);
+    setTimeout(()=>notif('💪',currentLang==='en'?`Hi ${ST.profile.name}!`:`Chào ${ST.profile.name}!`,currentLang==='en'?`Streak ${ST.stats.streak} days · ${ST.stats.total} workouts`:`Streak ${ST.stats.streak} ngày · ${ST.stats.total} buổi tập`),800);
   } else {
     document.getElementById('onboarding').classList.add('show');
     document.getElementById('app').style.display='none';
@@ -8535,154 +8740,131 @@ window.onload=async()=>{
       <!-- TAB 1: MUSCLE DIAGRAM -->
       <div class="ex-ptab-content show" id="eqtc-muscle">
         <div style="display:flex;gap:12px;align-items:flex-start">
-          <!-- Front body -->
-          <div style="display:flex;gap:16px;align-items:flex-start;justify-content:center">
-          <!-- Front body - detailed -->
+          <div style="display:flex;gap:8px;align-items:flex-start;justify-content:center;width:100%">
+          <!-- ============ FRONT — muscular/jacked ============ -->
           <div style="text-align:center;flex:1">
             <div style="font-size:9px;font-family:var(--FM);color:var(--txt3);letter-spacing:.08em;margin-bottom:4px">PHÍA TRƯỚC</div>
             <div id="muscle-focus-label" style="display:none;font-size:11px;font-weight:700;color:var(--lime);font-family:var(--FM);margin-bottom:6px;letter-spacing:.04em"></div>
-            <svg viewBox="0 0 120 240" style="width:100%;max-width:140px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))">
-              <!-- Head -->
-              <ellipse cx="60" cy="20" rx="14" ry="16" fill="#1a1a2e" stroke="#2a2a4e" stroke-width="1.5"/>
-              <!-- Neck -->
-              <rect x="54" y="34" width="12" height="9" rx="3" fill="#1a1a2e" stroke="#2a2a4e" stroke-width="1"/>
-              <!-- Upper trapezius -->
-              <path d="M28 44 Q42 38 54 42 L54 50 Q40 52 28 50Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1" class="muscle-region" data-muscle="back" id="f-trap-l"/>
-              <path d="M92 44 Q78 38 66 42 L66 50 Q80 52 92 50Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1" class="muscle-region" data-muscle="back" id="f-trap-r"/>
-              <!-- Front Delt L -->
-              <path d="M22 44 Q18 48 16 58 Q18 64 24 62 Q28 58 28 50Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="shoulders" id="f-fdelt-l" data-label="Anterior Delt"/>
-              <!-- Front Delt R -->
-              <path d="M98 44 Q102 48 104 58 Q102 64 96 62 Q92 58 92 50Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="shoulders" id="f-fdelt-r" data-label="Anterior Delt"/>
-              <!-- Mid Delt L -->
-              <path d="M16 58 Q12 64 14 72 Q18 76 22 72 Q24 66 24 62Z" fill="#1a1a38" stroke="#2a2a5e" stroke-width="1" class="muscle-region" data-muscle="shoulders" id="f-mdelt-l" data-label="Lateral Delt"/>
-              <!-- Mid Delt R -->
-              <path d="M104 58 Q108 64 106 72 Q102 76 98 72 Q96 66 96 62Z" fill="#1a1a38" stroke="#2a2a5e" stroke-width="1" class="muscle-region" data-muscle="shoulders" id="f-mdelt-r" data-label="Lateral Delt"/>
-              <!-- Pec Major L - upper -->
-              <path d="M28 50 Q30 44 44 44 Q52 44 54 50 L54 60 Q42 66 28 60Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="chest" id="f-pec-upper-l" data-label="Upper Chest"/>
-              <!-- Pec Major R - upper -->
-              <path d="M92 50 Q90 44 76 44 Q68 44 66 50 L66 60 Q78 66 92 60Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="chest" id="f-pec-upper-r" data-label="Upper Chest"/>
-              <!-- Pec Major L - lower -->
-              <path d="M28 60 Q36 66 54 64 L54 74 Q42 78 28 72Z" fill="#181830" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="chest" id="f-pec-lower-l" data-label="Lower Chest"/>
-              <!-- Pec Major R - lower -->
-              <path d="M92 60 Q84 66 66 64 L66 74 Q78 78 92 72Z" fill="#181830" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="chest" id="f-pec-lower-r" data-label="Lower Chest"/>
-              <!-- Serratus L -->
-              <path d="M28 62 Q22 68 24 78 Q28 82 34 80 L34 70Z" fill="#161628" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="core" id="f-serratus-l"/>
-              <path d="M92 62 Q98 68 96 78 Q92 82 86 80 L86 70Z" fill="#161628" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="core" id="f-serratus-r"/>
-              <!-- Bicep L -->
-              <path d="M12 64 Q8 72 10 86 Q14 90 18 88 Q22 82 20 70 Q18 64 12 64Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="arms" id="f-bicep-l" data-label="Biceps"/>
-              <!-- Bicep R -->
-              <path d="M108 64 Q112 72 110 86 Q106 90 102 88 Q98 82 100 70 Q102 64 108 64Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="arms" id="f-bicep-r" data-label="Biceps"/>
-              <!-- Forearm L -->
-              <path d="M10 88 Q8 98 10 110 Q14 116 18 114 Q22 106 20 90Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="arms" id="f-forearm-l"/>
-              <!-- Forearm R -->
-              <path d="M110 88 Q112 98 110 110 Q106 116 102 114 Q98 106 100 90Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="arms" id="f-forearm-r"/>
-              <!-- Upper Abs (6-pack top) -->
-              <rect x="48" y="75" width="10" height="10" rx="3" fill="#1a1a38" stroke="#2a2a5e" stroke-width="1" class="muscle-region" data-muscle="core" id="f-abs1-l" data-label="Upper Abs"/>
-              <rect x="62" y="75" width="10" height="10" rx="3" fill="#1a1a38" stroke="#2a2a5e" stroke-width="1" class="muscle-region" data-muscle="core" id="f-abs1-r" data-label="Upper Abs"/>
-              <!-- Mid Abs -->
-              <rect x="48" y="88" width="10" height="10" rx="3" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="core" id="f-abs2-l" data-label="Mid Abs"/>
-              <rect x="62" y="88" width="10" height="10" rx="3" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="core" id="f-abs2-r" data-label="Mid Abs"/>
-              <!-- Lower Abs -->
-              <rect x="48" y="101" width="10" height="9" rx="3" fill="#161628" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="core" id="f-abs3-l" data-label="Lower Abs"/>
-              <rect x="62" y="101" width="10" height="9" rx="3" fill="#161628" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="core" id="f-abs3-r" data-label="Lower Abs"/>
-              <!-- Obliques L -->
-              <path d="M42 76 Q36 86 38 104 L48 106 L48 74Z" fill="#161628" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="core" id="f-oblique-l" data-label="Obliques"/>
-              <!-- Obliques R -->
-              <path d="M78 76 Q84 86 82 104 L72 106 L72 74Z" fill="#161628" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="core" id="f-oblique-r" data-label="Obliques"/>
-              <!-- Hip flexors -->
-              <path d="M46 112 Q42 120 44 130 L54 132 L54 112Z" fill="#161628" stroke="#2a2a4e" stroke-width="1"/>
-              <path d="M74 112 Q78 120 76 130 L66 132 L66 112Z" fill="#161628" stroke="#2a2a4e" stroke-width="1"/>
-              <!-- Quad Rectus L (center) -->
-              <path d="M48 132 Q44 142 46 162 Q50 168 56 166 L58 130Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="legs" id="f-quad-rect-l" data-label="Rectus Femoris"/>
-              <!-- Quad Rectus R -->
-              <path d="M72 132 Q76 142 74 162 Q70 168 64 166 L62 130Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="legs" id="f-quad-rect-r" data-label="Rectus Femoris"/>
-              <!-- Quad Vastus L -->
-              <path d="M40 140 Q36 152 38 162 Q42 168 48 166 L48 134Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="legs" id="f-quad-vas-l" data-label="Vastus"/>
-              <path d="M80 140 Q84 152 82 162 Q78 168 72 166 L72 134Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="legs" id="f-quad-vas-r" data-label="Vastus"/>
-              <!-- Knee -->
-              <ellipse cx="48" cy="170" rx="8" ry="5" fill="#161628" stroke="#2a2a4e" stroke-width="1"/>
-              <ellipse cx="72" cy="170" rx="8" ry="5" fill="#161628" stroke="#2a2a4e" stroke-width="1"/>
-              <!-- Tibialis / Shin L -->
-              <path d="M42 176 Q40 190 42 206 Q46 212 52 210 Q54 200 52 176Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="legs" id="f-shin-l"/>
-              <!-- Shin R -->
-              <path d="M78 176 Q80 190 78 206 Q74 212 68 210 Q66 200 68 176Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="legs" id="f-shin-r"/>
-              <!-- Feet -->
-              <ellipse cx="48" cy="214" rx="9" ry="4" fill="#161628" stroke="#2a2a4e" stroke-width="1"/>
-              <ellipse cx="72" cy="214" rx="9" ry="4" fill="#161628" stroke="#2a2a4e" stroke-width="1"/>
+            <svg viewBox="0 0 140 280" style="width:100%;max-width:155px">
+              <defs>
+                <linearGradient id="restMus" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3d414b"/><stop offset="1" stop-color="#30333c"/></linearGradient>
+                <radialGradient id="glossG" cx="42%" cy="26%" r="72%"><stop offset="0" stop-color="#fff" stop-opacity=".09"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+              </defs>
+              <!-- Head + thick neck -->
+              <ellipse cx="70" cy="17" rx="13" ry="15" fill="url(#restMus)" stroke="#1b1d24" stroke-width="1"/>
+              <path d="M61 29 Q70 33 79 29 L78 41 Q70 45 62 41 Z" fill="url(#restMus)" stroke="#1b1d24" stroke-width="1"/>
+
+              <!-- Traps (thick, sloping to neck) -->
+              <path d="M58 37 Q70 30 70 46 Q63 49 56 45 Q55 40 58 37Z" class="muscle-region" data-muscle="back" id="f-trap-l" fill="url(#restMus)"/>
+              <path d="M82 37 Q70 30 70 46 Q77 49 84 45 Q85 40 82 37Z" class="muscle-region" data-muscle="back" id="f-trap-r" fill="url(#restMus)"/>
+
+              <!-- Boulder delts (big rounded caps) -->
+              <path d="M54 44 Q36 42 30 58 Q28 72 40 73 Q52 67 55 52 Z" class="muscle-region" data-muscle="shoulders" id="f-fdelt-l" data-label="Anterior Delt" fill="url(#restMus)"/>
+              <path d="M86 44 Q104 42 110 58 Q112 72 100 73 Q88 67 85 52 Z" class="muscle-region" data-muscle="shoulders" id="f-fdelt-r" data-label="Anterior Delt" fill="url(#restMus)"/>
+              <path d="M30 58 Q25 70 30 82 Q38 85 43 76 Q43 68 40 73 Z" class="muscle-region" data-muscle="shoulders" id="f-mdelt-l" data-label="Lateral Delt" fill="url(#restMus)"/>
+              <path d="M110 58 Q115 70 110 82 Q102 85 97 76 Q97 68 100 73 Z" class="muscle-region" data-muscle="shoulders" id="f-mdelt-r" data-label="Lateral Delt" fill="url(#restMus)"/>
+
+              <!-- Thick chest (full, meets center) -->
+              <path d="M52 48 Q63 44 69 51 L69 63 Q59 66 50 62 Q47 53 52 48Z" class="muscle-region" data-muscle="chest" id="f-pec-upper-l" data-label="Upper Chest" fill="url(#restMus)"/>
+              <path d="M88 48 Q77 44 71 51 L71 63 Q81 66 90 62 Q93 53 88 48Z" class="muscle-region" data-muscle="chest" id="f-pec-upper-r" data-label="Upper Chest" fill="url(#restMus)"/>
+              <path d="M50 62 Q59 70 69 66 L69 77 Q59 80 51 74 Q47 67 50 62Z" class="muscle-region" data-muscle="chest" id="f-pec-lower-l" data-label="Lower Chest" fill="url(#restMus)"/>
+              <path d="M90 62 Q81 70 71 66 L71 77 Q81 80 89 74 Q93 67 90 62Z" class="muscle-region" data-muscle="chest" id="f-pec-lower-r" data-label="Lower Chest" fill="url(#restMus)"/>
+
+              <!-- Big biceps (peaked) -->
+              <path d="M33 75 Q26 90 30 110 Q38 116 44 106 Q46 90 43 76 Q39 71 33 75Z" class="muscle-region" data-muscle="arms" id="f-bicep-l" data-label="Biceps" fill="url(#restMus)"/>
+              <path d="M107 75 Q114 90 110 110 Q102 116 96 106 Q94 90 97 76 Q101 71 107 75Z" class="muscle-region" data-muscle="arms" id="f-bicep-r" data-label="Biceps" fill="url(#restMus)"/>
+              <!-- Thick forearms -->
+              <path d="M30 111 Q25 128 29 146 Q36 151 41 144 Q44 128 42 111 Q36 108 30 111Z" class="muscle-region" data-muscle="arms" id="f-forearm-l" fill="url(#restMus)"/>
+              <path d="M110 111 Q115 128 111 146 Q104 151 99 144 Q96 128 98 111 Q104 108 110 111Z" class="muscle-region" data-muscle="arms" id="f-forearm-r" fill="url(#restMus)"/>
+              <!-- Serratus -->
+              <path d="M51 65 Q46 74 49 86 L55 85 L55 67Z" class="muscle-region" data-muscle="core" id="f-serratus-l" fill="url(#restMus)" opacity=".9"/>
+              <path d="M89 65 Q94 74 91 86 L85 85 L85 67Z" class="muscle-region" data-muscle="core" id="f-serratus-r" fill="url(#restMus)" opacity=".9"/>
+
+              <!-- Blocky 6-pack abs -->
+              <path d="M61 78 L68 78 L68 88 L61 88 Z" class="muscle-region" data-muscle="core" id="f-abs1-l" data-label="Upper Abs" fill="url(#restMus)"/>
+              <path d="M72 78 L79 78 L79 88 L72 88 Z" class="muscle-region" data-muscle="core" id="f-abs1-r" data-label="Upper Abs" fill="url(#restMus)"/>
+              <path d="M61 89 L68 89 L68 99 L61 99 Z" class="muscle-region" data-muscle="core" id="f-abs2-l" data-label="Mid Abs" fill="url(#restMus)"/>
+              <path d="M72 89 L79 89 L79 99 L72 99 Z" class="muscle-region" data-muscle="core" id="f-abs2-r" data-label="Mid Abs" fill="url(#restMus)"/>
+              <path d="M61 100 L68 100 L68 111 Q64 113 61 110 Z" class="muscle-region" data-muscle="core" id="f-abs3-l" data-label="Lower Abs" fill="url(#restMus)"/>
+              <path d="M72 100 L79 100 L79 110 Q76 113 72 111 Z" class="muscle-region" data-muscle="core" id="f-abs3-r" data-label="Lower Abs" fill="url(#restMus)"/>
+              <!-- Obliques (thick) -->
+              <path d="M55 77 Q50 93 55 112 L60 111 L60 78Z" class="muscle-region" data-muscle="core" id="f-oblique-l" data-label="Obliques" fill="url(#restMus)" opacity=".9"/>
+              <path d="M85 77 Q90 93 85 112 L80 111 L80 78Z" class="muscle-region" data-muscle="core" id="f-oblique-r" data-label="Obliques" fill="url(#restMus)" opacity=".9"/>
+
+              <!-- Pelvis -->
+              <path d="M54 112 Q70 120 86 112 L84 125 Q70 130 56 125 Z" fill="url(#restMus)" stroke="#1b1d24" stroke-width=".8"/>
+
+              <!-- LEFT LEG: huge quad sweep + teardrop -->
+              <path d="M57 126 Q50 130 50 142 Q50 162 55 184 Q61 188 65 180 Q67 152 66 132 Q63 126 57 126Z" class="muscle-region" data-muscle="legs" id="f-quad-rect-l" data-label="Quadriceps" fill="url(#restMus)"/>
+              <path d="M49 136 Q42 154 46 178 Q51 182 54 174 Q51 154 52 138Z" class="muscle-region" data-muscle="legs" id="f-quad-vas-l" data-label="Vastus Lateralis" fill="url(#restMus)"/>
+              <ellipse cx="57" cy="190" rx="9" ry="7" fill="url(#restMus)" stroke="#1b1d24" stroke-width=".8"/>
+              <path d="M52 197 Q47 218 51 242 Q56 248 60 240 Q62 218 59 197 Q56 194 52 197Z" class="muscle-region" data-muscle="legs" id="f-shin-l" fill="url(#restMus)"/>
+              <ellipse cx="56" cy="252" rx="9" ry="5" fill="url(#restMus)" stroke="#1b1d24" stroke-width=".8"/>
+
+              <!-- RIGHT LEG -->
+              <path d="M83 126 Q90 130 90 142 Q90 162 85 184 Q79 188 75 180 Q73 152 74 132 Q77 126 83 126Z" class="muscle-region" data-muscle="legs" id="f-quad-rect-r" data-label="Quadriceps" fill="url(#restMus)"/>
+              <path d="M91 136 Q98 154 94 178 Q89 182 86 174 Q89 154 88 138Z" class="muscle-region" data-muscle="legs" id="f-quad-vas-r" data-label="Vastus Lateralis" fill="url(#restMus)"/>
+              <ellipse cx="83" cy="190" rx="9" ry="7" fill="url(#restMus)" stroke="#1b1d24" stroke-width=".8"/>
+              <path d="M88 197 Q93 218 89 242 Q84 248 80 240 Q78 218 81 197 Q84 194 88 197Z" class="muscle-region" data-muscle="legs" id="f-shin-r" fill="url(#restMus)"/>
+              <ellipse cx="84" cy="252" rx="9" ry="5" fill="url(#restMus)" stroke="#1b1d24" stroke-width=".8"/>
+              <ellipse cx="70" cy="16" rx="11" ry="13" fill="url(#glossG)" pointer-events="none"/>
             </svg>
           </div>
-
-          <!-- Back body - detailed -->
+          <!-- ============ BACK — muscular ============ -->
           <div style="text-align:center;flex:1">
             <div style="font-size:9px;font-family:var(--FM);color:var(--txt3);letter-spacing:.08em;margin-bottom:8px">PHÍA SAU</div>
-            <svg viewBox="0 0 120 240" style="width:100%;max-width:140px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))">
-              <!-- Head back -->
-              <ellipse cx="60" cy="20" rx="14" ry="16" fill="#1a1a2e" stroke="#2a2a4e" stroke-width="1.5"/>
-              <!-- Neck -->
-              <rect x="54" y="34" width="12" height="9" rx="3" fill="#1a1a2e" stroke="#2a2a4e" stroke-width="1"/>
-              <!-- Upper Trap L -->
-              <path d="M28 44 Q40 38 54 42 L54 52 Q40 56 28 52Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="back" id="b-trap-upper-l" data-label="Upper Trap"/>
-              <!-- Upper Trap R -->
-              <path d="M92 44 Q80 38 66 42 L66 52 Q80 56 92 52Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="back" id="b-trap-upper-r" data-label="Upper Trap"/>
-              <!-- Mid Trap L -->
-              <path d="M28 52 Q36 56 54 54 L54 64 Q38 68 28 62Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="back" id="b-trap-mid-l" data-label="Mid Trap"/>
-              <!-- Mid Trap R -->
-              <path d="M92 52 Q84 56 66 54 L66 64 Q82 68 92 62Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="back" id="b-trap-mid-r" data-label="Mid Trap"/>
-              <!-- Rear Delt L -->
-              <ellipse cx="20" cy="52" rx="10" ry="12" fill="#1a1a38" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="shoulders" id="b-rdelt-l" data-label="Rear Delt"/>
-              <!-- Rear Delt R -->
-              <ellipse cx="100" cy="52" rx="10" ry="12" fill="#1a1a38" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="shoulders" id="b-rdelt-r" data-label="Rear Delt"/>
-              <!-- Lat L - upper -->
-              <path d="M28 54 Q20 64 22 76 Q28 84 40 82 L40 68 Q32 64 28 54Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="2" class="muscle-region" data-muscle="back" id="b-lat-upper-l" data-label="Upper Lat"/>
-              <!-- Lat R - upper -->
-              <path d="M92 54 Q100 64 98 76 Q92 84 80 82 L80 68 Q88 64 92 54Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="2" class="muscle-region" data-muscle="back" id="b-lat-upper-r" data-label="Upper Lat"/>
-              <!-- Lat L - lower -->
-              <path d="M40 82 Q32 90 34 100 Q38 106 46 106 L46 82Z" fill="#181830" stroke="#2a2a4e" stroke-width="1.5" class="muscle-region" data-muscle="back" id="b-lat-lower-l" data-label="Lower Lat"/>
-              <!-- Lat R - lower -->
-              <path d="M80 82 Q88 90 86 100 Q82 106 74 106 L74 82Z" fill="#181830" stroke="#2a2a4e" stroke-width="1.5" class="muscle-region" data-muscle="back" id="b-lat-lower-r" data-label="Lower Lat"/>
-              <!-- Rhomboids -->
-              <path d="M54 54 Q58 52 66 54 L66 68 Q58 72 54 68Z" fill="#1a1a38" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="back" id="b-rhomboid" data-label="Rhomboids"/>
-              <!-- Tricep L - long head -->
-              <path d="M10 64 Q6 74 8 88 Q12 94 18 90 Q20 82 18 70 Q16 64 10 64Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="arms" id="b-tricep-long-l" data-label="Triceps Long"/>
-              <!-- Tricep R -->
-              <path d="M110 64 Q114 74 112 88 Q108 94 102 90 Q100 82 102 70 Q104 64 110 64Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="arms" id="b-tricep-long-r" data-label="Triceps Long"/>
-              <!-- Forearm back L -->
-              <path d="M8 90 Q6 102 8 112 Q12 118 16 116 Q18 108 16 92Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="arms" id="b-forearm-l"/>
-              <!-- Forearm back R -->
-              <path d="M112 90 Q114 102 112 112 Q108 118 104 116 Q102 108 104 92Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="arms" id="b-forearm-r"/>
-              <!-- Erector Spinae L -->
-              <path d="M52 68 Q50 80 50 98 Q52 106 56 106 L58 68Z" fill="#1a1a38" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="back" id="b-erector-l" data-label="Erector Spinae"/>
-              <!-- Erector Spinae R -->
-              <path d="M68 68 Q70 80 70 98 Q68 106 64 106 L62 68Z" fill="#1a1a38" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="back" id="b-erector-r" data-label="Erector Spinae"/>
-              <!-- Glute Max L -->
-              <path d="M40 108 Q34 118 36 132 Q42 140 52 138 L54 108Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="2" class="muscle-region" data-muscle="glutes" id="b-glute-max-l" data-label="Glute Max"/>
-              <!-- Glute Max R -->
-              <path d="M80 108 Q86 118 84 132 Q78 140 68 138 L66 108Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="2" class="muscle-region" data-muscle="glutes" id="b-glute-max-r" data-label="Glute Max"/>
-              <!-- Glute Med L -->
-              <path d="M36 108 Q30 114 32 122 Q36 126 42 124 L42 108Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="glutes" id="b-glute-med-l" data-label="Glute Med"/>
-              <!-- Glute Med R -->
-              <path d="M84 108 Q90 114 88 122 Q84 126 78 124 L78 108Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="glutes" id="b-glute-med-r" data-label="Glute Med"/>
-              <!-- Hamstring Bicep Femoris L -->
-              <path d="M40 138 Q36 150 38 166 Q42 172 50 170 Q54 162 54 138Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="legs" id="b-ham-bic-l" data-label="Biceps Femoris"/>
-              <!-- Hamstring Bicep Femoris R -->
-              <path d="M80 138 Q84 150 82 166 Q78 172 70 170 Q66 162 66 138Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="legs" id="b-ham-bic-r" data-label="Biceps Femoris"/>
-              <!-- Hamstring Semi L (inner) -->
-              <path d="M54 140 Q52 154 52 166 Q56 172 60 170 L60 140Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="legs" id="b-ham-semi-l" data-label="Semitendinosus"/>
-              <!-- Hamstring Semi R -->
-              <path d="M66 140 Q68 154 68 166 Q64 172 60 170 L60 140Z" fill="#181830" stroke="#2a2a4e" stroke-width="1" class="muscle-region" data-muscle="legs" id="b-ham-semi-r" data-label="Semitendinosus"/>
-              <!-- Knee back -->
-              <ellipse cx="48" cy="172" rx="8" ry="5" fill="#161628" stroke="#2a2a4e" stroke-width="1"/>
-              <ellipse cx="72" cy="172" rx="8" ry="5" fill="#161628" stroke="#2a2a4e" stroke-width="1"/>
-              <!-- Calf Gastrocnemius L -->
-              <path d="M40 178 Q36 192 38 208 Q42 214 50 212 Q54 202 52 178Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="legs" id="b-calf-l" data-label="Gastrocnemius"/>
-              <!-- Calf R -->
-              <path d="M80 178 Q84 192 82 208 Q78 214 70 212 Q66 202 68 178Z" fill="#1e2040" stroke="#2a2a5e" stroke-width="1.5" class="muscle-region" data-muscle="legs" id="b-calf-r" data-label="Gastrocnemius"/>
-              <!-- Feet -->
-              <ellipse cx="46" cy="216" rx="10" ry="4" fill="#161628" stroke="#2a2a4e" stroke-width="1"/>
-              <ellipse cx="74" cy="216" rx="10" ry="4" fill="#161628" stroke="#2a2a4e" stroke-width="1"/>
+            <svg viewBox="0 0 140 280" style="width:100%;max-width:155px">
+              <ellipse cx="70" cy="17" rx="13" ry="15" fill="url(#restMus)" stroke="#1b1d24" stroke-width="1"/>
+              <path d="M61 29 Q70 33 79 29 L78 41 Q70 45 62 41 Z" fill="url(#restMus)" stroke="#1b1d24" stroke-width="1"/>
+
+              <!-- Thick upper traps -->
+              <path d="M56 36 Q70 29 70 48 Q62 49 55 45 Q54 40 56 36Z" class="muscle-region" data-muscle="back" id="b-trap-upper-l" data-label="Upper Traps" fill="url(#restMus)"/>
+              <path d="M84 36 Q70 29 70 48 Q78 49 85 45 Q86 40 84 36Z" class="muscle-region" data-muscle="back" id="b-trap-upper-r" data-label="Upper Traps" fill="url(#restMus)"/>
+              <path d="M57 48 Q67 50 69 59 L62 60 Q56 54 57 48Z" class="muscle-region" data-muscle="back" id="b-trap-mid-l" data-label="Mid Traps" fill="url(#restMus)"/>
+              <path d="M83 48 Q73 50 71 59 L78 60 Q84 54 83 48Z" class="muscle-region" data-muscle="back" id="b-trap-mid-r" data-label="Mid Traps" fill="url(#restMus)"/>
+              <path d="M62 59 L78 59 Q75 67 70 68 Q65 67 62 59Z" class="muscle-region" data-muscle="back" id="b-rhomboid" data-label="Rhomboids" fill="url(#restMus)" opacity=".9"/>
+
+              <!-- Big rear delts + triceps -->
+              <path d="M54 44 Q36 42 30 58 Q28 72 40 73 Q52 67 55 52 Z" class="muscle-region" data-muscle="shoulders" id="b-rdelt-l" data-label="Rear Delt" fill="url(#restMus)"/>
+              <path d="M86 44 Q104 42 110 58 Q112 72 100 73 Q88 67 85 52 Z" class="muscle-region" data-muscle="shoulders" id="b-rdelt-r" data-label="Rear Delt" fill="url(#restMus)"/>
+              <path d="M33 73 Q26 90 30 110 Q38 116 44 106 Q46 90 43 74 Q39 70 33 73Z" class="muscle-region" data-muscle="arms" id="b-tricep-long-l" data-label="Triceps" fill="url(#restMus)"/>
+              <path d="M107 73 Q114 90 110 110 Q102 116 96 106 Q94 90 97 74 Q101 70 107 73Z" class="muscle-region" data-muscle="arms" id="b-tricep-long-r" data-label="Triceps" fill="url(#restMus)"/>
+              <path d="M30 111 Q25 128 29 146 Q36 151 41 144 Q44 128 42 111 Q36 108 30 111Z" class="muscle-region" data-muscle="arms" id="b-forearm-l" fill="url(#restMus)"/>
+              <path d="M110 111 Q115 128 111 146 Q104 151 99 144 Q96 128 98 111 Q104 108 110 111Z" class="muscle-region" data-muscle="arms" id="b-forearm-r" fill="url(#restMus)"/>
+
+              <!-- Wide lats (cobra V-sweep) -->
+              <path d="M53 59 Q43 72 48 92 Q57 96 67 88 L67 62 Q60 59 53 59Z" class="muscle-region" data-muscle="back" id="b-lat-upper-l" data-label="Lats" fill="url(#restMus)"/>
+              <path d="M87 59 Q97 72 92 92 Q83 96 73 88 L73 62 Q80 59 87 59Z" class="muscle-region" data-muscle="back" id="b-lat-upper-r" data-label="Lats" fill="url(#restMus)"/>
+              <path d="M48 92 Q47 105 56 113 Q63 113 67 106 L67 92 Q59 96 48 92Z" class="muscle-region" data-muscle="back" id="b-lat-lower-l" data-label="Lower Lats" fill="url(#restMus)"/>
+              <path d="M92 92 Q93 105 84 113 Q77 113 73 106 L73 92 Q81 96 92 92Z" class="muscle-region" data-muscle="back" id="b-lat-lower-r" data-label="Lower Lats" fill="url(#restMus)"/>
+              <path d="M69 80 L71 80 L71 114 L69 114Z" fill="#1b1d24"/>
+              <path d="M64 92 Q66 105 65 115 L61 115 Q61 102 63 92Z" class="muscle-region" data-muscle="back" id="b-erector-l" data-label="Erector Spinae" fill="url(#restMus)" opacity=".85"/>
+              <path d="M76 92 Q74 105 75 115 L79 115 Q79 102 77 92Z" class="muscle-region" data-muscle="back" id="b-erector-r" data-label="Erector Spinae" fill="url(#restMus)" opacity=".85"/>
+
+              <!-- Glutes (full, round) -->
+              <path d="M55 116 Q49 126 53 140 Q60 146 68 138 L68 119 Q61 115 55 116Z" class="muscle-region" data-muscle="glutes" id="b-glute-max-l" data-label="Gluteus Maximus" fill="url(#restMus)"/>
+              <path d="M85 116 Q91 126 87 140 Q80 146 72 138 L72 119 Q79 115 85 116Z" class="muscle-region" data-muscle="glutes" id="b-glute-max-r" data-label="Gluteus Maximus" fill="url(#restMus)"/>
+              <path d="M51 116 Q47 123 50 132 L55 130 L55 117Z" class="muscle-region" data-muscle="glutes" id="b-glute-med-l" data-label="Gluteus Medius" fill="url(#restMus)" opacity=".85"/>
+              <path d="M89 116 Q93 123 90 132 L85 130 L85 117Z" class="muscle-region" data-muscle="glutes" id="b-glute-med-r" data-label="Gluteus Medius" fill="url(#restMus)" opacity=".85"/>
+
+              <!-- LEFT LEG back: big hams + calf -->
+              <path d="M56 142 Q50 160 55 184 Q61 188 65 180 Q66 158 65 142 Q61 139 56 142Z" class="muscle-region" data-muscle="legs" id="b-ham-bic-l" data-label="Hamstrings" fill="url(#restMus)"/>
+              <path d="M49 148 Q44 164 49 182 Q53 184 55 176 Q52 160 53 148Z" class="muscle-region" data-muscle="legs" id="b-ham-semi-l" fill="url(#restMus)" opacity=".9"/>
+              <ellipse cx="57" cy="190" rx="9" ry="6" fill="url(#restMus)" stroke="#1b1d24" stroke-width=".8"/>
+              <path d="M52 196 Q46 216 51 238 Q56 244 60 236 Q62 216 59 196 Q56 193 52 196Z" class="muscle-region" data-muscle="legs" id="b-calf-l" data-label="Gastrocnemius" fill="url(#restMus)"/>
+              <ellipse cx="56" cy="252" rx="9" ry="5" fill="url(#restMus)" stroke="#1b1d24" stroke-width=".8"/>
+
+              <!-- RIGHT LEG back -->
+              <path d="M84 142 Q90 160 85 184 Q79 188 75 180 Q74 158 75 142 Q79 139 84 142Z" class="muscle-region" data-muscle="legs" id="b-ham-bic-r" data-label="Hamstrings" fill="url(#restMus)"/>
+              <path d="M91 148 Q96 164 91 182 Q87 184 85 176 Q88 160 87 148Z" class="muscle-region" data-muscle="legs" id="b-ham-semi-r" fill="url(#restMus)" opacity=".9"/>
+              <ellipse cx="83" cy="190" rx="9" ry="6" fill="url(#restMus)" stroke="#1b1d24" stroke-width=".8"/>
+              <path d="M88 196 Q94 216 89 238 Q84 244 80 236 Q78 216 81 196 Q84 193 88 196Z" class="muscle-region" data-muscle="legs" id="b-calf-r" data-label="Gastrocnemius" fill="url(#restMus)"/>
+              <ellipse cx="84" cy="252" rx="9" ry="5" fill="url(#restMus)" stroke="#1b1d24" stroke-width=".8"/>
+              <ellipse cx="70" cy="16" rx="11" ry="13" fill="url(#glossG)" pointer-events="none"/>
             </svg>
           </div>
-        </div>      </div>
+          </div>
+        </div>
         <!-- Muscle legend -->
         <div id="eqp-legend" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;padding-top:12px;border-top:1px solid var(--brd)"></div>
         <!-- Equipment info -->
