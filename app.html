@@ -2676,14 +2676,6 @@ const EXERCISES=[
    cues:['Squat xuống đặt tay sàn','Nhảy chân ra sau plank','Push up tùy option','Nhảy chân lại đứng nhảy lên'],
    mistakes:['Hông không phẳng khi plank','Pace quá nhanh từ đầu'],
    sets:{'muscle':'','strength':'','endurance':'4×10-15'},diffVi:'Trung cấp'},
-  {id:102,name:'Single Arm Row',nameVi:'Single Arm DB Row',muscle:'back',equip:'dumbbell',emoji:'🎯',ytId:'xQNrFHEMhI4',
-   cues:['1 tay và gối tựa bench','Kéo tạ lên dọc sườn','Elbow cao hơn lưng ở đỉnh','Kiểm soát eccentric'],
-   mistakes:['Xoay lưng quá nhiều','Elbow flare'],
-   sets:{'muscle':'4×10-15','strength':'4×6-10','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:103,name:'Hack Squat Machine',nameVi:'Hack Squat Machine',muscle:'legs',equip:'machine',emoji:'⚡',ytId:'EdtPMD43mY0',
-   cues:['Vai tựa pad chân rộng ngang vai','Hạ xuống đùi song song','Đẩy thẳng lên không lock','An toàn cho lưng hơn barbell squat'],
-   mistakes:['Gối vượt quá mũi chân quá nhiều','Round lưng'],
-   sets:{'muscle':'4×10-15','strength':'3×8-10','endurance':'3×15-20'},diffVi:'Cơ bản'},
   {id:104,name:'Reverse Grip Pulldown',nameVi:'Reverse Grip Lat Pulldown',muscle:'back',equip:'cable',emoji:'🔄',ytId:'CAwf7n6Luuc',
    cues:['Grip ngược bàn tay hướng vào','Hẹp hơn grip thường','Kéo xuống cảm nhận bicep và lat','Lower lat nhiều hơn grip thường'],
    mistakes:['Lean quá ra sau','Kéo sau gáy'],
@@ -2696,246 +2688,306 @@ const EXERCISES=[
    cues:['Bắt đầu từ plank position','Kéo gối lên ngực xen kẽ nhanh','Hông không nhấc lên','Core braced suốt bài'],
    mistakes:['Hông lên cao','Quá chậm mất nhịp'],
    sets:{'muscle':'3×30-60s','strength':'','endurance':'4×45-90s'},diffVi:'Cơ bản'},
-  {id:107,name:'Decline Bench Press',nameVi:'Decline Bench Press',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:107,name:'Decline Bench Press',nameVi:'Decline Bench Press',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'LfyQBUKR8SE',
    cues:['Ghế dốc xuống ~15-30°','Hạ tạ xuống ngực dưới','Đẩy lên theo đường thẳng','Giữ vai kẹp chặt'],
    mistakes:['Dốc quá sâu','Khoá khuỷu đột ngột'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:108,name:'Cable Crossover Low',nameVi:'Cable Crossover Low',muscle:'chest',equip:'cable',emoji:'🔗',ytId:'',
+  {id:108,name:'Cable Crossover Low',nameVi:'Cable Crossover Low',muscle:'chest',equip:'cable',emoji:'🔗',ytId:'taI4XduLpTk',
    cues:['Cáp ở vị trí thấp','Kéo chéo lên trên trước ngực','Ép ngực ở đỉnh','Khuỷu hơi cong cố định'],
    mistakes:['Dùng vai kéo','Thân ngả nhiều'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:109,name:'Dumbbell Pullover',nameVi:'Dumbbell Pullover',muscle:'chest',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:109,name:'Dumbbell Pullover',nameVi:'Dumbbell Pullover',muscle:'chest',equip:'dumbbell',emoji:'🏋️',ytId:'tNQjZMyKtns',
    cues:['Nằm ngang ghế, hông thấp','Hạ tạ ra sau đầu vòng cung','Kéo về bằng ngực & lưng','Khuỷu hơi cong'],
    mistakes:['Cong khuỷu nhiều','Hạ quá sâu hại vai'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:110,name:'Machine Fly',nameVi:'Machine Fly',muscle:'chest',equip:'machine',emoji:'⚙️',ytId:'',
+  {id:110,name:'Machine Fly',nameVi:'Machine Fly',muscle:'chest',equip:'machine',emoji:'⚙️',ytId:'Z57CtFmRMxA',
    cues:['Lưng áp đệm','Ép tay về trước ngực','Siết ngực ở giữa','Về chậm có kiểm soát'],
    mistakes:['Đẩy bằng vai','Mở tay quá rộng'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:111,name:'Svend Press',nameVi:'Svend Press',muscle:'chest',equip:'plate',emoji:'🍽️',ytId:'',
+  {id:111,name:'Svend Press',nameVi:'Svend Press',muscle:'chest',equip:'plate',emoji:'🍽️',ytId:'Cj6gNxQwhUg',
    cues:['Ép 2 đĩa tạ vào nhau trước ngực','Đẩy thẳng ra trước','Siết ngực toàn bộ','Về chậm'],
    mistakes:['Lỏng tay rớt đĩa','Đẩy lệch'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:112,name:'Deficit Deadlift',nameVi:'Deficit Deadlift',muscle:'back',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:112,name:'Deficit Deadlift',nameVi:'Deficit Deadlift',muscle:'back',equip:'barbell',emoji:'🏋️',ytId:'XYzx_Gv0iQ8',
    cues:['Đứng trên bục ~3-5cm','Hip hinge, lưng thẳng','Kéo qua range dài hơn','Khoá hông ở đỉnh'],
    mistakes:['Lưng cong','Giật tạ'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Nâng cao'},
-  {id:113,name:'Rack Pull',nameVi:'Rack Pull',muscle:'back',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:113,name:'Rack Pull',nameVi:'Rack Pull',muscle:'back',equip:'barbell',emoji:'🏋️',ytId:'ackD3Hj5xY8',
    cues:['Thanh tạ đặt ngang gối','Kéo từ rack, khoá hông','Lưng thẳng suốt','Siết lưng trên'],
    mistakes:['Giật lưng dưới','Không khoá hông'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:114,name:'Wide Grip Pulldown',nameVi:'Wide Grip Pulldown',muscle:'back',equip:'cable',emoji:'🔗',ytId:'',
+  {id:114,name:'Wide Grip Pulldown',nameVi:'Wide Grip Pulldown',muscle:'back',equip:'cable',emoji:'🔗',ytId:'CAwf7n6Luuc',
    cues:['Grip rộng hơn vai','Kéo xà xuống ngực trên','Ép bả vai xuống','Về chậm kiểm soát'],
    mistakes:['Ngả người kéo','Kéo sau gáy'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:115,name:'Inverted Row',nameVi:'Inverted Row',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:115,name:'Inverted Row',nameVi:'Inverted Row',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'KOaCM1HMwU0',
    cues:['Thân thẳng dưới thanh','Kéo ngực lên thanh','Ép bả vai','Hạ chậm'],
    mistakes:['Hông xệ','Range ngắn'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:116,name:'Cable Pullover',nameVi:'Cable Pullover',muscle:'back',equip:'cable',emoji:'🔗',ytId:'',
+  {id:116,name:'Cable Pullover',nameVi:'Cable Pullover',muscle:'back',equip:'cable',emoji:'🔗',ytId:'7dHpsqB1V8s',
    cues:['Đứng trước cáp cao','Kéo thẳng tay xuống hông','Dùng lưng xô','Khuỷu cố định'],
    mistakes:['Cong khuỷu','Dùng tay trước'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:117,name:'Shrug Barbell',nameVi:'Shrug Barbell',muscle:'shoulders',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:117,name:'Shrug Barbell',nameVi:'Shrug Barbell',muscle:'shoulders',equip:'barbell',emoji:'🏋️',ytId:'cJRVVxmytaM',
    cues:['Cầm tạ trước đùi','Nhún vai lên cao tối đa','Giữ 1 giây ở đỉnh','Hạ chậm'],
    mistakes:['Xoay vai','Dùng tay kéo'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:118,name:'Behind Neck Press',nameVi:'Behind Neck Press',muscle:'shoulders',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:118,name:'Behind Neck Press',nameVi:'Behind Neck Press',muscle:'shoulders',equip:'barbell',emoji:'🏋️',ytId:'oRWvWpDLZh8',
    cues:['Đẩy tạ từ sau gáy lên (cẩn thận)','Range vừa phải','Core siết','Chỉ dùng nếu vai dẻo'],
    mistakes:['Vai cứng vẫn tập','Tạ quá nặng'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Nâng cao'},
-  {id:119,name:'Cable Front Raise',nameVi:'Cable Front Raise',muscle:'shoulders',equip:'cable',emoji:'🔗',ytId:'',
+  {id:119,name:'Cable Front Raise',nameVi:'Cable Front Raise',muscle:'shoulders',equip:'cable',emoji:'🔗',ytId:'hRJ6tR5-if0',
    cues:['Cáp thấp, kéo thẳng tay ra trước','Lên ngang vai','Không vung','Hạ chậm'],
    mistakes:['Vung người','Lên quá cao'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:120,name:'Bent Over Reverse Fly',nameVi:'Bent Over Reverse Fly',muscle:'shoulders',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:120,name:'Bent Over Reverse Fly',nameVi:'Bent Over Reverse Fly',muscle:'shoulders',equip:'dumbbell',emoji:'🏋️',ytId:'ttvfGg9d76c',
    cues:['Cúi người ~45°','Mở tay sang ngang','Siết vai sau','Khuỷu hơi cong'],
    mistakes:['Dùng lưng','Tạ quá nặng'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:121,name:'Cuban Press',nameVi:'Cuban Press',muscle:'shoulders',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:121,name:'Cuban Press',nameVi:'Cuban Press',muscle:'shoulders',equip:'dumbbell',emoji:'🏋️',ytId:'OuG1smZTsQQ',
    cues:['Kéo cao khuỷu','Xoay ngoài cẳng tay','Đẩy lên qua đầu','Đảo ngược chậm'],
    mistakes:['Bỏ bước xoay','Tạ nặng'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:122,name:'Zottman Curl',nameVi:'Zottman Curl',muscle:'arms',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:122,name:'Zottman Curl',nameVi:'Zottman Curl',muscle:'arms',equip:'dumbbell',emoji:'🏋️',ytId:'ZrpRBgswtHs',
    cues:['Cuốn lên lòng bàn tay hướng lên','Xoay cổ tay ở đỉnh','Hạ với lòng tay úp','Kiểm soát toàn bộ'],
    mistakes:['Xoay sai thời điểm','Vung tạ'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:123,name:'Cable Hammer Curl',nameVi:'Cable Hammer Curl',muscle:'arms',equip:'cable',emoji:'🔗',ytId:'',
+  {id:123,name:'Cable Hammer Curl',nameVi:'Cable Hammer Curl',muscle:'arms',equip:'cable',emoji:'🔗',ytId:'TwD-YGVP4Bk',
    cues:['Dùng dây thừng','Cuốn kiểu búa (ngón cái lên)','Siết bắp tay','Hạ chậm'],
    mistakes:['Vung khuỷu','Range ngắn'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:124,name:'Tricep Kickback',nameVi:'Tricep Kickback',muscle:'arms',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:124,name:'Tricep Kickback',nameVi:'Tricep Kickback',muscle:'arms',equip:'dumbbell',emoji:'🏋️',ytId:'6SS6K3lAwZ8',
    cues:['Cúi người, cánh tay sát thân','Duỗi cẳng tay ra sau','Siết tam đầu','Về chậm'],
    mistakes:['Vung tay','Khuỷu di chuyển'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:125,name:'Bench Dips',nameVi:'Bench Dips',muscle:'arms',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:125,name:'Bench Dips',nameVi:'Bench Dips',muscle:'arms',equip:'bodyweight',emoji:'🤸',ytId:'6kALZikXxLc',
    cues:['Tay đặt mép ghế','Hạ người xuống bằng khuỷu','Đẩy lên dùng tam đầu','Vai không rụt'],
    mistakes:['Hạ quá sâu hại vai','Dùng chân đẩy'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:126,name:'Wrist Curl Reverse',nameVi:'Wrist Curl Reverse',muscle:'arms',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:126,name:'Wrist Curl Reverse',nameVi:'Wrist Curl Reverse',muscle:'arms',equip:'barbell',emoji:'🏋️',ytId:'5xkNn2dctEU',
    cues:['Cầm tạ úp tay','Nâng cổ tay lên','Siết cẳng tay ngoài','Hạ chậm'],
    mistakes:['Range quá lớn','Dùng đà'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:127,name:'Front Squat',nameVi:'Front Squat',muscle:'legs',equip:'barbell',emoji:'🏋️',ytId:'',
-   cues:['Tạ đặt trước vai, khuỷu cao','Squat thẳng lưng','Gối theo mũi chân','Ngực ưỡn'],
-   mistakes:['Khuỷu rớt','Lưng cong'],
-   sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Nâng cao'},
-  {id:128,name:'Pause Squat',nameVi:'Pause Squat',muscle:'legs',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:128,name:'Pause Squat',nameVi:'Pause Squat',muscle:'legs',equip:'barbell',emoji:'🏋️',ytId:'tlmHFCdNQ8I',
    cues:['Squat xuống đáy','Dừng 2-3 giây','Đẩy bật lên','Giữ thân chặt'],
    mistakes:['Bật mất pause','Mất thăng bằng'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:129,name:'Leg Press Single',nameVi:'Leg Press Single',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'',
+  {id:129,name:'Leg Press Single',nameVi:'Leg Press Single',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'sCwUm84vSGc',
    cues:['Đặt 1 chân giữa bàn đạp','Đẩy có kiểm soát','Không khoá gối','Đổi chân'],
    mistakes:['Gối khoá','Range ngắn'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:130,name:'Step Up',nameVi:'Step Up',muscle:'legs',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:130,name:'Step Up',nameVi:'Step Up',muscle:'legs',equip:'dumbbell',emoji:'🏋️',ytId:'WI5switr2-w',
    cues:['Bước lên bục cao ngang gối','Đẩy bằng gót chân trên','Đứng thẳng hẳn','Hạ chậm đổi chân'],
    mistakes:['Đẩy bằng chân dưới','Bục quá cao'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:131,name:'Glute Ham Raise',nameVi:'Glute Ham Raise',muscle:'legs',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:131,name:'Glute Ham Raise',nameVi:'Glute Ham Raise',muscle:'legs',equip:'bodyweight',emoji:'🤸',ytId:'1pbZ8mX2D1I',
    cues:['Cố định chân','Hạ thân xuống chậm','Dùng gân kheo kéo lên','Giữ thẳng người'],
    mistakes:['Dùng đà','Hạ quá nhanh'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Nâng cao'},
-  {id:132,name:'Standing Calf Raise Barbell',nameVi:'Standing Calf Raise Barbell',muscle:'legs',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:132,name:'Standing Calf Raise Barbell',nameVi:'Standing Calf Raise Barbell',muscle:'legs',equip:'barbell',emoji:'🏋️',ytId:'wxwY7GE1OkM',
    cues:['Tạ trên vai','Kiễng chân cao tối đa','Giữ 1 giây','Hạ gót sâu'],
    mistakes:['Range ngắn','Bật nhanh'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:133,name:'Cable Woodchopper',nameVi:'Cable Woodchopper',muscle:'core',equip:'cable',emoji:'🔗',ytId:'',
+  {id:133,name:'Cable Woodchopper',nameVi:'Cable Woodchopper',muscle:'core',equip:'cable',emoji:'🔗',ytId:'0a0aQN6kfXc',
    cues:['Kéo cáp chéo từ cao xuống thấp','Xoay thân bằng core','Tay thẳng','Đổi bên'],
    mistakes:['Dùng tay','Xoay lưng dưới'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:134,name:'Decline Crunch',nameVi:'Decline Crunch',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:134,name:'Decline Crunch',nameVi:'Decline Crunch',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'JB3eRb1Q6w',
    cues:['Ghế dốc ngược','Gập thân lên bằng bụng','Siết ở đỉnh','Hạ chậm'],
    mistakes:['Kéo cổ','Dùng đà'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:135,name:'Toes to Bar',nameVi:'Toes to Bar',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:135,name:'Toes to Bar',nameVi:'Toes to Bar',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'_GMQjLcfvWg',
    cues:['Treo xà','Kéo mũi chân lên chạm xà','Dùng bụng dưới','Hạ kiểm soát'],
    mistakes:['Đung đưa lấy đà','Cong lưng'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Nâng cao'},
-  {id:136,name:'Jumping Jack',nameVi:'Jumping Jack',muscle:'cardio',equip:'bodyweight',emoji:'🏃',ytId:'',
+  {id:136,name:'Jumping Jack',nameVi:'Jumping Jack',muscle:'cardio',equip:'bodyweight',emoji:'🏃',ytId:'c4DAnQ6DtF8',
    cues:['Bật nhảy dang tay chân','Nhịp nhanh đều','Tiếp đất nhẹ','Thở đều'],
    mistakes:['Tiếp đất nặng','Mất nhịp'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
-  {id:137,name:'Incline Bench Press',nameVi:'Incline Bench Press',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:137,name:'Incline Bench Press',nameVi:'Incline Bench Press',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'SrqOu55lrYU',
    cues:['Ghế nghiêng 30°','Hạ tạ xuống ngực trên','Đẩy lên thẳng','Vai kẹp chặt'],
    mistakes:['Nghiêng quá dốc','Đẩy lệch'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:138,name:'Smith Machine Bench',nameVi:'Smith Machine Bench',muscle:'chest',equip:'machine',emoji:'⚙️',ytId:'',
+  {id:138,name:'Smith Machine Bench',nameVi:'Smith Machine Bench',muscle:'chest',equip:'machine',emoji:'⚙️',ytId:'A6Y8Abf4d4U',
    cues:['Nằm dưới thanh Smith','Hạ xuống ngực giữa','Đẩy theo ray','Kiểm soát'],
    mistakes:['Khoá khuỷu','Hạ nhanh'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:139,name:'Dumbbell Floor Press',nameVi:'Dumbbell Floor Press',muscle:'chest',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:139,name:'Dumbbell Floor Press',nameVi:'Dumbbell Floor Press',muscle:'chest',equip:'dumbbell',emoji:'🏋️',ytId:'O5G6Gj5l8tA',
    cues:['Nằm sàn, tạ đôi','Hạ tới khi khuỷu chạm sàn','Đẩy lên','Tốt cho vai yếu'],
    mistakes:['Nảy khuỷu','Range sai'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:140,name:'Cable Upper Chest Fly',nameVi:'Cable Upper Chest Fly',muscle:'chest',equip:'cable',emoji:'🔗',ytId:'',
+  {id:140,name:'Cable Upper Chest Fly',nameVi:'Cable Upper Chest Fly',muscle:'chest',equip:'cable',emoji:'🔗',ytId:'taI4XduLpTk',
    cues:['Cáp thấp kéo chéo lên','Ép ngực trên','Khuỷu hơi cong','Về chậm'],
    mistakes:['Dùng vai','Mở rộng quá'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:141,name:'Pull Up Wide',nameVi:'Pull Up Wide',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:141,name:'Pull Up Wide',nameVi:'Pull Up Wide',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'eGo4IYlbE5g',
    cues:['Grip rộng','Kéo cằm qua xà','Ép xô','Hạ chậm'],
    mistakes:['Đung đưa','Range ngắn'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:142,name:'Chin Up',nameVi:'Chin Up',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:142,name:'Chin Up',nameVi:'Chin Up',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'mae8_pwUgRM',
    cues:['Grip ngửa hẹp','Kéo lên dùng tay+lưng','Cằm qua xà','Hạ kiểm soát'],
    mistakes:['Lấy đà','Không hạ hết'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:143,name:'Machine Row',nameVi:'Machine Row',muscle:'back',equip:'machine',emoji:'⚙️',ytId:'',
+  {id:143,name:'Machine Row',nameVi:'Machine Row',muscle:'back',equip:'machine',emoji:'⚙️',ytId:'GZQjAyVUUYg',
    cues:['Ngồi máy chèo','Kéo về siết bả vai','Ngực tựa đệm','Về chậm'],
    mistakes:['Giật lưng','Range ngắn'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:144,name:'Cable Row Wide',nameVi:'Cable Row Wide',muscle:'back',equip:'cable',emoji:'🔗',ytId:'',
+  {id:144,name:'Cable Row Wide',nameVi:'Cable Row Wide',muscle:'back',equip:'cable',emoji:'🔗',ytId:'GZbfZ033f74',
    cues:['Grip rộng thanh cáp','Kéo về bụng trên','Ép bả vai','Lưng thẳng'],
    mistakes:['Ngả người','Cong lưng'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:145,name:'Hyperextension',nameVi:'Hyperextension',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:145,name:'Hyperextension',nameVi:'Hyperextension',muscle:'back',equip:'bodyweight',emoji:'🤸',ytId:'ph3pddpKzzw',
    cues:['Cố định chân, hông ở mép','Hạ thân xuống','Nâng lên dùng lưng dưới','Không ưỡn quá'],
    mistakes:['Ưỡn quá mức','Giật'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:146,name:'Dumbbell Deadlift',nameVi:'Dumbbell Deadlift',muscle:'back',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:146,name:'Dumbbell Deadlift',nameVi:'Dumbbell Deadlift',muscle:'back',equip:'dumbbell',emoji:'🏋️',ytId:'jKf8sb5wQ-w',
    cues:['Tạ đôi 2 bên','Hip hinge lưng thẳng','Kéo lên khoá hông','Hạ chậm'],
    mistakes:['Lưng cong','Giật'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:147,name:'Seated DB Lateral Raise',nameVi:'Seated DB Lateral Raise',muscle:'shoulders',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:147,name:'Seated DB Lateral Raise',nameVi:'Seated DB Lateral Raise',muscle:'shoulders',equip:'dumbbell',emoji:'🏋️',ytId:'PzsMitRdI_8',
    cues:['Ngồi, tạ đôi','Nâng ngang sang bên','Khuỷu hơi cong','Hạ chậm'],
    mistakes:['Vung','Lên quá cao'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:148,name:'Machine Lateral Raise',nameVi:'Machine Lateral Raise',muscle:'shoulders',equip:'machine',emoji:'⚙️',ytId:'',
+  {id:148,name:'Machine Lateral Raise',nameVi:'Machine Lateral Raise',muscle:'shoulders',equip:'machine',emoji:'⚙️',ytId:'0o_Mk6gWAUw',
    cues:['Ngồi máy, tay vào đệm','Nâng sang ngang','Siết vai giữa','Về chậm'],
    mistakes:['Dùng đà','Range ngắn'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:149,name:'Plate Front Raise',nameVi:'Plate Front Raise',muscle:'shoulders',equip:'plate',emoji:'🍽️',ytId:'',
+  {id:149,name:'Plate Front Raise',nameVi:'Plate Front Raise',muscle:'shoulders',equip:'plate',emoji:'🍽️',ytId:'hRJ6tR5-if0',
    cues:['Cầm 1 đĩa tạ','Nâng thẳng ra trước ngang vai','Không vung','Hạ chậm'],
    mistakes:['Vung người','Lên quá đầu'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:150,name:'Rear Delt Machine',nameVi:'Rear Delt Machine',muscle:'shoulders',equip:'machine',emoji:'⚙️',ytId:'',
+  {id:150,name:'Rear Delt Machine',nameVi:'Rear Delt Machine',muscle:'shoulders',equip:'machine',emoji:'⚙️',ytId:'EA7u4Q_8HQ0',
    cues:['Ngồi máy ngược','Mở tay ra sau','Siết vai sau','Về chậm'],
    mistakes:['Dùng lưng','Tạ nặng'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:151,name:'Barbell Curl Wide',nameVi:'Barbell Curl Wide',muscle:'arms',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:151,name:'Barbell Curl Wide',nameVi:'Barbell Curl Wide',muscle:'arms',equip:'barbell',emoji:'🏋️',ytId:'kwG2ipFRgfo',
    cues:['Grip rộng hơn vai','Cuốn lên siết bắp','Khuỷu cố định','Hạ chậm'],
    mistakes:['Vung khuỷu','Đung đưa'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:152,name:'Dumbbell Curl',nameVi:'Dumbbell Curl',muscle:'arms',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:152,name:'Dumbbell Curl',nameVi:'Dumbbell Curl',muscle:'arms',equip:'dumbbell',emoji:'🏋️',ytId:'sAq_ocpRh_I',
    cues:['Tạ đôi 2 bên','Cuốn lên xoay cổ tay','Siết bắp tay','Hạ chậm'],
    mistakes:['Vung','Range ngắn'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:153,name:'Cable Tricep Overhead',nameVi:'Cable Tricep Overhead',muscle:'arms',equip:'cable',emoji:'🔗',ytId:'',
+  {id:153,name:'Cable Tricep Overhead',nameVi:'Cable Tricep Overhead',muscle:'arms',equip:'cable',emoji:'🔗',ytId:'_gsUck-7M74',
    cues:['Dây thừng qua đầu','Duỗi tay lên trên','Siết tam đầu','Về chậm'],
    mistakes:['Khuỷu xoè','Lưng ưỡn'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:154,name:'Diamond Push Up',nameVi:'Diamond Push Up',muscle:'arms',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:154,name:'Diamond Push Up',nameVi:'Diamond Push Up',muscle:'arms',equip:'bodyweight',emoji:'🤸',ytId:'J0DnG1_S92I',
    cues:['2 tay tạo hình kim cương','Hạ ngực xuống','Đẩy dùng tam đầu','Thân thẳng'],
    mistakes:['Khuỷu xoè','Hông xệ'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:155,name:'JM Press',nameVi:'JM Press',muscle:'arms',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:155,name:'JM Press',nameVi:'JM Press',muscle:'arms',equip:'barbell',emoji:'🏋️',ytId:'pVm_NjFmDqg',
    cues:['Lai giữa close-grip & skull','Hạ về cổ/cằm','Đẩy lên','Khuỷu kiểm soát'],
    mistakes:['Range sai','Nặng quá'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:156,name:'Leg Press Wide',nameVi:'Leg Press Wide',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'',
+  {id:156,name:'Leg Press Wide',nameVi:'Leg Press Wide',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'GvIJtNwemB0',
    cues:['Chân rộng trên bàn đạp','Đẩy có kiểm soát','Không khoá gối','Nhắm đùi trong'],
    mistakes:['Gối khoá','Range ngắn'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:157,name:'Goblet Squat DB',nameVi:'Goblet Squat DB',muscle:'legs',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:157,name:'Goblet Squat DB',nameVi:'Goblet Squat DB',muscle:'legs',equip:'dumbbell',emoji:'🏋️',ytId:'MeIiIdhvXT4',
    cues:['Ôm 1 tạ đôi trước ngực','Squat sâu lưng thẳng','Gối theo mũi chân','Đẩy lên'],
    mistakes:['Lưng cong','Gối chụm'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:158,name:'Dumbbell Lunge',nameVi:'Dumbbell Lunge',muscle:'legs',equip:'dumbbell',emoji:'🏋️',ytId:'',
+  {id:158,name:'Dumbbell Lunge',nameVi:'Dumbbell Lunge',muscle:'legs',equip:'dumbbell',emoji:'🏋️',ytId:'D7KaRcUTQeE',
    cues:['Tạ đôi 2 bên','Bước tới hạ gối sau','Đẩy về dùng gót','Đổi chân'],
    mistakes:['Gối quá mũi','Mất thăng bằng'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:159,name:'Seated Leg Extension',nameVi:'Seated Leg Extension',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'',
+  {id:159,name:'Seated Leg Extension',nameVi:'Seated Leg Extension',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'YyvSfVjQeL0',
    cues:['Ngồi máy, chân dưới đệm','Duỗi thẳng siết đùi trước','Giữ 1 giây','Hạ chậm'],
    mistakes:['Giật','Range ngắn'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:160,name:'Standing Leg Curl',nameVi:'Standing Leg Curl',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'',
+  {id:160,name:'Standing Leg Curl',nameVi:'Standing Leg Curl',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'1Tq3QdYUuHs',
    cues:['Đứng máy, cuốn 1 chân','Siết gân kheo','Giữ ở đỉnh','Hạ chậm'],
    mistakes:['Dùng đà','Hông di chuyển'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:161,name:'Calf Press Machine',nameVi:'Calf Press Machine',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'',
+  {id:161,name:'Calf Press Machine',nameVi:'Calf Press Machine',muscle:'legs',equip:'machine',emoji:'⚙️',ytId:'JbyjNymZOt0',
    cues:['Đẩy bằng mũi chân trên leg press','Duỗi cổ chân tối đa','Hạ gót sâu','Kiểm soát'],
    mistakes:['Range ngắn','Bật nhanh'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:162,name:'Cable Crunch Kneeling',nameVi:'Cable Crunch Kneeling',muscle:'core',equip:'cable',emoji:'🔗',ytId:'',
+  {id:162,name:'Cable Crunch Kneeling',nameVi:'Cable Crunch Kneeling',muscle:'core',equip:'cable',emoji:'🔗',ytId:'2fbujpvc744',
    cues:['Quỳ dưới cáp','Gập thân bằng bụng','Siết ở đáy','Về chậm'],
    mistakes:['Dùng tay kéo','Hông di chuyển'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:163,name:'Bicycle Crunch',nameVi:'Bicycle Crunch',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:163,name:'Bicycle Crunch',nameVi:'Bicycle Crunch',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'9FGilxCbdz8',
    cues:['Nằm, đạp xe trên không','Khuỷu chạm gối đối diện','Siết chéo bụng','Nhịp đều'],
    mistakes:['Kéo cổ','Nhanh ẩu'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:164,name:'Leg Raise Lying',nameVi:'Leg Raise Lying',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:164,name:'Leg Raise Lying',nameVi:'Leg Raise Lying',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'JB2oyawG9KI',
    cues:['Nằm, nâng 2 chân lên','Hạ chậm không chạm sàn','Lưng ép sàn','Bụng dưới siết'],
    mistakes:['Cong lưng','Đà'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:165,name:'Plank Side',nameVi:'Plank Side',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'',
+  {id:165,name:'Plank Side',nameVi:'Plank Side',muscle:'core',equip:'bodyweight',emoji:'🤸',ytId:'K2VljzCC16g',
    cues:['Chống 1 khuỷu nghiêng','Thân thẳng','Hông nâng cao','Giữ thở đều'],
    mistakes:['Hông xệ','Vẹo'],
    sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:166,name:'High Knees',nameVi:'High Knees',muscle:'cardio',equip:'bodyweight',emoji:'🏃',ytId:'',
+  {id:166,name:'High Knees',nameVi:'High Knees',muscle:'cardio',equip:'bodyweight',emoji:'🏃',ytId:'oDdkytliOqE',
    cues:['Chạy tại chỗ nâng gối cao','Nhịp nhanh','Tiếp đất nhẹ','Tay vung'],
    mistakes:['Gối thấp','Tiếp đất nặng'],
-   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'}
+   sets:{'muscle':'4×8-12','strength':'4×5-8','endurance':'3×15-20'},diffVi:'Trung cấp'},
+  {id:200,name:'Bodyweight Squat',nameVi:'Squat tay không',muscle:'legs',equip:'bodyweight',emoji:'🦵',ytId:'YaXPRqUwItQ',
+   cues:['Chân rộng ngang vai','Hạ mông xuống ghế tưởng tượng','Đùi song song sàn','Đẩy gót lên'],
+   mistakes:['Gối chụm vào trong','Nhón gót','Lưng cong'],
+   sets:{'muscle':'4×15-20','strength':'4×10-12','endurance':'3×25-30'},diffVi:'Cơ bản'},
+  {id:201,name:'Lunge',nameVi:'Chùng chân (Lunge)',muscle:'legs',equip:'bodyweight',emoji:'🦵',ytId:'QOVaHwm-Q6U',
+   cues:['Bước dài ra trước','Hạ gối sau gần sàn','Gối trước vuông góc','Đẩy về vị trí đầu'],
+   mistakes:['Gối trước vượt mũi chân','Thân đổ trước'],
+   sets:{'muscle':'4×12 mỗi chân','strength':'4×8','endurance':'3×20'},diffVi:'Cơ bản'},
+  {id:202,name:'Reverse Lunge',nameVi:'Chùng chân lùi',muscle:'legs',equip:'bodyweight',emoji:'🦵',ytId:'xrPFb4Zko0w',
+   cues:['Bước lùi ra sau','Hạ gối sau gần sàn','Giữ thân thẳng','Đẩy chân trước đứng lên'],
+   mistakes:['Mất thăng bằng','Bước quá ngắn'],
+   sets:{'muscle':'4×12 mỗi chân','strength':'4×8','endurance':'3×20'},diffVi:'Cơ bản'},
+  {id:203,name:'Wall Sit',nameVi:'Tựa tường (Wall Sit)',muscle:'legs',equip:'bodyweight',emoji:'🧱',ytId:'y-wV4Venusw',
+   cues:['Lưng tựa tường','Đùi song song sàn','Gối vuông góc','Giữ yên'],
+   mistakes:['Gối vượt mũi chân','Mông cao quá'],
+   sets:{'muscle':'3×45s','strength':'4×30s','endurance':'3×60s'},diffVi:'Cơ bản'},
+  {id:204,name:'Jump Squat',nameVi:'Squat bật nhảy',muscle:'legs',equip:'bodyweight',emoji:'⚡',ytId:'CVaEhXotL7M',
+   cues:['Squat xuống','Bật nhảy mạnh lên','Tiếp đất nhẹ nhún gối','Lặp liền mạch'],
+   mistakes:['Tiếp đất cứng','Gối chụm'],
+   sets:{'muscle':'4×12-15','strength':'4×8','endurance':'3×20'},diffVi:'Trung cấp'},
+  {id:205,name:'Pistol Squat',nameVi:'Squat 1 chân',muscle:'legs',equip:'bodyweight',emoji:'🦵',ytId:'vq5-vdgJc0I',
+   cues:['Đứng 1 chân, chân kia duỗi trước','Hạ thấp giữ thăng bằng','Đẩy gót lên','Giữ lưng thẳng'],
+   mistakes:['Mất thăng bằng','Gối đổ vào trong'],
+   sets:{'muscle':'4×6-8 mỗi chân','strength':'4×4-5','endurance':'3×10'},diffVi:'Nâng cao'},
+  {id:206,name:'Incline Push Up',nameVi:'Hít đất kê cao tay',muscle:'chest',equip:'bodyweight',emoji:'🤸',ytId:'4dF1DOWzf20',
+   cues:['Tay đặt lên ghế/bàn','Thân thẳng','Hạ ngực xuống cạnh','Đẩy lên'],
+   mistakes:['Mông cao','Hạ không sâu'],
+   sets:{'muscle':'4×15-20','strength':'4×10','endurance':'3×25'},diffVi:'Cơ bản'},
+  {id:207,name:'Wide Push Up',nameVi:'Hít đất tay rộng',muscle:'chest',equip:'bodyweight',emoji:'🤸',ytId:'p_Po5ueafQg',
+   cues:['Tay rộng hơn vai','Hạ ngực xuống sàn','Khuỷu mở','Đẩy lên'],
+   mistakes:['Lưng võng','Hạ nửa chừng'],
+   sets:{'muscle':'4×12-18','strength':'4×8','endurance':'3×22'},diffVi:'Cơ bản'},
+  {id:208,name:'Pike Push Up',nameVi:'Hít đất chữ V (vai)',muscle:'shoulders',equip:'bodyweight',emoji:'🔺',ytId:'x7_I5SQboKw',
+   cues:['Thân chữ V, mông cao','Hạ đỉnh đầu xuống sàn','Đẩy lên bằng vai','Khuỷu hướng sau'],
+   mistakes:['Mông thấp thành hít đất thường','Cổ căng'],
+   sets:{'muscle':'4×10-12','strength':'4×6-8','endurance':'3×15'},diffVi:'Trung cấp'},
+  {id:209,name:'Pseudo Planche Push Up',nameVi:'Hít đất nghiêng trước',muscle:'chest',equip:'bodyweight',emoji:'🤸',ytId:'-kwe1EOiWMY',
+   cues:['Tay đặt ngang eo, ngón hướng sau','Nghiêng vai ra trước','Hạ xuống','Đẩy lên'],
+   mistakes:['Vai không nghiêng','Lưng võng'],
+   sets:{'muscle':'4×8-12','strength':'4×6','endurance':'3×15'},diffVi:'Nâng cao'},
+  {id:210,name:'Superman',nameVi:'Superman (lưng dưới)',muscle:'back',equip:'bodyweight',emoji:'🦸',ytId:'z6PJMT2y8GQ',
+   cues:['Nằm sấp','Nâng tay và chân lên cùng lúc','Siết lưng dưới + mông','Giữ 1-2s rồi hạ'],
+   mistakes:['Giật mạnh cổ','Không siết mông'],
+   sets:{'muscle':'4×15','strength':'4×10','endurance':'3×20'},diffVi:'Cơ bản'},
+  {id:211,name:'Bird Dog',nameVi:'Bird Dog (core/lưng)',muscle:'core',equip:'bodyweight',emoji:'🐦',ytId:'wiFNA3sqjCA',
+   cues:['Quỳ 4 điểm','Duỗi tay phải + chân trái thẳng','Giữ thăng bằng siết core','Đổi bên'],
+   mistakes:['Hông xoay','Lưng võng'],
+   sets:{'muscle':'4×12 mỗi bên','strength':'4×8','endurance':'3×16'},diffVi:'Cơ bản'},
+  {id:212,name:'Flutter Kicks',nameVi:'Đạp chân bụng dưới',muscle:'core',equip:'bodyweight',emoji:'🦵',ytId:'ANVdMDaYRts',
+   cues:['Nằm ngửa tay dưới mông','Nâng 2 chân khỏi sàn','Đạp lên xuống xen kẽ','Giữ lưng dưới chạm sàn'],
+   mistakes:['Lưng cong khỏi sàn','Chân quá cao'],
+   sets:{'muscle':'4×30s','strength':'4×20s','endurance':'3×45s'},diffVi:'Cơ bản'},
+  {id:213,name:'Crunch',nameVi:'Gập bụng (Crunch)',muscle:'core',equip:'bodyweight',emoji:'🔥',ytId:'Xyd_fa5zoEU',
+   cues:['Nằm ngửa gối gập','Cuộn vai lên khỏi sàn','Siết bụng đỉnh động tác','Hạ chậm'],
+   mistakes:['Kéo cổ bằng tay','Giật người'],
+   sets:{'muscle':'4×20','strength':'4×15','endurance':'3×30'},diffVi:'Cơ bản'},
+  {id:214,name:'Calf Raise Bodyweight',nameVi:'Nhón bắp chân tay không',muscle:'legs',equip:'bodyweight',emoji:'🦵',ytId:'gwLzBJYoWlI',
+   cues:['Đứng thẳng','Nhón gót cao nhất có thể','Giữ 1s siết bắp chân','Hạ chậm'],
+   mistakes:['Nhún quá nhanh','Không lên hết tầm'],
+   sets:{'muscle':'4×20-25','strength':'4×15','endurance':'3×30'},diffVi:'Cơ bản'},
+  {id:215,name:'Bear Crawl',nameVi:'Bò gấu (toàn thân)',muscle:'core',equip:'bodyweight',emoji:'🐻',ytId:'o0d2kQVCQNc',
+   cues:['Quỳ 4 điểm gối hổng sàn','Bò tiến tay-chân đối nhau','Giữ lưng phẳng hông thấp','Nhịp đều'],
+   mistakes:['Hông nhấp nhô','Đầu cúi'],
+   sets:{'muscle':'4×30s','strength':'4×20s','endurance':'3×45s'},diffVi:'Trung cấp'}
 
 ];
 
@@ -3373,8 +3425,13 @@ function load(){
     const todayStr=new Date().toDateString(); // use toDateString for reliable comparison
     const lastDateStr=d.lastActiveDate;
     if(lastDateStr&&lastDateStr!==todayStr){
-      // Save yesterday to history before reset
-      if(d.nut){const yn={b:[],l:[],d:[],s:[]};Object.keys(yn).forEach(k=>{yn[k]=Array.isArray(d.nut[k])?[...d.nut[k]]:[];});ST.nut=yn;saveNutHistory();}
+      // Save yesterday's food to history (under YESTERDAY's date) before reset
+      if(d.nut){
+        const yn={b:[],l:[],d:[],s:[]};Object.keys(yn).forEach(k=>{yn[k]=Array.isArray(d.nut[k])?[...d.nut[k]]:[];});
+        ST.nut=yn;
+        const ydate=new Date(lastDateStr).toLocaleDateString('vi-VN');
+        saveNutHistory(ydate);
+      }
       ST.water=0;ST._waterCelebrated=false;
       ST.nut={b:[],l:[],d:[],s:[]};
     } else {
@@ -3813,7 +3870,7 @@ function toggleQuickForm(id,name){
   }
   if(navigator.vibrate)navigator.vibrate(20);
 }
-function addEx(name){
+function addEx(name,presetSets){
   ST.exCtr++;const id='e'+ST.exCtr;
   const exInfo=findEx(name);
   const lastW=ST.workouts.find(w=>w.exDetails&&w.exDetails[name]);
@@ -3821,10 +3878,15 @@ function addEx(name){
   if(lastW?.exDetails[name]){
     prevSets=lastW.exDetails[name].split(', ').map(s=>{const m=s.match(/(\d+\.?\d*)kg×(\d+)/);return m?{kg:+m[1],reps:+m[2]}:null;}).filter(Boolean);
   }
-  const nSets=Math.max(1,Math.min(8,+ST.settings?.defaultSets||3));
-  const setsArr=[];
-  for(let i=0;i<nSets;i++){
-    setsArr.push({kg:prevSets[i]?.kg||0,reps:prevSets[i]?.reps||0,rpe:0,done:false});
+  let setsArr=[];
+  if(Array.isArray(presetSets)&&presetSets.length){
+    // Restore weights saved in a template
+    setsArr=presetSets.map(s=>({kg:+s.kg||0,reps:+s.reps||0,rpe:0,done:false}));
+  } else {
+    const nSets=Math.max(1,Math.min(8,+ST.settings?.defaultSets||3));
+    for(let i=0;i<nSets;i++){
+      setsArr.push({kg:prevSets[i]?.kg||0,reps:prevSets[i]?.reps||0,rpe:0,done:false});
+    }
   }
   ST.exData[id]={name,note:'',sets:setsArr};
   const cont=document.getElementById('aw-exercises');
@@ -3875,15 +3937,15 @@ function addEx(name){
     <div id="${id}_qform" style="display:none"></div>
     <div id="${id}_tip" class="ai-tip" style="display:none"></div>`;
   cont.appendChild(wrap);
-  // Render set rows (uses default sets count)
+  // Render set rows from setsArr (đúng cho cả template có sẵn kg lẫn buổi mới)
   const setsDiv=document.getElementById(id+'_sets');
-  for(let i=0;i<nSets;i++){
+  setsArr.forEach((s,i)=>{
     const div=document.createElement('div');
     div.className='set-row';div.id=id+'_row'+i;
-    div.className='set-row';div.style.cssText='padding:4px 14px';
-    div.innerHTML=makeSetRowHTML(id,i,prevSets[i]?.kg||0,prevSets[i]?.reps||0,prevTxts[i]||'—');
+    div.style.cssText='padding:4px 14px';
+    div.innerHTML=makeSetRowHTML(id,i,s.kg||0,s.reps||0,prevTxts[i]||'—');
     setsDiv.appendChild(div);
-  }
+  });
   updateVolumeDisplay();updateWorkoutProgress();
   setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
   setTimeout(()=>autoLoadCoachTip(id,name),800);
@@ -4064,68 +4126,69 @@ function openAITip(id,name){
   tip.style.display='block';
 }
 
+// Nhóm cơ liên quan (synergist) — để gợi ý bài "liên quan" khi đổi
+const RELATED_MUSCLES={
+  chest:['shoulders','arms'],
+  back:['arms','shoulders'],
+  shoulders:['chest','back','arms'],
+  arms:['chest','back','shoulders'],
+  legs:['glutes'],
+  glutes:['legs'],
+  core:['legs'],
+  cardio:['legs','core'],
+};
 function swapEx(id,name){
   const ex=findEx(name);
   if(!ex){toast('Không tìm thấy bài này trong database');return;}
-  // Same muscle group first (all of them, no cap), then allow searching everything
-  const alts=EXERCISES.filter(e=>e.muscle===ex.muscle&&e.id!==ex.id&&e.name!==ex.name);
-  showSwapSheet(id,name,alts,ex.muscle);
+  showSwapSheet(id,name,ex.muscle,ex.equip);
 }
 
-function renderSwapList(id,q){
-  q=(q||'').trim().toLowerCase();
-  const cur=document.getElementById('swap-sheet');
-  if(!cur)return;
-  const curName=cur.dataset.curname;
-  const curMuscle=cur.dataset.curmuscle;
-  let list;
-  if(q){
-    list=EXERCISES.filter(e=>e.name!==curName&&(
-      e.name.toLowerCase().includes(q)||(e.nameVi||'').toLowerCase().includes(q)||(muscleVi[e.muscle]||'').toLowerCase().includes(q)));
-  } else {
-    list=EXERCISES.filter(e=>e.muscle===curMuscle&&e.name!==curName);
-  }
-  const box=document.getElementById('swap-list');
-  if(!box)return;
-  if(!list.length){box.innerHTML='<div style="padding:24px;text-align:center;color:var(--txt3);font-size:13px">Không tìm thấy bài nào. Thử từ khoá khác.</div>';return;}
-  box.innerHTML=list.map(a=>`
-    <div onclick="doSwapEx('${id}','${a.name.replace(/'/g,"\\'")}');document.getElementById('swap-sheet').remove()"
+function showSwapSheet(id,currentName,curMuscle,curEquip){
+  const existing=document.getElementById('swap-sheet');
+  if(existing)existing.remove();
+  // Cùng nhóm cơ (ưu tiên cùng dụng cụ lên đầu)
+  const same=EXERCISES.filter(e=>e.muscle===curMuscle&&e.name!==currentName)
+    .sort((a,b)=>(b.equip===curEquip)-(a.equip===curEquip));
+  // Nhóm cơ liên quan
+  const relMus=RELATED_MUSCLES[curMuscle]||[];
+  const related=EXERCISES.filter(e=>relMus.includes(e.muscle)&&e.name!==currentName);
+
+  const muscleVi2={chest:'Ngực',back:'Lưng',shoulders:'Vai',arms:'Tay',legs:'Chân',glutes:'Mông',core:'Core',cardio:'Cardio'};
+  function row(a){
+    return `<div onclick="doSwapEx('${id}','${(a.name||'').replace(/'/g,"\\'")}');document.getElementById('swap-sheet').remove()"
       style="display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--brd)"
       onmouseenter="this.style.background='var(--bg3)'" onmouseleave="this.style.background=''">
       <span style="font-size:24px">${a.emoji||'🏋️'}</span>
       <div style="flex:1">
         <div style="font-size:13.5px;font-weight:500">${a.nameVi||a.name}</div>
-        <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);margin-top:2px">${muscleVi[a.muscle]||a.muscle} · ${a.equip||'—'}</div>
+        <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);margin-top:2px">${muscleVi2[a.muscle]||a.muscle} · ${a.equip||'—'}</div>
       </div>
       <div style="font-size:20px;color:var(--txt3)">›</div>
-    </div>`).join('');
-}
+    </div>`;
+  }
+  function header(t){return `<div style="padding:14px 16px 6px;font-size:11px;font-family:var(--FM);color:var(--txt3);letter-spacing:.1em">${t}</div>`;}
+  let listHtml='';
+  if(same.length) listHtml+=header('CÙNG NHÓM CƠ · '+(muscleVi2[curMuscle]||curMuscle).toUpperCase())+same.map(row).join('');
+  if(related.length) listHtml+=header('BÀI LIÊN QUAN')+related.map(row).join('');
+  if(!listHtml) listHtml='<div style="padding:24px;text-align:center;color:var(--txt3);font-size:13px">Không có bài thay thế phù hợp.</div>';
 
-function showSwapSheet(id,currentName,alts,curMuscle){
-  const existing=document.getElementById('swap-sheet');
-  if(existing)existing.remove();
   const sheet=document.createElement('div');
   sheet.id='swap-sheet';
-  sheet.dataset.curname=currentName;
-  sheet.dataset.curmuscle=curMuscle||'';
   sheet.style.cssText='position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:flex-end';
   sheet.innerHTML=`
     <div style="background:var(--bg2);border-radius:20px 20px 0 0;border-top:1px solid var(--brd2);width:100%;max-width:430px;margin:0 auto;max-height:82dvh;display:flex;flex-direction:column">
       <div style="width:36px;height:4px;background:var(--brd2);border-radius:2px;margin:12px auto 0"></div>
-      <div style="padding:14px 16px 10px;border-bottom:1px solid var(--brd)">
+      <div style="padding:14px 16px 12px;border-bottom:1px solid var(--brd)">
         <div style="font-size:15px;font-weight:600">Đổi bài tập</div>
-        <div style="font-size:11px;color:var(--txt3);margin:3px 0 10px">Đang đổi: ${currentName}</div>
-        <input id="swap-search" placeholder="🔍 Tìm bài bất kỳ trong thư viện..." oninput="renderSwapList('${id}',this.value)"
-          style="width:100%;background:var(--bg3);border:1px solid var(--brd2);border-radius:12px;padding:11px 14px;color:var(--txt);font-size:13px;font-family:var(--FF)">
+        <div style="font-size:11px;color:var(--txt3);margin-top:3px">Đang đổi: ${currentName}</div>
       </div>
-      <div id="swap-list" style="overflow-y:auto;flex:1;padding:4px 0"></div>
+      <div style="overflow-y:auto;flex:1;padding:0 0 4px">${listHtml}</div>
       <div style="padding:12px 16px calc(12px + env(safe-area-inset-bottom))">
         <button onclick="document.getElementById('swap-sheet').remove()" class="btn bg" style="width:100%;height:44px">Huỷ</button>
       </div>
     </div>`;
   sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.remove();});
   document.body.appendChild(sheet);
-  renderSwapList(id,'');
 }
 
 
@@ -4891,6 +4954,8 @@ function renderNutMeals(){
   const calTagEl=document.getElementById('nut-cal-tag');
   if(calTagEl)calTagEl.title=`Target: P${targets.protein}g C${targets.carbs}g F${targets.fat}g`;
   renderMacroPie();
+  // Cập nhật lịch sử dinh dưỡng hôm nay realtime (để luôn xem lại được)
+  if(totalCal>0) saveNutHistory();
   // Update home calories burned display
   const calBurnedEl=document.getElementById('h-cal-burned');
   if(calBurnedEl){
@@ -6366,10 +6431,65 @@ window.addEventListener('beforeinstallprompt',e=>{
   },3000);
 });
 function installPWA(){
-  if(!deferredPrompt)return toast('App đã được cài hoặc không hỗ trợ');
+  // Nhận diện thiết bị để hướng dẫn đúng cách
+  const ua=navigator.userAgent||'';
+  const isIOS=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const isAndroid=/Android/i.test(ua);
+  const isStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
+
+  if(isStandalone){toast('✅ Bạn đang dùng FitAI ở dạng app đã cài rồi!');return;}
+
+  let title,steps,quickBtn='';
+  if(isAndroid&&deferredPrompt){
+    quickBtn=`<button onclick="doNativeInstall()" class="btn bl" style="width:100%;height:48px;font-size:15px;margin-bottom:14px">⚡ Cài ngay (1 chạm)</button>`;
+    title='📱 Cài trên Android';
+    steps=['Nhấn nút "Cài ngay" phía trên, hoặc','Mở menu Chrome (⋮ góc trên phải)','Chọn "Cài đặt ứng dụng" / "Thêm vào MH chính"','Mở FitAI từ màn hình chính như app thật'];
+  } else if(isAndroid){
+    title='📱 Cài trên Android';
+    steps=['Mở menu Chrome (⋮ góc trên phải)','Chọn "Cài đặt ứng dụng" hoặc "Thêm vào màn hình chính"','Nhấn "Cài đặt" / "Thêm"','Mở FitAI từ màn hình chính'];
+  } else if(isIOS){
+    title='📱 Cài trên iPhone / iPad';
+    steps=['Mở FitAI bằng <b>Safari</b> (không phải Chrome)','Nhấn nút Chia sẻ <b>⎙</b> ở thanh dưới','Cuộn xuống chọn <b>"Thêm vào MH chính"</b>','Nhấn <b>"Thêm"</b> ở góc trên phải','Mở FitAI từ màn hình chính như app thật'];
+  } else {
+    title='💻 Cài trên máy tính';
+    steps=['Mở FitAI bằng Chrome hoặc Edge','Nhìn thanh địa chỉ, nhấn biểu tượng cài đặt ⊕ (bên phải URL)','Hoặc menu (⋮) → "Cài đặt FitAI"','Nhấn "Cài đặt" — app mở trong cửa sổ riêng'];
+  }
+
+  const ex=document.getElementById('install-modal');if(ex)ex.remove();
+  const m=document.createElement('div');
+  m.id='install-modal';
+  m.style.cssText='position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);display:flex;align-items:flex-end';
+  m.innerHTML=`
+    <div style="background:var(--bg2);border-radius:22px 22px 0 0;border-top:1px solid var(--brd2);width:100%;max-width:430px;margin:0 auto;max-height:88dvh;display:flex;flex-direction:column">
+      <div style="width:36px;height:4px;background:var(--brd2);border-radius:2px;margin:12px auto 0"></div>
+      <div style="padding:18px 20px 10px;display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:18px;font-weight:800">${title}</div>
+        <button onclick="document.getElementById('install-modal').remove()" style="width:30px;height:30px;border-radius:50%;background:var(--bg3);border:1px solid var(--brd2);color:var(--txt2);font-size:16px;cursor:pointer">✕</button>
+      </div>
+      <div style="padding:0 20px 8px;font-size:13px;color:var(--txt3)">Cài FitAI lên máy để mở nhanh, dùng offline, chạy toàn màn hình như app thật.</div>
+      <div style="overflow-y:auto;padding:14px 20px">
+        ${quickBtn}
+        ${steps.map((s,i)=>`
+          <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px">
+            <div style="width:26px;height:26px;border-radius:50%;background:rgba(200,241,53,.12);color:var(--lime);font-weight:800;font-family:var(--FM);font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${i+1}</div>
+            <div style="font-size:14px;color:var(--txt);line-height:1.5;padding-top:2px">${s}</div>
+          </div>`).join('')}
+        <div style="background:rgba(77,159,255,.06);border:1px solid rgba(77,159,255,.2);border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--txt2);line-height:1.6;margin-top:6px">
+          💡 Sau khi cài, FitAI hiện như một icon riêng trên màn hình — không cần mở trình duyệt nữa. Dữ liệu tập luyện được lưu ngay trên máy bạn.
+        </div>
+      </div>
+      <div style="padding:12px 16px calc(12px + env(safe-area-inset-bottom))">
+        <button onclick="document.getElementById('install-modal').remove()" class="btn bg" style="width:100%;height:46px">Đã hiểu</button>
+      </div>
+    </div>`;
+  m.addEventListener('click',e=>{if(e.target===m)m.remove();});
+  document.body.appendChild(m);
+}
+function doNativeInstall(){
+  if(!deferredPrompt){toast('Hãy làm theo các bước bên dưới nhé');return;}
   deferredPrompt.prompt();
   deferredPrompt.userChoice.then(r=>{
-    if(r.outcome==='accepted')toast('✅ FitAI đã được cài!');
+    if(r.outcome==='accepted'){toast('✅ FitAI đã được cài!');const mm=document.getElementById('install-modal');if(mm)mm.remove();}
     deferredPrompt=null;
   });
 }
@@ -6390,13 +6510,18 @@ function initOfflineIndicator(){
 function saveWorkoutTemplate(){
   if(!ST.activeW||!Object.keys(ST.exData).length)return toast('Chưa có bài tập nào!');
   if(!ST.templates)ST.templates=[];
+  const items=Object.values(ST.exData).map(e=>({
+    name:e.name,
+    sets:(e.sets||[]).map(s=>({kg:+s.kg||0,reps:+s.reps||0}))
+  }));
   const template={
     name:ST.activeW.title+' (template)',
-    exercises:Object.values(ST.exData).map(e=>e.name),
+    exercises:items.map(it=>it.name), // backward-compat
+    items, // includes saved kg/reps
     savedAt:new Date().toLocaleDateString('vi-VN'),
   };
   ST.templates.push(template);
-  save();toast(`✅ Đã lưu template "${template.name}"`);
+  save();toast(`✅ Đã lưu template kèm mức tạ "${template.name}"`);
 }
 // ════════════════════════════════════════════════════════
 // TỔNG KẾT TUẦN / THÁNG
@@ -6469,7 +6594,13 @@ function showSummaryModal(title,bodyHtml){
 function loadTemplate(i){
   const t=ST.templates[i];if(!t)return;
   initWorkout(t.name);
-  t.exercises.forEach(name=>addEx(name));
+  if(Array.isArray(t.items)&&t.items.length){
+    // Newer template: restore saved kg/reps per exercise
+    t.items.forEach(it=>addEx(it.name,it.sets));
+  } else {
+    // Older template: only names
+    (t.exercises||[]).forEach(name=>addEx(name));
+  }
   goTab('s-workout');
   notif('📋','Template đã load!',t.name);
 }
@@ -7348,16 +7479,30 @@ function renderStrengthStandards(){
 function renderNutHistory(){
   const el=document.getElementById('nut-history');if(!el)return;
   if(!ST.nutHistory?.length){el.innerHTML='<div class="xs muted">Chưa có lịch sử</div>';return;}
-  el.innerHTML=ST.nutHistory.slice(0,7).map(h=>`
-    <div class="rb" style="padding:7px 0;border-bottom:1px solid var(--brd)">
-      <div>
-        <div style="font-size:12px;font-weight:500">${h.date}</div>
-        <div class="xxs muted">P${h.p}g · C${h.c}g · F${h.f}g</div>
+  const mealName={b:'🌅 Sáng',l:'☀️ Trưa',d:'🌙 Tối',s:'🍎 Phụ'};
+  el.innerHTML=ST.nutHistory.slice(0,14).map((h,i)=>{
+    let detail='';
+    if(h.foods){
+      ['b','l','d','s'].forEach(mk=>{
+        const arr=h.foods[mk]||[];
+        if(arr.length) detail+=`<div style="margin-top:6px"><div style="font-size:10px;color:var(--txt3);font-family:var(--FM);margin-bottom:2px">${mealName[mk]}</div>`+
+          arr.map(f=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:2px 0"><span>${f.name}</span><span class="muted">${f.cal}kcal</span></div>`).join('')+`</div>`;
+      });
+    }
+    if(!detail) detail='<div class="xxs muted" style="margin-top:6px">Không có chi tiết món</div>';
+    return `<div style="border-bottom:1px solid var(--brd)">
+      <div class="rb" style="padding:9px 0;cursor:pointer" onclick="(function(e){var d=e.currentTarget.nextElementSibling;d.style.display=d.style.display==='none'?'block':'none';})(arguments[0]||event)" data-i="${i}">
+        <div>
+          <div style="font-size:12.5px;font-weight:500">${h.date}</div>
+          <div class="xxs muted">P${h.p}g · C${h.c}g · F${h.f}g</div>
+        </div>
+        <span class="tag tl" style="font-size:11px">${h.cal}kcal ›</span>
       </div>
-      <span class="tag tl" style="font-size:11px">${h.cal}kcal</span>
-    </div>`).join('');
+      <div style="display:none;padding:0 0 10px">${detail}</div>
+    </div>`;
+  }).join('');
 }
-function saveNutHistory(){
+function saveNutHistory(forDate){
   if(!ST.nutHistory)ST.nutHistory=[];
   let cal=0,p=0,c=0,f=0;
   const foods={b:[],l:[],d:[],s:[]};
@@ -7368,7 +7513,7 @@ function saveNutHistory(){
     });
   });
   if(!cal)return;
-  const today=new Date().toLocaleDateString('vi-VN');
+  const today=forDate||new Date().toLocaleDateString('vi-VN');
   const idx=ST.nutHistory.findIndex(h=>h.date===today);
   const entry={date:today,cal:Math.round(cal),p:Math.round(p),c:Math.round(c),f:Math.round(f),foods};
   if(idx>=0)ST.nutHistory[idx]=entry;
@@ -8307,6 +8452,22 @@ const EXERCISE_MUSCLE_MAP={
   'Plank Side':{primary:['f-oblique-l','f-oblique-r'],secondary:['f-abs2-l','f-abs2-r'],label:'Obliques'},
   'Jumping Jack':{primary:['b-calf-l','b-calf-r'],secondary:['f-mdelt-l','f-mdelt-r','f-quad-rect-l','f-quad-rect-r'],label:'Full body'},
   'High Knees':{primary:['f-quad-rect-l','f-quad-rect-r'],secondary:['f-abs2-l','f-abs2-r','b-calf-l','b-calf-r'],label:'Quad · Core'},
+  'Bodyweight Squat':{primary:['f-quad-rect-l','f-quad-rect-r','f-quad-vas-l','f-quad-vas-r'],secondary:['b-glute-max-l','b-glute-max-r','b-ham-bic-l','b-ham-bic-r'],label:'Quads · Glute'},
+  'Lunge':{primary:['f-quad-rect-l','f-quad-rect-r','b-glute-max-l','b-glute-max-r'],secondary:['b-ham-bic-l','b-ham-bic-r'],label:'Quad · Glute'},
+  'Reverse Lunge':{primary:['b-glute-max-l','b-glute-max-r','f-quad-rect-l','f-quad-rect-r'],secondary:['b-ham-bic-l','b-ham-bic-r'],label:'Glute · Quad'},
+  'Wall Sit':{primary:['f-quad-rect-l','f-quad-rect-r','f-quad-vas-l','f-quad-vas-r'],secondary:['b-glute-max-l','b-glute-max-r'],label:'Quads (isometric)'},
+  'Jump Squat':{primary:['f-quad-rect-l','f-quad-rect-r'],secondary:['b-glute-max-l','b-glute-max-r','b-calf-l','b-calf-r'],label:'Quad · Power'},
+  'Pistol Squat':{primary:['f-quad-rect-l','f-quad-rect-r','f-quad-vas-l','f-quad-vas-r'],secondary:['b-glute-max-l','b-glute-max-r'],label:'Quads (1 chân)'},
+  'Incline Push Up':{primary:['f-pec-upper-l','f-pec-upper-r'],secondary:['b-tricep-long-l','b-tricep-long-r','f-fdelt-l','f-fdelt-r'],label:'Upper Pec (dễ)'},
+  'Wide Push Up':{primary:['f-pec-lower-l','f-pec-lower-r','f-pec-upper-l','f-pec-upper-r'],secondary:['f-fdelt-l','f-fdelt-r'],label:'Chest (rộng)'},
+  'Pike Push Up':{primary:['f-fdelt-l','f-fdelt-r','f-mdelt-l','f-mdelt-r'],secondary:['b-tricep-long-l','b-tricep-long-r'],label:'Shoulder'},
+  'Pseudo Planche Push Up':{primary:['f-pec-upper-l','f-pec-upper-r'],secondary:['f-fdelt-l','f-fdelt-r','b-tricep-long-l','b-tricep-long-r'],label:'Upper Chest · Delt'},
+  'Superman':{primary:['b-erector-l','b-erector-r'],secondary:['b-glute-max-l','b-glute-max-r'],label:'Lower Back'},
+  'Bird Dog':{primary:['b-erector-l','b-erector-r','f-abs2-l','f-abs2-r'],secondary:['b-glute-max-l','b-glute-max-r'],label:'Core · Lower Back'},
+  'Flutter Kicks':{primary:['f-abs3-l','f-abs3-r'],secondary:['f-oblique-l','f-oblique-r'],label:'Lower Abs'},
+  'Crunch':{primary:['f-abs1-l','f-abs1-r','f-abs2-l','f-abs2-r'],secondary:['f-oblique-l','f-oblique-r'],label:'Abs'},
+  'Calf Raise Bodyweight':{primary:['b-calf-l','b-calf-r'],secondary:[],label:'Calf'},
+  'Bear Crawl':{primary:['f-abs2-l','f-abs2-r','f-fdelt-l','f-fdelt-r'],secondary:['f-quad-rect-l','f-quad-rect-r'],label:'Core · Shoulder'},
 };
 
 // ===== CƠ TÁC ĐỘNG (text + %) — nguồn thông tin chính, rõ ràng, không phụ thuộc màu =====
@@ -8432,6 +8593,22 @@ const EXERCISE_IMPACT={
   'Plank Side':[['Cơ liên sườn',75,1],['Cơ bụng',25,0]],
   'Jumping Jack':[['Toàn thân (cardio)',100,1]],
   'High Knees':[['Cơ đùi trước · Core',70,1],['Bắp chân',30,0]],
+  'Bodyweight Squat':[['Cơ đùi trước',55,1],['Cơ mông',30,0],['Cơ đùi sau',15,0]],
+  'Lunge':[['Cơ đùi trước',45,1],['Cơ mông',35,0],['Cơ đùi sau',20,0]],
+  'Reverse Lunge':[['Cơ mông',50,1],['Cơ đùi trước',35,0],['Cơ đùi sau',15,0]],
+  'Wall Sit':[['Cơ đùi trước',80,1],['Cơ mông',20,0]],
+  'Jump Squat':[['Cơ đùi trước',55,1],['Cơ mông',25,0],['Bắp chân',20,0]],
+  'Pistol Squat':[['Cơ đùi trước',65,1],['Cơ mông',25,0],['Core',10,0]],
+  'Incline Push Up':[['Ngực trên',60,1],['Cơ tam đầu',25,0],['Vai trước',15,0]],
+  'Wide Push Up':[['Ngực',70,1],['Vai trước',20,0],['Cơ tam đầu',10,0]],
+  'Pike Push Up':[['Vai (trước+giữa)',70,1],['Cơ tam đầu',30,0]],
+  'Pseudo Planche Push Up':[['Ngực trên',50,1],['Vai trước',30,0],['Cơ tam đầu',20,0]],
+  'Superman':[['Cơ lưng dưới',70,1],['Cơ mông',30,0]],
+  'Bird Dog':[['Core · Lưng dưới',70,1],['Cơ mông',30,0]],
+  'Flutter Kicks':[['Cơ bụng dưới',80,1],['Cơ gấp hông',20,0]],
+  'Crunch':[['Cơ bụng trên',85,1],['Cơ liên sườn',15,0]],
+  'Calf Raise Bodyweight':[['Bắp chân',92,1],['Soleus',8,0]],
+  'Bear Crawl':[['Core · Vai',60,1],['Cơ đùi trước',40,0]],
 };
 
 // Map nhóm cơ chính -> impact fallback khi bài chưa có trong EXERCISE_IMPACT
