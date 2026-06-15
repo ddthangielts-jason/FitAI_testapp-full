@@ -1557,8 +1557,8 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         <div style="font-size:10px;color:var(--lime);font-family:var(--FM);letter-spacing:.1em;margin-bottom:7px">⚡ TỔNG KẾT</div>
         <div style="font-size:13px;color:rgba(200,241,53,.85);line-height:1.65" id="weekly-review-txt">Nhấn để xem tổng kết tuần tập luyện...</div>
         <div style="display:flex;gap:7px;margin-top:10px">
-          <button class="btn bg" style="flex:1;height:34px;font-size:12px" onclick="renderProgress()">Review tuần</button>
-          <button class="btn bg" style="flex:1;height:34px;font-size:12px" onclick="renderProgress()">Tóm tắt tháng</button>
+          <button class="btn bg" style="flex:1;height:34px;font-size:12px" onclick="reviewWeek()">Review tuần</button>
+          <button class="btn bg" style="flex:1;height:34px;font-size:12px" onclick="monthSummary()">Tóm tắt tháng</button>
         </div>
       </div>
     </div>
@@ -2284,7 +2284,7 @@ const PLANS=[
    ]},
 ];
 
-const EXGIF={"Bench Press": "Barbell_Bench_Press_-_Medium_Grip", "Incline DB Press": "Incline_Dumbbell_Press", "Cable Fly": "Cable_Crossover", "Push Up": "Pushups", "Barbell Deadlift": "Barbell_Deadlift", "Pull-up": "Pullups", "Lat Pulldown": "Wide-Grip_Lat_Pulldown", "Seated Cable Row": "Seated_Cable_Rows", "Barbell Row": "Bent_Over_Barbell_Row", "DB Shoulder Press": "Dumbbell_Shoulder_Press", "Lateral Raise": "Side_Lateral_Raise", "Face Pull": "Face_Pull", "Overhead Press": "Standing_Military_Press", "Barbell Curl": "Barbell_Curl", "Hammer Curl": "Hammer_Curls", "Tricep Pushdown": "Triceps_Pushdown", "Barbell Squat": "Barbell_Full_Squat", "Leg Press": "Leg_Press", "Romanian DL": "Romanian_Deadlift", "Hip Thrust": "Barbell_Hip_Thrust", "Glute Bridge": "Butt_Lift_Bridge", "Plank": "Plank", "Calf Raise": "Standing_Calf_Raises", "Leg Curl": "Lying_Leg_Curls", "Chest Press Machine": "Leverage_Chest_Press", "Pec Deck": "Butterfly", "Dips": "Dips_-_Triceps_Version", "Seated Row Machine": "Leverage_High_Row", "T-Bar Row": "T-Bar_Row_with_Handle", "Single Arm DB Row": "One-Arm_Dumbbell_Row", "Cable Lateral Raise": "Cable_Seated_Lateral_Raise", "Arnold Press": "Arnold_Dumbbell_Press", "Upright Row": "Upright_Barbell_Row", "Preacher Curl": "Preacher_Curl", "Cable Curl": "Standing_Biceps_Cable_Curl", "Overhead Tricep Extension": "Standing_Dumbbell_Triceps_Extension", "Close Grip Bench": "Close-Grip_Barbell_Bench_Press", "Leg Extension": "Leg_Extensions", "Hack Squat": "Hack_Squat", "Sumo Deadlift": "Sumo_Deadlift", "Good Morning": "Good_Morning", "Donkey Kicks": "Glute_Kickback", "Cable Kickback": "Glute_Kickback", "Ab Wheel": "Ab_Roller", "Russian Twist": "Russian_Twist", "Dead Bug": "Dead_Bug", "Seated Calf Raise": "Seated_Calf_Raise", "Smith Machine Squat": "Smith_Machine_Squat", "Cable Pull Through": "Pull_Through", "Incline Curl": "Incline_Dumbbell_Curl", "EZ Bar Curl": "EZ-Bar_Curl", "Skull Crusher": "Lying_Triceps_Press", "Rope Pushdown": "Triceps_Pushdown_-_Rope_Attachment", "Seated Leg Curl": "Seated_Leg_Curl", "Hip Abduction": "Thigh_Abductor", "Reverse Fly": "Reverse_Flyes", "Dumbbell Shrug": "Dumbbell_Shrug", "Wrist Curl": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench", "Reverse Curl": "Reverse_Barbell_Curl", "Box Jump": "Box_Jump_Multiple_Response", "Cable Crossover": "Cable_Crossover", "Pec Deck Fly": "Butterfly", "Meadows Row": "One-Arm_Dumbbell_Row", "Chest Supported Row": "Incline_Bench_Pull", "Straight Arm Pulldown": "Straight-Arm_Pulldown", "Cable Face Pull": "Face_Pull", "Seated DB Press": "Seated_Dumbbell_Press", "Front Squat": "Front_Barbell_Squat", "Leg Press (Close Stance)": "Leg_Press", "Nordic Curl": "Lying_Leg_Curls", "Glute Kickback Cable": "Glute_Kickback", "Spider Curl": "Spider_Curl", "Overhead Cable Tricep": "Cable_Rope_Overhead_Triceps_Extension", "Hanging Leg Raise": "Hanging_Leg_Raise", "Cable Crunch": "Cable_Crunch", "Pallof Press": "Cable_Crunch", "Landmine Press": "Standing_Military_Press", "Cable Chest Press": "Cable_Chest_Press", "Pendlay Row": "Bent_Over_Barbell_Row", "Band Pull Apart": "Face_Pull", "Goblet Squat": "Goblet_Squat", "Machine Shoulder Press": "Machine_Shoulder_Military_Press", "Concentration Curl": "Concentration_Curls", "Hollow Body Hold": "Plank", "Ab Rollout": "Ab_Roller", "Side Plank": "Side_Bridge", "Smith Machine Hip Thrust": "Barbell_Hip_Thrust", "Single Arm Row": "One-Arm_Dumbbell_Row", "Hack Squat Machine": "Hack_Squat", "Reverse Grip Pulldown": "Close-Grip_Front_Lat_Pulldown", "Treadmill Walking Incline": "Walking_Treadmill", "Mountain Climber": "Mountain_Climbers", "Bulgarian Split Squat": "Split_Squat_with_Dumbbells", "Walking Lunge": "Bodyweight_Walking_Lunge", "Sissy Squat": "Weighted_Sissy_Squat", "Decline Bench Press": "Decline_Barbell_Bench_Press", "Cable Crossover Low": "Low_Cable_Crossover", "Dumbbell Pullover": "Bent-Arm_Dumbbell_Pullover", "Machine Fly": "Butterfly", "Svend Press": "Plate_Pinch", "Deficit Deadlift": "Deficit_Deadlift", "Rack Pull": "Rack_Pulls", "Wide Grip Pulldown": "Wide-Grip_Lat_Pulldown", "Inverted Row": "Inverted_Row", "Cable Pullover": "Cable_Incline_Pushdown", "Shrug Barbell": "Barbell_Shrug", "Behind Neck Press": "Standing_Military_Press", "Cable Front Raise": "Front_Cable_Raise", "Bent Over Reverse Fly": "Reverse_Flyes", "Cuban Press": "Cuban_Press", "Zottman Curl": "Zottman_Curl", "Cable Hammer Curl": "Cable_Hammer_Curls_-_Rope_Attachment", "Tricep Kickback": "Tricep_Dumbbell_Kickback", "Bench Dips": "Bench_Dips", "Wrist Curl Reverse": "Cable_Reverse_Crunch", "Pause Squat": "Barbell_Full_Squat", "Leg Press Single": "Leg_Press", "Step Up": "Dumbbell_Step_Ups", "Glute Ham Raise": "Natural_Glute_Ham_Raise", "Standing Calf Raise Barbell": "Standing_Barbell_Calf_Raise", "Cable Woodchopper": "Alternating_Cable_Shoulder_Press", "Decline Crunch": "Decline_Crunch", "Toes to Bar": "Hanging_Leg_Raise", "Jumping Jack": "Rope_Jumping", "Incline Bench Press": "Alternate_Incline_Dumbbell_Curl", "Smith Machine Bench": "Smith_Machine_Bench_Press", "Dumbbell Floor Press": "Floor_Press", "Cable Upper Chest Fly": "Low_Cable_Crossover", "Pull Up Wide": "Wide-Grip_Barbell_Bench_Press", "Chin Up": "Chin-Up", "Machine Row": "Seated_Cable_Rows", "Cable Row Wide": "Seated_Cable_Rows", "Hyperextension": "Hyperextensions_Back_Extensions", "Dumbbell Deadlift": "Alternate_Incline_Dumbbell_Curl", "Seated DB Lateral Raise": "Side_Lateral_Raise", "Machine Lateral Raise": "Side_Lateral_Raise", "Plate Front Raise": "Front_Plate_Raise", "Rear Delt Machine": "Reverse_Machine_Flyes", "Barbell Curl Wide": "Wide-Grip_Standing_Barbell_Curl", "Dumbbell Curl": "Dumbbell_Bicep_Curl", "Cable Tricep Overhead": "Cable_Rope_Overhead_Triceps_Extension", "Diamond Push Up": "Pushups_Close_and_Wide_Hand_Positions", "JM Press": "JM_Press", "Leg Press Wide": "Leg_Press", "Goblet Squat DB": "Goblet_Squat", "Dumbbell Lunge": "Dumbbell_Lunges", "Seated Leg Extension": "Leg_Extensions", "Standing Leg Curl": "Standing_Leg_Curl", "Calf Press Machine": "Calf_Press_On_The_Leg_Press_Machine", "Cable Crunch Kneeling": "Cable_Crunch", "Bicycle Crunch": "Air_Bike", "Leg Raise Lying": "Flat_Bench_Lying_Leg_Raise", "Plank Side": "Side_Bridge", "High Knees": "Mountain_Climbers"};
+const EXGIF={"Bench Press": "Barbell_Bench_Press_-_Medium_Grip", "Incline DB Press": "Incline_Dumbbell_Press", "Cable Fly": "Cable_Crossover", "Push Up": "Pushups", "Barbell Deadlift": "Barbell_Deadlift", "Pull-up": "Pullups", "Lat Pulldown": "Wide-Grip_Lat_Pulldown", "Seated Cable Row": "Seated_Cable_Rows", "Barbell Row": "Bent_Over_Barbell_Row", "DB Shoulder Press": "Dumbbell_Shoulder_Press", "Lateral Raise": "Side_Lateral_Raise", "Face Pull": "Face_Pull", "Overhead Press": "Standing_Military_Press", "Barbell Curl": "Barbell_Curl", "Hammer Curl": "Hammer_Curls", "Tricep Pushdown": "Triceps_Pushdown", "Barbell Squat": "Barbell_Full_Squat", "Leg Press": "Leg_Press", "Romanian DL": "Romanian_Deadlift", "Hip Thrust": "Barbell_Hip_Thrust", "Glute Bridge": "Butt_Lift_Bridge", "Plank": "Plank", "Calf Raise": "Standing_Calf_Raises", "Leg Curl": "Lying_Leg_Curls", "Chest Press Machine": "Leverage_Chest_Press", "Pec Deck": "Butterfly", "Dips": "Dips_-_Triceps_Version", "Seated Row Machine": "Leverage_High_Row", "T-Bar Row": "T-Bar_Row_with_Handle", "Single Arm DB Row": "One-Arm_Dumbbell_Row", "Cable Lateral Raise": "Cable_Seated_Lateral_Raise", "Arnold Press": "Arnold_Dumbbell_Press", "Upright Row": "Upright_Barbell_Row", "Preacher Curl": "Preacher_Curl", "Cable Curl": "Standing_Biceps_Cable_Curl", "Overhead Tricep Extension": "Standing_Dumbbell_Triceps_Extension", "Close Grip Bench": "Close-Grip_Barbell_Bench_Press", "Leg Extension": "Leg_Extensions", "Hack Squat": "Hack_Squat", "Sumo Deadlift": "Sumo_Deadlift", "Good Morning": "Good_Morning", "Donkey Kicks": "Glute_Kickback", "Cable Kickback": "Glute_Kickback", "Ab Wheel": "Ab_Roller", "Russian Twist": "Russian_Twist", "Dead Bug": "Dead_Bug", "Seated Calf Raise": "Seated_Calf_Raise", "Smith Machine Squat": "Smith_Machine_Squat", "Cable Pull Through": "Pull_Through", "Incline Curl": "Incline_Dumbbell_Curl", "EZ Bar Curl": "EZ-Bar_Curl", "Skull Crusher": "Lying_Triceps_Press", "Rope Pushdown": "Triceps_Pushdown_-_Rope_Attachment", "Seated Leg Curl": "Seated_Leg_Curl", "Hip Abduction": "Thigh_Abductor", "Reverse Fly": "Reverse_Flyes", "Dumbbell Shrug": "Dumbbell_Shrug", "Wrist Curl": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench", "Reverse Curl": "Reverse_Barbell_Curl", "Box Jump": "Box_Jump_Multiple_Response", "Cable Crossover": "Cable_Crossover", "Pec Deck Fly": "Butterfly", "Meadows Row": "One-Arm_Dumbbell_Row", "Chest Supported Row": "Incline_Bench_Pull", "Straight Arm Pulldown": "Straight-Arm_Pulldown", "Cable Face Pull": "Face_Pull", "Seated DB Press": "Seated_Dumbbell_Press", "Front Squat": "Front_Barbell_Squat", "Leg Press (Close Stance)": "Leg_Press", "Nordic Curl": "Lying_Leg_Curls", "Glute Kickback Cable": "Glute_Kickback", "Spider Curl": "Spider_Curl", "Overhead Cable Tricep": "Cable_Rope_Overhead_Triceps_Extension", "Hanging Leg Raise": "Hanging_Leg_Raise", "Cable Crunch": "Cable_Crunch", "Pallof Press": "Cable_Crunch", "Landmine Press": "Standing_Military_Press", "Cable Chest Press": "Cable_Chest_Press", "Pendlay Row": "Bent_Over_Barbell_Row", "Band Pull Apart": "Face_Pull", "Goblet Squat": "Goblet_Squat", "Machine Shoulder Press": "Machine_Shoulder_Military_Press", "Concentration Curl": "Concentration_Curls", "Hollow Body Hold": "Plank", "Ab Rollout": "Ab_Roller", "Side Plank": "Side_Bridge", "Smith Machine Hip Thrust": "Barbell_Hip_Thrust", "Single Arm Row": "One-Arm_Dumbbell_Row", "Hack Squat Machine": "Hack_Squat", "Reverse Grip Pulldown": "Close-Grip_Front_Lat_Pulldown", "Treadmill Walking Incline": "Walking_Treadmill", "Mountain Climber": "Mountain_Climbers", "Bulgarian Split Squat": "Split_Squat_with_Dumbbells", "Walking Lunge": "Bodyweight_Walking_Lunge", "Sissy Squat": "Weighted_Sissy_Squat", "Decline Bench Press": "Decline_Barbell_Bench_Press", "Cable Crossover Low": "Low_Cable_Crossover", "Dumbbell Pullover": "Bent-Arm_Dumbbell_Pullover", "Machine Fly": "Butterfly", "Svend Press": "Plate_Pinch", "Deficit Deadlift": "Deficit_Deadlift", "Rack Pull": "Rack_Pulls", "Wide Grip Pulldown": "Wide-Grip_Lat_Pulldown", "Inverted Row": "Inverted_Row", "Cable Pullover": "Cable_Incline_Pushdown", "Shrug Barbell": "Barbell_Shrug", "Behind Neck Press": "Standing_Military_Press", "Cable Front Raise": "Front_Cable_Raise", "Bent Over Reverse Fly": "Reverse_Flyes", "Cuban Press": "Cuban_Press", "Zottman Curl": "Zottman_Curl", "Cable Hammer Curl": "Cable_Hammer_Curls_-_Rope_Attachment", "Tricep Kickback": "Tricep_Dumbbell_Kickback", "Bench Dips": "Bench_Dips", "Wrist Curl Reverse": "Reverse_Barbell_Curl", "Pause Squat": "Barbell_Full_Squat", "Leg Press Single": "Leg_Press", "Step Up": "Dumbbell_Step_Ups", "Glute Ham Raise": "Natural_Glute_Ham_Raise", "Standing Calf Raise Barbell": "Standing_Barbell_Calf_Raise", "Cable Woodchopper": "Cable_Crunch", "Decline Crunch": "Decline_Crunch", "Toes to Bar": "Hanging_Leg_Raise", "Jumping Jack": "Rope_Jumping", "Incline Bench Press": "Incline_Dumbbell_Press", "Smith Machine Bench": "Smith_Machine_Bench_Press", "Dumbbell Floor Press": "Floor_Press", "Cable Upper Chest Fly": "Low_Cable_Crossover", "Pull Up Wide": "Pullups", "Chin Up": "Chin-Up", "Machine Row": "Seated_Cable_Rows", "Cable Row Wide": "Seated_Cable_Rows", "Hyperextension": "Hyperextensions_Back_Extensions", "Dumbbell Deadlift": "Romanian_Deadlift", "Seated DB Lateral Raise": "Side_Lateral_Raise", "Machine Lateral Raise": "Side_Lateral_Raise", "Plate Front Raise": "Front_Plate_Raise", "Rear Delt Machine": "Reverse_Machine_Flyes", "Barbell Curl Wide": "Wide-Grip_Standing_Barbell_Curl", "Dumbbell Curl": "Dumbbell_Bicep_Curl", "Cable Tricep Overhead": "Cable_Rope_Overhead_Triceps_Extension", "Diamond Push Up": "Pushups_Close_and_Wide_Hand_Positions", "JM Press": "JM_Press", "Leg Press Wide": "Leg_Press", "Goblet Squat DB": "Goblet_Squat", "Dumbbell Lunge": "Dumbbell_Lunges", "Seated Leg Extension": "Leg_Extensions", "Standing Leg Curl": "Standing_Leg_Curl", "Calf Press Machine": "Calf_Press_On_The_Leg_Press_Machine", "Cable Crunch Kneeling": "Cable_Crunch", "Bicycle Crunch": "Air_Bike", "Leg Raise Lying": "Flat_Bench_Lying_Leg_Raise", "Plank Side": "Side_Bridge", "High Knees": "Mountain_Climbers"};
 const EXGIF_BASE='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
 const EXERCISES=[
   {id:1,name:'Bench Press',nameVi:'Bench Press Barbell',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'SCVCLChPQFY',
@@ -2551,7 +2551,7 @@ const EXERCISES=[
    cues:['Cài cable cao hơn vai','Bước ra trước 1 bước','Kéo xuống vòng qua nhau','Squeeze ngực ở điểm cuối'],
    mistakes:['Khuỷu gập hoàn toàn','Không giữ ở đỉnh'],
    sets:{'muscle':'4×12-15','strength':'','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:66,name:'Pec Deck Fly',nameVi:'Pec Deck Fly',muscle:'chest',equip:'machine',emoji:'🦋',ytId:'Z57CtFmRMxA',
+  {id:66,name:'Pec Deck Fly',nameVi:'Pec Deck Fly',muscle:'chest',equip:'machine',emoji:'🦋',ytId:'eGjt4lk6g34',
    cues:['Ngồi thẳng lưng sát pad','Cánh tay song song sàn','Đưa 2 cánh tay về nhau','Hạ chậm cảm nhận stretch'],
    mistakes:['Nhấc hông','Khuỷu quá gập'],
    sets:{'muscle':'4×12-15','strength':'','endurance':'3×15-20'},diffVi:'Cơ bản'},
@@ -2736,7 +2736,7 @@ const EXERCISES=[
    cues:['Đứng trước cáp cao','Kéo thẳng tay xuống hông','Dùng lưng xô','Khuỷu cố định'],
    mistakes:['Cong khuỷu','Dùng tay trước'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Trung cấp'},
-  {id:117,name:'Shrug Barbell',nameVi:'Shrug Barbell',muscle:'back',equip:'barbell',emoji:'🏋️',ytId:'',
+  {id:117,name:'Shrug Barbell',nameVi:'Shrug Barbell',muscle:'shoulders',equip:'barbell',emoji:'🏋️',ytId:'',
    cues:['Cầm tạ trước đùi','Nhún vai lên cao tối đa','Giữ 1 giây ở đỉnh','Hạ chậm'],
    mistakes:['Xoay vai','Dùng tay kéo'],
    sets:{'muscle':'4×8-12','strength':'5×3-5','endurance':'3×15-20'},diffVi:'Cơ bản'},
@@ -4067,49 +4067,65 @@ function openAITip(id,name){
 function swapEx(id,name){
   const ex=findEx(name);
   if(!ex){toast('Không tìm thấy bài này trong database');return;}
-  // Find alternatives by same muscle group
-  const alts=EXERCISES.filter(e=>
-    e.muscle===ex.muscle&&e.id!==ex.id&&e.name!==ex.name
-  ).slice(0,8);
-  if(!alts.length){toast('Không có bài thay thế phù hợp');return;}
-  // Show a bottom sheet to pick replacement
-  showSwapSheet(id,name,alts);
+  // Same muscle group first (all of them, no cap), then allow searching everything
+  const alts=EXERCISES.filter(e=>e.muscle===ex.muscle&&e.id!==ex.id&&e.name!==ex.name);
+  showSwapSheet(id,name,alts,ex.muscle);
 }
 
-function showSwapSheet(id,currentName,alts){
-  // Remove existing swap sheet
+function renderSwapList(id,q){
+  q=(q||'').trim().toLowerCase();
+  const cur=document.getElementById('swap-sheet');
+  if(!cur)return;
+  const curName=cur.dataset.curname;
+  const curMuscle=cur.dataset.curmuscle;
+  let list;
+  if(q){
+    list=EXERCISES.filter(e=>e.name!==curName&&(
+      e.name.toLowerCase().includes(q)||(e.nameVi||'').toLowerCase().includes(q)||(muscleVi[e.muscle]||'').toLowerCase().includes(q)));
+  } else {
+    list=EXERCISES.filter(e=>e.muscle===curMuscle&&e.name!==curName);
+  }
+  const box=document.getElementById('swap-list');
+  if(!box)return;
+  if(!list.length){box.innerHTML='<div style="padding:24px;text-align:center;color:var(--txt3);font-size:13px">Không tìm thấy bài nào. Thử từ khoá khác.</div>';return;}
+  box.innerHTML=list.map(a=>`
+    <div onclick="doSwapEx('${id}','${a.name.replace(/'/g,"\\'")}');document.getElementById('swap-sheet').remove()"
+      style="display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--brd)"
+      onmouseenter="this.style.background='var(--bg3)'" onmouseleave="this.style.background=''">
+      <span style="font-size:24px">${a.emoji||'🏋️'}</span>
+      <div style="flex:1">
+        <div style="font-size:13.5px;font-weight:500">${a.nameVi||a.name}</div>
+        <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);margin-top:2px">${muscleVi[a.muscle]||a.muscle} · ${a.equip||'—'}</div>
+      </div>
+      <div style="font-size:20px;color:var(--txt3)">›</div>
+    </div>`).join('');
+}
+
+function showSwapSheet(id,currentName,alts,curMuscle){
   const existing=document.getElementById('swap-sheet');
   if(existing)existing.remove();
   const sheet=document.createElement('div');
   sheet.id='swap-sheet';
+  sheet.dataset.curname=currentName;
+  sheet.dataset.curmuscle=curMuscle||'';
   sheet.style.cssText='position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:flex;align-items:flex-end';
   sheet.innerHTML=`
-    <div style="background:var(--bg2);border-radius:20px 20px 0 0;border-top:1px solid var(--brd2);width:100%;max-width:430px;margin:0 auto;max-height:75dvh;display:flex;flex-direction:column">
+    <div style="background:var(--bg2);border-radius:20px 20px 0 0;border-top:1px solid var(--brd2);width:100%;max-width:430px;margin:0 auto;max-height:82dvh;display:flex;flex-direction:column">
       <div style="width:36px;height:4px;background:var(--brd2);border-radius:2px;margin:12px auto 0"></div>
-      <div style="padding:14px 16px;border-bottom:1px solid var(--brd)">
+      <div style="padding:14px 16px 10px;border-bottom:1px solid var(--brd)">
         <div style="font-size:15px;font-weight:600">Đổi bài tập</div>
-        <div style="font-size:11px;color:var(--txt3);margin-top:3px">Đang đổi: ${currentName}</div>
+        <div style="font-size:11px;color:var(--txt3);margin:3px 0 10px">Đang đổi: ${currentName}</div>
+        <input id="swap-search" placeholder="🔍 Tìm bài bất kỳ trong thư viện..." oninput="renderSwapList('${id}',this.value)"
+          style="width:100%;background:var(--bg3);border:1px solid var(--brd2);border-radius:12px;padding:11px 14px;color:var(--txt);font-size:13px;font-family:var(--FF)">
       </div>
-      <div style="overflow-y:auto;flex:1;padding:8px 0">
-        ${alts.map(a=>`
-          <div onclick="doSwapEx('${id}','${a.name}');document.getElementById('swap-sheet').remove()"
-            style="display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:background .1s;border-bottom:1px solid var(--brd)"
-            onmouseenter="this.style.background='var(--bg3)'"
-            onmouseleave="this.style.background=''">
-            <span style="font-size:24px">${a.emoji}</span>
-            <div style="flex:1">
-              <div style="font-size:13.5px;font-weight:500">${a.nameVi||a.name}</div>
-              <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);margin-top:2px">${a.muscle} · ${a.diffVi||'—'} · ${a.equip}</div>
-            </div>
-            <div style="font-size:20px;color:var(--txt3)">›</div>
-          </div>`).join('')}
-      </div>
+      <div id="swap-list" style="overflow-y:auto;flex:1;padding:4px 0"></div>
       <div style="padding:12px 16px calc(12px + env(safe-area-inset-bottom))">
         <button onclick="document.getElementById('swap-sheet').remove()" class="btn bg" style="width:100%;height:44px">Huỷ</button>
       </div>
     </div>`;
   sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.remove();});
   document.body.appendChild(sheet);
+  renderSwapList(id,'');
 }
 
 
@@ -6382,6 +6398,74 @@ function saveWorkoutTemplate(){
   ST.templates.push(template);
   save();toast(`✅ Đã lưu template "${template.name}"`);
 }
+// ════════════════════════════════════════════════════════
+// TỔNG KẾT TUẦN / THÁNG
+// ════════════════════════════════════════════════════════
+function parseViDate(s){
+  // "15/6/2026" -> Date
+  if(!s)return null;
+  const m=String(s).match(/(\d+)\/(\d+)\/(\d+)/);
+  if(!m)return null;
+  return new Date(+m[3],+m[2]-1,+m[1]);
+}
+function summarizeWorkouts(days,title){
+  const now=new Date();
+  const since=new Date(now.getTime()-days*86400000);
+  const ws=(ST.workouts||[]).filter(w=>{const d=parseViDate(w.date);return d&&d>=since;});
+  const sessions=ws.length;
+  const vol=ws.reduce((a,w)=>a+(w.vol||0),0);
+  const sets=ws.reduce((a,w)=>a+(w.totalSets||0),0);
+  const mins=ws.reduce((a,w)=>a+(w.dur||0),0);
+  // muscle group split from exercises
+  const grp={};
+  ws.forEach(w=>{Object.keys(w.exDetails||{}).forEach(nm=>{const ex=findEx(nm);if(ex){grp[ex.muscle]=(grp[ex.muscle]||0)+1;}});});
+  const grpVi={chest:'Ngực',back:'Lưng',shoulders:'Vai',arms:'Tay',legs:'Chân',glutes:'Mông',core:'Core',cardio:'Cardio'};
+  const grpSorted=Object.entries(grp).sort((a,b)=>b[1]-a[1]);
+  const maxG=grpSorted.length?grpSorted[0][1]:1;
+  let body='';
+  if(!sessions){
+    body=`<div style="text-align:center;padding:30px 10px;color:var(--txt3)"><div style="font-size:38px;margin-bottom:10px">📭</div><div style="font-size:14px">Chưa có buổi tập nào trong ${title.toLowerCase()}.<br>Bắt đầu buổi đầu tiên nhé! 💪</div></div>`;
+  } else {
+    body=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px">
+      <div style="background:var(--bg3);border:1px solid var(--brd);border-radius:14px;padding:14px"><div style="font-family:var(--FM);font-size:26px;font-weight:700;color:var(--lime)">${sessions}</div><div style="font-size:11px;color:var(--txt3)">buổi tập</div></div>
+      <div style="background:var(--bg3);border:1px solid var(--brd);border-radius:14px;padding:14px"><div style="font-family:var(--FM);font-size:26px;font-weight:700;color:var(--lime)">${vol.toLocaleString('vi-VN')}</div><div style="font-size:11px;color:var(--txt3)">kg tổng volume</div></div>
+      <div style="background:var(--bg3);border:1px solid var(--brd);border-radius:14px;padding:14px"><div style="font-family:var(--FM);font-size:26px;font-weight:700">${sets}</div><div style="font-size:11px;color:var(--txt3)">sets hoàn thành</div></div>
+      <div style="background:var(--bg3);border:1px solid var(--brd);border-radius:14px;padding:14px"><div style="font-family:var(--FM);font-size:26px;font-weight:700">${mins}</div><div style="font-size:11px;color:var(--txt3)">phút tập</div></div>
+    </div>
+    <div style="font-size:11px;font-family:var(--FM);color:var(--txt3);letter-spacing:.1em;margin-bottom:10px">NHÓM CƠ ĐÃ TẬP</div>
+    ${grpSorted.map(([g,c])=>`
+      <div style="margin-bottom:9px">
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:3px"><span>${grpVi[g]||g}</span><span style="font-family:var(--FM);color:var(--txt2)">${c} bài</span></div>
+        <div style="height:7px;background:var(--bg4);border-radius:4px;overflow:hidden"><div style="height:100%;width:${Math.round(c/maxG*100)}%;background:var(--lime);border-radius:4px"></div></div>
+      </div>`).join('')}
+    ${grpSorted.length>=2?`<div style="margin-top:14px;padding:12px;background:rgba(200,241,53,.06);border:1px solid rgba(200,241,53,.2);border-radius:12px;font-size:12.5px;color:var(--txt2);line-height:1.6">💡 Tập nhiều nhất: <b style="color:var(--lime)">${grpVi[grpSorted[0][0]]||grpSorted[0][0]}</b>. ${grpSorted.length<3?'Thử cân bằng thêm nhóm cơ khác để phát triển toàn diện.':'Cơ thể đang được tập khá cân bằng — giữ vững nhé!'}</div>`:''}`;
+  }
+  showSummaryModal(title,body);
+}
+function reviewWeek(){ summarizeWorkouts(7,'Tuần này'); }
+function monthSummary(){ summarizeWorkouts(30,'30 ngày qua'); }
+function showSummaryModal(title,bodyHtml){
+  const ex=document.getElementById('summary-modal');if(ex)ex.remove();
+  const m=document.createElement('div');
+  m.id='summary-modal';
+  m.style.cssText='position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.7);backdrop-filter:blur(5px);display:flex;align-items:flex-end';
+  m.innerHTML=`
+    <div style="background:var(--bg2);border-radius:22px 22px 0 0;border-top:1px solid var(--brd2);width:100%;max-width:430px;margin:0 auto;max-height:85dvh;display:flex;flex-direction:column">
+      <div style="width:36px;height:4px;background:var(--brd2);border-radius:2px;margin:12px auto 0"></div>
+      <div style="padding:16px 18px 12px;border-bottom:1px solid var(--brd);display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:17px;font-weight:700">⚡ Tổng kết · ${title}</div>
+        <button onclick="document.getElementById('summary-modal').remove()" style="width:30px;height:30px;border-radius:50%;background:var(--bg3);border:1px solid var(--brd2);color:var(--txt2);font-size:16px;cursor:pointer">✕</button>
+      </div>
+      <div style="overflow-y:auto;padding:18px">${bodyHtml}</div>
+      <div style="padding:12px 16px calc(12px + env(safe-area-inset-bottom))">
+        <button onclick="document.getElementById('summary-modal').remove()" class="btn bl" style="width:100%;height:46px">Đóng</button>
+      </div>
+    </div>`;
+  m.addEventListener('click',e=>{if(e.target===m)m.remove();});
+  document.body.appendChild(m);
+}
+
 function loadTemplate(i){
   const t=ST.templates[i];if(!t)return;
   initWorkout(t.name);
@@ -6389,16 +6473,25 @@ function loadTemplate(i){
   goTab('s-workout');
   notif('📋','Template đã load!',t.name);
 }
+function deleteTemplate(i,ev){
+  if(ev)ev.stopPropagation();
+  if(!ST.templates||!ST.templates[i])return;
+  const t=ST.templates[i];
+  if(!confirm('Xoá template "'+t.name+'"?'))return;
+  ST.templates.splice(i,1);
+  save();renderTemplates();toast('🗑 Đã xoá template');
+}
 function renderTemplates(){
   const el=document.getElementById('template-list');if(!el)return;
   if(!ST.templates?.length){el.innerHTML='<div class="xs muted" style="padding:4px 0">Chưa có template</div>';return;}
   el.innerHTML=ST.templates.map((t,i)=>`
-    <div class="rb" style="padding:8px 0;border-bottom:1px solid var(--brd)">
-      <div>
+    <div class="rb" style="padding:8px 0;border-bottom:1px solid var(--brd);gap:8px">
+      <div style="flex:1;min-width:0">
         <div style="font-size:13px;font-weight:500">${t.name}</div>
-        <div class="xs muted">${t.exercises.join(' · ').substring(0,40)}...</div>
+        <div class="xs muted" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.exercises.join(' · ')}</div>
       </div>
       <button class="btn bl bxs" onclick="loadTemplate(${i})">Dùng</button>
+      <button class="btn bxs" onclick="deleteTemplate(${i},event)" title="Xoá" style="width:38px;flex-shrink:0;background:var(--bg3);border:1px solid var(--brd2);color:var(--txt2)">🗑</button>
     </div>`).join('');
 }
 
@@ -8155,6 +8248,65 @@ const EXERCISE_MUSCLE_MAP={
   'Battle Rope':      {primary:['f-fdelt-l','f-fdelt-r','f-forearm-l','f-forearm-r'],secondary:['f-abs2-l','f-abs2-r'],label:'Shoulder · Forearm (Cond.)'},
   'Jump Rope':        {primary:['b-calf-l','b-calf-r'],secondary:['f-forearm-l','f-forearm-r','f-shin-l','f-shin-r'],label:'Calf · Conditioning'},
   'Treadmill Walking Incline':{primary:['b-calf-l','b-calf-r','b-glute-max-l','b-glute-max-r'],secondary:['b-ham-bic-l','b-ham-bic-r'],label:'Calf · Glute (Cardio)'},
+'Decline Bench Press':{primary:['f-pec-lower-l','f-pec-lower-r'],secondary:['b-tricep-long-l','b-tricep-long-r','f-fdelt-l','f-fdelt-r'],label:'Lower Pec · Tricep'},
+  'Cable Crossover Low':{primary:['f-pec-upper-l','f-pec-upper-r'],secondary:['f-fdelt-l','f-fdelt-r'],label:'Upper Pec'},
+  'Dumbbell Pullover':{primary:['f-pec-lower-l','f-pec-lower-r'],secondary:['b-lat-upper-l','b-lat-upper-r'],label:'Pec · Lat'},
+  'Machine Fly':{primary:['f-pec-lower-l','f-pec-lower-r','f-pec-upper-l','f-pec-upper-r'],secondary:['f-fdelt-l','f-fdelt-r'],label:'Inner Pec'},
+  'Svend Press':{primary:['f-pec-upper-l','f-pec-upper-r'],secondary:['f-fdelt-l','f-fdelt-r'],label:'Inner Upper Pec'},
+  'Incline Bench Press':{primary:['f-pec-upper-l','f-pec-upper-r'],secondary:['f-fdelt-l','f-fdelt-r','b-tricep-long-l','b-tricep-long-r'],label:'Upper Pec · Front Delt'},
+  'Smith Machine Bench':{primary:['f-pec-lower-l','f-pec-lower-r'],secondary:['b-tricep-long-l','b-tricep-long-r','f-fdelt-l','f-fdelt-r'],label:'Mid Pec · Tricep'},
+  'Dumbbell Floor Press':{primary:['f-pec-lower-l','f-pec-lower-r'],secondary:['b-tricep-long-l','b-tricep-long-r'],label:'Pec · Tricep'},
+  'Cable Upper Chest Fly':{primary:['f-pec-upper-l','f-pec-upper-r'],secondary:['f-fdelt-l','f-fdelt-r'],label:'Upper Pec'},
+  'Deficit Deadlift':{primary:['b-erector-l','b-erector-r','b-glute-max-l','b-glute-max-r'],secondary:['b-ham-bic-l','b-ham-bic-r','b-lat-upper-l','b-lat-upper-r'],label:'Lower Back · Glute'},
+  'Rack Pull':{primary:['b-erector-l','b-erector-r','b-trap-mid-l','b-trap-mid-r'],secondary:['b-glute-max-l','b-glute-max-r','b-lat-upper-l','b-lat-upper-r'],label:'Upper Back · Erector'},
+  'Wide Grip Pulldown':{primary:['b-lat-upper-l','b-lat-upper-r'],secondary:['f-bicep-l','f-bicep-r','b-trap-mid-l','b-trap-mid-r'],label:'Lats (Wide)'},
+  'Inverted Row':{primary:['b-lat-upper-l','b-lat-upper-r','b-rhomboid'],secondary:['f-bicep-l','f-bicep-r','b-rdelt-l','b-rdelt-r'],label:'Mid Back'},
+  'Cable Pullover':{primary:['b-lat-upper-l','b-lat-upper-r','b-lat-lower-l','b-lat-lower-r'],secondary:['b-tricep-long-l','b-tricep-long-r'],label:'Lats'},
+  'Shrug Barbell':{primary:['b-trap-upper-l','b-trap-upper-r'],secondary:['b-rdelt-l','b-rdelt-r'],label:'Upper Trap'},
+  'Pull Up Wide':{primary:['b-lat-upper-l','b-lat-upper-r'],secondary:['f-bicep-l','f-bicep-r','b-trap-mid-l','b-trap-mid-r'],label:'Lats (Wide)'},
+  'Chin Up':{primary:['b-lat-upper-l','b-lat-upper-r','f-bicep-l','f-bicep-r'],secondary:['b-trap-mid-l','b-trap-mid-r'],label:'Lat · Bicep'},
+  'Machine Row':{primary:['b-rhomboid','b-trap-mid-l','b-trap-mid-r'],secondary:['b-lat-upper-l','b-lat-upper-r','f-bicep-l','f-bicep-r'],label:'Mid Back'},
+  'Cable Row Wide':{primary:['b-rhomboid','b-trap-mid-l','b-trap-mid-r'],secondary:['b-rdelt-l','b-rdelt-r','b-lat-upper-l','b-lat-upper-r'],label:'Mid Back (Wide)'},
+  'Hyperextension':{primary:['b-erector-l','b-erector-r'],secondary:['b-glute-max-l','b-glute-max-r','b-ham-bic-l','b-ham-bic-r'],label:'Lower Back'},
+  'Dumbbell Deadlift':{primary:['b-erector-l','b-erector-r','b-glute-max-l','b-glute-max-r'],secondary:['b-ham-bic-l','b-ham-bic-r'],label:'Lower Back · Glute'},
+  'Behind Neck Press':{primary:['f-mdelt-l','f-mdelt-r','f-fdelt-l','f-fdelt-r'],secondary:['b-tricep-long-l','b-tricep-long-r','b-trap-upper-l','b-trap-upper-r'],label:'Side · Front Delt'},
+  'Cable Front Raise':{primary:['f-fdelt-l','f-fdelt-r'],secondary:['b-trap-upper-l','b-trap-upper-r'],label:'Front Delt'},
+  'Bent Over Reverse Fly':{primary:['b-rdelt-l','b-rdelt-r'],secondary:['b-rhomboid','b-trap-mid-l','b-trap-mid-r'],label:'Rear Delt'},
+  'Cuban Press':{primary:['b-rdelt-l','b-rdelt-r','f-mdelt-l','f-mdelt-r'],secondary:['b-trap-upper-l','b-trap-upper-r'],label:'Rear · Side Delt'},
+  'Seated DB Lateral Raise':{primary:['f-mdelt-l','f-mdelt-r'],secondary:['b-trap-upper-l','b-trap-upper-r'],label:'Side Delt'},
+  'Machine Lateral Raise':{primary:['f-mdelt-l','f-mdelt-r'],secondary:['b-trap-upper-l','b-trap-upper-r'],label:'Side Delt'},
+  'Plate Front Raise':{primary:['f-fdelt-l','f-fdelt-r'],secondary:['b-trap-upper-l','b-trap-upper-r'],label:'Front Delt'},
+  'Rear Delt Machine':{primary:['b-rdelt-l','b-rdelt-r'],secondary:['b-rhomboid','b-trap-mid-l','b-trap-mid-r'],label:'Rear Delt'},
+  'Zottman Curl':{primary:['f-bicep-l','f-bicep-r','f-forearm-l','f-forearm-r'],secondary:[],label:'Bicep · Forearm'},
+  'Cable Hammer Curl':{primary:['f-bicep-l','f-bicep-r','f-forearm-l','f-forearm-r'],secondary:[],label:'Bicep · Brachialis'},
+  'Tricep Kickback':{primary:['b-tricep-long-l','b-tricep-long-r'],secondary:[],label:'Tricep'},
+  'Bench Dips':{primary:['b-tricep-long-l','b-tricep-long-r'],secondary:['f-pec-lower-l','f-pec-lower-r','f-fdelt-l','f-fdelt-r'],label:'Tricep'},
+  'Wrist Curl Reverse':{primary:['f-forearm-l','f-forearm-r'],secondary:[],label:'Forearm'},
+  'Barbell Curl Wide':{primary:['f-bicep-l','f-bicep-r'],secondary:['f-forearm-l','f-forearm-r'],label:'Bicep (Wide)'},
+  'Dumbbell Curl':{primary:['f-bicep-l','f-bicep-r'],secondary:['f-forearm-l','f-forearm-r'],label:'Bicep'},
+  'Cable Tricep Overhead':{primary:['b-tricep-long-l','b-tricep-long-r'],secondary:[],label:'Tricep (Long Head)'},
+  'Diamond Push Up':{primary:['b-tricep-long-l','b-tricep-long-r'],secondary:['f-pec-lower-l','f-pec-lower-r','f-fdelt-l','f-fdelt-r'],label:'Tricep · Inner Chest'},
+  'JM Press':{primary:['b-tricep-long-l','b-tricep-long-r'],secondary:['f-pec-lower-l','f-pec-lower-r'],label:'Tricep'},
+  'Pause Squat':{primary:['f-quad-rect-l','f-quad-rect-r','f-quad-vas-l','f-quad-vas-r'],secondary:['b-glute-max-l','b-glute-max-r','b-ham-bic-l','b-ham-bic-r'],label:'Quads · Glute'},
+  'Leg Press Single':{primary:['f-quad-rect-l','f-quad-rect-r','f-quad-vas-l','f-quad-vas-r'],secondary:['b-glute-max-l','b-glute-max-r'],label:'Quads'},
+  'Step Up':{primary:['f-quad-rect-l','f-quad-rect-r'],secondary:['b-glute-max-l','b-glute-max-r','b-ham-bic-l','b-ham-bic-r'],label:'Quad · Glute'},
+  'Glute Ham Raise':{primary:['b-ham-bic-l','b-ham-bic-r','b-ham-semi-l','b-ham-semi-r'],secondary:['b-glute-max-l','b-glute-max-r','b-calf-l','b-calf-r'],label:'Hamstring'},
+  'Standing Calf Raise Barbell':{primary:['b-calf-l','b-calf-r'],secondary:[],label:'Calf'},
+  'Leg Press Wide':{primary:['f-quad-vas-l','f-quad-vas-r','b-glute-max-l','b-glute-max-r'],secondary:['f-quad-rect-l','f-quad-rect-r','b-ham-bic-l','b-ham-bic-r'],label:'Quad · Glute (Wide)'},
+  'Goblet Squat DB':{primary:['f-quad-rect-l','f-quad-rect-r','f-quad-vas-l','f-quad-vas-r'],secondary:['b-glute-max-l','b-glute-max-r'],label:'Quads'},
+  'Dumbbell Lunge':{primary:['f-quad-rect-l','f-quad-rect-r','b-glute-max-l','b-glute-max-r'],secondary:['b-ham-bic-l','b-ham-bic-r'],label:'Quad · Glute'},
+  'Seated Leg Extension':{primary:['f-quad-rect-l','f-quad-rect-r','f-quad-vas-l','f-quad-vas-r'],secondary:[],label:'Quads'},
+  'Standing Leg Curl':{primary:['b-ham-bic-l','b-ham-bic-r','b-ham-semi-l','b-ham-semi-r'],secondary:['b-calf-l','b-calf-r'],label:'Hamstring'},
+  'Calf Press Machine':{primary:['b-calf-l','b-calf-r'],secondary:[],label:'Calf'},
+  'Cable Woodchopper':{primary:['f-oblique-l','f-oblique-r'],secondary:['f-abs1-l','f-abs1-r','f-abs2-l','f-abs2-r'],label:'Obliques'},
+  'Decline Crunch':{primary:['f-abs1-l','f-abs1-r','f-abs2-l','f-abs2-r'],secondary:['f-oblique-l','f-oblique-r'],label:'Abs'},
+  'Toes to Bar':{primary:['f-abs3-l','f-abs3-r','f-abs2-l','f-abs2-r'],secondary:['f-oblique-l','f-oblique-r'],label:'Lower Abs'},
+  'Cable Crunch Kneeling':{primary:['f-abs1-l','f-abs1-r','f-abs2-l','f-abs2-r','f-abs3-l','f-abs3-r'],secondary:['f-oblique-l','f-oblique-r'],label:'Abs'},
+  'Bicycle Crunch':{primary:['f-oblique-l','f-oblique-r'],secondary:['f-abs1-l','f-abs1-r','f-abs2-l','f-abs2-r'],label:'Obliques · Abs'},
+  'Leg Raise Lying':{primary:['f-abs3-l','f-abs3-r'],secondary:['f-oblique-l','f-oblique-r'],label:'Lower Abs'},
+  'Plank Side':{primary:['f-oblique-l','f-oblique-r'],secondary:['f-abs2-l','f-abs2-r'],label:'Obliques'},
+  'Jumping Jack':{primary:['b-calf-l','b-calf-r'],secondary:['f-mdelt-l','f-mdelt-r','f-quad-rect-l','f-quad-rect-r'],label:'Full body'},
+  'High Knees':{primary:['f-quad-rect-l','f-quad-rect-r'],secondary:['f-abs2-l','f-abs2-r','b-calf-l','b-calf-r'],label:'Quad · Core'},
 };
 
 // ===== CƠ TÁC ĐỘNG (text + %) — nguồn thông tin chính, rõ ràng, không phụ thuộc màu =====
@@ -8221,6 +8373,65 @@ const EXERCISE_IMPACT={
   'Hanging Leg Raise':[['Cơ bụng dưới',75,'chính'],['Cơ gấp hông',25,'phụ']],
   'Cable Crunch':[['Cơ bụng (Rectus)',85,'chính'],['Cơ liên sườn',15,'phụ']],
   'Russian Twist':[['Cơ liên sườn (Obliques)',70,'chính'],['Cơ bụng',30,'phụ']],
+'Decline Bench Press':[['Ngực dưới',65,1],['Cơ tam đầu',20,0],['Vai trước',15,0]],
+  'Cable Crossover Low':[['Ngực trên',75,1],['Vai trước',25,0]],
+  'Dumbbell Pullover':[['Ngực (xương sườn)',55,1],['Cơ lưng xô',45,0]],
+  'Machine Fly':[['Ngực trong',85,1],['Vai trước',15,0]],
+  'Svend Press':[['Ngực trong trên',80,1],['Vai trước',20,0]],
+  'Incline Bench Press':[['Ngực trên',65,1],['Vai trước',20,0],['Cơ tam đầu',15,0]],
+  'Smith Machine Bench':[['Ngực',60,1],['Cơ tam đầu',25,0],['Vai trước',15,0]],
+  'Dumbbell Floor Press':[['Ngực',55,1],['Cơ tam đầu',35,0],['Vai trước',10,0]],
+  'Cable Upper Chest Fly':[['Ngực trên',80,1],['Vai trước',20,0]],
+  'Deficit Deadlift':[['Cơ lưng dưới · Mông',45,1],['Cơ đùi sau',30,0],['Cơ lưng xô · Thang',25,0]],
+  'Rack Pull':[['Cơ lưng trên · Thang',50,1],['Cơ lưng dưới',30,0],['Cơ mông',20,0]],
+  'Wide Grip Pulldown':[['Cơ lưng xô (bản rộng)',70,1],['Cơ tay trước',20,0],['Cơ thang',10,0]],
+  'Inverted Row':[['Cơ lưng giữa',55,1],['Cơ lưng xô',25,0],['Cơ tay trước',20,0]],
+  'Cable Pullover':[['Cơ lưng xô',80,1],['Cơ tam đầu (đầu dài)',20,0]],
+  'Shrug Barbell':[['Cơ thang trên (cầu vai)',90,1],['Vai sau',10,0]],
+  'Pull Up Wide':[['Cơ lưng xô',70,1],['Cơ tay trước',20,0],['Cơ thang',10,0]],
+  'Chin Up':[['Cơ lưng xô',55,1],['Cơ tay trước',35,0],['Cơ thang',10,0]],
+  'Machine Row':[['Cơ lưng giữa',60,1],['Cơ lưng xô',25,0],['Cơ tay trước',15,0]],
+  'Cable Row Wide':[['Cơ lưng giữa',55,1],['Vai sau',25,0],['Cơ lưng xô',20,0]],
+  'Hyperextension':[['Cơ lưng dưới',60,1],['Cơ mông',25,0],['Cơ đùi sau',15,0]],
+  'Dumbbell Deadlift':[['Cơ lưng dưới · Mông',50,1],['Cơ đùi sau',30,0],['Cơ lưng xô',20,0]],
+  'Behind Neck Press':[['Vai giữa + trước',65,1],['Cơ tam đầu',20,0],['Cơ thang',15,0]],
+  'Cable Front Raise':[['Vai trước',85,1],['Cơ thang trên',15,0]],
+  'Bent Over Reverse Fly':[['Vai sau',70,1],['Cơ trám · Thang giữa',30,0]],
+  'Cuban Press':[['Vai sau + giữa',75,1],['Cơ thang',25,0]],
+  'Seated DB Lateral Raise':[['Vai giữa',85,1],['Cơ thang trên',15,0]],
+  'Machine Lateral Raise':[['Vai giữa',88,1],['Cơ thang trên',12,0]],
+  'Plate Front Raise':[['Vai trước',85,1],['Cơ thang trên',15,0]],
+  'Rear Delt Machine':[['Vai sau',75,1],['Cơ trám · Thang giữa',25,0]],
+  'Zottman Curl':[['Cơ tay trước',55,1],['Cẳng tay',45,0]],
+  'Cable Hammer Curl':[['Cơ tay trước',60,1],['Cẳng tay · Cánh tay',40,0]],
+  'Tricep Kickback':[['Cơ tam đầu',95,1],['Cẳng tay',5,0]],
+  'Bench Dips':[['Cơ tam đầu',70,1],['Ngực dưới',20,0],['Vai trước',10,0]],
+  'Wrist Curl Reverse':[['Cẳng tay (mặt trên)',95,1],['—',5,0]],
+  'Barbell Curl Wide':[['Cơ tay trước (đầu trong)',85,1],['Cẳng tay',15,0]],
+  'Dumbbell Curl':[['Cơ tay trước (Biceps)',85,1],['Cẳng tay',15,0]],
+  'Cable Tricep Overhead':[['Cơ tam đầu (đầu dài)',90,1],['Cẳng tay',10,0]],
+  'Diamond Push Up':[['Cơ tam đầu',55,1],['Ngực trong',30,0],['Vai trước',15,0]],
+  'JM Press':[['Cơ tam đầu',80,1],['Ngực dưới',20,0]],
+  'Pause Squat':[['Cơ đùi trước',55,1],['Cơ mông',30,0],['Cơ đùi sau',15,0]],
+  'Leg Press Single':[['Cơ đùi trước',65,1],['Cơ mông',25,0],['Cơ đùi sau',10,0]],
+  'Step Up':[['Cơ đùi trước',50,1],['Cơ mông',35,0],['Cơ đùi sau',15,0]],
+  'Glute Ham Raise':[['Cơ đùi sau',75,1],['Cơ mông',15,0],['Bắp chân',10,0]],
+  'Standing Calf Raise Barbell':[['Bắp chân',92,1],['Soleus',8,0]],
+  'Leg Press Wide':[['Cơ đùi trong · Mông',55,1],['Cơ đùi trước',30,0],['Cơ đùi sau',15,0]],
+  'Goblet Squat DB':[['Cơ đùi trước',60,1],['Cơ mông',30,0],['Core',10,0]],
+  'Dumbbell Lunge':[['Cơ đùi trước',45,1],['Cơ mông',35,0],['Cơ đùi sau',20,0]],
+  'Seated Leg Extension':[['Cơ đùi trước',95,1],['—',5,0]],
+  'Standing Leg Curl':[['Cơ đùi sau',90,1],['Bắp chân',10,0]],
+  'Calf Press Machine':[['Bắp chân',90,1],['Soleus',10,0]],
+  'Cable Woodchopper':[['Cơ liên sườn',70,1],['Cơ bụng',30,0]],
+  'Decline Crunch':[['Cơ bụng trên',80,1],['Cơ liên sườn',20,0]],
+  'Toes to Bar':[['Cơ bụng dưới',75,1],['Cơ liên sườn',25,0]],
+  'Cable Crunch Kneeling':[['Cơ bụng',85,1],['Cơ liên sườn',15,0]],
+  'Bicycle Crunch':[['Cơ liên sườn',60,1],['Cơ bụng',40,0]],
+  'Leg Raise Lying':[['Cơ bụng dưới',80,1],['Cơ gấp hông',20,0]],
+  'Plank Side':[['Cơ liên sườn',75,1],['Cơ bụng',25,0]],
+  'Jumping Jack':[['Toàn thân (cardio)',100,1]],
+  'High Knees':[['Cơ đùi trước · Core',70,1],['Bắp chân',30,0]],
 };
 
 // Map nhóm cơ chính -> impact fallback khi bài chưa có trong EXERCISE_IMPACT
@@ -8243,7 +8454,7 @@ function renderMuscleImpact(muscle,exName,exNameVi){
   let html='<div style="font-size:10px;font-family:var(--FM);color:var(--txt3);letter-spacing:.1em;margin-bottom:10px">💪 CƠ TÁC ĐỘNG</div>';
   data.forEach(row=>{
     const name=row[0],pct=row[1],role=row[2];
-    const isMain=role==='chính';
+    const isMain=(role==='chính'||role===1||role==='1');
     const barColor=isMain?mainColor:'rgba(255,255,255,.25)';
     html+='<div style="margin-bottom:9px">'
       +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">'
@@ -8367,9 +8578,13 @@ function renderMuscleHighlight(muscle,exName){
     el.style.strokeWidth='1.4';
     el.style.filter='none';el.style.animation='none';
   });
-  // Reset clipped sub-regions (chest upper/lower, delt front/side) to transparent
+  // Reset clipped sub-regions (chest upper/lower, delt front/side) to transparent.
+  // QUAN TRỌNG: xóa cả stroke + opacity, nếu không viền màu cũ (vd đỏ) còn sót lại.
   document.querySelectorAll('.muscle-sub').forEach(el=>{
     el.style.fill='none';
+    el.style.stroke='none';
+    el.style.strokeWidth='0';
+    el.style.opacity='1';
     el.style.filter='none';el.style.animation='none';
   });
   if(!info)return;
