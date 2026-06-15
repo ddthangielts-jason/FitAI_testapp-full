@@ -8341,6 +8341,17 @@ function switchExTab(tab,btn){
   if(el)el.classList.add('show');
 }
 
+// Làm sáng một màu hex thêm `amt` (0-255) cho viền cơ nổi bật — mobile-safe, không cần filter
+function brightenColor(hex, amt){
+  try{
+    let h=hex.replace('#','');
+    if(h.length===3) h=h.split('').map(c=>c+c).join('');
+    let r=parseInt(h.slice(0,2),16), g=parseInt(h.slice(2,4),16), b=parseInt(h.slice(4,6),16);
+    r=Math.min(255,r+amt); g=Math.min(255,g+amt); b=Math.min(255,b+amt);
+    return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+  }catch(e){ return hex; }
+}
+
 function renderMuscleHighlight(muscle,exName){
   // Try per-exercise specific map first
   const exMap=exName?EXERCISE_MUSCLE_MAP[exName]:null;
@@ -8348,16 +8359,17 @@ function renderMuscleHighlight(muscle,exName){
   const color=MUSCLE_MAP[muscle]?.color||'#4d9fff';
   const secondColor=MUSCLE_MAP[muscle]?.secondColor||'rgba(77,159,255,.5)';
 
-  // Reset all to soft resting tone with subtle definition (muscle bellies visible)
+  // Reset all to soft resting tone. QUAN TRỌNG: dùng style.fill (inline) vì CSS class
+  // .muscle-region đặt fill qua var(--musRest) sẽ GHI ĐÈ presentation attribute fill="".
   document.querySelectorAll('.muscle-region').forEach(el=>{
-    el.setAttribute('fill','var(--musRest)');
-    el.setAttribute('stroke','#15171c');
-    el.setAttribute('stroke-width','1.4');
+    el.style.fill='var(--musRest)';
+    el.style.stroke='#15171c';
+    el.style.strokeWidth='1.4';
     el.style.filter='none';el.style.animation='none';
   });
   // Reset clipped sub-regions (chest upper/lower, delt front/side) to transparent
   document.querySelectorAll('.muscle-sub').forEach(el=>{
-    el.setAttribute('fill','none');
+    el.style.fill='none';
     el.style.filter='none';el.style.animation='none';
   });
   if(!info)return;
@@ -8365,11 +8377,15 @@ function renderMuscleHighlight(muscle,exName){
   const primary=exMap?.primary||info.primary||[];
   const secondary=exMap?.secondary||info.secondary||[];
 
-  // Primary - bright + pulse (resolve old id -> new anatomy paths)
+  // Primary - bright (mobile-safe: dùng style.fill + stroke đặc, KHÔNG dùng drop-shadow
+  // filter vì filter SVG render lỗi/xám trên nhiều trình duyệt điện thoại)
+  const lightStroke = brightenColor(color, 30);
   primary.forEach(id=>{
     muscleEls(id).forEach(el=>{
-      el.setAttribute('fill',color);
-      el.style.filter='drop-shadow(0 0 5px '+color+')';
+      el.style.fill=color;
+      el.style.stroke=lightStroke;
+      el.style.strokeWidth='2';
+      el.style.filter='';
       el.style.animation='musclePulse 1.8s ease-in-out infinite';
       el.parentNode.appendChild(el);
     });
@@ -8381,10 +8397,13 @@ function renderMuscleHighlight(muscle,exName){
     svgLabel.textContent=lbl;
     svgLabel.style.display='block';
   }
-  // Secondary - dimmer
+  // Secondary - dimmer (cũng không dùng filter)
   secondary.forEach(id=>{
     muscleEls(id).forEach(el=>{
-      el.setAttribute('fill',secondColor);
+      el.style.fill=secondColor;
+      el.style.stroke='#15171c';
+      el.style.strokeWidth='1.4';
+      el.style.filter='';
       el.style.animation='musclePulse 2.4s ease-in-out infinite .5s';
       el.parentNode.appendChild(el);
     });
@@ -8566,15 +8585,52 @@ function openExPanelFromWorkout(name){
   openExPanel(name,null);
 }
 
-// ═══ Swipe down to close panel ═══
+// ═══ Swipe down to close panel (chỉ khi kéo từ handle hoặc khi nội dung đã ở đỉnh) ═══
 (function(){
-  let sy=0;
   document.addEventListener('DOMContentLoaded',()=>{
     const panel=document.getElementById('ex-quick-panel');
     if(!panel)return;
-    panel.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true});
+    const handle=panel.querySelector('.ex-panel-handle');
+    const body=panel.querySelector('.ex-panel-body');
+    let sy=0, sx=0, tracking=false, fromHandle=false, dragging=false;
+
+    panel.addEventListener('touchstart',e=>{
+      const t=e.touches[0];
+      sy=t.clientY; sx=t.clientX; dragging=false;
+      fromHandle = !!(handle && (e.target===handle || handle.contains(e.target)));
+      // Cho phép kéo-đóng nếu: bắt đầu trên handle, HOẶC nội dung đang cuộn ở đỉnh
+      const atTop = !body || body.scrollTop<=0;
+      tracking = fromHandle || atTop;
+    },{passive:true});
+
+    panel.addEventListener('touchmove',e=>{
+      if(!tracking)return;
+      const t=e.touches[0];
+      const dy=t.clientY-sy, dx=t.clientX-sx;
+      // Chỉ coi là kéo-đóng khi: kéo XUỐNG, theo phương dọc rõ rệt (không phải cuộn ngang/đọc),
+      // và (nếu không từ handle) nội dung vẫn đang ở đỉnh.
+      if(dy>0 && Math.abs(dy)>Math.abs(dx)*1.5){
+        const atTop = !body || body.scrollTop<=0;
+        if(fromHandle || atTop){
+          dragging=true;
+          // kéo theo ngón tay cho cảm giác tự nhiên (chỉ khi đã vượt 1 ngưỡng nhỏ)
+          if(dy>6){
+            panel.style.transform='translateX(-50%) translateY('+Math.min(dy,400)+'px)';
+            panel.style.transition='none';
+          }
+        }
+      }
+    },{passive:true});
+
     panel.addEventListener('touchend',e=>{
-      if(e.changedTouches[0].clientY-sy>80)closeExPanel();
+      panel.style.transition='';
+      panel.style.transform='';
+      if(tracking && dragging){
+        const dy=e.changedTouches[0].clientY-sy;
+        // Ngưỡng đóng cao hơn (160px) để tránh đóng nhầm khi mới vuốt nhẹ
+        if(dy>160) closeExPanel();
+      }
+      tracking=false; dragging=false; fromHandle=false;
     },{passive:true});
   });
 })();
