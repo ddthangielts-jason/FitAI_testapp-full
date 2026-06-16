@@ -724,6 +724,10 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
 @keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
 .pop-in{animation:popIn .25s ease forwards}
 </style>
+<!-- Vercel Web Analytics: đếm lượt truy cập + sự kiện cài app.
+     Bật miễn phí trong Vercel Dashboard → Analytics. Số liệu xem tại đó. -->
+<script defer src="/_vercel/insights/script.js"></script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 </head>
 <body>
 
@@ -1197,10 +1201,6 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         <!-- Mood tracker -->
         <div class="sec-label" data-i18n="todayFeel">Cảm giác hôm nay</div>
         <div class="card" style="margin-bottom:10px" id="mood-tracker"></div>
-
-        <!-- Daily Challenge -->
-        <div class="sec-label" data-i18n="todayChallenge">Thách thức hôm nay</div>
-        <div class="card" style="margin-bottom:10px" id="daily-challenge"></div>
 
         <!-- Quick Stats -->
         <div class="sec-label" id="lbl-quick-stats" data-i18n="quickStats">Thống kê nhanh</div>
@@ -3644,8 +3644,6 @@ function renderHome(){
   renderHomeTodayStats();
   // Mood tracker
   renderMoodTracker();
-  // Daily challenge
-  renderDailyChallenge();
   // Recent
   const el=document.getElementById('home-recent');
   if(!ST.workouts.length){el.innerHTML='<div class="xs muted">Chưa có buổi tập nào. Bắt đầu ngay!</div>';return;}
@@ -3657,17 +3655,32 @@ function renderHome(){
 }
 function renderWeekStrip(){
   const days=['T2','T3','T4','T5','T6','T7','CN'];
-  const today=new Date().getDay();
+  const now=new Date();
+  const today=now.getDay();
   const todayIdx=today===0?6:today-1;
+  // Mốc đầu tuần (Thứ 2) của tuần hiện tại
+  const monday=new Date(now);monday.setHours(0,0,0,0);
+  monday.setDate(now.getDate()-todayIdx);
+  // Ngày nào trong tuần này đã có buổi tập thật (từ lịch sử)
+  const doneDays={};
+  (ST.workouts||[]).forEach(w=>{
+    const d=parseViDate(w.date);
+    if(!d)return;
+    d.setHours(0,0,0,0);
+    const diff=Math.floor((d-monday)/86400000);
+    if(diff>=0&&diff<7)doneDays[diff]=true;
+  });
   document.getElementById('week-strip').innerHTML=days.map((d,i)=>{
     let cls='wdd-rest',txt='';
-    if(i===todayIdx)cls='wdd-today';
-    if(ST.weekDone[i])cls='wdd-done',txt='✓';
-    if(ST.weekDone[i]&&i===todayIdx)cls='wdd-done';
-    return`<div class="week-day"><div class="week-day-lbl">${d}</div><div class="week-day-dot ${cls}" onclick="toggleWeekDay(${i})">${txt||''}</div></div>`;
+    const isDone=!!doneDays[i];
+    if(isDone){cls='wdd-done';txt='✓';}
+    else if(i===todayIdx){cls='wdd-today';}
+    else if(i>todayIdx){cls='wdd-rest';} // ngày tương lai
+    const dateNum=new Date(monday.getTime()+i*86400000).getDate();
+    return`<div class="week-day"><div class="week-day-lbl">${d}</div><div class="week-day-dot ${cls}" title="Ngày ${dateNum}">${txt||(i===todayIdx?'•':'')}</div></div>`;
   }).join('');
 }
-function toggleWeekDay(i){ST.weekDone[i]=!ST.weekDone[i];renderWeekStrip();}
+function toggleWeekDay(i){/* tuần tự động theo lịch sử tập — không cần toggle thủ công */}
 function renderTodayCard(){
   const el=document.getElementById('home-today');
   if(!ST.currentPlan){
@@ -4351,9 +4364,20 @@ function renderWHist(){
             <span style="color:var(--txt2)">${n}</span>
             <span class="mono" style="font-size:11px;color:var(--lime)">${d}</span>
           </div>`).join('')}
-        <button class="btn bd" style="margin-top:10px;height:34px;font-size:12px" onclick="event.stopPropagation();deleteWorkout(${i})">🗑 Xoá buổi tập này</button>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="btn bg" style="flex:1;height:34px;font-size:12px" onclick="event.stopPropagation();renameSavedWorkout(${i})">✎ Đổi tên</button>
+          <button class="btn bd" style="flex:1;height:34px;font-size:12px" onclick="event.stopPropagation();deleteWorkout(${i})">🗑 Xoá</button>
+        </div>
       </div>
     </div>`).join('');
+}
+function renameSavedWorkout(i){
+  const w=ST.workouts[i];if(!w)return;
+  const name=prompt('Đổi tên buổi tập:',w.title||'');
+  if(name===null)return;
+  w.title=(name.trim()||w.title||'Buổi tập');
+  save();renderWHist();
+  toast('✅ Đã đổi tên buổi tập');
 }
 function deleteWorkout(i){
   const w=ST.workouts[i];if(!w)return;
@@ -6430,6 +6454,29 @@ window.addEventListener('beforeinstallprompt',e=>{
       'Nhấn để cài như app thật — dùng offline, nhanh hơn',8000);
   },3000);
 });
+// ===== ĐO LƯỢT CÀI APP (PWA install analytics) =====
+// Gửi sự kiện tới Vercel Analytics (nếu bật) + Google Analytics (nếu có gtag).
+function trackEvent(name,props){
+  try{ if(window.va) window.va('event',{name:name,...(props||{})}); }catch(e){}
+  try{ if(window.gtag) window.gtag('event',name,props||{}); }catch(e){}
+}
+// 1) Khi người dùng cài thành công
+window.addEventListener('appinstalled',()=>{
+  trackEvent('pwa_installed',{});
+  try{localStorage.setItem('fitai_installed','1');}catch(e){}
+});
+// 2) Khi app được mở ở chế độ đã cài (standalone) — đếm "active installs"
+(function(){
+  const standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone;
+  if(standalone){
+    trackEvent('pwa_launch_standalone',{});
+    // chỉ đánh dấu "đã từng dùng bản cài" 1 lần/ngày để ước lượng người dùng thật
+    try{
+      const k='fitai_lastStandalone', today=new Date().toDateString();
+      if(localStorage.getItem(k)!==today){localStorage.setItem(k,today);trackEvent('pwa_daily_active',{});}
+    }catch(e){}
+  }
+})();
 function installPWA(){
   // Nhận diện thiết bị để hướng dẫn đúng cách
   const ua=navigator.userAgent||'';
@@ -7984,13 +8031,15 @@ function renderQuickStats(){
       ad.textContent=avg;
     } else {ad.textContent='--';}
   }
-  // This week count
+  // This week count (Thứ 2 đầu tuần, parse vi-VN chuẩn)
   const tw=document.getElementById('h-this-week');
   if(tw){
     const now=new Date();
-    const weekStart=new Date(now);weekStart.setDate(now.getDate()-now.getDay()+1);weekStart.setHours(0,0,0,0);
-    const count=ST.workouts.filter(w=>{
-      try{const d=new Date(w.date.split('/').reverse().join('-'));return d>=weekStart;}catch{return false;}
+    const todayIdx=now.getDay()===0?6:now.getDay()-1;
+    const monday=new Date(now);monday.setHours(0,0,0,0);monday.setDate(now.getDate()-todayIdx);
+    const count=(ST.workouts||[]).filter(w=>{
+      const d=parseViDate(w.date);if(!d)return false;d.setHours(0,0,0,0);
+      const diff=Math.floor((d-monday)/86400000);return diff>=0&&diff<7;
     }).length;
     tw.textContent=count;
   }
