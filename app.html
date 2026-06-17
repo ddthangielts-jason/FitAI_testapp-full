@@ -297,6 +297,8 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .xs{font-size:11.5px}
 .xxs{font-size:10px}
 .sec-label{font-size:10.5px;color:var(--txt3);text-transform:uppercase;letter-spacing:.1em;font-family:var(--FM);margin-bottom:10px;margin-top:18px}
+.prog-group-title{font-size:19px;font-weight:800;letter-spacing:-.01em;margin:26px 0 4px;padding-bottom:10px;border-bottom:1.5px solid var(--brd2)}
+.prog-group-title:first-of-type{margin-top:6px}
 
 /* ═══════════════════════════════════════════
    LAYOUT UTILITIES
@@ -1447,46 +1449,15 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
     <div style="flex:1;overflow-y:auto;padding:18px 16px 16px">
       <div style="font-family:var(--FD);font-size:30px;letter-spacing:.04em;margin-bottom:14px" id="progress-title">Tiến <span style="color:var(--lime)">độ</span></div>
 
-      <!-- 1RM Calculator -->
+      <!-- ══ NHÓM 1: SỨC MẠNH ══ -->
+      <div class="prog-group-title">💪 Sức mạnh</div>
+
       <div class="sec-label" style="margin-top:0">Estimated 1RM từ log của bạn</div>
       <div class="card" style="margin-bottom:10px" id="orm-card">
         <div class="xs muted" style="margin-bottom:10px">Tính tự động từ set nặng nhất trong lịch sử</div>
         <div id="orm-list"><div class="xs muted">Chưa có dữ liệu — bắt đầu tập để tính 1RM</div></div>
       </div>
 
-      <!-- Body weight chart -->
-      <div class="sec-label" style="margin-top:0">Cân nặng</div>
-      <div class="chart-card" style="margin-bottom:10px">
-        <div id="bw-chart"></div>
-      </div>
-
-      <!-- Workout Heatmap -->
-      <div class="sec-label" style="margin-top:0">Heatmap tập luyện</div>
-      <div class="chart-card" style="margin-bottom:10px">
-        <div id="workout-heatmap"></div>
-      </div>
-
-      <!-- BMI Visual -->
-      <div class="sec-label">BMI</div>
-      <div class="card" style="margin-bottom:10px">
-        <div id="bmi-indicator"></div>
-      </div>
-
-      <!-- PR Timeline -->
-      <div class="sec-label">Kỷ lục cá nhân (PR)</div>
-      <div class="card" style="margin-bottom:10px">
-        <div id="pr-timeline"></div>
-      </div>
-
-      <!-- Progressive Overload AI -->
-      <div class="sec-label">Smart Progressive Overload</div>
-      <div class="card-lime" style="margin-bottom:10px">
-        <div style="font-size:10px;color:var(--lime);font-family:var(--FM);letter-spacing:.1em;margin-bottom:6px">⚡ PHÂN TÍCH TIẾN ĐỘ</div>
-        <div style="font-size:13px;color:rgba(200,241,53,.85);line-height:1.65" id="progressive-log">Nhấn để phân tích tiến độ tập luyện...</div>
-        <button class="btn bg" style="margin-top:8px;height:34px;font-size:12px" onclick="renderProgress()">Phân tích tiến độ</button>
-      </div>
-
-      <!-- Charts -->
       <div class="sec-label" style="margin-top:0">Strength Progress</div>
       <div class="chart-card" id="bench-chart-card">
         <div class="rb"><div><div class="chart-title">Bench Press</div><div class="chart-sub">Estimated 1RM · 8 tuần</div></div><span class="tag tl" id="bench-delta">+0kg</span></div>
@@ -1506,37 +1477,40 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
         <div style="display:flex;justify-content:space-between;font-size:9.5px;color:var(--txt3);font-family:var(--FM);margin-top:3px" id="squat-lbls"></div>
       </div>
 
-      <!-- Weekly volume chart -->
-      <div class="sec-label" style="margin-top:0">Volume theo tuần</div>
-      <div class="chart-card" style="margin-bottom:10px">
-        <div id="weekly-vol-chart"></div>
-      </div>
-
-      <!-- Strength standards -->
       <div class="sec-label">Xếp hạng sức mạnh</div>
       <div class="card" style="margin-bottom:10px">
         <div id="strength-standards"></div>
       </div>
 
-      <!-- Body fat estimate -->
-      <div class="sec-label">Body fat (ước tính)</div>
-      <div class="card" style="margin-bottom:10px">
-        <div id="body-fat-display"></div>
+      <!-- ══ NHÓM 2: KHỐI LƯỢNG TẬP ══ -->
+      <div class="prog-group-title">📊 Khối lượng tập</div>
+
+      <div class="sec-label" style="margin-top:0">Volume theo tuần</div>
+      <div class="chart-card" style="margin-bottom:10px">
+        <div id="weekly-vol-chart"></div>
       </div>
 
-      <!-- Volume per muscle group -->
       <div class="sec-label">Volume theo nhóm cơ (tuần này)</div>
       <div class="chart-card" style="margin-bottom:10px">
         <div id="muscle-vol-chart"></div>
       </div>
 
-      <!-- Monthly Calendar -->
-      <div class="sec-label">Lịch tập tháng này</div>
-      <div class="card" style="margin-bottom:10px">
-        <div id="monthly-cal"></div>
+      <!-- Smart Progressive Overload -->
+      <div class="sec-label">Phân tích tiến độ thông minh</div>
+      <div class="card-lime" style="margin-bottom:10px">
+        <div style="font-size:10px;color:var(--lime);font-family:var(--FM);letter-spacing:.1em;margin-bottom:6px">⚡ PROGRESSIVE OVERLOAD</div>
+        <div style="font-size:13px;color:rgba(200,241,53,.85);line-height:1.65" id="progressive-log">Nhấn để phân tích tiến độ tập luyện...</div>
+        <button class="btn bg" style="margin-top:8px;height:34px;font-size:12px" onclick="analyzeProgressiveOverload()">Phân tích tiến độ</button>
       </div>
 
-      <!-- Body measurements -->
+      <!-- ══ NHÓM 3: CƠ THỂ ══ -->
+      <div class="prog-group-title">🧍 Cơ thể</div>
+
+      <div class="sec-label" style="margin-top:0">Cân nặng</div>
+      <div class="chart-card" style="margin-bottom:10px">
+        <div id="bw-chart"></div>
+      </div>
+
       <div class="sec-label">Số đo cơ thể</div>
       <div class="card" style="margin-bottom:10px" id="meas-card">
         <div class="meas-row"><div class="meas-icon">⚖️</div><div class="meas-label">Cân nặng</div><div><div class="meas-val" id="mv-weight">--</div><div class="meas-delta muted" id="md-weight"></div></div></div>
@@ -1547,18 +1521,32 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       </div>
       <button class="btn bg" style="margin-bottom:14px" onclick="openMeasModal()">+ Cập nhật số đo</button>
 
-      <!-- Achievements -->
+      <div class="g2" style="margin-bottom:10px">
+        <div><div class="sec-label" style="margin-top:0">BMI</div><div class="card" style="margin:0"><div id="bmi-indicator"></div></div></div>
+        <div><div class="sec-label" style="margin-top:0">Body fat (ước tính)</div><div class="card" style="margin:0"><div id="body-fat-display"></div></div></div>
+      </div>
+
+      <!-- ══ NHÓM 4: LỊCH SỬ & THÀNH TÍCH ══ -->
+      <div class="prog-group-title">🏆 Lịch sử &amp; thành tích</div>
+
+      <div class="sec-label" style="margin-top:0">Lịch tập tháng này</div>
+      <div class="card" style="margin-bottom:10px">
+        <div id="monthly-cal"></div>
+      </div>
+
+      <div class="sec-label">Kỷ lục cá nhân (PR)</div>
+      <div class="card" style="margin-bottom:10px">
+        <div id="pr-timeline"></div>
+      </div>
+
       <div class="sec-label">Thành tích</div>
       <div class="ach-grid" id="ach-grid" style="margin-bottom:14px"></div>
 
-      <!-- AI weekly review -->
-      <div class="sec-label">Tổng kết tuần</div>
+      <div class="sec-label">Tổng kết</div>
       <div class="card-lime" style="margin-bottom:10px">
-        <div style="font-size:10px;color:var(--lime);font-family:var(--FM);letter-spacing:.1em;margin-bottom:7px">⚡ TỔNG KẾT</div>
-        <div style="font-size:13px;color:rgba(200,241,53,.85);line-height:1.65" id="weekly-review-txt">Nhấn để xem tổng kết tuần tập luyện...</div>
-        <div style="display:flex;gap:7px;margin-top:10px">
-          <button class="btn bg" style="flex:1;height:34px;font-size:12px" onclick="reviewWeek()">Review tuần</button>
-          <button class="btn bg" style="flex:1;height:34px;font-size:12px" onclick="monthSummary()">Tóm tắt tháng</button>
+        <div style="display:flex;gap:7px">
+          <button class="btn bg" style="flex:1;height:40px;font-size:13px" onclick="reviewWeek()">📅 Review tuần</button>
+          <button class="btn bg" style="flex:1;height:40px;font-size:13px" onclick="monthSummary()">📆 Tóm tắt tháng</button>
         </div>
       </div>
     </div>
@@ -2987,7 +2975,167 @@ const EXERCISES=[
   {id:215,name:'Bear Crawl',nameVi:'Bò gấu (toàn thân)',muscle:'core',equip:'bodyweight',emoji:'🐻',ytId:'o0d2kQVCQNc',
    cues:['Quỳ 4 điểm gối hổng sàn','Bò tiến tay-chân đối nhau','Giữ lưng phẳng hông thấp','Nhịp đều'],
    mistakes:['Hông nhấp nhô','Đầu cúi'],
-   sets:{'muscle':'4×30s','strength':'4×20s','endurance':'3×45s'},diffVi:'Trung cấp'}
+   sets:{'muscle':'4×30s','strength':'4×20s','endurance':'3×45s'},diffVi:'Trung cấp'},
+  {id:220,name:'Incline Cable Fly',nameVi:'Cable Fly dốc lên',muscle:'chest',equip:'cable',emoji:'🔼',ytId:'taI4XduLpTk',
+   cues:['Ghế dốc 30-45°','Kéo cáp từ dưới lên','Siết ngực trên đỉnh','Khuỷu hơi cong'],
+   mistakes:['Khuỷu thẳng cứng','Dùng vai kéo'],
+   sets:{'muscle':'4×12-15','strength':'4×8-10','endurance':'3×20'},diffVi:'Trung cấp'},
+  {id:221,name:'Decline Cable Fly',nameVi:'Cable Fly dốc xuống',muscle:'chest',equip:'cable',emoji:'🔽',ytId:'taI4XduLpTk',
+   cues:['Kéo cáp từ trên xuống','Chụm tay trước hông','Siết ngực dưới','Giữ 1s'],
+   mistakes:['Giật mạnh','Khuỷu khoá'],
+   sets:{'muscle':'4×12-15','strength':'4×8','endurance':'3×20'},diffVi:'Trung cấp'},
+  {id:222,name:'Smith Incline Press',nameVi:'Smith Press dốc',muscle:'chest',equip:'machine',emoji:'🏗️',ytId:'SrqOu55lrYU',
+   cues:['Ghế dốc 30°','Hạ thanh xuống ngực trên','Đẩy thẳng lên','Giữ vai sau ổn định'],
+   mistakes:['Hạ quá nhanh','Lưng cong nhiều'],
+   sets:{'muscle':'4×10-12','strength':'4×6-8','endurance':'3×15'},diffVi:'Cơ bản'},
+  {id:223,name:'Plate Squeeze Press',nameVi:'Ép tạ đĩa đẩy',muscle:'chest',equip:'plate',emoji:'🍽️',ytId:'Cj6gNxQwhUg',
+   cues:['Ép 2 đĩa giữa lòng bàn tay','Đẩy thẳng ra trước','Siết ngực trong liên tục','Kéo về chậm'],
+   mistakes:['Lỏng tay','Đẩy lệch'],
+   sets:{'muscle':'4×15','strength':'4×10','endurance':'3×20'},diffVi:'Cơ bản'},
+  {id:224,name:'Around The World',nameVi:'Vòng tay tạ đơn',muscle:'chest',equip:'dumbbell',emoji:'🌐',ytId:'tNQjZMyKtns',
+   cues:['Nằm ngửa cầm 2 tạ','Vẽ vòng cung từ hông lên đầu','Giữ khuỷu hơi cong','Kiểm soát toàn bộ'],
+   mistakes:['Tạ quá nặng','Khuỷu gập'],
+   sets:{'muscle':'3×12','strength':'3×10','endurance':'3×15'},diffVi:'Trung cấp'},
+  {id:225,name:'Meadows Row',nameVi:'Meadows Row',muscle:'back',equip:'barbell',emoji:'🌾',ytId:'Z9aZUcz0Ym0',
+   cues:['Đứng vuông góc thanh landmine','1 tay kéo đầu thanh','Siết lưng xô','Hạ chậm có kiểm soát'],
+   mistakes:['Xoay thân','Dùng đà'],
+   sets:{'muscle':'4×10-12','strength':'4×8','endurance':'3×15'},diffVi:'Trung cấp'},
+  {id:226,name:'Chest Supported Row',nameVi:'Row tựa ngực',muscle:'back',equip:'machine',emoji:'🪑',ytId:'GZQjAyVUUYg',
+   cues:['Ngực tựa pad','Kéo tay về siết bả vai','Khuỷu sát thân','Hạ chậm'],
+   mistakes:['Nhấc ngực khỏi pad','Giật'],
+   sets:{'muscle':'4×12','strength':'4×8','endurance':'3×15'},diffVi:'Cơ bản'},
+  {id:227,name:'Straight Arm Pulldown',nameVi:'Kéo cáp tay thẳng',muscle:'back',equip:'cable',emoji:'📏',ytId:'7dHpsqB1V8s',
+   cues:['Tay thẳng kéo cáp xuống đùi','Siết lưng xô','Giữ khuỷu khoá nhẹ','Lên chậm'],
+   mistakes:['Gập khuỷu','Dùng tam đầu'],
+   sets:{'muscle':'4×12-15','strength':'4×10','endurance':'3×20'},diffVi:'Cơ bản'},
+  {id:228,name:'Pendlay Row',nameVi:'Pendlay Row',muscle:'back',equip:'barbell',emoji:'🔻',ytId:'rES7gnSEbAU',
+   cues:['Thân song song sàn','Kéo thanh từ sàn lên bụng dưới','Đặt lại sàn mỗi rep','Lưng phẳng'],
+   mistakes:['Lưng cong','Dùng đà hông'],
+   sets:{'muscle':'4×8-10','strength':'5×5','endurance':'3×12'},diffVi:'Nâng cao'},
+  {id:229,name:'Kroc Row',nameVi:'Kroc Row (1 tay nặng)',muscle:'back',equip:'dumbbell',emoji:'💥',ytId:'pYcpY20QaE8',
+   cues:['Tạ đơn nặng 1 tay','Kéo mạnh lên hông','Cho phép chút đà có kiểm soát','Nhiều reps'],
+   mistakes:['Mất kiểm soát hoàn toàn','Round lưng'],
+   sets:{'muscle':'4×15-20','strength':'4×10','endurance':'3×25'},diffVi:'Nâng cao'},
+  {id:230,name:'Z Press',nameVi:'Z Press (ngồi sàn)',muscle:'shoulders',equip:'barbell',emoji:'⚡',ytId:'aLttKMGvpQM',
+   cues:['Ngồi sàn chân duỗi','Đẩy thanh thẳng trên đầu','Giữ thân thẳng siết core','Hạ về vai'],
+   mistakes:['Ngả lưng','Đẩy lệch'],
+   sets:{'muscle':'4×8-10','strength':'5×5','endurance':'3×12'},diffVi:'Nâng cao'},
+  {id:231,name:'Lateral Raise Cable',nameVi:'Lateral Raise cáp',muscle:'shoulders',equip:'cable',emoji:'🔗',ytId:'PzsMitRdI_8',
+   cues:['Cáp sau lưng kéo ngang','Nâng tay đến ngang vai','Giữ căng liên tục','Hạ chậm'],
+   mistakes:['Vung đà','Nhún vai'],
+   sets:{'muscle':'4×12-15','strength':'4×10','endurance':'3×20'},diffVi:'Trung cấp'},
+  {id:232,name:'Front Plate Raise',nameVi:'Nâng đĩa trước mặt',muscle:'shoulders',equip:'plate',emoji:'🍽️',ytId:'hRJ6tR5-if0',
+   cues:['Cầm đĩa 2 tay','Nâng thẳng đến ngang mắt','Hạ chậm','Giữ thân thẳng'],
+   mistakes:['Ngả người','Vung đà'],
+   sets:{'muscle':'4×12','strength':'4×10','endurance':'3×15'},diffVi:'Cơ bản'},
+  {id:233,name:'Seated Arnold Press',nameVi:'Arnold Press ngồi',muscle:'shoulders',equip:'dumbbell',emoji:'🔄',ytId:'3ml7BH7mNwQ',
+   cues:['Bắt đầu lòng tay hướng mình','Xoay cổ tay khi đẩy lên','Hạ xoay ngược về','Kiểm soát'],
+   mistakes:['Xoay quá nhanh','Cong lưng'],
+   sets:{'muscle':'4×10-12','strength':'4×8','endurance':'3×15'},diffVi:'Trung cấp'},
+  {id:234,name:'Reverse Pec Deck',nameVi:'Pec Deck ngược (vai sau)',muscle:'shoulders',equip:'machine',emoji:'⏪',ytId:'ttvfGg9d76c',
+   cues:['Ngực tựa pad','Mở tay ra sau siết vai sau','Giữ khuỷu cao','Về chậm'],
+   mistakes:['Dùng lưng giữa nhiều','Giật'],
+   sets:{'muscle':'4×15','strength':'4×12','endurance':'3×20'},diffVi:'Cơ bản'},
+  {id:235,name:'Incline DB Curl',nameVi:'Cuốn tạ ghế dốc',muscle:'arms',equip:'dumbbell',emoji:'💪',ytId:'soxrZlIl35U',
+   cues:['Ngồi ghế dốc 45°','Tay duỗi thẳng xuống','Cuốn lên siết bắp tay','Hạ full duỗi'],
+   mistakes:['Vung vai','Không duỗi hết'],
+   sets:{'muscle':'4×10-12','strength':'4×8','endurance':'3×15'},diffVi:'Trung cấp'},
+  {id:236,name:'Concentration Curl',nameVi:'Cuốn tập trung',muscle:'arms',equip:'dumbbell',emoji:'🎯',ytId:'Jvj2wV0vOYU',
+   cues:['Ngồi tì khuỷu vào đùi trong','Cuốn 1 tay lên đỉnh','Siết bắp tay tối đa','Hạ chậm'],
+   mistakes:['Đung đưa thân','Dùng đà'],
+   sets:{'muscle':'4×12','strength':'4×10','endurance':'3×15'},diffVi:'Cơ bản'},
+  {id:237,name:'Spider Curl',nameVi:'Spider Curl',muscle:'arms',equip:'dumbbell',emoji:'🕷️',ytId:'xLNFfNa30lY',
+   cues:['Nằm sấp trên ghế dốc','Tay buông thẳng','Cuốn lên siết liên tục','Hạ chậm full'],
+   mistakes:['Đung đưa','Nửa tầm'],
+   sets:{'muscle':'4×12','strength':'4×10','endurance':'3×15'},diffVi:'Trung cấp'},
+  {id:238,name:'Close Grip Push Up',nameVi:'Hít đất tay hẹp',muscle:'arms',equip:'bodyweight',emoji:'🤲',ytId:'cfns5VDVVvk',
+   cues:['Tay đặt hẹp dưới ngực','Hạ thân giữ khuỷu sát người','Đẩy lên siết tam đầu','Thân thẳng'],
+   mistakes:['Khuỷu xòe','Mông cao'],
+   sets:{'muscle':'4×12-15','strength':'4×8','endurance':'3×20'},diffVi:'Cơ bản'},
+  {id:239,name:'Cable Rope Curl',nameVi:'Cuốn dây cáp',muscle:'arms',equip:'cable',emoji:'🪢',ytId:'TwD-YGVP4Bk',
+   cues:['Cầm dây cáp thấp','Cuốn lên xoay nhẹ cổ tay','Siết bắp tay','Hạ căng liên tục'],
+   mistakes:['Vung khuỷu','Dùng vai'],
+   sets:{'muscle':'4×12-15','strength':'4×10','endurance':'3×20'},diffVi:'Cơ bản'},
+  {id:240,name:'Dip Machine',nameVi:'Máy Dip (tam đầu)',muscle:'arms',equip:'machine',emoji:'⬇️',ytId:'wWxRwbXkw9w',
+   cues:['Ngồi máy dip','Đẩy tay xuống siết tam đầu','Giữ thân thẳng','Lên chậm'],
+   mistakes:['Vai gập trước','Nửa tầm'],
+   sets:{'muscle':'4×12','strength':'4×8-10','endurance':'3×15'},diffVi:'Cơ bản'},
+  {id:241,name:'Hack Squat Reverse',nameVi:'Hack Squat ngược',muscle:'legs',equip:'machine',emoji:'🔄',ytId:'xvjFdT5nTzc',
+   cues:['Quay mặt vào máy hack','Hạ xuống sâu','Đẩy gót lên','Tập trung mông + đùi sau'],
+   mistakes:['Gối đổ trong','Nông'],
+   sets:{'muscle':'4×10-12','strength':'4×8','endurance':'3×15'},diffVi:'Trung cấp'},
+  {id:242,name:'Sissy Squat Machine',nameVi:'Sissy Squat máy',muscle:'legs',equip:'machine',emoji:'🦵',ytId:'3Cm6_lL2RkA',
+   cues:['Ngả người ra sau gối tiến','Hạ thấp căng đùi trước','Đẩy lên','Giữ thân thẳng hàng'],
+   mistakes:['Gối quá tải','Mất thăng bằng'],
+   sets:{'muscle':'4×12-15','strength':'4×10','endurance':'3×20'},diffVi:'Nâng cao'},
+  {id:243,name:'Belt Squat',nameVi:'Belt Squat',muscle:'legs',equip:'machine',emoji:'🎽',ytId:'sCwUm84vSGc',
+   cues:['Đeo đai tạ ở hông','Squat xuống sâu','Đẩy gót lên','Lưng không chịu tải'],
+   mistakes:['Nông','Gối chụm'],
+   sets:{'muscle':'4×12-15','strength':'4×8','endurance':'3×20'},diffVi:'Trung cấp'},
+  {id:244,name:'Adductor Machine',nameVi:'Máy khép đùi trong',muscle:'legs',equip:'machine',emoji:'🔀',ytId:'GZQjAyVUUYg',
+   cues:['Ngồi máy 2 chân mở','Khép đùi vào siết đùi trong','Mở ra chậm','Giữ lưng tựa'],
+   mistakes:['Bật quá nhanh','Tải quá nặng'],
+   sets:{'muscle':'4×15-20','strength':'4×12','endurance':'3×25'},diffVi:'Cơ bản'},
+  {id:245,name:'Abductor Machine',nameVi:'Máy dạng đùi ngoài',muscle:'legs',equip:'machine',emoji:'↔️',ytId:'GZQjAyVUUYg',
+   cues:['Ngồi máy 2 chân khép','Mở đùi ra siết mông bên','Khép vào chậm','Hơi ngả người tập glute'],
+   mistakes:['Bật đà','Lưng cong'],
+   sets:{'muscle':'4×15-20','strength':'4×12','endurance':'3×25'},diffVi:'Cơ bản'},
+  {id:246,name:'Barbell Hip Thrust',nameVi:'Hip Thrust thanh đòn',muscle:'glutes',equip:'barbell',emoji:'🍑',ytId:'xDmFkJxPzeM',
+   cues:['Lưng trên tựa ghế','Thanh đòn đặt trên hông','Đẩy hông lên siết mông tối đa','Hạ chậm'],
+   mistakes:['Cong lưng dưới','Không khoá hông'],
+   sets:{'muscle':'4×10-12','strength':'4×6-8','endurance':'3×15'},diffVi:'Trung cấp'},
+  {id:247,name:'Cable Kickback',nameVi:'Đá chân sau cáp',muscle:'glutes',equip:'cable',emoji:'🦵',ytId:'Iwe6AmxVf7o',
+   cues:['Cổ chân gắn cáp thấp','Đá chân ra sau siết mông','Giữ thân thẳng','Về chậm'],
+   mistakes:['Cong lưng','Đà mạnh'],
+   sets:{'muscle':'4×12-15','strength':'4×12','endurance':'3×20'},diffVi:'Cơ bản'},
+  {id:248,name:'Frog Pump',nameVi:'Frog Pump',muscle:'glutes',equip:'bodyweight',emoji:'🐸',ytId:'YHnVl1Nv6e0',
+   cues:['Nằm ngửa 2 lòng bàn chân chạm nhau','Đẩy hông lên siết mông','Nhịp nhanh nhiều reps','Hạ nhẹ'],
+   mistakes:['Dùng lưng','Nửa tầm'],
+   sets:{'muscle':'4×20-25','strength':'4×15','endurance':'3×30'},diffVi:'Cơ bản'},
+  {id:249,name:'Curtsy Lunge',nameVi:'Chùng chân chéo',muscle:'glutes',equip:'bodyweight',emoji:'💃',ytId:'mscHQUYTSpQ',
+   cues:['Bước chéo ra sau','Hạ gối siết mông bên','Đẩy về','Đổi bên'],
+   mistakes:['Mất thăng bằng','Gối trước đổ trong'],
+   sets:{'muscle':'4×12 mỗi bên','strength':'4×8','endurance':'3×20'},diffVi:'Trung cấp'},
+  {id:250,name:'Single Leg Hip Thrust',nameVi:'Hip Thrust 1 chân',muscle:'glutes',equip:'bodyweight',emoji:'🦵',ytId:'jE_C0K-Mg2o',
+   cues:['Lưng tựa ghế 1 chân chống','Đẩy hông lên siết mông','Giữ hông cân bằng','Hạ chậm'],
+   mistakes:['Hông xoay','Không khoá đỉnh'],
+   sets:{'muscle':'4×12 mỗi chân','strength':'4×8','endurance':'3×15'},diffVi:'Trung cấp'},
+  {id:251,name:'Sumo Deadlift',nameVi:'Sumo Deadlift',muscle:'glutes',equip:'barbell',emoji:'🤼',ytId:'3ELI1Ip-pDM',
+   cues:['Chân rộng mũi hướng ngoài','Nắm thanh trong gối','Đẩy sàn đứng siết mông','Lưng phẳng'],
+   mistakes:['Round lưng','Hông lên trước'],
+   sets:{'muscle':'4×8-10','strength':'5×5','endurance':'3×12'},diffVi:'Nâng cao'},
+  {id:252,name:'Ab Rollout',nameVi:'Lăn bánh xe bụng',muscle:'core',equip:'other',emoji:'🎡',ytId:'rqiTPdK1c1w',
+   cues:['Quỳ cầm bánh xe','Lăn ra xa giữ core căng','Kéo về siết bụng','Không cong lưng'],
+   mistakes:['Võng lưng','Lăn quá xa mất kiểm soát'],
+   sets:{'muscle':'4×10-12','strength':'4×6-8','endurance':'3×15'},diffVi:'Nâng cao'},
+  {id:253,name:'Hanging Knee Raise',nameVi:'Co gối treo xà',muscle:'core',equip:'bodyweight',emoji:'🪜',ytId:'tNGV0Oz4nLY',
+   cues:['Treo xà tay thẳng','Co gối lên ngực siết bụng dưới','Hạ chậm','Không đung đưa'],
+   mistakes:['Dùng đà','Nửa tầm'],
+   sets:{'muscle':'4×12-15','strength':'4×10','endurance':'3×20'},diffVi:'Trung cấp'},
+  {id:254,name:'Cable Side Bend',nameVi:'Nghiêng hông cáp',muscle:'core',equip:'cable',emoji:'↘️',ytId:'0a0aQN6kfXc',
+   cues:['Cầm cáp 1 bên','Nghiêng người siết liên sườn','Về thẳng','Đổi bên'],
+   mistakes:['Xoay thân','Dùng đà'],
+   sets:{'muscle':'4×15 mỗi bên','strength':'4×12','endurance':'3×20'},diffVi:'Cơ bản'},
+  {id:255,name:'V-Up',nameVi:'Gập bụng chữ V',muscle:'core',equip:'bodyweight',emoji:'✌️',ytId:'iP2siQQzD6E',
+   cues:['Nằm ngửa tay chân duỗi','Nâng tay chân chạm nhau thành chữ V','Hạ chậm','Siết bụng đỉnh'],
+   mistakes:['Cong lưng','Giật cổ'],
+   sets:{'muscle':'4×12-15','strength':'4×10','endurance':'3×20'},diffVi:'Trung cấp'},
+  {id:256,name:'Battle Rope',nameVi:'Dây thừng chiến',muscle:'cardio',equip:'other',emoji:'🪢',ytId:'r9Ldy3i7suU',
+   cues:['Cầm 2 đầu dây','Đập sóng liên tục bằng vai/tay','Giữ gối hơi gập','Nhịp nhanh'],
+   mistakes:['Dừng nghỉ nhiều','Đứng thẳng cứng'],
+   sets:{'muscle':'4×30s','strength':'4×20s','endurance':'3×45s'},diffVi:'Trung cấp'},
+  {id:257,name:'Rowing Machine',nameVi:'Máy chèo thuyền',muscle:'cardio',equip:'machine',emoji:'🚣',ytId:'H0r_ZPXJLtg',
+   cues:['Đẩy chân trước','Kéo tay về bụng sau','Duỗi về theo thứ tự tay-thân-chân','Nhịp đều'],
+   mistakes:['Kéo tay trước chân','Cong lưng'],
+   sets:{'muscle':'4×500m','strength':'4×250m','endurance':'3×1000m'},diffVi:'Cơ bản'},
+  {id:258,name:'Stair Climber',nameVi:'Máy leo cầu thang',muscle:'cardio',equip:'machine',emoji:'🪜',ytId:'fjLZjBy3PfM',
+   cues:['Bước đều lên bậc','Giữ thân thẳng không tựa nhiều','Nhịp ổn định','Siết mông mỗi bước'],
+   mistakes:['Tựa tay quá nhiều','Bước hụt'],
+   sets:{'muscle':'4×5ph','strength':'4×3ph','endurance':'3×10ph'},diffVi:'Cơ bản'},
+  {id:259,name:'Mountain Climber Fast',nameVi:'Leo núi nhanh',muscle:'cardio',equip:'bodyweight',emoji:'⛰️',ytId:'nmwgirgXLYM',
+   cues:['Tư thế plank','Kéo gối lên ngực luân phiên nhanh','Giữ hông thấp','Core căng'],
+   mistakes:['Mông cao','Chậm rời rạc'],
+   sets:{'muscle':'4×30s','strength':'4×20s','endurance':'3×45s'},diffVi:'Cơ bản'}
 
 ];
 
@@ -8517,6 +8665,46 @@ const EXERCISE_MUSCLE_MAP={
   'Crunch':{primary:['f-abs1-l','f-abs1-r','f-abs2-l','f-abs2-r'],secondary:['f-oblique-l','f-oblique-r'],label:'Abs'},
   'Calf Raise Bodyweight':{primary:['b-calf-l','b-calf-r'],secondary:[],label:'Calf'},
   'Bear Crawl':{primary:['f-abs2-l','f-abs2-r','f-fdelt-l','f-fdelt-r'],secondary:['f-quad-rect-l','f-quad-rect-r'],label:'Core · Shoulder'},
+  'Incline Cable Fly':{primary:['f-pec-upper-l','f-pec-upper-r'],secondary:['f-fdelt-l','f-fdelt-r'],label:'Upper Pec'},
+  'Decline Cable Fly':{primary:['f-pec-lower-l','f-pec-lower-r'],secondary:['f-fdelt-l','f-fdelt-r'],label:'Lower Pec'},
+  'Smith Incline Press':{primary:['f-pec-upper-l','f-pec-upper-r'],secondary:['f-fdelt-l','f-fdelt-r','b-tricep-long-l','b-tricep-long-r'],label:'Upper Pec'},
+  'Plate Squeeze Press':{primary:['f-pec-upper-l','f-pec-upper-r'],secondary:['b-tricep-long-l','b-tricep-long-r'],label:'Inner Chest'},
+  'Around The World':{primary:['f-pec-upper-l','f-pec-upper-r','f-pec-lower-l','f-pec-lower-r'],secondary:['f-fdelt-l','f-fdelt-r'],label:'Chest (full)'},
+  'Meadows Row':{primary:['b-lat-upper-l','b-lat-upper-r'],secondary:['b-trap-mid-l','b-trap-mid-r','f-bicep-l','f-bicep-r'],label:'Lats'},
+  'Chest Supported Row':{primary:['b-rhomboid','b-trap-mid-l','b-trap-mid-r'],secondary:['b-lat-upper-l','b-lat-upper-r','f-bicep-l','f-bicep-r'],label:'Mid Back'},
+  'Straight Arm Pulldown':{primary:['b-lat-upper-l','b-lat-upper-r','b-lat-lower-l','b-lat-lower-r'],secondary:['b-tricep-long-l','b-tricep-long-r'],label:'Lats (isolation)'},
+  'Pendlay Row':{primary:['b-rhomboid','b-trap-mid-l','b-trap-mid-r'],secondary:['b-lat-upper-l','b-lat-upper-r','b-erector-l','b-erector-r'],label:'Mid Back · Power'},
+  'Kroc Row':{primary:['b-lat-upper-l','b-lat-upper-r'],secondary:['b-trap-upper-l','b-trap-upper-r','f-bicep-l','f-bicep-r'],label:'Lats (heavy)'},
+  'Z Press':{primary:['f-fdelt-l','f-fdelt-r','f-mdelt-l','f-mdelt-r'],secondary:['b-tricep-long-l','b-tricep-long-r','f-abs2-l','f-abs2-r'],label:'Shoulder · Core'},
+  'Lateral Raise Cable':{primary:['f-mdelt-l','f-mdelt-r'],secondary:['b-trap-upper-l','b-trap-upper-r'],label:'Side Delt'},
+  'Front Plate Raise':{primary:['f-fdelt-l','f-fdelt-r'],secondary:['b-trap-upper-l','b-trap-upper-r'],label:'Front Delt'},
+  'Seated Arnold Press':{primary:['f-fdelt-l','f-fdelt-r','f-mdelt-l','f-mdelt-r'],secondary:['b-tricep-long-l','b-tricep-long-r'],label:'Shoulder (3 đầu)'},
+  'Reverse Pec Deck':{primary:['b-rdelt-l','b-rdelt-r'],secondary:['b-rhomboid','b-trap-mid-l','b-trap-mid-r'],label:'Rear Delt'},
+  'Incline DB Curl':{primary:['f-bicep-l','f-bicep-r'],secondary:['f-forearm-l','f-forearm-r'],label:'Bicep (kéo dài)'},
+  'Concentration Curl':{primary:['f-bicep-l','f-bicep-r'],secondary:['f-forearm-l','f-forearm-r'],label:'Bicep (đỉnh)'},
+  'Spider Curl':{primary:['f-bicep-l','f-bicep-r'],secondary:['f-forearm-l','f-forearm-r'],label:'Bicep (đầu ngắn)'},
+  'Close Grip Push Up':{primary:['b-tricep-long-l','b-tricep-long-r'],secondary:['f-pec-lower-l','f-pec-lower-r','f-fdelt-l','f-fdelt-r'],label:'Tricep'},
+  'Cable Rope Curl':{primary:['f-bicep-l','f-bicep-r'],secondary:['f-forearm-l','f-forearm-r'],label:'Bicep'},
+  'Dip Machine':{primary:['b-tricep-long-l','b-tricep-long-r'],secondary:['f-pec-lower-l','f-pec-lower-r'],label:'Tricep'},
+  'Hack Squat Reverse':{primary:['b-glute-max-l','b-glute-max-r','b-ham-bic-l','b-ham-bic-r'],secondary:['f-quad-rect-l','f-quad-rect-r'],label:'Glute · Ham'},
+  'Sissy Squat Machine':{primary:['f-quad-rect-l','f-quad-rect-r','f-quad-vas-l','f-quad-vas-r'],secondary:[],label:'Quads (đỉnh)'},
+  'Belt Squat':{primary:['f-quad-rect-l','f-quad-rect-r','f-quad-vas-l','f-quad-vas-r'],secondary:['b-glute-max-l','b-glute-max-r'],label:'Quads (an toàn lưng)'},
+  'Adductor Machine':{primary:['f-quad-vas-l','f-quad-vas-r'],secondary:['b-glute-med-l','b-glute-med-r'],label:'Đùi trong'},
+  'Abductor Machine':{primary:['b-glute-med-l','b-glute-med-r'],secondary:['b-glute-max-l','b-glute-max-r'],label:'Mông bên'},
+  'Barbell Hip Thrust':{primary:['b-glute-max-l','b-glute-max-r'],secondary:['b-ham-bic-l','b-ham-bic-r'],label:'Glute'},
+  'Cable Kickback':{primary:['b-glute-max-l','b-glute-max-r'],secondary:['b-ham-bic-l','b-ham-bic-r'],label:'Glute (isolation)'},
+  'Frog Pump':{primary:['b-glute-max-l','b-glute-max-r'],secondary:['b-glute-med-l','b-glute-med-r'],label:'Glute'},
+  'Curtsy Lunge':{primary:['b-glute-med-l','b-glute-med-r','b-glute-max-l','b-glute-max-r'],secondary:['f-quad-rect-l','f-quad-rect-r'],label:'Glute bên'},
+  'Single Leg Hip Thrust':{primary:['b-glute-max-l','b-glute-max-r'],secondary:['b-ham-bic-l','b-ham-bic-r'],label:'Glute (1 chân)'},
+  'Sumo Deadlift':{primary:['b-glute-max-l','b-glute-max-r','b-ham-bic-l','b-ham-bic-r'],secondary:['b-erector-l','b-erector-r','f-quad-rect-l','f-quad-rect-r'],label:'Glute · Ham'},
+  'Ab Rollout':{primary:['f-abs1-l','f-abs1-r','f-abs2-l','f-abs2-r','f-abs3-l','f-abs3-r'],secondary:['f-oblique-l','f-oblique-r'],label:'Abs (toàn bộ)'},
+  'Hanging Knee Raise':{primary:['f-abs3-l','f-abs3-r'],secondary:['f-oblique-l','f-oblique-r'],label:'Lower Abs'},
+  'Cable Side Bend':{primary:['f-oblique-l','f-oblique-r'],secondary:['f-abs2-l','f-abs2-r'],label:'Obliques'},
+  'V-Up':{primary:['f-abs1-l','f-abs1-r','f-abs2-l','f-abs2-r','f-abs3-l','f-abs3-r'],secondary:['f-oblique-l','f-oblique-r'],label:'Abs'},
+  'Battle Rope':{primary:['f-fdelt-l','f-fdelt-r','f-forearm-l','f-forearm-r'],secondary:['f-abs2-l','f-abs2-r'],label:'Vai · Cardio'},
+  'Rowing Machine':{primary:['b-lat-upper-l','b-lat-upper-r','f-quad-rect-l','f-quad-rect-r'],secondary:['b-rhomboid','f-bicep-l','f-bicep-r'],label:'Toàn thân'},
+  'Stair Climber':{primary:['b-glute-max-l','b-glute-max-r','f-quad-rect-l','f-quad-rect-r'],secondary:['b-calf-l','b-calf-r'],label:'Mông · chân'},
+  'Mountain Climber Fast':{primary:['f-abs2-l','f-abs2-r','f-abs3-l','f-abs3-r'],secondary:['f-fdelt-l','f-fdelt-r','f-quad-rect-l','f-quad-rect-r'],label:'Core · Cardio'},
 };
 
 // ===== CƠ TÁC ĐỘNG (text + %) — nguồn thông tin chính, rõ ràng, không phụ thuộc màu =====
@@ -8658,6 +8846,46 @@ const EXERCISE_IMPACT={
   'Crunch':[['Cơ bụng trên',85,1],['Cơ liên sườn',15,0]],
   'Calf Raise Bodyweight':[['Bắp chân',92,1],['Soleus',8,0]],
   'Bear Crawl':[['Core · Vai',60,1],['Cơ đùi trước',40,0]],
+  'Incline Cable Fly':[['Ngực trên',80,1],['Vai trước',20,0]],
+  'Decline Cable Fly':[['Ngực dưới',80,1],['Vai trước',20,0]],
+  'Smith Incline Press':[['Ngực trên',65,1],['Vai trước',20,0],['Cơ tam đầu',15,0]],
+  'Plate Squeeze Press':[['Ngực trong',80,1],['Cơ tam đầu',20,0]],
+  'Around The World':[['Ngực (toàn bộ)',75,1],['Vai trước',25,0]],
+  'Meadows Row':[['Cơ lưng xô',65,1],['Cơ lưng giữa',20,0],['Cơ tay trước',15,0]],
+  'Chest Supported Row':[['Cơ lưng giữa',60,1],['Cơ lưng xô',25,0],['Cơ tay trước',15,0]],
+  'Straight Arm Pulldown':[['Cơ lưng xô',85,1],['Cơ tam đầu (đầu dài)',15,0]],
+  'Pendlay Row':[['Cơ lưng giữa',55,1],['Cơ lưng xô',25,0],['Lưng dưới',20,0]],
+  'Kroc Row':[['Cơ lưng xô',60,1],['Cơ thang',20,0],['Cơ tay trước',20,0]],
+  'Z Press':[['Vai (trước+giữa)',65,1],['Cơ tam đầu',20,0],['Core',15,0]],
+  'Lateral Raise Cable':[['Vai giữa',88,1],['Cơ thang trên',12,0]],
+  'Front Plate Raise':[['Vai trước',85,1],['Cơ thang trên',15,0]],
+  'Seated Arnold Press':[['Vai (trước+giữa)',75,1],['Cơ tam đầu',15,0],['Cơ thang',10,0]],
+  'Reverse Pec Deck':[['Vai sau',75,1],['Cơ trám · Thang giữa',25,0]],
+  'Incline DB Curl':[['Cơ tay trước (đầu dài)',88,1],['Cẳng tay',12,0]],
+  'Concentration Curl':[['Cơ tay trước (đỉnh)',90,1],['Cẳng tay',10,0]],
+  'Spider Curl':[['Cơ tay trước (đầu ngắn)',90,1],['Cẳng tay',10,0]],
+  'Close Grip Push Up':[['Cơ tam đầu',60,1],['Ngực trong',25,0],['Vai trước',15,0]],
+  'Cable Rope Curl':[['Cơ tay trước',85,1],['Cẳng tay',15,0]],
+  'Dip Machine':[['Cơ tam đầu',80,1],['Ngực dưới',20,0]],
+  'Hack Squat Reverse':[['Cơ mông · đùi sau',60,1],['Cơ đùi trước',40,0]],
+  'Sissy Squat Machine':[['Cơ đùi trước',95,1],['—',5,0]],
+  'Belt Squat':[['Cơ đùi trước',65,1],['Cơ mông',25,0],['Cơ đùi sau',10,0]],
+  'Adductor Machine':[['Cơ khép đùi (trong)',85,1],['Cơ mông bên',15,0]],
+  'Abductor Machine':[['Cơ mông bên (gluteus medius)',85,1],['Cơ mông lớn',15,0]],
+  'Barbell Hip Thrust':[['Cơ mông',75,1],['Cơ đùi sau',25,0]],
+  'Cable Kickback':[['Cơ mông',85,1],['Cơ đùi sau',15,0]],
+  'Frog Pump':[['Cơ mông',88,1],['Cơ mông bên',12,0]],
+  'Curtsy Lunge':[['Cơ mông bên + lớn',65,1],['Cơ đùi trước',35,0]],
+  'Single Leg Hip Thrust':[['Cơ mông',75,1],['Cơ đùi sau',25,0]],
+  'Sumo Deadlift':[['Cơ mông · đùi sau',55,1],['Cơ đùi trước',25,0],['Lưng dưới',20,0]],
+  'Ab Rollout':[['Cơ bụng (toàn bộ)',85,1],['Cơ liên sườn',15,0]],
+  'Hanging Knee Raise':[['Cơ bụng dưới',80,1],['Cơ gấp hông',20,0]],
+  'Cable Side Bend':[['Cơ liên sườn',88,1],['Cơ bụng',12,0]],
+  'V-Up':[['Cơ bụng (toàn bộ)',85,1],['Cơ liên sườn',15,0]],
+  'Battle Rope':[['Vai · cẳng tay',60,1],['Core',40,0]],
+  'Rowing Machine':[['Lưng · chân (cardio)',60,1],['Tay · core',40,0]],
+  'Stair Climber':[['Cơ mông · đùi (cardio)',70,1],['Bắp chân',30,0]],
+  'Mountain Climber Fast':[['Cơ bụng (cardio)',65,1],['Vai · đùi',35,0]],
 };
 
 // Map nhóm cơ chính -> impact fallback khi bài chưa có trong EXERCISE_IMPACT
