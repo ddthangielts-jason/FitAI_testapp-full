@@ -1,29 +1,22 @@
-# ✅ Cập nhật mới: Hình thu nhỏ bài tập (dễ chọn hơn)
+# ✅ Cập nhật: TẤT CẢ bài tập giờ đều có hình (201/201)
 
-## ⭐ Thêm hình minh hoạ vào danh sách bài tập
-Giờ người mới nhìn HÌNH là biết bài tập đó tập thế nào, không cần thêm vào buổi rồi mới xem GIF/video.
-Đã thêm thumbnail (ảnh thật của động tác) vào 4 chỗ:
-1. **Thư viện bài tập** (các thẻ bài) — ảnh lớn + nhãn ▶ VIDEO
-2. **Đổi bài tập** (swap sheet) — ảnh nhỏ bên trái mỗi bài
-3. **Tìm bài khi đang tập** (thanh tìm trong buổi) — ảnh nhỏ
-4. **Chọn bài khi tạo Plan** (day picker) — ảnh nhỏ
+15 bài trước đây chỉ có emoji (Burpee, Wall Sit, Bear Crawl, Bird Dog, Z Press, Pike Push Up, Rowing Machine, Stair Climber, Battle Rope, Belt Squat, Curtsy Lunge, Decline Cable Fly, Frog Pump, Jump Squat, Pseudo Planche Push Up) giờ đã có hình.
 
-Cách hoạt động: ảnh tải nhẹ (lazy-load, chỉ tải khi cuộn tới), nếu chưa tải xong/lỗi mạng thì hiện emoji thay thế → không bao giờ vỡ giao diện. 186/201 bài có ảnh thật; số còn lại hiện emoji.
+- 4 bài có hình CHÍNH XÁC: Battle Rope, Jump Squat, Rowing Machine, Stair Climber
+- 11 bài còn lại dùng hình ĐỘNG TÁC GẦN GIỐNG (database miễn phí không có đúng bài đó), được gắn nhãn "Hình minh hoạ gần đúng" để người dùng biết. Ví dụ: Burpee → dùng hình Mountain Climber (cùng kiểu toàn thân), Wall Sit → hình ngồi squat tĩnh, Z Press → hình đẩy vai ngồi.
+
+→ Giờ thư viện, đổi bài, tìm bài, chọn bài khi tạo plan — KHÔNG còn bài nào chỉ có emoji nữa.
 
 ---
-# Các sửa lỗi trước đó (vẫn còn trong bản này)
+# Đã có sẵn từ các bản trước
 
-- **Plan + Lịch đã gộp** (tab Plan có sub-tab Giáo án/Lịch tập, không còn tab Lịch riêng)
-- **Đổi bài hết trùng** (xoá 10 bài lặp, 211→201 bài)
-- **GIF**: 186/201 bài có hình (thêm 34), sửa 5 bài trỏ nhầm video, không còn ô đen khi lỗi mạng
-- **Lỗi icon chữ "F" + nhảy Safari**: thêm manifest + apple-touch-icon + service worker vào index, tạo icon-180/512 còn thiếu, tự chuyển vào /app khi mở từ icon đã cài, viết lại hướng dẫn cài đúng
-- **Logo** index đổi thành hình cơ bắp
-- Tính kg/reps cập nhật ngay khi sửa; đổi bài chèn đúng vị trí
-- PayOS + vercel.json đã sửa; service worker v7 tự xoá cache cũ
+- Thumbnail hình bài tập ở 4 chỗ: thư viện, đổi bài, tìm bài khi tập, chọn bài tạo plan (lazy-load, lỗi mạng thì hiện emoji đỡ)
+- Plan + Lịch đã gộp; đổi bài hết trùng (201 bài, 0 lặp)
+- Lỗi icon "F" + nhảy Safari đã sửa (manifest + apple-touch-icon + service worker + tự vào /app)
+- Logo cơ bắp; tính kg/reps cập nhật ngay; PayOS + vercel.json đã sửa; service worker v7
 
 ## Lưu ý
-- Thumbnail tải từ GitHub (hơi chậm ở VN nhưng lazy-load nên không cản app). Nếu sau này muốn nhanh tuyệt đối, có thể tải sẵn ảnh vào repo — việc lớn hơn, để dịp khác.
-- "Thông tin vào cơ": hệ thống đúng giải phẫu cho các bài chính. Nếu thấy bài CỤ THỂ nào sai, nhắn tên bài đó.
+Hình tải từ GitHub (hơi chậm ở VN, nhưng lazy-load + có emoji đỡ nên không cản app). 11 bài "gần đúng" là vì database miễn phí thiếu — nếu sau này muốn hình đúng 100% thì cần tự quay/thêm ảnh riêng cho các bài đó.
 
 ## Deploy
-Upload toàn bộ thư mục lên GitHub (giữ nguyên api/). Sau khi deploy, mở app đợi service worker v7 cập nhật; gỡ icon cũ + cài lại để nhận icon cơ bắp mới.
+Upload toàn bộ thư mục lên GitHub (giữ api/). Sau deploy: mở app đợi service worker v7 cập nhật; gỡ icon cũ + cài lại để nhận icon cơ bắp.
