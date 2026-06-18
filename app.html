@@ -154,6 +154,13 @@
 .ex-panel-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .ex-ptab-content{display:none;padding:16px}
 .ex-ptab-content.show{display:block}
+/* Plan screen sub-tabs (Giáo án / Lịch tập) */
+.plan-subtabs{display:flex;gap:0;flex-shrink:0;border-bottom:1px solid var(--brd);padding:0 16px;background:var(--bg)}
+.plan-subtab{flex:1;background:none;border:none;border-bottom:2.5px solid transparent;color:var(--txt3);font-family:var(--FF);font-size:14px;font-weight:600;padding:14px 0;cursor:pointer;transition:color .2s,border-color .2s}
+.plan-subtab.on{color:var(--lime);border-bottom-color:var(--lime)}
+.plan-panel{display:none;flex:1;flex-direction:column;min-height:0;overflow:hidden}
+.plan-panel.show{display:flex}
+#s-plan.active{overflow:hidden}
 
 /* Muscle diagram */
 .muscle-diagram-wrap{
@@ -1306,9 +1313,17 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
     </div>
   </div>
 
-  <!-- ── PLAN EXPLORE ── -->
+  <!-- ── PLAN + LỊCH (gộp) ── -->
   <div class="screen" id="s-plan">
-    <div style="padding:18px 16px 10px;flex-shrink:0">
+    <!-- Sub-tabs -->
+    <div class="plan-subtabs">
+      <button class="plan-subtab on" id="pst-program" onclick="switchPlanTab('program')">📋 Giáo án</button>
+      <button class="plan-subtab" id="pst-calendar" onclick="switchPlanTab('calendar')">📅 Lịch tập</button>
+    </div>
+
+    <!-- PANEL: GIÁO ÁN -->
+    <div class="plan-panel show" id="plan-panel-program">
+    <div style="padding:14px 16px 10px;flex-shrink:0">
       <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:14px">
         <div style="font-family:var(--FD);font-size:30px;letter-spacing:.04em">Kho <span style="color:var(--lime)">Plan</span></div>
         <span style="font-size:11px;color:var(--txt3);font-family:var(--FM)" id="plan-count-badge">16 programs</span>
@@ -1328,7 +1343,44 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       <button class="btn bl" style="margin-top:10px;height:42px;font-size:14px;font-weight:600" onclick="openPlanBuilder()">+ Tạo plan của riêng tôi</button>
     </div>
     <div style="flex:1;overflow-y:auto;padding:8px 16px 16px" id="plan-list"></div>
+    </div>
+    <!-- /PANEL GIÁO ÁN -->
+
+    <!-- PANEL: LỊCH TẬP -->
+    <div class="plan-panel" id="plan-panel-calendar">
+      <div style="padding:14px 16px 12px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-family:var(--FD);font-size:26px;letter-spacing:.04em">Lịch <span style="color:var(--lime)">tập</span></div>
+        <div class="row" style="gap:6px">
+          <button id="sched-prev" onclick="schedMonth(-1)" style="background:var(--bg3);border:1px solid var(--brd);color:var(--txt2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px">‹</button>
+          <button onclick="schedToday()" style="background:var(--bg3);border:1px solid var(--brd);color:var(--lime);padding:0 12px;height:32px;border-radius:8px;cursor:pointer;font-size:11px;font-family:var(--FM)">Hôm nay</button>
+          <button id="sched-next" onclick="schedMonth(1)" style="background:var(--bg3);border:1px solid var(--brd);color:var(--txt2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px">›</button>
+        </div>
+      </div>
+      <div style="padding:0 16px;flex-shrink:0">
+        <div class="row" style="gap:12px;margin-bottom:10px">
+          <div class="row" style="gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:var(--lime)"></div><span class="xxs muted">Đã tập</span></div>
+          <div class="row" style="gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:var(--blue)"></div><span class="xxs muted">Theo lịch</span></div>
+          <div class="row" style="gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:var(--red)"></div><span class="xxs muted">Bỏ tập</span></div>
+        </div>
+        <div style="font-size:14px;font-weight:500;margin-bottom:10px;text-align:center" id="sched-month-lbl"></div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px">
+          <div class="xxs muted" style="text-align:center">T2</div>
+          <div class="xxs muted" style="text-align:center">T3</div>
+          <div class="xxs muted" style="text-align:center">T4</div>
+          <div class="xxs muted" style="text-align:center">T5</div>
+          <div class="xxs muted" style="text-align:center">T6</div>
+          <div class="xxs muted" style="text-align:center">T7</div>
+          <div class="xxs muted" style="text-align:center">CN</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px" id="sched-grid"></div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:12px 16px" id="sched-detail">
+        <div class="xs muted">Nhấn vào ngày để xem chi tiết</div>
+      </div>
+    </div>
+    <!-- /PANEL LỊCH TẬP -->
   </div>
+
 
 
   <!-- ── NUTRITION ── -->
@@ -1666,44 +1718,6 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
     </div>
   </div>
 
-  <!-- ── SCHEDULE ── -->
-  <div class="screen" id="s-schedule">
-    <div style="padding:18px 16px 12px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between">
-      <div style="font-family:var(--FD);font-size:28px;letter-spacing:.04em">My <span style="color:var(--lime)">Schedule</span></div>
-      <div class="row" style="gap:6px">
-        <button id="sched-prev" onclick="schedMonth(-1)" style="background:var(--bg3);border:1px solid var(--brd);color:var(--txt2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px">‹</button>
-        <button onclick="schedToday()" style="background:var(--bg3);border:1px solid var(--brd);color:var(--lime);padding:0 12px;height:32px;border-radius:8px;cursor:pointer;font-size:11px;font-family:var(--FM)">Today</button>
-        <button id="sched-next" onclick="schedMonth(1)" style="background:var(--bg3);border:1px solid var(--brd);color:var(--txt2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px">›</button>
-      </div>
-    </div>
-    <div style="padding:0 16px;flex-shrink:0">
-      <!-- Legend -->
-      <div class="row" style="gap:12px;margin-bottom:10px">
-        <div class="row" style="gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:var(--lime)"></div><span class="xxs muted">Finish</span></div>
-        <div class="row" style="gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:var(--blue)"></div><span class="xxs muted">Scheduled</span></div>
-        <div class="row" style="gap:4px"><div style="width:8px;height:8px;border-radius:50%;background:var(--red)"></div><span class="xxs muted">Skip</span></div>
-      </div>
-      <!-- Month label -->
-      <div style="font-size:14px;font-weight:500;margin-bottom:10px;text-align:center" id="sched-month-lbl"></div>
-      <!-- Day headers -->
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px">
-        <div class="xxs muted" style="text-align:center">S</div>
-        <div class="xxs muted" style="text-align:center">M</div>
-        <div class="xxs muted" style="text-align:center">T</div>
-        <div class="xxs muted" style="text-align:center">W</div>
-        <div class="xxs muted" style="text-align:center">T</div>
-        <div class="xxs muted" style="text-align:center">F</div>
-        <div class="xxs muted" style="text-align:center">S</div>
-      </div>
-      <!-- Calendar grid -->
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px" id="sched-grid"></div>
-    </div>
-    <!-- Selected day detail -->
-    <div style="flex:1;overflow-y:auto;padding:12px 16px" id="sched-detail">
-      <div class="xs muted">Nhấn vào ngày để xem chi tiết</div>
-    </div>
-  </div>
-
   <!-- ── SETTINGS (bottom sheet) ── -->
   <div id="settings-sheet" style="position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.9);display:none;align-items:flex-end;max-width:430px;margin:0 auto">
     <div style="background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-height:85vh;overflow-y:auto;border-top:1px solid var(--brd2)">
@@ -1828,10 +1842,6 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
     <button class="bni" onclick="goTab('s-plan')" id="bn-plan">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
       <span data-i18n="navPlan">Plan</span>
-    </button>
-    <button class="bni" onclick="goTab('s-schedule')" id="bn-schedule">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <span data-i18n="navSchedule">Lịch</span>
     </button>
     <button class="bni" onclick="goTab('s-progress')" id="bn-progress">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
@@ -2272,8 +2282,22 @@ const PLANS=[
    ]},
 ];
 
-const EXGIF={"Bench Press": "Barbell_Bench_Press_-_Medium_Grip", "Incline DB Press": "Incline_Dumbbell_Press", "Cable Fly": "Cable_Crossover", "Push Up": "Pushups", "Barbell Deadlift": "Barbell_Deadlift", "Pull-up": "Pullups", "Lat Pulldown": "Wide-Grip_Lat_Pulldown", "Seated Cable Row": "Seated_Cable_Rows", "Barbell Row": "Bent_Over_Barbell_Row", "DB Shoulder Press": "Dumbbell_Shoulder_Press", "Lateral Raise": "Side_Lateral_Raise", "Face Pull": "Face_Pull", "Overhead Press": "Standing_Military_Press", "Barbell Curl": "Barbell_Curl", "Hammer Curl": "Hammer_Curls", "Tricep Pushdown": "Triceps_Pushdown", "Barbell Squat": "Barbell_Full_Squat", "Leg Press": "Leg_Press", "Romanian DL": "Romanian_Deadlift", "Hip Thrust": "Barbell_Hip_Thrust", "Glute Bridge": "Butt_Lift_Bridge", "Plank": "Plank", "Calf Raise": "Standing_Calf_Raises", "Leg Curl": "Lying_Leg_Curls", "Chest Press Machine": "Leverage_Chest_Press", "Pec Deck": "Butterfly", "Dips": "Dips_-_Triceps_Version", "Seated Row Machine": "Leverage_High_Row", "T-Bar Row": "T-Bar_Row_with_Handle", "Single Arm DB Row": "One-Arm_Dumbbell_Row", "Cable Lateral Raise": "Cable_Seated_Lateral_Raise", "Arnold Press": "Arnold_Dumbbell_Press", "Upright Row": "Upright_Barbell_Row", "Preacher Curl": "Preacher_Curl", "Cable Curl": "Standing_Biceps_Cable_Curl", "Overhead Tricep Extension": "Standing_Dumbbell_Triceps_Extension", "Close Grip Bench": "Close-Grip_Barbell_Bench_Press", "Leg Extension": "Leg_Extensions", "Hack Squat": "Hack_Squat", "Sumo Deadlift": "Sumo_Deadlift", "Good Morning": "Good_Morning", "Donkey Kicks": "Glute_Kickback", "Cable Kickback": "Glute_Kickback", "Ab Wheel": "Ab_Roller", "Russian Twist": "Russian_Twist", "Dead Bug": "Dead_Bug", "Seated Calf Raise": "Seated_Calf_Raise", "Smith Machine Squat": "Smith_Machine_Squat", "Cable Pull Through": "Pull_Through", "Incline Curl": "Incline_Dumbbell_Curl", "EZ Bar Curl": "EZ-Bar_Curl", "Skull Crusher": "Lying_Triceps_Press", "Rope Pushdown": "Triceps_Pushdown_-_Rope_Attachment", "Seated Leg Curl": "Seated_Leg_Curl", "Hip Abduction": "Thigh_Abductor", "Reverse Fly": "Reverse_Flyes", "Dumbbell Shrug": "Dumbbell_Shrug", "Wrist Curl": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench", "Reverse Curl": "Reverse_Barbell_Curl", "Box Jump": "Box_Jump_Multiple_Response", "Cable Crossover": "Cable_Crossover", "Pec Deck Fly": "Butterfly", "Meadows Row": "One-Arm_Dumbbell_Row", "Chest Supported Row": "Incline_Bench_Pull", "Straight Arm Pulldown": "Straight-Arm_Pulldown", "Cable Face Pull": "Face_Pull", "Seated DB Press": "Seated_Dumbbell_Press", "Front Squat": "Front_Barbell_Squat", "Leg Press (Close Stance)": "Leg_Press", "Nordic Curl": "Lying_Leg_Curls", "Glute Kickback Cable": "Glute_Kickback", "Spider Curl": "Spider_Curl", "Overhead Cable Tricep": "Cable_Rope_Overhead_Triceps_Extension", "Hanging Leg Raise": "Hanging_Leg_Raise", "Cable Crunch": "Cable_Crunch", "Pallof Press": "Cable_Crunch", "Landmine Press": "Standing_Military_Press", "Cable Chest Press": "Cable_Chest_Press", "Pendlay Row": "Bent_Over_Barbell_Row", "Band Pull Apart": "Face_Pull", "Goblet Squat": "Goblet_Squat", "Machine Shoulder Press": "Machine_Shoulder_Military_Press", "Concentration Curl": "Concentration_Curls", "Hollow Body Hold": "Plank", "Ab Rollout": "Ab_Roller", "Side Plank": "Side_Bridge", "Smith Machine Hip Thrust": "Barbell_Hip_Thrust", "Single Arm Row": "One-Arm_Dumbbell_Row", "Hack Squat Machine": "Hack_Squat", "Reverse Grip Pulldown": "Close-Grip_Front_Lat_Pulldown", "Treadmill Walking Incline": "Walking_Treadmill", "Mountain Climber": "Mountain_Climbers", "Bulgarian Split Squat": "Split_Squat_with_Dumbbells", "Walking Lunge": "Bodyweight_Walking_Lunge", "Sissy Squat": "Weighted_Sissy_Squat", "Decline Bench Press": "Decline_Barbell_Bench_Press", "Cable Crossover Low": "Low_Cable_Crossover", "Dumbbell Pullover": "Bent-Arm_Dumbbell_Pullover", "Machine Fly": "Butterfly", "Svend Press": "Plate_Pinch", "Deficit Deadlift": "Deficit_Deadlift", "Rack Pull": "Rack_Pulls", "Wide Grip Pulldown": "Wide-Grip_Lat_Pulldown", "Inverted Row": "Inverted_Row", "Cable Pullover": "Cable_Incline_Pushdown", "Shrug Barbell": "Barbell_Shrug", "Behind Neck Press": "Standing_Military_Press", "Cable Front Raise": "Front_Cable_Raise", "Bent Over Reverse Fly": "Reverse_Flyes", "Cuban Press": "Cuban_Press", "Zottman Curl": "Zottman_Curl", "Cable Hammer Curl": "Cable_Hammer_Curls_-_Rope_Attachment", "Tricep Kickback": "Tricep_Dumbbell_Kickback", "Bench Dips": "Bench_Dips", "Wrist Curl Reverse": "Reverse_Barbell_Curl", "Pause Squat": "Barbell_Full_Squat", "Leg Press Single": "Leg_Press", "Step Up": "Dumbbell_Step_Ups", "Glute Ham Raise": "Natural_Glute_Ham_Raise", "Standing Calf Raise Barbell": "Standing_Barbell_Calf_Raise", "Cable Woodchopper": "Cable_Crunch", "Decline Crunch": "Decline_Crunch", "Toes to Bar": "Hanging_Leg_Raise", "Jumping Jack": "Rope_Jumping", "Incline Bench Press": "Incline_Dumbbell_Press", "Smith Machine Bench": "Smith_Machine_Bench_Press", "Dumbbell Floor Press": "Floor_Press", "Cable Upper Chest Fly": "Low_Cable_Crossover", "Pull Up Wide": "Pullups", "Chin Up": "Chin-Up", "Machine Row": "Seated_Cable_Rows", "Cable Row Wide": "Seated_Cable_Rows", "Hyperextension": "Hyperextensions_Back_Extensions", "Dumbbell Deadlift": "Romanian_Deadlift", "Seated DB Lateral Raise": "Side_Lateral_Raise", "Machine Lateral Raise": "Side_Lateral_Raise", "Plate Front Raise": "Front_Plate_Raise", "Rear Delt Machine": "Reverse_Machine_Flyes", "Barbell Curl Wide": "Wide-Grip_Standing_Barbell_Curl", "Dumbbell Curl": "Dumbbell_Bicep_Curl", "Cable Tricep Overhead": "Cable_Rope_Overhead_Triceps_Extension", "Diamond Push Up": "Pushups_Close_and_Wide_Hand_Positions", "JM Press": "JM_Press", "Leg Press Wide": "Leg_Press", "Goblet Squat DB": "Goblet_Squat", "Dumbbell Lunge": "Dumbbell_Lunges", "Seated Leg Extension": "Leg_Extensions", "Standing Leg Curl": "Standing_Leg_Curl", "Calf Press Machine": "Calf_Press_On_The_Leg_Press_Machine", "Cable Crunch Kneeling": "Cable_Crunch", "Bicycle Crunch": "Air_Bike", "Leg Raise Lying": "Flat_Bench_Lying_Leg_Raise", "Plank Side": "Side_Bridge", "High Knees": "Mountain_Climbers"};
+const EXGIF={"Bench Press": "Barbell_Bench_Press_-_Medium_Grip", "Incline DB Press": "Incline_Dumbbell_Press", "Cable Fly": "Cable_Crossover", "Push Up": "Pushups", "Barbell Deadlift": "Barbell_Deadlift", "Pull-up": "Pullups", "Lat Pulldown": "Wide-Grip_Lat_Pulldown", "Seated Cable Row": "Seated_Cable_Rows", "Barbell Row": "Bent_Over_Barbell_Row", "DB Shoulder Press": "Dumbbell_Shoulder_Press", "Lateral Raise": "Side_Lateral_Raise", "Face Pull": "Face_Pull", "Overhead Press": "Standing_Military_Press", "Barbell Curl": "Barbell_Curl", "Hammer Curl": "Hammer_Curls", "Tricep Pushdown": "Triceps_Pushdown", "Barbell Squat": "Barbell_Full_Squat", "Leg Press": "Leg_Press", "Romanian DL": "Romanian_Deadlift", "Hip Thrust": "Barbell_Hip_Thrust", "Glute Bridge": "Butt_Lift_Bridge", "Plank": "Plank", "Calf Raise": "Standing_Calf_Raises", "Leg Curl": "Lying_Leg_Curls", "Chest Press Machine": "Leverage_Chest_Press", "Pec Deck": "Butterfly", "Dips": "Dips_-_Triceps_Version", "Seated Row Machine": "Leverage_High_Row", "T-Bar Row": "T-Bar_Row_with_Handle", "Single Arm DB Row": "One-Arm_Dumbbell_Row", "Cable Lateral Raise": "Cable_Seated_Lateral_Raise", "Arnold Press": "Arnold_Dumbbell_Press", "Upright Row": "Upright_Barbell_Row", "Preacher Curl": "Preacher_Curl", "Cable Curl": "Standing_Biceps_Cable_Curl", "Overhead Tricep Extension": "Standing_Dumbbell_Triceps_Extension", "Close Grip Bench": "Close-Grip_Barbell_Bench_Press", "Leg Extension": "Leg_Extensions", "Hack Squat": "Hack_Squat", "Sumo Deadlift": "Sumo_Deadlift", "Good Morning": "Good_Morning", "Donkey Kicks": "Glute_Kickback", "Cable Kickback": "Glute_Kickback", "Ab Wheel": "Ab_Roller", "Russian Twist": "Russian_Twist", "Dead Bug": "Dead_Bug", "Seated Calf Raise": "Seated_Calf_Raise", "Smith Machine Squat": "Smith_Machine_Squat", "Cable Pull Through": "Pull_Through", "Incline Curl": "Incline_Dumbbell_Curl", "EZ Bar Curl": "EZ-Bar_Curl", "Skull Crusher": "Lying_Triceps_Press", "Rope Pushdown": "Triceps_Pushdown_-_Rope_Attachment", "Seated Leg Curl": "Seated_Leg_Curl", "Hip Abduction": "Thigh_Abductor", "Reverse Fly": "Reverse_Flyes", "Dumbbell Shrug": "Dumbbell_Shrug", "Wrist Curl": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench", "Reverse Curl": "Reverse_Barbell_Curl", "Box Jump": "Box_Jump_Multiple_Response", "Cable Crossover": "Cable_Crossover", "Pec Deck Fly": "Butterfly", "Meadows Row": "One-Arm_Dumbbell_Row", "Chest Supported Row": "Incline_Bench_Pull", "Straight Arm Pulldown": "Straight-Arm_Pulldown", "Cable Face Pull": "Face_Pull", "Seated DB Press": "Seated_Dumbbell_Press", "Front Squat": "Front_Barbell_Squat", "Leg Press (Close Stance)": "Leg_Press", "Nordic Curl": "Lying_Leg_Curls", "Glute Kickback Cable": "Glute_Kickback", "Spider Curl": "Spider_Curl", "Overhead Cable Tricep": "Cable_Rope_Overhead_Triceps_Extension", "Hanging Leg Raise": "Hanging_Leg_Raise", "Cable Crunch": "Cable_Crunch", "Pallof Press": "Pallof_Press", "Landmine Press": "Landmine_180s", "Cable Chest Press": "Cable_Chest_Press", "Pendlay Row": "Bent_Over_Barbell_Row", "Band Pull Apart": "Face_Pull", "Goblet Squat": "Goblet_Squat", "Machine Shoulder Press": "Machine_Shoulder_Military_Press", "Concentration Curl": "Concentration_Curls", "Hollow Body Hold": "Plank", "Ab Rollout": "Ab_Roller", "Side Plank": "Side_Bridge", "Smith Machine Hip Thrust": "Barbell_Hip_Thrust", "Single Arm Row": "One-Arm_Dumbbell_Row", "Hack Squat Machine": "Hack_Squat", "Reverse Grip Pulldown": "Close-Grip_Front_Lat_Pulldown", "Treadmill Walking Incline": "Walking_Treadmill", "Mountain Climber": "Mountain_Climbers", "Bulgarian Split Squat": "Split_Squat_with_Dumbbells", "Walking Lunge": "Bodyweight_Walking_Lunge", "Sissy Squat": "Weighted_Sissy_Squat", "Decline Bench Press": "Decline_Barbell_Bench_Press", "Cable Crossover Low": "Low_Cable_Crossover", "Dumbbell Pullover": "Bent-Arm_Dumbbell_Pullover", "Machine Fly": "Butterfly", "Svend Press": "Plate_Pinch", "Deficit Deadlift": "Deficit_Deadlift", "Rack Pull": "Rack_Pulls", "Wide Grip Pulldown": "Wide-Grip_Lat_Pulldown", "Inverted Row": "Inverted_Row", "Cable Pullover": "Cable_Incline_Pushdown", "Shrug Barbell": "Barbell_Shrug", "Behind Neck Press": "Standing_Barbell_Press_Behind_Neck", "Cable Front Raise": "Front_Cable_Raise", "Bent Over Reverse Fly": "Reverse_Flyes", "Cuban Press": "Cuban_Press", "Zottman Curl": "Zottman_Curl", "Cable Hammer Curl": "Cable_Hammer_Curls_-_Rope_Attachment", "Tricep Kickback": "Tricep_Dumbbell_Kickback", "Bench Dips": "Bench_Dips", "Wrist Curl Reverse": "Reverse_Barbell_Curl", "Pause Squat": "Barbell_Full_Squat", "Leg Press Single": "Leg_Press", "Step Up": "Dumbbell_Step_Ups", "Glute Ham Raise": "Natural_Glute_Ham_Raise", "Standing Calf Raise Barbell": "Standing_Barbell_Calf_Raise", "Cable Woodchopper": "Standing_Cable_Wood_Chop", "Decline Crunch": "Decline_Crunch", "Toes to Bar": "Hanging_Leg_Raise", "Jumping Jack": "Rope_Jumping", "Incline Bench Press": "Barbell_Incline_Bench_Press_-_Medium_Grip", "Smith Machine Bench": "Smith_Machine_Bench_Press", "Dumbbell Floor Press": "Floor_Press", "Cable Upper Chest Fly": "Low_Cable_Crossover", "Pull Up Wide": "Pullups", "Chin Up": "Chin-Up", "Machine Row": "Seated_Cable_Rows", "Cable Row Wide": "Seated_Cable_Rows", "Hyperextension": "Hyperextensions_Back_Extensions", "Dumbbell Deadlift": "Romanian_Deadlift", "Seated DB Lateral Raise": "Side_Lateral_Raise", "Machine Lateral Raise": "Side_Lateral_Raise", "Plate Front Raise": "Front_Plate_Raise", "Rear Delt Machine": "Reverse_Machine_Flyes", "Barbell Curl Wide": "Wide-Grip_Standing_Barbell_Curl", "Dumbbell Curl": "Dumbbell_Bicep_Curl", "Cable Tricep Overhead": "Cable_Rope_Overhead_Triceps_Extension", "Diamond Push Up": "Pushups_Close_and_Wide_Hand_Positions", "JM Press": "JM_Press", "Leg Press Wide": "Leg_Press", "Goblet Squat DB": "Goblet_Squat", "Dumbbell Lunge": "Dumbbell_Lunges", "Seated Leg Extension": "Leg_Extensions", "Standing Leg Curl": "Standing_Leg_Curl", "Calf Press Machine": "Calf_Press_On_The_Leg_Press_Machine", "Cable Crunch Kneeling": "Cable_Crunch", "Bicycle Crunch": "Air_Bike", "Leg Raise Lying": "Flat_Bench_Lying_Leg_Raise", "Plank Side": "Side_Bridge", "High Knees": "Mountain_Climbers", "Abductor Machine": "Thigh_Abductor", "Adductor Machine": "Thigh_Adductor", "Around The World": "Around_The_Worlds", "Barbell Hip Thrust": "Barbell_Hip_Thrust", "Bodyweight Squat": "Bodyweight_Squat", "Cable Rope Curl": "Cable_Hammer_Curls_-_Rope_Attachment", "Cable Side Bend": "Standing_Lateral_Stretch", "Calf Raise Bodyweight": "Standing_Calf_Raises", "Close Grip Push Up": "Push-Ups_-_Close_Triceps_Position", "Crunch": "Crunches", "Dip Machine": "Dip_Machine", "Flutter Kicks": "Flutter_Kicks", "Front Plate Raise": "Front_Plate_Raise", "Hack Squat Reverse": "Hack_Squat", "Hanging Knee Raise": "Hanging_Leg_Raise", "Incline Cable Fly": "Incline_Cable_Flye", "Incline DB Curl": "Incline_Dumbbell_Curl", "Incline Push Up": "Incline_Push-Up", "Jump Rope": "Rope_Jumping", "Kroc Row": "One-Arm_Dumbbell_Row", "Lateral Raise Cable": "Cable_Seated_Lateral_Raise", "Lunge": "Bodyweight_Walking_Lunge", "Mountain Climber Fast": "Mountain_Climbers", "Plate Squeeze Press": "Plate_Pinch", "Reverse Lunge": "Dumbbell_Rear_Lunge", "Reverse Pec Deck": "Reverse_Machine_Flyes", "Seated Arnold Press": "Arnold_Dumbbell_Press", "Single Leg Hip Thrust": "Single_Leg_Glute_Bridge", "Sissy Squat Machine": "Weighted_Sissy_Squat", "Smith Incline Press": "Smith_Machine_Incline_Bench_Press", "Superman": "Superman", "V-Up": "Flat_Bench_Lying_Leg_Raise", "Wide Push Up": "Push-Ups_With_Feet_Elevated", "Pistol Squat": "Smith_Machine_Pistol_Squat"};
+const EXGIF_APPROX=new Set(["Bear Crawl", "Belt Squat", "Bird Dog", "Burpee", "Curtsy Lunge", "Decline Cable Fly", "Frog Pump", "High Knees", "Hollow Body Hold", "Jump Squat", "Jumping Jack", "Mountain Climber", "Nordic Curl", "Pause Squat", "Pendlay Row", "Pike Push Up", "Pistol Squat", "Pseudo Planche Push Up", "Rowing Machine", "Stair Climber", "Svend Press", "Toes to Bar", "Wall Sit", "Z Press"]);
 const EXGIF_BASE='https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+// Trả về URL hình thu nhỏ (frame đầu) của bài tập, hoặc '' nếu không có
+function exThumbUrl(name){ const f=EXGIF[name]; return f?EXGIF_BASE+f+'/0.jpg':''; }
+// Dựng 1 ô thumbnail: có hình thì hiện hình, lỗi/không có thì hiện emoji nền tối
+function exThumbHTML(ex,size){
+  const s=size||44; const url=exThumbUrl(ex.name); const emoji=ex.emoji||'🏋️';
+  if(url){
+    return `<div style="width:${s}px;height:${s}px;border-radius:9px;overflow:hidden;background:#0d0d0d;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center">
+      <span style="position:absolute;font-size:${Math.round(s*0.5)}px;opacity:.55">${emoji}</span>
+      <img src="${url}" loading="lazy" style="position:relative;width:100%;height:100%;object-fit:cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+    </div>`;
+  }
+  return `<div style="width:${s}px;height:${s}px;border-radius:9px;background:var(--bg3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:${Math.round(s*0.5)}px">${emoji}</div>`;
+}
 const EXERCISES=[
   {id:1,name:'Bench Press',nameVi:'Bench Press Barbell',muscle:'chest',equip:'barbell',emoji:'🏋️',ytId:'SCVCLChPQFY',
    cues:['Nằm ngửa, mắt thẳng dưới bar','Grip rộng hơn vai 1 nắm tay, cổ tay thẳng','Hạ bar chậm 3s đến ngực dưới (nipple line)','Khuỷu 45-75° — không flare 90°','Đẩy theo đường chéo lên và ra phía trước','Lưng uốn nhẹ tự nhiên, vai kẹp vào bench'],
@@ -2996,22 +3020,6 @@ const EXERCISES=[
    cues:['Nằm ngửa cầm 2 tạ','Vẽ vòng cung từ hông lên đầu','Giữ khuỷu hơi cong','Kiểm soát toàn bộ'],
    mistakes:['Tạ quá nặng','Khuỷu gập'],
    sets:{'muscle':'3×12','strength':'3×10','endurance':'3×15'},diffVi:'Trung cấp'},
-  {id:225,name:'Meadows Row',nameVi:'Meadows Row',muscle:'back',equip:'barbell',emoji:'🌾',ytId:'Z9aZUcz0Ym0',
-   cues:['Đứng vuông góc thanh landmine','1 tay kéo đầu thanh','Siết lưng xô','Hạ chậm có kiểm soát'],
-   mistakes:['Xoay thân','Dùng đà'],
-   sets:{'muscle':'4×10-12','strength':'4×8','endurance':'3×15'},diffVi:'Trung cấp'},
-  {id:226,name:'Chest Supported Row',nameVi:'Row tựa ngực',muscle:'back',equip:'machine',emoji:'🪑',ytId:'GZQjAyVUUYg',
-   cues:['Ngực tựa pad','Kéo tay về siết bả vai','Khuỷu sát thân','Hạ chậm'],
-   mistakes:['Nhấc ngực khỏi pad','Giật'],
-   sets:{'muscle':'4×12','strength':'4×8','endurance':'3×15'},diffVi:'Cơ bản'},
-  {id:227,name:'Straight Arm Pulldown',nameVi:'Kéo cáp tay thẳng',muscle:'back',equip:'cable',emoji:'📏',ytId:'7dHpsqB1V8s',
-   cues:['Tay thẳng kéo cáp xuống đùi','Siết lưng xô','Giữ khuỷu khoá nhẹ','Lên chậm'],
-   mistakes:['Gập khuỷu','Dùng tam đầu'],
-   sets:{'muscle':'4×12-15','strength':'4×10','endurance':'3×20'},diffVi:'Cơ bản'},
-  {id:228,name:'Pendlay Row',nameVi:'Pendlay Row',muscle:'back',equip:'barbell',emoji:'🔻',ytId:'rES7gnSEbAU',
-   cues:['Thân song song sàn','Kéo thanh từ sàn lên bụng dưới','Đặt lại sàn mỗi rep','Lưng phẳng'],
-   mistakes:['Lưng cong','Dùng đà hông'],
-   sets:{'muscle':'4×8-10','strength':'5×5','endurance':'3×12'},diffVi:'Nâng cao'},
   {id:229,name:'Kroc Row',nameVi:'Kroc Row (1 tay nặng)',muscle:'back',equip:'dumbbell',emoji:'💥',ytId:'pYcpY20QaE8',
    cues:['Tạ đơn nặng 1 tay','Kéo mạnh lên hông','Cho phép chút đà có kiểm soát','Nhiều reps'],
    mistakes:['Mất kiểm soát hoàn toàn','Round lưng'],
@@ -3040,14 +3048,6 @@ const EXERCISES=[
    cues:['Ngồi ghế dốc 45°','Tay duỗi thẳng xuống','Cuốn lên siết bắp tay','Hạ full duỗi'],
    mistakes:['Vung vai','Không duỗi hết'],
    sets:{'muscle':'4×10-12','strength':'4×8','endurance':'3×15'},diffVi:'Trung cấp'},
-  {id:236,name:'Concentration Curl',nameVi:'Cuốn tập trung',muscle:'arms',equip:'dumbbell',emoji:'🎯',ytId:'Jvj2wV0vOYU',
-   cues:['Ngồi tì khuỷu vào đùi trong','Cuốn 1 tay lên đỉnh','Siết bắp tay tối đa','Hạ chậm'],
-   mistakes:['Đung đưa thân','Dùng đà'],
-   sets:{'muscle':'4×12','strength':'4×10','endurance':'3×15'},diffVi:'Cơ bản'},
-  {id:237,name:'Spider Curl',nameVi:'Spider Curl',muscle:'arms',equip:'dumbbell',emoji:'🕷️',ytId:'xLNFfNa30lY',
-   cues:['Nằm sấp trên ghế dốc','Tay buông thẳng','Cuốn lên siết liên tục','Hạ chậm full'],
-   mistakes:['Đung đưa','Nửa tầm'],
-   sets:{'muscle':'4×12','strength':'4×10','endurance':'3×15'},diffVi:'Trung cấp'},
   {id:238,name:'Close Grip Push Up',nameVi:'Hít đất tay hẹp',muscle:'arms',equip:'bodyweight',emoji:'🤲',ytId:'cfns5VDVVvk',
    cues:['Tay đặt hẹp dưới ngực','Hạ thân giữ khuỷu sát người','Đẩy lên siết tam đầu','Thân thẳng'],
    mistakes:['Khuỷu xòe','Mông cao'],
@@ -3084,10 +3084,6 @@ const EXERCISES=[
    cues:['Lưng trên tựa ghế','Thanh đòn đặt trên hông','Đẩy hông lên siết mông tối đa','Hạ chậm'],
    mistakes:['Cong lưng dưới','Không khoá hông'],
    sets:{'muscle':'4×10-12','strength':'4×6-8','endurance':'3×15'},diffVi:'Trung cấp'},
-  {id:247,name:'Cable Kickback',nameVi:'Đá chân sau cáp',muscle:'glutes',equip:'cable',emoji:'🦵',ytId:'Iwe6AmxVf7o',
-   cues:['Cổ chân gắn cáp thấp','Đá chân ra sau siết mông','Giữ thân thẳng','Về chậm'],
-   mistakes:['Cong lưng','Đà mạnh'],
-   sets:{'muscle':'4×12-15','strength':'4×12','endurance':'3×20'},diffVi:'Cơ bản'},
   {id:248,name:'Frog Pump',nameVi:'Frog Pump',muscle:'glutes',equip:'bodyweight',emoji:'🐸',ytId:'YHnVl1Nv6e0',
    cues:['Nằm ngửa 2 lòng bàn chân chạm nhau','Đẩy hông lên siết mông','Nhịp nhanh nhiều reps','Hạ nhẹ'],
    mistakes:['Dùng lưng','Nửa tầm'],
@@ -3100,14 +3096,6 @@ const EXERCISES=[
    cues:['Lưng tựa ghế 1 chân chống','Đẩy hông lên siết mông','Giữ hông cân bằng','Hạ chậm'],
    mistakes:['Hông xoay','Không khoá đỉnh'],
    sets:{'muscle':'4×12 mỗi chân','strength':'4×8','endurance':'3×15'},diffVi:'Trung cấp'},
-  {id:251,name:'Sumo Deadlift',nameVi:'Sumo Deadlift',muscle:'glutes',equip:'barbell',emoji:'🤼',ytId:'3ELI1Ip-pDM',
-   cues:['Chân rộng mũi hướng ngoài','Nắm thanh trong gối','Đẩy sàn đứng siết mông','Lưng phẳng'],
-   mistakes:['Round lưng','Hông lên trước'],
-   sets:{'muscle':'4×8-10','strength':'5×5','endurance':'3×12'},diffVi:'Nâng cao'},
-  {id:252,name:'Ab Rollout',nameVi:'Lăn bánh xe bụng',muscle:'core',equip:'other',emoji:'🎡',ytId:'rqiTPdK1c1w',
-   cues:['Quỳ cầm bánh xe','Lăn ra xa giữ core căng','Kéo về siết bụng','Không cong lưng'],
-   mistakes:['Võng lưng','Lăn quá xa mất kiểm soát'],
-   sets:{'muscle':'4×10-12','strength':'4×6-8','endurance':'3×15'},diffVi:'Nâng cao'},
   {id:253,name:'Hanging Knee Raise',nameVi:'Co gối treo xà',muscle:'core',equip:'bodyweight',emoji:'🪜',ytId:'tNGV0Oz4nLY',
    cues:['Treo xà tay thẳng','Co gối lên ngực siết bụng dưới','Hạ chậm','Không đung đưa'],
    mistakes:['Dùng đà','Nửa tầm'],
@@ -3120,10 +3108,6 @@ const EXERCISES=[
    cues:['Nằm ngửa tay chân duỗi','Nâng tay chân chạm nhau thành chữ V','Hạ chậm','Siết bụng đỉnh'],
    mistakes:['Cong lưng','Giật cổ'],
    sets:{'muscle':'4×12-15','strength':'4×10','endurance':'3×20'},diffVi:'Trung cấp'},
-  {id:256,name:'Battle Rope',nameVi:'Dây thừng chiến',muscle:'cardio',equip:'other',emoji:'🪢',ytId:'r9Ldy3i7suU',
-   cues:['Cầm 2 đầu dây','Đập sóng liên tục bằng vai/tay','Giữ gối hơi gập','Nhịp nhanh'],
-   mistakes:['Dừng nghỉ nhiều','Đứng thẳng cứng'],
-   sets:{'muscle':'4×30s','strength':'4×20s','endurance':'3×45s'},diffVi:'Trung cấp'},
   {id:257,name:'Rowing Machine',nameVi:'Máy chèo thuyền',muscle:'cardio',equip:'machine',emoji:'🚣',ytId:'H0r_ZPXJLtg',
    cues:['Đẩy chân trước','Kéo tay về bụng sau','Duỗi về theo thứ tự tay-thân-chân','Nhịp đều'],
    mistakes:['Kéo tay trước chân','Cong lưng'],
@@ -3750,15 +3734,23 @@ function goTab(id){
   document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active');s.style.display='none';});
   document.querySelectorAll('.bni').forEach(b=>b.classList.remove('on'));
   const scr=document.getElementById(id);if(scr){scr.style.display='flex';scr.classList.add('active');}
-  const map={'s-home':'bn-home','s-workout':'bn-workout','s-plan':'bn-plan','s-progress':'bn-progress','s-nut':'bn-nut','s-schedule':'bn-schedule','s-profile':'bn-home'};
+  const map={'s-home':'bn-home','s-workout':'bn-workout','s-plan':'bn-plan','s-progress':'bn-progress','s-nut':'bn-nut','s-profile':'bn-home'};
   if(map[id])document.getElementById(map[id]).classList.add('on');
   if(id==='s-home'){renderHome();document.getElementById('s-home').querySelector('[style*="overflow"]')?.scrollTo(0,0);}
   if(id==='s-workout')renderWHist();
-  if(id==='s-plan')renderPlans('all');
+  if(id==='s-plan'){renderPlans('all');switchPlanTab(ST._planTab||'program');}
   if(id==='s-progress'){renderProgress();document.getElementById('s-progress').scrollTo(0,0);}
   if(id==='s-profile'){syncProfileForm();document.getElementById('s-profile').scrollTo(0,0);}
-  if(id==='s-schedule')renderSchedule();
   if(id==='s-nut'){renderNutMeals();renderMacroPie();updateWaterDisplay();}
+}
+// Chuyển giữa 2 tab con của màn Plan: Giáo án ↔ Lịch tập
+function switchPlanTab(which){
+  ST._planTab=which;
+  document.getElementById('pst-program').classList.toggle('on',which==='program');
+  document.getElementById('pst-calendar').classList.toggle('on',which==='calendar');
+  document.getElementById('plan-panel-program').classList.toggle('show',which==='program');
+  document.getElementById('plan-panel-calendar').classList.toggle('show',which==='calendar');
+  if(which==='calendar')renderSchedule();
 }
 
 // ════════════════════════════════════════════════════════
@@ -4007,14 +3999,20 @@ function toggleQuickForm(id,name){
   let demoHTML='';
   if(folder){
     const f0=EXGIF_BASE+folder+'/0.jpg', f1=EXGIF_BASE+folder+'/1.jpg';
-    demoHTML=`<div style="position:relative;border-radius:10px;overflow:hidden;margin-bottom:12px;background:#0d0d0d;aspect-ratio:3/2">
-      <img src="${f0}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain" onerror="this.closest('[data-demo]').style.display='none'">
-      <img id="${id}_demo1" src="${f1}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .6s ease-in-out">
-      <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:16px 12px 8px;display:flex;align-items:center;gap:6px">
+    const isApprox=(typeof EXGIF_APPROX!=='undefined'&&EXGIF_APPROX.has(name));
+    const cap=isApprox?'Hình minh hoạ gần đúng':'Động tác mẫu — làm theo';
+    demoHTML=`<div id="${id}_demowrap" style="position:relative;border-radius:10px;overflow:hidden;margin-bottom:12px;background:#0d0d0d;aspect-ratio:3/2">
+      <div id="${id}_demoload" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--txt3);font-size:12px;font-family:var(--FM);text-align:center;padding:0 16px">
+        <span style="font-size:26px">${ex?.emoji||'🏋️'}</span><span>Đang tải hình…</span>
+      </div>
+      <img id="${id}_demo0" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .4s">
+      <img id="${id}_demo1" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .6s ease-in-out">
+      <div id="${id}_democap" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:16px 12px 8px;display:none;align-items:center;gap:6px">
         <span style="width:7px;height:7px;border-radius:50%;background:var(--lime);animation:pulse 1.2s infinite"></span>
-        <span style="font-size:11px;color:#fff;font-family:var(--FM)">Động tác mẫu — làm theo</span>
+        <span style="font-size:11px;color:#fff;font-family:var(--FM)">${cap}</span>
       </div>
     </div>`;
+    box._demo={id,f0,f1};
   }
   box.innerHTML=`<div data-demo style="margin:0 14px 10px;padding:12px 14px;background:var(--bg3);border:1px solid var(--brd);border-radius:10px">
     ${demoHTML}
@@ -4024,14 +4022,32 @@ function toggleQuickForm(id,name){
     ${mistakes.map(m=>`<div style="font-size:13px;color:var(--txt2);line-height:1.5;margin-bottom:5px;display:flex;gap:7px"><span style="color:var(--red);flex-shrink:0">✕</span><span>${m}</span></div>`).join('')}`:''}
     <button onclick="openExPanel('${name}','${id}')" style="margin-top:10px;width:100%;height:36px;background:none;border:1px solid var(--brd2);border-radius:8px;color:var(--txt2);font-size:12px;cursor:pointer">🎬 Xem video chi tiết</button>
   </div>`;
-  // Smooth crossfade between start/end frame → trông như chuyển động liền
-  if(folder){
-    const img1=document.getElementById(id+'_demo1');
-    if(img1){let on=false;box._anim=setInterval(()=>{on=!on;img1.style.opacity=on?'1':'0';},850);}
+  // Tải 2 frame bằng JS — chỉ hiện/animate KHI tải xong, lỗi thì fallback (không để ô đen)
+  if(folder&&box._demo){
+    const {id:did,f0,f1}=box._demo;
+    const load=document.getElementById(did+'_demoload');
+    const im0=document.getElementById(did+'_demo0');
+    const im1=document.getElementById(did+'_demo1');
+    const cap=document.getElementById(did+'_democap');
+    let ok0=false, ok1=false, settled=false;
+    const fail=()=>{
+      if(settled)return; settled=true;
+      if(box._anim){clearInterval(box._anim);box._anim=null;}
+      if(load)load.innerHTML='<span style="font-size:26px">📶</span><span style="text-align:center;padding:0 16px">Cần mạng để xem hình.<br>Đọc kỹ thuật bên dưới 👇</span>';
+    };
+    const showStatic=()=>{ if(im0)im0.style.opacity='1'; if(load)load.style.display='none'; if(cap)cap.style.display='flex'; };
+    const startAnim=()=>{
+      showStatic();
+      if(box._anim)clearInterval(box._anim);
+      let on=false; box._anim=setInterval(()=>{ on=!on; if(im1)im1.style.opacity=on?'1':'0'; },850);
+    };
+    const to=setTimeout(()=>{ if(!ok0)fail(); }, 9000);
+    if(im0){ im0.onload=()=>{ ok0=true; clearTimeout(to); if(!settled){ showStatic(); if(ok1)startAnim(); } }; im0.onerror=fail; im0.src=f0; }
+    if(im1){ im1.onload=()=>{ ok1=true; if(ok0&&!settled)startAnim(); }; im1.onerror=()=>{ if(ok0)showStatic(); }; im1.src=f1; }
   }
   if(navigator.vibrate)navigator.vibrate(20);
 }
-function addEx(name,presetSets){
+function addEx(name,presetSets,insertAfterId){
   ST.exCtr++;const id='e'+ST.exCtr;
   const exInfo=findEx(name);
   const lastW=ST.workouts.find(w=>w.exDetails&&w.exDetails[name]);
@@ -4098,6 +4114,10 @@ function addEx(name,presetSets){
     <div id="${id}_qform" style="display:none"></div>
     <div id="${id}_tip" class="ai-tip" style="display:none"></div>`;
   cont.appendChild(wrap);
+  if(insertAfterId){
+    const anchor=document.getElementById(insertAfterId+'_b');
+    if(anchor&&anchor.parentNode)anchor.parentNode.insertBefore(wrap,anchor.nextSibling);
+  }
   // Render set rows from setsArr (đúng cho cả template có sẵn kg lẫn buổi mới)
   const setsDiv=document.getElementById(id+'_sets');
   setsArr.forEach((s,i)=>{
@@ -4124,7 +4144,13 @@ function copyAllPrev(id){
   if(navigator.vibrate)navigator.vibrate(40);
 }
 
-function setV(id,i,f,v){if(ST.exData[id]?.sets[i]){ST.exData[id].sets[i][f]=+v;clearTimeout(window._svT);window._svT=setTimeout(save,800);}}
+function setV(id,i,f,v){
+  if(!ST.exData[id]?.sets[i])return;
+  const num=(v===''||v==null)?0:(parseFloat(v)||0);
+  ST.exData[id].sets[i][f]=num<0?0:num;
+  try{updateExVolBadge(id);updateVolumeDisplay();updateWorkoutProgress();}catch(e){}
+  clearTimeout(window._svT);window._svT=setTimeout(save,800);
+}
 function doneSet(id,i,btn){
   if(!ST.exData[id]?.sets[i])return;
   const done=!ST.exData[id].sets[i].done;
@@ -4317,10 +4343,10 @@ function showSwapSheet(id,currentName,curMuscle,curEquip){
   const muscleVi2={chest:'Ngực',back:'Lưng',shoulders:'Vai',arms:'Tay',legs:'Chân',glutes:'Mông',core:'Core',cardio:'Cardio'};
   function row(a){
     return `<div onclick="doSwapEx('${id}','${(a.name||'').replace(/'/g,"\\'")}');document.getElementById('swap-sheet').remove()"
-      style="display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--brd)"
+      style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;border-bottom:1px solid var(--brd)"
       onmouseenter="this.style.background='var(--bg3)'" onmouseleave="this.style.background=''">
-      <span style="font-size:24px">${a.emoji||'🏋️'}</span>
-      <div style="flex:1">
+      ${exThumbHTML(a,46)}
+      <div style="flex:1;min-width:0">
         <div style="font-size:13.5px;font-weight:500">${a.nameVi||a.name}</div>
         <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);margin-top:2px">${muscleVi2[a.muscle]||a.muscle} · ${a.equip||'—'}</div>
       </div>
@@ -4390,9 +4416,9 @@ function updateExVolBadge(id){
 
 function doSwapEx(id,newName){
   if(!ST.exData[id])return;
-  const oldName=ST.exData[id].name;
+  addEx(newName,null,id);
   removeEx(id);
-  addEx(newName);
+  updateVolumeDisplay();updateWorkoutProgress();save();
   toast('✅ Đã đổi sang '+newName);
 }
 
@@ -4785,9 +4811,9 @@ function renderPickerList(q){
   const muscleVi={chest:'Ngực',back:'Lưng',legs:'Chân',shoulders:'Vai',arms:'Tay',core:'Core',glutes:'Mông',cardio:'Cardio'};
   const list=EXERCISES.filter(e=>!q||e.name.toLowerCase().includes(q)||(e.nameVi||'').toLowerCase().includes(q)||(muscleVi[e.muscle]||'').toLowerCase().includes(q));
   el.innerHTML=list.slice(0,60).map(e=>`
-    <div onclick="pickExForDay('${e.name.replace(/'/g,"\\'")}')" style="display:flex;align-items:center;gap:12px;padding:11px;background:var(--bg3);border:1px solid var(--brd2);border-radius:10px;margin-bottom:7px;cursor:pointer">
-      <div style="font-size:22px">${e.emoji||'💪'}</div>
-      <div style="flex:1"><div style="font-size:14px;font-weight:500">${e.name}</div><div class="xs muted">${muscleVi[e.muscle]||e.muscle} · ${e.diffVi||''}</div></div>
+    <div onclick="pickExForDay('${e.name.replace(/'/g,"\\'")}')" style="display:flex;align-items:center;gap:12px;padding:9px 11px;background:var(--bg3);border:1px solid var(--brd2);border-radius:10px;margin-bottom:7px;cursor:pointer">
+      ${exThumbHTML(e,44)}
+      <div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500">${e.name}</div><div class="xs muted">${muscleVi[e.muscle]||e.muscle} · ${e.diffVi||''}</div></div>
       <div style="color:var(--lime);font-size:20px">+</div>
     </div>`).join('')||'<div class="xs muted" style="text-align:center;padding:30px">Không tìm thấy bài nào</div>';
 }
@@ -4967,12 +4993,21 @@ function renderExGrid(muscle,q){
     return mOk&&qOk;
   });
   const muscleColor={chest:'#2e1500',back:'#001a1a',shoulders:'#1a0022',arms:'#001a00',legs:'#000e2e',glutes:'#1a0015',core:'#1a1000'};
-  document.getElementById('ex-grid').innerHTML=filtered.map(e=>`
+  document.getElementById('ex-grid').innerHTML=filtered.map(e=>{
+    const url=exThumbUrl(e.name);
+    const thumb=url
+      ? `<div class="ex-thumb" style="background:${muscleColor[e.muscle]||'var(--bg3)'};position:relative;overflow:hidden">
+           <span style="position:absolute;font-size:40px;opacity:.5">${e.emoji}</span>
+           <img src="${url}" loading="lazy" style="position:relative;width:100%;height:100%;object-fit:cover" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+           ${e.ytId?`<span class="ex-thumb-label">▶ VIDEO</span>`:''}
+         </div>`
+      : `<div class="ex-thumb" style="background:${muscleColor[e.muscle]||'var(--bg3)'}">
+           <span style="font-size:40px">${e.emoji}</span>
+           ${e.ytId?`<span class="ex-thumb-label">▶ VIDEO</span>`:''}
+         </div>`;
+    return `
     <div class="ex-card" onclick="openExDetail(${e.id})">
-      <div class="ex-thumb" style="background:${muscleColor[e.muscle]||'var(--bg3)'}">
-        <span style="font-size:40px">${e.emoji}</span>
-        ${e.ytId?`<span class="ex-thumb-label">▶ VIDEO</span>`:''}
-      </div>
+      ${thumb}
       <div class="ex-card-body">
         <div class="ex-card-name">${e.nameVi}</div>
         <div class="ex-card-tags">
@@ -4980,7 +5015,7 @@ function renderExGrid(muscle,q){
           <span class="tag tg" style="font-size:9.5px;padding:1px 7px">${e.diffVi||e.equip}</span>
         </div>
       </div>
-    </div>`).join('');
+    </div>`;}).join('');
 }
 function openExDetail(id){
   const ex=EXERCISES.find(e=>e.id===id);if(!ex)return;
@@ -6011,13 +6046,14 @@ function resetApp(){
 // SCHEDULE SCREEN (like Hevy My Schedule)
 // ════════════════════════════════════════════════════════
 let schedYear=new Date().getFullYear(),schedMonth_=new Date().getMonth();
-const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MONTH_NAMES=['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
 
 function renderSchedule(){
   const now=new Date();
   const year=schedYear,month=schedMonth_;
   document.getElementById('sched-month-lbl').textContent=`${MONTH_NAMES[month]} ${year}`;
-  const firstDay=new Date(year,month,1).getDay();
+  const rawFirst=new Date(year,month,1).getDay(); // 0=CN
+  const firstDay=(rawFirst===0?6:rawFirst-1); // chuyển sang T2=0 (tuần bắt đầu Thứ 2)
   const daysInMonth=new Date(year,month+1,0).getDate();
 
   // Build workout date map
@@ -7376,10 +7412,10 @@ function searchWorkoutEx(q){
     if(!filtered.length){results.style.display='none';return;}
     results.style.display='block';
     results.innerHTML=filtered.map(e=>`
-      <div onclick="addExFromSearch('${e.name}')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--brd);cursor:pointer;transition:background .15s" 
+      <div onclick="addExFromSearch('${e.name}')" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--brd);cursor:pointer;transition:background .15s" 
         onmouseenter="this.style.background='var(--bg4)'" onmouseleave="this.style.background=''">
-        <span style="font-size:20px">${e.emoji}</span>
-        <div style="flex:1">
+        ${exThumbHTML(e,42)}
+        <div style="flex:1;min-width:0">
           <div style="font-size:13px;font-weight:500">${e.nameVi}</div>
           <div class="xxs muted">${e.muscle} · ${e.equip}</div>
         </div>

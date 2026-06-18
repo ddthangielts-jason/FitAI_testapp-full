@@ -1,10 +1,7 @@
 {
-  "version": 2,
   "cleanUrls": true,
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/app",       "dest": "/app.html" },
-    { "src": "/exercises", "dest": "/exercises.html" },
-    { "src": "/",          "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/app", "destination": "/app.html" },
+    { "source": "/exercises", "destination": "/exercises.html" }
   ]
 }
