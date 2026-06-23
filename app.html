@@ -1069,9 +1069,12 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       <button class="pill" onclick="filterExMuscle('back',this)">Lưng</button>
       <button class="pill" onclick="filterExMuscle('shoulders',this)">Vai</button>
       <button class="pill" onclick="filterExMuscle('arms',this)">Bắp tay</button>
+      <button class="pill" onclick="filterExMuscle('forearm',this)">Cẳng tay</button>
       <button class="pill" onclick="filterExMuscle('legs',this)">Chân</button>
       <button class="pill" onclick="filterExMuscle('glutes',this)">Mông</button>
       <button class="pill" onclick="filterExMuscle('core',this)">Core</button>
+      <button class="pill" onclick="filterExMuscle('cardio',this)">Cardio</button>
+      <button class="pill" onclick="filterExMuscle('bodyweight',this)">🏠 Tại nhà</button>
     </div>
   </div>
   <div style="flex:1;overflow-y:auto">
@@ -5009,12 +5012,19 @@ function filterExMuscle(m,btn){
 }
 function filterExLib(q){exLibQ=q;renderExGrid(exLibMuscle,q);}
 function renderExGrid(muscle,q){
+  // Danh sách bài tập cẳng tay (forearm) — nằm trong nhóm 'arms' nhưng lọc riêng
+  const FOREARM_EXS=['Wrist Curl','Wrist Curl Reverse','Reverse Curl','Zottman Curl','Hammer Curl','Cable Hammer Curl','Reverse Grip Pulldown'];
   const filtered=EXERCISES.filter(e=>{
-    const mOk=muscle==='all'||e.muscle===muscle;
+    let mOk;
+    if(muscle==='all') mOk=true;
+    else if(muscle==='cardio') mOk=e.muscle==='cardio';
+    else if(muscle==='bodyweight') mOk=e.equip==='bodyweight'; // Tại nhà / Calisthenic
+    else if(muscle==='forearm') mOk=FOREARM_EXS.includes(e.name);
+    else mOk=e.muscle===muscle;
     const qOk=!q||e.name.toLowerCase().includes(q.toLowerCase())||e.nameVi.toLowerCase().includes(q.toLowerCase());
     return mOk&&qOk;
   });
-  const muscleColor={chest:'#2e1500',back:'#001a1a',shoulders:'#1a0022',arms:'#001a00',legs:'#000e2e',glutes:'#1a0015',core:'#1a1000'};
+  const muscleColor={chest:'#2e1500',back:'#001a1a',shoulders:'#1a0022',arms:'#001a00',legs:'#000e2e',glutes:'#1a0015',core:'#1a1000',cardio:'#2e0010'};
   document.getElementById('ex-grid').innerHTML=filtered.map(e=>{
     const url=exThumbUrl(e.name);
     const thumb=url
@@ -5033,7 +5043,7 @@ function renderExGrid(muscle,q){
       <div class="ex-card-body">
         <div class="ex-card-name">${e.nameVi}</div>
         <div class="ex-card-tags">
-          <span class="tag" style="font-size:9.5px;padding:1px 7px;background:${muscleColor[e.muscle]||'var(--bg4)'};color:var(--txt2)">${({'chest':'Ngực','back':'Lưng','shoulders':'Vai','arms':'Tay','legs':'Chân','glutes':'Mông','core':'Core'})[e.muscle]||e.muscle}</span>
+          <span class="tag" style="font-size:9.5px;padding:1px 7px;background:${muscleColor[e.muscle]||'var(--bg4)'};color:var(--txt2)">${({'chest':'Ngực','back':'Lưng','shoulders':'Vai','arms':'Tay','legs':'Chân','glutes':'Mông','core':'Core','cardio':'Cardio'})[e.muscle]||e.muscle}</span>
           <span class="tag tg" style="font-size:9.5px;padding:1px 7px">${e.diffVi||e.equip}</span>
         </div>
       </div>
@@ -6090,8 +6100,8 @@ function renderSchedule(){
   // Build workout date map
   const workoutMap={};
   ST.workouts.forEach(w=>{
-    const d=new Date(w.date.split('/').reverse().join('-'));
-    if(!isNaN(d)){
+    const d=parseViDate(w.date);
+    if(d&&!isNaN(d)){
       const key=`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
       workoutMap[key]={type:'finish',title:w.title,vol:w.vol,dur:w.dur};
     }
@@ -6586,7 +6596,7 @@ function renderMuscleVolChart(){
   const weekStart=new Date(now);
   weekStart.setDate(now.getDate()-now.getDay());
   const weekWorkouts=ST.workouts.filter(w=>{
-    const d=new Date(w.date.split('/').reverse().join('-'));
+    const d=parseViDate(w.date);
     return d>=weekStart;
   });
   if(!weekWorkouts.length){
@@ -7944,7 +7954,7 @@ function renderWeeklyVolumeChart(){
     const start=new Date(now);start.setDate(now.getDate()-w*7-now.getDay());
     const end=new Date(start);end.setDate(start.getDate()+7);
     const vol=ST.workouts
-      .filter(wo=>{const d=new Date(wo.date.split('/').reverse().join('-'));return d>=start&&d<end;})
+      .filter(wo=>{const d=parseViDate(wo.date);return d>=start&&d<end;})
       .reduce((t,wo)=>t+(wo.vol||0),0);
     weeks.push({label:`T${8-w}`,vol});
   }
@@ -8369,7 +8379,7 @@ function showLocalWeeklyReview(){
   const now=new Date();
   const weekStart=new Date(now);weekStart.setDate(now.getDate()-now.getDay()+1);weekStart.setHours(0,0,0,0);
   const lastWeekStart=new Date(weekStart);lastWeekStart.setDate(weekStart.getDate()-7);
-  const inRange=(w,start,end)=>{const d=new Date(w.date.split('/').reverse().join('-'));return d>=start&&(!end||d<end);};
+  const inRange=(w,start,end)=>{const d=parseViDate(w.date);return d>=start&&(!end||d<end);};
   const weekW=ST.workouts.filter(w=>inRange(w,weekStart,null));
   const lastW=ST.workouts.filter(w=>inRange(w,lastWeekStart,weekStart));
   const sum=arr=>({n:arr.length,vol:arr.reduce((t,w)=>t+(w.vol||0),0),dur:arr.reduce((t,w)=>t+(w.dur||0),0),sets:arr.reduce((t,w)=>t+(w.totalSets||0),0),cal:arr.reduce((t,w)=>t+(w.calBurned||0),0)});

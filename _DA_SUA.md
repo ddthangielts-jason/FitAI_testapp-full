@@ -1,28 +1,23 @@
 # ✅ Cập nhật lần này
 
-## 1. Thêm bài tập CARDIO mới (đã thiếu)
-Thêm 5 bài cardio: Running (Chạy bộ), Cycling (Đạp xe), Elliptical, Sprint (Chạy nước rút), Assault Bike — đều có hình + tô đúng nhóm cơ trên hình nộm (chân/mông/tim mạch).
-(Box Jump và Battle Rope đã có sẵn nên không thêm trùng.)
-→ Giờ có 13 bài cardio. Tất cả 206 bài đều có hình.
+## 1. ⭐ SỬA LỖI QUAN TRỌNG: lịch tập không đánh dấu ngày đã tập (trên iPhone)
+**Nguyên nhân:** code đọc ngày buổi tập kiểu `new Date("2026-6-22")` — iPhone/Safari coi đây là ngày KHÔNG hợp lệ (vì thiếu số 0, phải là "2026-06-22"). Nên dù bạn tập 3 ngày, lịch không bao giờ khớp được ngày → không hiện chấm xanh lá "đã tập".
+**Đã sửa:** chuyển sang dùng hàm parseViDate an toàn cho iOS ở TẤT CẢ 4 chỗ (lịch tập, lịch tháng ở Tiến độ, thống kê tuần, lọc theo ngày). Giờ buổi tập xong sẽ hiện đúng màu lime "đã tập" trên lịch, kể cả trên iPhone.
 
-## 2. ⭐ Sửa lỗi iOS tự phóng to khi gõ số/chữ
-Trước: ô nhập chữ (tên, tìm kiếm...) cỡ 14px → iPhone TỰ ZOOM mỗi lần chạm vào ô, rất khó chịu.
-Đã sửa: tất cả ô nhập tối thiểu 16px → không còn bị zoom giật. Bỏ luôn mũi tên spinner ở ô số và độ trễ 300ms khi chạm nút → app phản hồi nhanh, mượt hơn rõ rệt.
+## 2. Thêm bộ lọc ngang ở thư viện bài tập (như Hình 3)
+Thêm 3 nút lọc mới vào thanh ngang: **Cẳng tay** (forearm), **Cardio**, **🏠 Tại nhà** (bài tập với trọng lượng cơ thể / calisthenic — 56 bài).
+Thanh lọc cuộn ngang được nên thêm bao nhiêu nút cũng gọn.
 
-## 3. Lịch tập trên điện thoại
-Đã thêm CSS chống lỗi co chiều cao (nested flex) cho khu vực Lịch tập — đảm bảo vùng lịch + chi tiết luôn có chiều cao và cuộn được trên điện thoại.
-> LƯU Ý: mình chưa tái hiện được chính xác lỗi bạn gặp. Nếu sau khi deploy vẫn lỗi, gửi mình ẢNH CHỤP màn Lịch tập bị lỗi (trống? bị cắt? không cuộn được? đè lên nhau?) để mình sửa đúng chỗ.
+## 3. Cardio (đã thêm ở bản trước, vẫn còn)
+13 bài cardio: Running, Cycling, Elliptical, Sprint, Assault Bike, Jump Rope, Burpee, Box Jump, Battle Rope... đều có hình + tô đúng nhóm cơ.
 
-## 4. Các bản trước (vẫn còn)
-- Thumbnail hình thật ở mọi nơi (thư viện, đổi bài, tìm bài, tạo plan, thẻ bài khi tập)
-- Đổi ảnh đại diện ở mục Cá nhân (đã sửa, chọn ảnh từ máy là hiện)
-- Đổi đơn vị lbs: ô tạ trong bài tập cũng đổi theo (lưu ngầm bằng kg để không sai lịch sử)
-- Bỏ "Thêm bài tập không có trong thư viện"
-- Plan + Lịch đã gộp; đổi bài hết trùng; icon "F"+Safari đã sửa; logo cơ bắp
+## 4. Mượt trên điện thoại (bản trước)
+- Chặn iOS tự zoom khi gõ (input ≥16px), bỏ spinner số, bỏ delay chạm.
+- Thumbnail hình thật ở mọi nơi; đổi ảnh đại diện; đổi đơn vị lbs cho ô tạ; bỏ "thêm bài tùy chỉnh".
 
 ---
-## ⚠️ Cần bạn cho thêm thông tin
-**"Hình nộm chỉ vào bắp tay không đúng"**: mình đã kiểm tra các bài forearm (Wrist Curl→cẳng tay, Hammer Curl→tay trước+cẳng tay) — đều ĐÚNG giải phẫu, và mình render thử thấy vùng cẳng tay tô đúng. Nên mình cần bạn cho biết CHÍNH XÁC tên bài nào tô sai cơ, mình sẽ sửa đúng bài đó (sửa mò dễ làm hỏng bài đang đúng).
+## ⚠️ Còn 1 việc cần bạn xác nhận
+**"Hình nộm tô sai cơ"**: mình đã kiểm tra các bài cẳng tay đều ĐÚNG. Nếu vẫn thấy bài nào sai, nhắn CHÍNH XÁC tên bài đó (vd "Bench Press tô vào vai") để mình sửa đúng bài.
 
 ## Deploy
-Upload toàn bộ thư mục lên GitHub (giữ api/). Sau deploy: mở app đợi service worker cập nhật; gỡ icon cũ + cài lại để nhận icon cơ bắp.
+Upload toàn bộ thư mục lên GitHub (giữ api/). Sau deploy: mở app, vào Tập luyện hoàn thành 1 buổi → kiểm tra tab Plan > Lịch tập xem ngày đó có hiện chấm lime không. Gỡ icon cũ + cài lại để nhận icon cơ bắp.
