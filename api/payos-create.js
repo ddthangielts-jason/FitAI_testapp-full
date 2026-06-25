@@ -46,7 +46,8 @@ module.exports = async function handler(req, res) {
 
   // Các giá trị sẽ gửi đi — PHẢI ký đúng y hệt các giá trị này
   const amount = selectedPlan.amount;
-  const description = selectedPlan.desc.substring(0, 25); // <=25 ký tự
+  const descMap = { monthly:'FitAI 1thang', quarterly:'FitAI 3thang', halfyear:'FitAI 6thang', yearly:'FitAI 12thang' };
+  const description = (descMap[plan] || 'FitAI Premium').substring(0, 25);
   const cancelUrl = `${APP_URL}/app?payment=cancel`;
   const returnUrl = `${APP_URL}/app?payment=success&plan=${plan}&userId=${userId || ''}`;
 
@@ -108,7 +109,7 @@ module.exports = async function handler(req, res) {
         plan,
       });
     } else {
-      return res.status(400).json({ error: data.desc || 'PayOS lỗi', raw: data });
+      return res.status(400).json({ error: (data.desc || 'PayOS lỗi') + (data.code ? ' (mã '+data.code+')' : ''), code: data.code, raw: data });
     }
   } catch (err) {
     console.error('PayOS error:', err);
