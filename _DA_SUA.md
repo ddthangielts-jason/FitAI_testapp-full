@@ -1,23 +1,38 @@
 # ✅ Cập nhật lần này
 
-## 1. ⭐ SỬA LỖI QUAN TRỌNG: lịch tập không đánh dấu ngày đã tập (trên iPhone)
-**Nguyên nhân:** code đọc ngày buổi tập kiểu `new Date("2026-6-22")` — iPhone/Safari coi đây là ngày KHÔNG hợp lệ (vì thiếu số 0, phải là "2026-06-22"). Nên dù bạn tập 3 ngày, lịch không bao giờ khớp được ngày → không hiện chấm xanh lá "đã tập".
-**Đã sửa:** chuyển sang dùng hàm parseViDate an toàn cho iOS ở TẤT CẢ 4 chỗ (lịch tập, lịch tháng ở Tiến độ, thống kê tuần, lọc theo ngày). Giờ buổi tập xong sẽ hiện đúng màu lime "đã tập" trên lịch, kể cả trên iPhone.
+## 1. Xoá bài tập TRÙNG (theo bạn báo)
+- Ngực: bỏ Pec Deck Fly + Machine Fly, giữ 1 (Pec Deck)
+- Lưng: bỏ Machine Row + Cable Row Wide (trùng gif với Seated Cable Row)
+- Vai/Lưng: bỏ Cable Face Pull (trùng Face Pull)
+- Bỏ Cable Tricep Overhead (trùng Overhead Cable Tricep)
+- Bỏ Incline DB Curl / "Cuốn tạ ghế dốc" (trùng Incline Curl)
+- Bỏ Leg Press (Close Stance) (trùng gif Leg Press)
+- Bỏ Hack Squat Reverse (trùng gif Hack Squat)
+- Bỏ Rear Delt Machine (trùng gif Reverse Pec Deck)
+→ Tổng cộng xoá 10 bài trùng.
 
-## 2. Thêm bộ lọc ngang ở thư viện bài tập (như Hình 3)
-Thêm 3 nút lọc mới vào thanh ngang: **Cẳng tay** (forearm), **Cardio**, **🏠 Tại nhà** (bài tập với trọng lượng cơ thể / calisthenic — 56 bài).
-Thanh lọc cuộn ngang được nên thêm bao nhiêu nút cũng gọn.
+## 2. THÊM bài mới (theo yêu cầu)
+- Lưng với máy: Lever Iso Row, DB Pullover
+- Cẳng tay: Cable Wrist Curl, Plate Pinch (kẹp bánh tạ), Farmer Walk (đi bộ kẹp tạ)
+(T-Bar Row, Rack Pull đã có sẵn nên không thêm trùng.)
+Tất cả có hình + tô đúng nhóm cơ.
 
-## 3. Cardio (đã thêm ở bản trước, vẫn còn)
-13 bài cardio: Running, Cycling, Elliptical, Sprint, Assault Bike, Jump Rope, Burpee, Box Jump, Battle Rope... đều có hình + tô đúng nhóm cơ.
+## 3. ⭐ ĐỔI BUỔI TẬP trong lịch / hôm nay (tính năng mới)
+Bạn theo plan PPL mà T2 ghi Pull nhưng muốn tập Legs? Giờ làm được:
+- Ở màn Trang chủ, thẻ "Hôm nay": có nút **🔄 Đổi buổi** → chọn Push/Pull/Legs/Nghỉ cho hôm nay.
+- Trong Lịch tập: **bấm vào ngày bất kỳ chưa tập** (hôm nay hoặc tương lai) → chọn buổi muốn đổi.
+- Ngày đã đổi hiện màu tím trên lịch. Có nút "Trở về lịch gốc" để hoàn tác.
 
-## 4. Mượt trên điện thoại (bản trước)
-- Chặn iOS tự zoom khi gõ (input ≥16px), bỏ spinner số, bỏ delay chạm.
-- Thumbnail hình thật ở mọi nơi; đổi ảnh đại diện; đổi đơn vị lbs cho ô tạ; bỏ "thêm bài tùy chỉnh".
+## 4. Về "hình nộm tô sai cơ"
+Mình ĐÃ kiểm tra kỹ bằng cách chạy thử code:
+- Wrist Curl / Wrist Curl Reverse → tô ĐÚNG cẳng tay (forearm), KHÔNG tô bắp tay.
+- Seated DB Lateral Raise / Machine Lateral Raise → tô ĐÚNG vai bên (side delt).
+Các map này trong bản hiện tại đều đúng. Nếu trên máy bạn vẫn thấy sai, gần như chắc chắn là do **bản đang chạy trên Vercel còn CŨ** — hãy deploy bản này rồi xoá cache (mở app đợi service worker cập nhật). Sau khi deploy mà 1 bài cụ thể vẫn sai, chụp màn bài đó gửi mình.
 
----
-## ⚠️ Còn 1 việc cần bạn xác nhận
-**"Hình nộm tô sai cơ"**: mình đã kiểm tra các bài cẳng tay đều ĐÚNG. Nếu vẫn thấy bài nào sai, nhắn CHÍNH XÁC tên bài đó (vd "Bench Press tô vào vai") để mình sửa đúng bài.
+## 5. Bộ lọc ngang + cardio + lỗi lịch iOS (bản trước, vẫn còn)
+- Lọc: Cẳng tay, Cardio, 🏠 Tại nhà
+- 13 bài cardio
+- Sửa lỗi lịch không đánh dấu ngày đã tập trên iPhone
 
 ## Deploy
-Upload toàn bộ thư mục lên GitHub (giữ api/). Sau deploy: mở app, vào Tập luyện hoàn thành 1 buổi → kiểm tra tab Plan > Lịch tập xem ngày đó có hiện chấm lime không. Gỡ icon cũ + cài lại để nhận icon cơ bắp.
+Upload toàn bộ thư mục lên GitHub (giữ api/). Sau deploy mở app đợi service worker cập nhật; gỡ icon cũ + cài lại.
