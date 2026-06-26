@@ -1469,7 +1469,10 @@ label.lbl{font-size:10.5px;color:var(--txt3);display:block;margin-bottom:4px;tex
       <div class="card" style="padding:12px;margin-bottom:12px">
         <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px">
           <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);letter-spacing:.08em" data-i18n="waterLabel">💧 NƯỚC UỐNG</div>
-          <div><span style="font-family:var(--FD);font-size:24px;color:var(--blue);letter-spacing:.04em" id="water-display">0</span><span style="font-size:11px;color:var(--txt3)"> / <span id="water-goal">2000</span>ml</span></div>
+          <div style="text-align:right">
+            <div><span style="font-family:var(--FD);font-size:24px;color:var(--blue);letter-spacing:.04em" id="water-display-l">0L</span><span style="font-size:11px;color:var(--txt3)"> / <span id="water-goal-l">2.5L</span></span></div>
+            <div style="font-size:10px;color:var(--txt3);font-family:var(--FM);margin-top:1px"><span id="water-display">0</span> / <span id="water-goal">2500</span>ml · <span id="water-glasses">0 ly</span></div>
+          </div>
         </div>
         <div class="pb pb-blue" style="margin-bottom:10px"><div class="pf" id="water-bar" style="width:0%"></div></div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px">
@@ -6849,7 +6852,9 @@ function exportData(){
 function addWater(ml){
   ST.water=Math.max(0,(ST.water||0)+ml);
   updateWaterDisplay();save();
-  if(ml>0&&ST.water>=2000)toast('🎉 Đã đủ nước hôm nay!');
+  const goal=ST.profile.waterGoal||(ST.profile.sex==='female'?2000:2500);
+  if(ml>0&&ST.water>=goal&&!ST._waterToast){ST._waterToast=true;toast('🎉 Đã đủ nước hôm nay!');}
+  if(ST.water<goal)ST._waterToast=false;
 }
 function resetWater(){
   ST.water=0;updateWaterDisplay();save();toast('💧 Đã reset nước về 0');
@@ -6860,9 +6865,15 @@ function updateWaterDisplay(){
   const goal=ST.profile.waterGoal||defaultGoal;
   const wpct=Math.min(Math.round(w/goal*100),100);
   const el=document.getElementById('water-display');
+  const elL=document.getElementById('water-display-l');
   const bar=document.getElementById('water-bar');
   const goalEl=document.getElementById('water-goal');
+  const goalElL=document.getElementById('water-goal-l');
+  const glassesEl=document.getElementById('water-glasses');
   if(el)el.textContent=w;
+  if(elL)elL.textContent=(w/1000).toFixed(w%1000===0?0:1)+'L';
+  if(goalElL)goalElL.textContent=(goal/1000).toFixed(goal%1000===0?0:1)+'L';
+  if(glassesEl){const glasses=Math.round(w/250);glassesEl.textContent=glasses+(currentLang==='en'?(glasses===1?' glass':' glasses'):' ly');}
   if(bar){bar.style.width=wpct+'%';bar.style.background=wpct>=100?'var(--lime)':wpct>=75?'var(--blue)':'var(--blue)';}
   if(wpct>=100&&!ST._waterCelebrated){ST._waterCelebrated=true;toast('💧 Đã uống đủ nước hôm nay! 🎉');}
   if(goalEl)goalEl.textContent=goal;
