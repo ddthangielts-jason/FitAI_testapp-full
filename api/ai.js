@@ -20,6 +20,7 @@ const TASKS = {
   meal:       { model: 'claude-haiku-4-5-20251001', maxTokens: 1200, freeLimit: 3,  proLimit: 30, cacheTtl: 86400 },
   food_photo: { model: 'claude-haiku-4-5-20251001', maxTokens: 400,  freeLimit: 2,  proLimit: 50, cacheTtl: 0     },
   coach:      { model: 'claude-haiku-4-5-20251001', maxTokens: 300,  freeLimit: 5,  proLimit: 100, cacheTtl: 3600 },
+  bodyAnalysis:{ model: 'claude-haiku-4-5-20251001', maxTokens: 700, freeLimit: 3,  proLimit: 30,  cacheTtl: 0 },
 };
 
 // ── Vercel KV (Redis REST) — chỉ dùng nếu đã cấu hình ──
@@ -182,6 +183,45 @@ Tạo 4-5 bữa, tổng calo gần ${cal}. Foods ghi rõ khối lượng.`,
   }
   if (task === 'coach') {
     return [{ role: 'user', content: payload.prompt || '' }];
+  }
+  if (task === 'bodyAnalysis') {
+    const p = payload || {};
+    const en = p.lang === 'en';
+    const volStr = Object.entries(p.muscleVolume || {}).map(([m,v]) => `${m}: ${Math.round(v)}kg (${(p.muscleSets||{})[m]||0} sets)`).join(', ');
+    const prStr = Object.entries(p.keyPRs || {}).map(([n,kg]) => `${n}: ${kg}kg`).join(', ') || 'none';
+    const m1 = p.measurementsFirst, m2 = p.measurementsLast;
+    const measStr = (m1 && m2)
+      ? `First (${m1.date}): chest ${m1.chest||'?'}cm, arm ${m1.arm||'?'}cm, waist ${m1.waist||'?'}cm, thigh ${m1.thigh||'?'}cm, weight ${m1.weight||'?'}kg. Latest (${m2.date}): chest ${m2.chest||'?'}cm, arm ${m2.arm||'?'}cm, waist ${m2.waist||'?'}cm, thigh ${m2.thigh||'?'}cm, weight ${m2.weight||'?'}kg.`
+      : 'No body measurements logged yet.';
+    const prof = p.profile || {};
+    const content = en
+      ? `You are an experienced strength coach. Analyze this lifter's data and give a concise, encouraging, practical assessment.
+Profile: ${prof.sex||'?'}, goal ${prof.goal||'?'}, level ${prof.level||'?'}, ${prof.weight||'?'}kg, ${prof.height||'?'}cm.
+Training volume by muscle: ${volStr || 'none'}.
+Key lifts (best): ${prStr}.
+Measurements: ${measStr}
+Total workouts: ${p.totalWorkouts||0}.
+
+Write 4 short sections with these headers exactly:
+💪 Strengths
+📈 Lagging / needs more
+🎯 Recommendations (2-3 concrete actions)
+🔥 Motivation (1 warm sentence)
+Keep it under 180 words total. Be specific to the numbers. No markdown symbols like ** or #.`
+      : `Bạn là HLV thể hình giàu kinh nghiệm. Phân tích dữ liệu của người tập này và đưa nhận xét ngắn gọn, tích cực, thực tế bằng TIẾNG VIỆT.
+Hồ sơ: ${prof.sex||'?'}, mục tiêu ${prof.goal||'?'}, trình độ ${prof.level||'?'}, ${prof.weight||'?'}kg, ${prof.height||'?'}cm.
+Khối lượng tập theo nhóm cơ: ${volStr || 'chưa có'}.
+Mức tạ tốt nhất: ${prStr}.
+Số đo: ${measStr}
+Tổng số buổi tập: ${p.totalWorkouts||0}.
+
+Viết 4 phần ngắn với đúng các tiêu đề sau:
+💪 Điểm mạnh
+📈 Nhóm yếu / cần tập thêm
+🎯 Gợi ý (2-3 hành động cụ thể)
+🔥 Động viên (1 câu ấm lòng)
+Tổng dưới 180 từ. Bám sát con số cụ thể. KHÔNG dùng ký hiệu markdown như ** hay #.`;
+    return [{ role: 'user', content }];
   }
   return [{ role: 'user', content: 'Hello' }];
 }
